@@ -16,6 +16,8 @@
 	var/purchase_price = 300
 	///What catagory is the NIFSoft under?
 	var/buying_category = NIFSOFT_CATEGORY_GENERAL
+	///What font awesome icon is shown next to the name of the nifsoft?
+	var/ui_icon = "floppy-disk"
 
 	///Can the program be installed with other instances of itself?
 	var/single_install = TRUE
@@ -66,18 +68,17 @@
 	if(active)
 		activate()
 
-	if(!parent_nif)
-		return ..()
+	linked_mob = null
 
-	var/obj/item/organ/internal/cyberimp/brain/nif/installed_nif = parent_nif
-	installed_nif.loaded_nifsofts.Remove(src)
-	parent_nif = null
+	var/obj/item/organ/internal/cyberimp/brain/nif/installed_nif = parent_nif.resolve()
+	if(installed_nif)
+		installed_nif.loaded_nifsofts.Remove(src)
 
 	return ..()
 
 /// Activates the parent NIFSoft
 /datum/nifsoft/proc/activate()
-	var/obj/item/organ/internal/cyberimp/brain/nif/installed_nif = parent_nif
+	var/obj/item/organ/internal/cyberimp/brain/nif/installed_nif = parent_nif.resolve()
 
 	if(installed_nif.broken)
 		installed_nif.balloon_alert(installed_nif.linked_mob, "your NIF is broken")
@@ -109,7 +110,7 @@
 
 ///Refunds the activation cost of a NIFSoft.
 /datum/nifsoft/proc/refund_activation_cost()
-	var/obj/item/organ/internal/cyberimp/brain/nif/installed_nif = parent_nif
+	var/obj/item/organ/internal/cyberimp/brain/nif/installed_nif = parent_nif.resolve()
 	installed_nif.change_power_level(-activation_cost)
 
 ///Removes the cooldown from a NIFSoft

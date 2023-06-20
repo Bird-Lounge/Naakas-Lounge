@@ -51,7 +51,40 @@ endmap
 map icebox
 	minplayers 10
 	votable
+	minplayers 5
 endmap
+
+#map metastation
+#	minplayers 25
+#	#voteweight 0.5
+#	votable
+#endmap
+
+#map deltastation
+#	minplayers 50
+#	votable
+#endmap
+
+#map kilostation
+#	votable
+#endmap
+
+map icebox
+	minplayers 10
+	votable
+endmap
+
+#map tramstation
+#	minplayers 35
+#endmap
+
+#map runtimestation
+#endmap
+
+#map multiz_debug
+#endmap
+
+##SKYRAT MAPS##
 
 map voidraptor
 	minplayers 5
@@ -74,3 +107,30 @@ endmap
 #	minplayers 50
 #	votable
 #endmap
+
+map flotillastation
+	maxplayers 100
+	votable
+endmap
+
+#map tramstation
+#	minplayers 35
+#endmap
+
+#map runtimestation
+#endmap
+
+#map multiz_debug
+#endmap
+
+##SKYRAT MAPS##
+
+#map blueshift
+#	minplayers 50
+#	votable
+#endmap
+
+map flotillastation
+	maxplayers 100
+	votable
+endmap

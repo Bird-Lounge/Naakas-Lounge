@@ -39,13 +39,25 @@
 	mutanttongue = /obj/item/organ/internal/tongue
 
 	bodypart_overrides = list( //Overriding jelly bodyparts
-		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/roundstartslime,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/roundstartslime,
-		BODY_ZONE_HEAD = /obj/item/bodypart/head/roundstartslime,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/roundstartslime,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/roundstartslime,
-		BODY_ZONE_CHEST = /obj/item/bodypart/chest/roundstartslime,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/slime/roundstart,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/slime/roundstart,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/slime/roundstart,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/slime/roundstart,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/slime/roundstart,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/slime/roundstart,
 	)
+
+/datum/species/jelly/roundstartslime/create_pref_unique_perks()
+	var/list/perk_descriptions = list()
+
+	perk_descriptions += list(list(
+		SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+		SPECIES_PERK_ICON = "biohazard",
+		SPECIES_PERK_NAME = "Squishy Form",
+		SPECIES_PERK_DESC = "Being made of slime, you have the ability to alter your physical form to be whatever you choose! You may grow ears, change your hair, and even become a taur-like if you so choose, at the press of a button and the snap of a finger!"
+	))
+
+	return perk_descriptions
 
 /**
  * Alter Form is the ability of slimes to edit many of their character attributes at will

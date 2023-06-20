@@ -79,12 +79,14 @@
 
 /obj/item/cautery/advanced/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/transforming, \
+	AddComponent( \
+		/datum/component/transforming, \
 		force_on = force, \
 		throwforce_on = throwforce, \
 		hitsound_on = hitsound, \
 		w_class_on = w_class, \
-		clumsy_check = FALSE)
+		clumsy_check = FALSE, \
+	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /*
@@ -94,7 +96,7 @@
  */
 /obj/item/cautery/advanced/proc/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
-	
+
 	if(active)
 		set_light_color(LIGHT_COLOR_NVIOLET)
 	else
@@ -323,14 +325,16 @@
 
 /obj/item/scalpel/advanced/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/transforming, \
+	AddComponent( \
+		/datum/component/transforming, \
 		force_on = force + 1, \
 		throwforce_on = throwforce, \
 		throw_speed_on = throw_speed, \
 		sharpness_on = sharpness, \
 		hitsound_on = hitsound, \
 		w_class_on = w_class, \
-		clumsy_check = FALSE)
+		clumsy_check = FALSE, \
+	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /*
@@ -367,12 +371,14 @@
 
 /obj/item/retractor/advanced/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/transforming, \
+	AddComponent( \
+		/datum/component/transforming, \
 		force_on = force, \
 		throwforce_on = throwforce, \
 		hitsound_on = hitsound, \
 		w_class_on = w_class, \
-		clumsy_check = FALSE)
+		clumsy_check = FALSE, \
+	)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
 /*
@@ -405,7 +411,7 @@
 	throwforce = 6
 	throw_speed = 2
 	throw_range = 5
-	custom_materials = list(/datum/material/iron=8000, /datum/material/titanium=6000)
+	custom_materials = list(/datum/material/iron=SHEET_MATERIAL_AMOUNT*4, /datum/material/titanium=SHEET_MATERIAL_AMOUNT*3)
 	attack_verb_continuous = list("shears", "snips")
 	attack_verb_simple = list("shear", "snip")
 	sharpness = SHARP_EDGED
@@ -479,7 +485,7 @@
 	icon_state = "bone setter"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	custom_materials = list(/datum/material/iron = 5000,  /datum/material/glass = 2500, /datum/material/silver = 2500)
+	custom_materials = list(/datum/material/iron =SHEET_MATERIAL_AMOUNT * 2.5,  /datum/material/glass = SHEET_MATERIAL_AMOUNT*1.25, /datum/material/silver = SHEET_MATERIAL_AMOUNT*1.25)
 	flags_1 = CONDUCT_1
 	item_flags = SURGICAL_TOOL
 	w_class = WEIGHT_CLASS_SMALL
@@ -495,7 +501,7 @@
 	icon_state = "bloodfilter"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	custom_materials = list(/datum/material/iron=2000, /datum/material/glass=1500, /datum/material/silver=500)
+	custom_materials = list(/datum/material/iron=SHEET_MATERIAL_AMOUNT, /datum/material/glass=HALF_SHEET_MATERIAL_AMOUNT * 1.5, /datum/material/silver=SMALL_MATERIAL_AMOUNT*5)
 	item_flags = SURGICAL_TOOL
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb_continuous = list("pumps", "siphons")
