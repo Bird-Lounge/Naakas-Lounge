@@ -14,14 +14,14 @@
 /turf/open/floor/iron/freezer,
 /area/space)
 "av" = (
-/obj/structure/displaycase/trophy,
-/turf/open/floor/wood,
+/obj/structure/flora/rock/style_random,
+/turf/open/misc/asteroid,
 /area/space)
 "aO" = (
 /obj/structure/fence{
 	dir = 4
 	},
-/turf/open/floor/wood,
+/turf/open/misc/asteroid,
 /area/space)
 "aZ" = (
 /obj/structure/fans/tiny/forcefield,
@@ -241,6 +241,10 @@
 "jc" = (
 /obj/structure/fence,
 /turf/open/misc/dirt,
+/area/space)
+"jA" = (
+/obj/machinery/door/window/left/directional/west,
+/turf/open/floor/wood,
 /area/space)
 "kt" = (
 /obj/structure/mineral_door/wood,
@@ -510,6 +514,11 @@
 "sB" = (
 /turf/open/floor/carpet/nk006_rd,
 /area/space)
+"sE" = (
+/obj/structure/easel,
+/turf/open/floor/wood,
+/turf/open/floor/wood,
+/area/space)
 "sH" = (
 /obj/structure/reagent_crafting_bench,
 /turf/open/floor/cult,
@@ -629,6 +638,10 @@
 /obj/structure/rack/shelf,
 /turf/open/floor/iron/freezer,
 /area/space)
+"vv" = (
+/obj/structure/sacrificealtar,
+/turf/open/misc/dirt,
+/area/space)
 "wq" = (
 /obj/structure/shipping_container/cybersun,
 /turf/open/floor/iron/freezer,
@@ -669,6 +682,12 @@
 "xZ" = (
 /turf/open/misc/snow,
 /area/space)
+"yh" = (
+/obj/structure/easel,
+/turf/open/floor/wood,
+/turf/open/floor/wood,
+/turf/open/floor/wood,
+/area/space)
 "yJ" = (
 /obj/structure/shipping_container/nthi,
 /turf/open/floor/grass/lavaland,
@@ -700,6 +719,10 @@
 "zB" = (
 /obj/structure/table/wood/fancy/nk006_any_lime,
 /turf/open/floor/wood,
+/area/space)
+"zJ" = (
+/obj/structure/falsewall/wood,
+/turf/open/floor/cult,
 /area/space)
 "zQ" = (
 /obj/machinery/door/window/left/directional/east,
@@ -947,6 +970,10 @@
 	},
 /obj/structure/table,
 /turf/open/misc/dirt,
+/area/space)
+"Ir" = (
+/obj/structure/flora/rock/pile/style_random,
+/turf/open/misc/asteroid,
 /area/space)
 "IB" = (
 /obj/structure/reagent_anvil,
@@ -1269,7 +1296,7 @@
 /obj/structure/closet/crate/necropolis/dragon{
 	layer = 3.8
 	},
-/obj/effect/temp_visual/dragon_swoop,
+/obj/effect/rune/narsie,
 /turf/open/floor/cult,
 /area/space)
 "TI" = (
@@ -1299,6 +1326,10 @@
 	dir = 8
 	},
 /turf/open/floor/wood/tile,
+/area/space)
+"UX" = (
+/obj/structure/guillotine,
+/turf/open/misc/dirt,
 /area/space)
 "Vl" = (
 /obj/machinery/door/airlock/external{
@@ -1332,8 +1363,7 @@
 /turf/open/floor/iron/dark/herringbone,
 /area/space)
 "Wt" = (
-/obj/machinery/door/airlock/wood,
-/turf/open/floor/wood,
+/turf/closed/indestructible/rock,
 /area/space)
 "Wx" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1695,9 +1725,9 @@ XU
 Yl
 Yl
 Yl
-Yl
-Yl
-Yl
+Wt
+Wt
+Wt
 Yl
 Yl
 Yl
@@ -1951,11 +1981,11 @@ Yl
 XU
 Yl
 Yl
-Yl
-Yl
-Yl
-Yl
-Yl
+Wt
+Dz
+Dz
+Dz
+Wt
 Yl
 Yl
 Yl
@@ -2207,13 +2237,13 @@ Yl
 Yl
 XU
 Yl
-Yl
-Yl
-Yl
-Yl
-Yl
-Yl
-Yl
+Wt
+Dz
+Dz
+Dz
+Dz
+Dz
+Wt
 Yl
 Yl
 Yl
@@ -2464,13 +2494,13 @@ Yl
 Yl
 Yl
 Yl
-Yl
-Yl
-Yl
-Yl
-Yl
-Yl
-Yl
+Wt
+Dz
+UX
+vv
+Dz
+Dz
+Wt
 Yl
 Yl
 Yl
@@ -2721,13 +2751,13 @@ Yl
 XU
 XU
 Yl
-Yl
-Yl
-Yl
-Yl
-Yl
-Yl
-Yl
+Wt
+Dz
+Dz
+Dz
+Dz
+Dz
+Wt
 Yl
 Yl
 Yl
@@ -2979,11 +3009,11 @@ Yl
 Yl
 Yl
 Yl
-Yl
-Yl
-Yl
-Yl
-Yl
+Wt
+Dz
+Dz
+Dz
+Wt
 Yl
 Yl
 Yl
@@ -3237,9 +3267,9 @@ XU
 Yl
 Yl
 Yl
-Yl
-Yl
-Yl
+Wt
+Wt
+Wt
 Yl
 Yl
 Yl
@@ -9062,6 +9092,7 @@ nI
 nI
 nI
 nI
+aO
 nI
 nI
 nI
@@ -9070,6 +9101,7 @@ nI
 nI
 nI
 nI
+av
 nI
 nI
 nI
@@ -9077,9 +9109,7 @@ nI
 nI
 nI
 nI
-nI
-nI
-nI
+Ir
 nI
 nI
 nI
@@ -9319,6 +9349,20 @@ nI
 nI
 nI
 nI
+aO
+nI
+nI
+nI
+Ir
+nI
+nI
+nI
+nI
+nI
+nI
+Ir
+nI
+av
 nI
 nI
 nI
@@ -9329,21 +9373,7 @@ nI
 nI
 nI
 nI
-nI
-nI
-nI
-nI
-nI
-nI
-nI
-nI
-nI
-nI
-nI
-nI
-nI
-nI
-nI
+Ir
 nI
 nI
 nI
@@ -9576,7 +9606,7 @@ nI
 nI
 nI
 nI
-nI
+aO
 nI
 nI
 nI
@@ -9597,7 +9627,7 @@ nI
 nI
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -9833,6 +9863,7 @@ nI
 nI
 nI
 nI
+aO
 nI
 nI
 nI
@@ -9848,8 +9879,7 @@ nI
 nI
 nI
 nI
-nI
-nI
+av
 nI
 nI
 Do
@@ -10090,6 +10120,11 @@ nI
 nI
 nI
 nI
+aO
+nI
+nI
+nI
+av
 nI
 nI
 nI
@@ -10111,12 +10146,7 @@ nI
 nI
 nI
 nI
-nI
-nI
-nI
-nI
-nI
-nI
+av
 nI
 nI
 nI
@@ -10347,7 +10377,7 @@ nI
 nI
 nI
 nI
-nI
+aO
 nI
 nI
 nI
@@ -10367,6 +10397,7 @@ nI
 nI
 nI
 nI
+Ir
 nI
 nI
 nI
@@ -10378,8 +10409,7 @@ nI
 nI
 nI
 nI
-nI
-nI
+av
 nI
 nI
 nI
@@ -10617,12 +10647,12 @@ nI
 nI
 nI
 nI
-nI
+av
 nI
 nI
 Do
 nI
-nI
+av
 nI
 nI
 nI
@@ -10870,7 +10900,7 @@ Lb
 Lb
 nI
 nI
-nI
+Ir
 nI
 nI
 nI
@@ -11152,7 +11182,7 @@ Lb
 Lb
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -11389,7 +11419,7 @@ nI
 nI
 nI
 nI
-nI
+Ir
 nI
 nI
 nI
@@ -11671,7 +11701,7 @@ nI
 nI
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -12180,7 +12210,7 @@ as
 fc
 UF
 nI
-nI
+av
 nI
 nI
 nI
@@ -12440,7 +12470,7 @@ nI
 nI
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -12958,11 +12988,11 @@ nI
 nI
 nI
 nI
+av
 nI
 nI
 nI
-nI
-nI
+av
 nI
 nI
 Yl
@@ -13723,7 +13753,7 @@ fc
 GW
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -13983,6 +14013,7 @@ nI
 nI
 nI
 nI
+av
 nI
 nI
 nI
@@ -13990,8 +14021,7 @@ nI
 nI
 nI
 nI
-nI
-nI
+av
 nI
 nI
 nI
@@ -14246,7 +14276,7 @@ nI
 nI
 Do
 nI
-nI
+Ir
 nI
 nI
 nI
@@ -14750,7 +14780,7 @@ as
 fc
 GW
 nI
-nI
+av
 nI
 nI
 nI
@@ -15014,7 +15044,7 @@ nI
 nI
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -15275,11 +15305,11 @@ nI
 nI
 nI
 nI
+av
 nI
 nI
 nI
-nI
-nI
+av
 nI
 Yl
 Yl
@@ -15526,7 +15556,7 @@ nI
 Do
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -15789,7 +15819,7 @@ nI
 nI
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -15877,7 +15907,7 @@ Yl
 Yl
 Yl
 Yl
-Yw
+Dz
 Yw
 Yw
 Yw
@@ -16133,8 +16163,8 @@ Yl
 Yl
 Yl
 Yl
-Yw
-Yw
+Dz
+Dz
 Yw
 Yw
 Yw
@@ -16292,7 +16322,7 @@ as
 fc
 UF
 nI
-nI
+av
 nI
 nI
 nI
@@ -16388,9 +16418,9 @@ Yl
 Yl
 Yl
 Yl
-Yw
-Yw
-Yw
+Dz
+Dz
+Dz
 Yw
 Yw
 Yw
@@ -16554,14 +16584,14 @@ nI
 nI
 nI
 nI
+av
 nI
 nI
 nI
 nI
 nI
 nI
-nI
-nI
+av
 nI
 nI
 nI
@@ -16644,8 +16674,8 @@ Yl
 Yl
 Yl
 Yl
-Yw
-Yw
+Dz
+Dz
 Yw
 Yw
 Yw
@@ -16900,8 +16930,8 @@ Yl
 Yl
 Yl
 Yl
-Yw
-Yw
+Dz
+Dz
 Yw
 Yw
 Yw
@@ -17071,7 +17101,7 @@ nI
 nI
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -17156,8 +17186,8 @@ Yl
 Yl
 Yl
 Yl
-Yw
-Yw
+Dz
+Dz
 Yw
 Yw
 Yw
@@ -17323,7 +17353,7 @@ nI
 nI
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -17412,8 +17442,8 @@ Yl
 Yl
 Yl
 Yl
-Yw
-Yw
+Dz
+Dz
 Yw
 Yw
 Yw
@@ -17577,7 +17607,7 @@ fc
 fc
 UF
 nI
-nI
+av
 nI
 nI
 nI
@@ -17668,8 +17698,8 @@ Yl
 Yl
 Yl
 Yl
-Yw
-Yw
+Dz
+Dz
 Yw
 Yw
 Yw
@@ -17841,13 +17871,13 @@ nI
 nI
 nI
 nI
+av
 nI
 nI
 nI
 nI
 nI
-nI
-nI
+av
 nI
 Yl
 Yl
@@ -17925,7 +17955,7 @@ Yl
 Yl
 Yl
 Yl
-Yw
+Dz
 Yw
 Yw
 Yw
@@ -18094,7 +18124,7 @@ nI
 nI
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -18181,8 +18211,8 @@ Yl
 Yl
 Yl
 Yl
-Yw
-Yw
+Dz
+Dz
 Yw
 Yw
 Yw
@@ -18354,7 +18384,7 @@ nI
 nI
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -18438,7 +18468,7 @@ Yl
 Yl
 Yl
 Yl
-Yw
+Dz
 Yw
 Yw
 Yw
@@ -18605,6 +18635,7 @@ Lb
 nI
 nI
 nI
+av
 nI
 nI
 nI
@@ -18613,8 +18644,7 @@ nI
 nI
 nI
 nI
-nI
-nI
+av
 nI
 nI
 nI
@@ -18694,8 +18724,8 @@ Yl
 Yl
 Yl
 Yl
-Yw
-Yw
+Dz
+Dz
 Yw
 Yw
 Yw
@@ -18850,7 +18880,7 @@ Lb
 Lb
 nI
 nI
-nI
+Ir
 Lb
 GW
 Lb
@@ -18868,7 +18898,7 @@ nI
 nI
 nI
 nI
-nI
+Ir
 nI
 nI
 nI
@@ -18950,8 +18980,8 @@ Yl
 Yl
 Yl
 Yl
-Yw
-Yw
+Dz
+Dz
 Yw
 Yw
 Yw
@@ -19120,7 +19150,7 @@ nI
 nI
 nI
 nI
-nI
+Ir
 nI
 nI
 nI
@@ -19207,7 +19237,7 @@ Yl
 Yl
 Yl
 Yl
-Yw
+Dz
 Yw
 Yw
 Yw
@@ -19382,7 +19412,7 @@ nI
 nI
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -19463,8 +19493,8 @@ Yl
 Yl
 Yl
 Yl
-Yw
-Yw
+Dz
+Dz
 Yw
 Yw
 Yw
@@ -19624,9 +19654,9 @@ fc
 Lb
 nI
 nI
+av
 nI
-nI
-nI
+Ir
 nI
 nI
 nI
@@ -19719,8 +19749,8 @@ Yl
 Yl
 Yl
 Yl
-Yw
-Yw
+Dz
+Dz
 Yw
 Yw
 Yw
@@ -19886,7 +19916,7 @@ nI
 nI
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -19975,8 +20005,8 @@ Yl
 Yl
 Yl
 Yl
-Yw
-Yw
+Dz
+Dz
 Yw
 Yw
 Yw
@@ -20232,7 +20262,7 @@ Yl
 Yl
 Yl
 Yl
-Yw
+Dz
 Yw
 Yw
 Yw
@@ -20489,7 +20519,7 @@ Yl
 Yl
 Yl
 Yl
-Yw
+Dz
 Yw
 Yw
 Yw
@@ -20652,9 +20682,9 @@ ah
 ah
 fc
 GW
-nI
-nI
-Do
+Lb
+Lb
+GW
 nI
 nI
 nI
@@ -20746,7 +20776,7 @@ Yl
 Yl
 Yl
 Dz
-Yw
+Dz
 Yw
 Yw
 Yw
@@ -20908,10 +20938,10 @@ ah
 ah
 ah
 fc
-Lb
-nI
-nI
-nI
+Vl
+fc
+fc
+Vl
 nI
 nI
 nI
@@ -21165,10 +21195,10 @@ ah
 ah
 ah
 fc
+GW
 Lb
-nI
-nI
-nI
+Lb
+GW
 nI
 nI
 nI
@@ -21422,10 +21452,10 @@ ah
 ah
 ah
 fc
-Lb
-nI
-nI
-nI
+Vl
+fc
+fc
+Vl
 nI
 nI
 nI
@@ -21680,9 +21710,9 @@ ah
 ah
 fc
 GW
-nI
-nI
-nI
+Lb
+Lb
+GW
 nI
 nI
 nI
@@ -22199,11 +22229,11 @@ nI
 nI
 nI
 Do
+Ir
 nI
 nI
 nI
-nI
-nI
+av
 nI
 nI
 Yl
@@ -22707,7 +22737,7 @@ ah
 fc
 Lb
 nI
-nI
+Ir
 nI
 nI
 nI
@@ -23223,7 +23253,7 @@ nI
 nI
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -23486,7 +23516,7 @@ nI
 nI
 nI
 nI
-nI
+av
 nI
 nI
 nI
@@ -23722,7 +23752,7 @@ nI
 nI
 nI
 nI
-nI
+aO
 Lb
 Lb
 Lb
@@ -23979,7 +24009,18 @@ nI
 nI
 nI
 nI
+aO
 nI
+nI
+nI
+nI
+nI
+nI
+Do
+nI
+nI
+nI
+av
 nI
 nI
 nI
@@ -23993,18 +24034,7 @@ nI
 nI
 nI
 nI
-nI
-nI
-nI
-nI
-Do
-nI
-nI
-nI
-nI
-nI
-nI
-nI
+av
 nI
 nI
 nI
@@ -24236,6 +24266,7 @@ nI
 nI
 nI
 nI
+aO
 nI
 nI
 nI
@@ -24250,6 +24281,7 @@ nI
 nI
 nI
 nI
+av
 nI
 nI
 nI
@@ -24262,9 +24294,7 @@ nI
 nI
 nI
 nI
-nI
-nI
-nI
+Ir
 nI
 Yl
 Yl
@@ -24368,7 +24398,7 @@ eK
 Yw
 Yw
 KG
-Ja
+sE
 Ja
 Ja
 Ja
@@ -24493,16 +24523,16 @@ nI
 nI
 nI
 nI
+aO
 nI
 nI
 nI
+Ir
+nI
+av
 nI
 nI
-nI
-nI
-nI
-nI
-nI
+Ir
 nI
 Do
 nI
@@ -24513,10 +24543,10 @@ nI
 nI
 nI
 nI
+Ir
 nI
 nI
-nI
-nI
+av
 nI
 nI
 nI
@@ -24625,11 +24655,11 @@ eK
 Yw
 Yw
 KG
-Ja
+sE
 qG
-qG
-qG
-qG
+yh
+yh
+yh
 qG
 KG
 tr
@@ -24750,6 +24780,7 @@ nI
 nI
 nI
 nI
+aO
 nI
 nI
 nI
@@ -24778,8 +24809,7 @@ nI
 nI
 nI
 nI
-nI
-nI
+av
 nI
 Yl
 Yl
@@ -31972,7 +32002,7 @@ nI
 nI
 nI
 nI
-nI
+aO
 nI
 nI
 nI
@@ -32229,7 +32259,7 @@ nI
 nI
 nI
 nI
-nI
+aO
 nI
 nI
 Yl
@@ -32486,7 +32516,7 @@ nI
 nI
 nI
 nI
-nI
+aO
 nI
 Yl
 Yl
@@ -33886,7 +33916,7 @@ Yw
 Yw
 ms
 nC
-aO
+nC
 bY
 bY
 KG
@@ -34150,7 +34180,7 @@ bY
 KG
 bY
 bY
-bY
+nC
 nC
 nC
 nC
@@ -34398,16 +34428,16 @@ Yw
 Yw
 Yw
 ms
-av
-av
-av
+nC
+nC
+nC
 nC
 bY
 bY
 KG
 bY
 bY
-bY
+nC
 nC
 nC
 nC
@@ -34655,16 +34685,16 @@ Yw
 Yw
 Yw
 ms
-av
-av
-av
+nC
+nC
+nC
 nC
 bY
 bY
 KG
 bY
 bY
-bY
+nC
 nC
 nC
 nC
@@ -34918,10 +34948,10 @@ nC
 nC
 bY
 bY
-KG
 bY
 bY
 bY
+nC
 nC
 nC
 nC
@@ -35169,16 +35199,16 @@ Yw
 Yw
 Yw
 ms
-av
-av
-av
+nC
+nC
+nC
 nC
 bY
 bY
-KG
 bY
 bY
 bY
+nC
 nC
 nC
 nC
@@ -35426,16 +35456,16 @@ Yw
 Yw
 Yw
 ms
-av
-av
-av
+nC
+nC
+nC
 nC
 bY
 bY
-KG
 bY
 bY
 bY
+nC
 nC
 nC
 nC
@@ -35689,10 +35719,10 @@ nC
 nC
 bY
 bY
-KG
 bY
 bY
 bY
+nC
 nC
 nC
 nC
@@ -35940,16 +35970,16 @@ Yw
 Yw
 Yw
 ms
-av
-av
-av
+nC
+nC
+nC
 nC
 bY
-Wt
-KG
-Wt
+NH
+NH
+NH
 bY
-bY
+nC
 nC
 nC
 nC
@@ -36197,16 +36227,16 @@ Yw
 Yw
 Yw
 ms
-av
-av
-av
-nC
-KG
 nC
 nC
 nC
 KG
-bY
+jA
+nC
+nC
+nC
+NH
+KG
 nC
 nC
 nC
@@ -40758,7 +40788,7 @@ Yl
 Yl
 Yl
 Yl
-Yl
+gh
 gh
 gh
 gh
@@ -41014,9 +41044,9 @@ Yl
 Yl
 Yl
 Yl
-Yl
-Yl
-Yl
+gh
+mn
+mn
 gh
 VA
 mn
@@ -41271,9 +41301,9 @@ Yl
 Yl
 Yl
 Yl
-Yl
-Yl
-Yl
+gh
+mn
+mn
 mF
 mn
 mn
@@ -41528,10 +41558,10 @@ Yl
 Yl
 Yl
 Yl
-Yl
-Yl
-Yl
 gh
+mn
+mn
+zJ
 mn
 mn
 mn
@@ -41786,8 +41816,8 @@ Yl
 Yl
 Yl
 Yl
-Yl
-Yl
+gh
+gh
 gh
 VA
 mn
