@@ -14,7 +14,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "ad" = (
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /obj/machinery/meter,
@@ -49,9 +49,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
-/obj/machinery/door/airlock/nk006/glass{
-	name = "External Airlock"
-	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/station/hallway/secondary/exit/departure_lounge{
 	has_gravity = 1
@@ -89,9 +87,7 @@
 	},
 /obj/structure/cable,
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/nk006/support/eng/glass{
-	name = "TComms"
-	},
+/obj/machinery/door/airlock/engineering/glass/critical,
 /turf/open/floor/iron,
 /area/station/tcommsat/server{
 	has_gravity = 1
@@ -136,7 +132,7 @@
 	dir = 1
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "aB" = (
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/circuit/telecomms/mainframe,
@@ -159,9 +155,6 @@
 "aI" = (
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/support/eng/glass{
-	name = "Engineering Storage"
-	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry{
 	has_gravity = 1
@@ -197,10 +190,8 @@
 	})
 "aO" = (
 /obj/structure/dresser,
-/turf/open/floor/carpet/nk006_any_violet,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/green,
+/area/station/commons/dorms/apartment1)
 "aS" = (
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry{
@@ -271,9 +262,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white/small,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "be" = (
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -313,9 +302,7 @@
 /obj/item/kitchen/rollingpin,
 /obj/item/knife/kitchen,
 /turf/open/floor/iron/kitchen,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "bn" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -335,11 +322,8 @@
 "bp" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/nk006/specialist,
-/turf/open/floor/carpet/nk006_any_lime,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/orange,
+/area/station/commons/dorms/apartment1)
 "br" = (
 /obj/machinery/light_switch/directional/north,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -358,6 +342,7 @@
 /obj/structure/closet/secure_closet/hop,
 /obj/machinery/light/directional/north,
 /obj/machinery/status_display/evac/directional/east,
+/obj/item/stamp/head/hop,
 /turf/open/floor/carpet/orange,
 /area/station/command/heads_quarters/hop{
 	has_gravity = 1
@@ -380,7 +365,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/fab/glass,
+/obj/machinery/door/airlock/medical/glass,
 /turf/open/floor/iron/white,
 /area/station/medical/storage{
 	has_gravity = 1
@@ -390,7 +375,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/violet/visible/layer2,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "bA" = (
 /obj/structure/mineral_door/wood,
 /obj/structure/cable,
@@ -431,13 +416,11 @@
 	})
 "bI" = (
 /obj/structure/closet/secure_closet/engineering_chief,
-/obj/machinery/power/apc/sm_apc/directional/east{
-	arc_shielded = 1
-	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
 	},
+/obj/item/stamp/head/ce,
 /turf/open/floor/carpet/orange,
 /area/station/command/heads_quarters/ce)
 "bK" = (
@@ -446,10 +429,8 @@
 	has_gravity = 1
 	})
 "bL" = (
-/turf/open/floor/carpet/nk006_any_lime,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/orange,
+/area/station/commons/dorms/apartment1)
 "bM" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	volume_rate = 200
@@ -464,7 +445,7 @@
 	dir = 9
 	},
 /turf/open/floor/engine/airless,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "bN" = (
 /obj/machinery/power/apc/auto_name/directional/south{
 	arc_shielded = 1
@@ -494,9 +475,7 @@
 "bS" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/door/airlock/nk006/support{
-	name = "Dorm Room 1"
-	},
+/obj/machinery/door/airlock/maintenance/external,
 /turf/open/floor/iron/dark,
 /area/station/commons/dorms)
 "bT" = (
@@ -511,10 +490,7 @@
 	has_gravity = 1
 	})
 "bU" = (
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "bW" = (
 /obj/structure/ore_box,
 /turf/open/floor/iron,
@@ -560,7 +536,7 @@
 /obj/effect/spawner/structure/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/plating,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "ch" = (
 /obj/structure/fence,
 /turf/open/floor/grass/fairy,
@@ -577,16 +553,6 @@
 	},
 /turf/closed/wall/r_wall,
 /area/station/science/research)
-"cl" = (
-/obj/structure/particle_accelerator/particle_emitter/right{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
-"cm" = (
-/obj/structure/sign/warning/radiation/directional/west,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "co" = (
 /obj/machinery/holopad,
 /obj/structure/cable,
@@ -598,9 +564,7 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/nk006/support/atmosia/glass{
-	name = "Gas Storage"
-	},
+/obj/machinery/door/airlock/atmos/glass,
 /turf/open/floor/iron,
 /area/station/engineering/storage/tech{
 	has_gravity = 1
@@ -658,9 +622,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/support/atmosia/mix/glass{
-	name = "Atmosia"
-	},
+/obj/machinery/door/airlock/atmos/glass,
 /turf/open/floor/iron,
 /area/station/engineering/power_room{
 	has_gravity = 1
@@ -693,15 +655,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "cG" = (
-/obj/structure/fans/tiny,
 /obj/structure/cable,
-/obj/machinery/door/airlock/nk006/support/eng/engine/teg/glass{
-	name = "Tesla Access"
-	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
+/area/station/engineering/supermatter)
 "cH" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -731,9 +689,7 @@
 /obj/structure/table,
 /obj/machinery/processor,
 /turf/open/floor/iron/kitchen,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "cP" = (
 /obj/docking_port/stationary{
 	dir = 4;
@@ -745,12 +701,6 @@
 	},
 /turf/open/floor/plating/snowed/icemoon,
 /area/icemoon/surface/outdoors/nospawn)
-"cR" = (
-/obj/structure/particle_accelerator/particle_emitter/left{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "cT" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/white,
@@ -760,7 +710,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/snowed,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "cX" = (
 /obj/machinery/vending/security,
 /turf/open/floor/iron,
@@ -777,7 +727,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "da" = (
 /obj/machinery/portable_atmospherics/canister/bz,
 /turf/open/floor/iron,
@@ -786,10 +736,7 @@
 	})
 "db" = (
 /obj/structure/bookcase/random/adult,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "dc" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2{
 	dir = 1
@@ -807,23 +754,13 @@
 	})
 "de" = (
 /obj/structure/chair/pillow_small{
-	icon_state = "pillowpile_small_spt";
-	pillow1_color_changed = 1;
-	pillow2_color_changed = 1;
-	current_color = "spt";
-	pillow1_color = "spt";
-	pillow2_color = "spt";
-	transform = matrix()*0.75
+	layer = 2.9
 	},
-/turf/open/floor/carpet/nk006_any_lime,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/orange,
+/area/station/commons/dorms/apartment1)
 "df" = (
 /obj/effect/mapping_helpers/airlock/access/all/security/armory,
-/obj/machinery/door/airlock/nk006/command/sec/glass{
-	name = "Security"
-	},
+/obj/machinery/door/airlock/security/glass,
 /turf/open/floor/iron,
 /area/station/security{
 	has_gravity = 1
@@ -891,10 +828,7 @@
 /area/station/command/heads_quarters/captain/private)
 "ds" = (
 /obj/machinery/airalarm/directional/west,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "dt" = (
 /obj/structure/table,
 /obj/item/ceramic/bowl,
@@ -902,10 +836,6 @@
 /area/station/service/kitchen{
 	has_gravity = 1
 	})
-"dw" = (
-/obj/machinery/power/smes/engineering,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sng)
 "dy" = (
 /obj/structure/chair/sofa/corp/right,
 /turf/open/floor/iron/white,
@@ -963,15 +893,11 @@
 	})
 "dK" = (
 /turf/open/floor/iron/kitchen,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "dL" = (
 /obj/structure/closet/cabinet,
-/turf/open/floor/carpet/nk006_any_violet,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/green,
+/area/station/commons/dorms/apartment1)
 "dN" = (
 /obj/effect/landmark/start/atmospheric_technician,
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible/layer2{
@@ -989,10 +915,6 @@
 /area/station/medical/virology{
 	has_gravity = 1
 	})
-"dP" = (
-/obj/structure/cable,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "dQ" = (
 /obj/machinery/atmospherics/components/binary/valve/digital{
 	dir = 8;
@@ -1031,12 +953,10 @@
 "dZ" = (
 /obj/effect/mapping_helpers/airlock/access/any/engineering/ce,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/support/ce/glass{
-	name = "CE Office"
-	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/door/airlock/ce,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry{
 	has_gravity = 1
@@ -1115,9 +1035,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/support/service/glass{
-	name = "Kitchen"
-	},
+/obj/machinery/door/airlock/glass,
 /turf/open/floor/iron,
 /area/station/commons/lounge{
 	has_gravity = 1
@@ -1184,9 +1102,7 @@
 /obj/effect/mapping_helpers/airlock/access/any/science/general,
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/science/robotics/glass{
-	name = "Toxins"
-	},
+/obj/machinery/door/airlock/research/glass,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "eA" = (
@@ -1233,7 +1149,6 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/mob/living/simple_animal/chicken,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
 "eK" = (
@@ -1244,26 +1159,14 @@
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
-"eM" = (
-/obj/machinery/door/airlock{
-	id_tag = "Toilet1";
-	name = "Toilet Unit 1"
-	},
-/turf/open/floor/iron/white,
-/area/station/commons/toilet/locker)
+/area/station/engineering/supermatter)
 "eO" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/structure/chair/comfy/black,
-/turf/open/floor/carpet/nk006_hop,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/obj/structure/chair/comfy/black)
 "eQ" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
 	},
-/obj/item/stamp/hop,
 /obj/structure/table/reinforced/rglass,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/carpet/orange,
@@ -1342,15 +1245,10 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
 	},
-/obj/structure/table/wood/fancy/nk006_hop,
 /obj/item/flashlight/lamp/green{
 	pixel_x = 10;
 	pixel_y = 16;
 	layer = 3.1
-	},
-/turf/open/floor/carpet/nk006_hop,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
 	})
 "fc" = (
 /obj/structure/mineral_door/wood,
@@ -1377,7 +1275,7 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "fi" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -1405,11 +1303,8 @@
 	pixel_y = 8;
 	layer = 4
 	},
-/obj/structure/table/wood/fancy/nk006_any_lime,
-/turf/open/floor/carpet/nk006_any_lime,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/orange,
+/area/station/commons/dorms/apartment1)
 "fq" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -1424,15 +1319,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/genetics/glass{
-	name = "Genetics"
-	},
+/obj/machinery/door/airlock/science/glass,
 /turf/open/floor/iron/dark,
 /area/station/science/genetics)
 "fs" = (
-/obj/machinery/modular_computer/console/preset/id{
-	dir = 1
-	},
 /obj/item/clipboard{
 	pixel_x = -6;
 	pixel_y = 4
@@ -1445,15 +1335,14 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/obj/item/stamp/qm{
-	pixel_x = 7;
-	pixel_y = -2
-	},
 /obj/machinery/requests_console/directional/east{
 	announcementConsole = 1;
 	department = "Quartermaster's Desk";
 	departmentType = 2;
 	name = "Quartermaster's Requests Console"
+	},
+/obj/machinery/modular_computer/preset/id{
+	dir = 1
 	},
 /turf/open/floor/carpet/orange,
 /area/station/command/heads_quarters/qm{
@@ -1495,7 +1384,6 @@
 	has_gravity = 1
 	})
 "fD" = (
-/mob/living/simple_animal/sloth/citrus,
 /turf/open/floor/carpet/orange,
 /area/station/command/heads_quarters/qm{
 	has_gravity = 1
@@ -1529,7 +1417,6 @@
 	})
 "fI" = (
 /obj/structure/altar_of_gods,
-/obj/item/storage/book/bible,
 /turf/open/floor/iron/dark,
 /area/station/service/chapel)
 "fJ" = (
@@ -1541,9 +1428,7 @@
 "fK" = (
 /obj/effect/mapping_helpers/airlock/access/all/command/captain,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/command/captain{
-	name = "Captain's Quarters"
-	},
+/obj/machinery/door/airlock/captain,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/captain/private)
 "fL" = (
@@ -1555,10 +1440,7 @@
 /area/station/science/robotics/mechbay)
 "fM" = (
 /obj/machinery/light/dim/directional/south,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "fN" = (
 /obj/structure/cable,
 /turf/closed/wall/r_wall,
@@ -1569,30 +1451,23 @@
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/visible/layer4,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "fP" = (
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
-/obj/machinery/door/airlock/nk006/command/sec/glass{
-	name = "Security"
-	},
+/obj/machinery/door/airlock/security/glass,
 /turf/open/floor/iron,
 /area/station/security{
 	has_gravity = 1
 	})
 "fR" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "fS" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 8
 	},
-/turf/open/floor/carpet/nk006_any_orange,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/purple,
+/area/station/commons/dorms/apartment1)
 "fT" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/heater/on,
 /turf/open/floor/iron,
@@ -1632,10 +1507,7 @@
 	has_gravity = 1
 	})
 "fY" = (
-/obj/machinery/door/airlock{
-	id_tag = "Toilet2";
-	name = "Toilet Unit 2"
-	},
+/obj/machinery/door/airlock/bathroom,
 /turf/open/floor/iron/white,
 /area/station/commons/toilet/locker)
 "ga" = (
@@ -1677,10 +1549,7 @@
 "gg" = (
 /obj/structure/displaycase/trophy,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "gi" = (
 /obj/machinery/light/directional/east,
 /obj/structure/cable,
@@ -1716,6 +1585,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
 	},
+/obj/machinery/modular_computer/preset/cargochat/security{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/station/security{
 	has_gravity = 1
@@ -1724,7 +1596,6 @@
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/pdapainter/security,
-/obj/item/stamp/hos,
 /turf/open/floor/carpet/purple,
 /area/station/command/heads_quarters/hos{
 	has_gravity = 1
@@ -1753,17 +1624,13 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white/small,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "gt" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/fab/glass{
-	name = "Medical Storage"
-	},
+/obj/machinery/door/airlock/medical/glass,
 /turf/open/floor/iron/white,
 /area/station/medical/cryo{
 	has_gravity = 1
@@ -1820,16 +1687,14 @@
 /obj/machinery/power/terminal,
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "gD" = (
 /obj/structure/closet/secure_closet/freezer/fridge{
 	req_access = null
 	},
 /obj/machinery/light/directional/east,
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "gE" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1862,7 +1727,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "gJ" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 4
@@ -1878,9 +1743,7 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/effect/mapping_helpers/airlock/access/any/science/general,
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/nk006/specialist/science/robotics/glass{
-	name = "Burn Chamber"
-	},
+/obj/machinery/door/airlock/research/glass/incinerator/ordmix_exterior,
 /turf/open/floor/engine/vacuum,
 /area/station/science/ordnance/burnchamber)
 "gN" = (
@@ -1899,9 +1762,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
-/obj/machinery/door/airlock/nk006/support/cargo/glass{
-	name = "Cargonia"
-	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/station/cargo/storage{
 	has_gravity = 1
@@ -1937,9 +1798,7 @@
 	},
 /obj/item/food/sirisai_flatbread,
 /turf/open/floor/iron/kitchen,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "gU" = (
 /obj/effect/spawner/random/engineering/material,
 /turf/open/floor/iron,
@@ -1954,10 +1813,8 @@
 /area/station/science/ordnance/burnchamber)
 "gW" = (
 /obj/structure/closet/cabinet,
-/turf/open/floor/carpet/nk006_any_orange,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/purple,
+/area/station/commons/dorms/apartment1)
 "gX" = (
 /turf/open/floor/grass,
 /area/mine/xenoarch/science/cytology{
@@ -1966,9 +1823,6 @@
 "gY" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006{
-	name = "Dorms"
-	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit/departure_lounge{
 	has_gravity = 1
@@ -1992,10 +1846,8 @@
 "hd" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/carpet/nk006_any_orange,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/purple,
+/area/station/commons/dorms/apartment1)
 "he" = (
 /turf/open/genturf{
 	planetary_atmos = 1
@@ -2028,7 +1880,7 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "hk" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -2098,9 +1950,7 @@
 "hv" = (
 /obj/machinery/smartfridge/food,
 /turf/closed/wall/mineral/titanium/interior,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "hB" = (
 /obj/structure/flora/tree/dead/style_random,
 /turf/open/misc/asteroid/snow/icemoon,
@@ -2117,10 +1967,6 @@
 /area/station/commons/lounge{
 	has_gravity = 1
 	})
-"hF" = (
-/obj/machinery/light/directional/south,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sng)
 "hJ" = (
 /obj/machinery/mineral/ore_redemption,
 /obj/machinery/door/firedoor,
@@ -2158,16 +2004,11 @@
 /obj/machinery/light/directional/north,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /turf/open/floor/iron/white/small,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "hQ" = (
 /turf/open/floor/plating/snowed/smoothed,
 /area/icemoon/surface/outdoors/nospawn)
 "hR" = (
-/obj/machinery/atmospherics/components/unary/cryo_cell{
-	dir = 1
-	},
 /turf/open/floor/iron/white,
 /area/station/medical/cryo{
 	has_gravity = 1
@@ -2201,10 +2042,6 @@
 /area/station/service/kitchen{
 	has_gravity = 1
 	})
-"hW" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "hX" = (
 /obj/machinery/newscaster/directional/east,
 /turf/open/floor/carpet/green,
@@ -2228,7 +2065,7 @@
 "ia" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/visible/layer4,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "ic" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -2256,10 +2093,7 @@
 	volume_rate = 200
 	},
 /turf/open/floor/engine,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "ik" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/plating/snowed/smoothed/icemoon,
@@ -2277,17 +2111,7 @@
 	},
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron/kitchen,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
-"io" = (
-/obj/structure/cable,
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/nk006/support/eng/engine/glass{
-	name = "Engine Room"
-	},
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
+/area/station/commons/dorms/apartment1)
 "ip" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -2320,16 +2144,12 @@
 /area/station/cargo/miningoffice)
 "it" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/carpet/nk006_any_orange,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/purple,
+/area/station/commons/dorms/apartment1)
 "iu" = (
 /obj/effect/spawner/liquids_spawner,
 /turf/open/floor/iron/pool,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "iv" = (
 /obj/machinery/smartfridge/petri/preloaded,
 /turf/closed/wall/r_wall,
@@ -2431,10 +2251,7 @@
 	})
 "iL" = (
 /obj/machinery/bookbinder,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "iM" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/left/directional/north{
@@ -2476,9 +2293,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "iT" = (
 /obj/machinery/telecomms/message_server/preset,
 /turf/open/floor/circuit/telecomms/mainframe,
@@ -2490,16 +2305,11 @@
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/visible/layer4,
 /turf/closed/wall/r_wall,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "iV" = (
 /obj/machinery/chem_heater/withbuffer,
 /turf/open/floor/iron/white/smooth_large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "iW" = (
 /obj/item/multitool{
 	pixel_y = 10
@@ -2516,15 +2326,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "iZ" = (
 /obj/machinery/computer/libraryconsole/bookmanagement,
-/obj/structure/table/wood/fancy/nk006_hop,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
-/turf/open/floor/carpet/nk006_hop,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2)
 "ja" = (
 /obj/machinery/air_sensor/oxygen_tank,
 /obj/machinery/atmospherics/pipe/smart/simple/violet/visible{
@@ -2545,9 +2350,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
 /turf/open/floor/iron/kitchen,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "jd" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -2612,7 +2415,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible/layer1,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "jo" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -2635,7 +2438,7 @@
 /obj/machinery/atmospherics/pipe/bridge_pipe/orange/visible,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible/layer1,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "jr" = (
 /obj/structure/chair{
 	dir = 8
@@ -2656,10 +2459,7 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "jt" = (
 /obj/machinery/power/apc/auto_name/directional/east{
 	arc_shielded = 1
@@ -2782,7 +2582,7 @@
 	dir = 5
 	},
 /turf/open/floor/engine/airless,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "jQ" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks/beer{
@@ -2805,10 +2605,7 @@
 	})
 "jT" = (
 /obj/structure/bookcase/random/fiction,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "jU" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -2864,19 +2661,15 @@
 	has_gravity = 1
 	})
 "ke" = (
-/obj/machinery/modular_computer/console/preset/id,
 /obj/machinery/light/directional/east,
+/obj/machinery/modular_computer/preset/research,
 /turf/open/floor/iron,
 /area/station/command/bridge{
 	has_gravity = 1
 	})
 "kf" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/carpet/nk006_hop,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2)
 "kg" = (
 /obj/effect/landmark/start/chemist,
 /turf/open/floor/iron/white,
@@ -2968,16 +2761,13 @@
 	has_gravity = 1
 	})
 "kw" = (
-/obj/machinery/modular_computer/console/preset/cargochat/service{
+/obj/machinery/modular_computer/preset/cargochat/service{
 	dir = 8
 	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit/departure_lounge{
 	has_gravity = 1
 	})
-"kx" = (
-/turf/closed/wall/r_wall,
-/area/station/nk006/support/eng/engine/sng)
 "ky" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -3079,12 +2869,9 @@
 	})
 "kU" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "kW" = (
-/obj/machinery/modular_computer/console/preset/research{
+/obj/machinery/modular_computer/preset/id{
 	dir = 1
 	},
 /turf/open/floor/carpet/green,
@@ -3119,28 +2906,18 @@
 	})
 "lc" = (
 /obj/structure/table,
-/obj/item/reagent_containers/spray/bluespace{
-	icon_state = "sprayer_blu_spt";
-	inhand_icon_state = "sprayer_blu_spt";
-	list_reagents = list(/datum/reagent/space_cleaner=400);
-	current_skin = sprayer_blu_spt;
-	pixel_y = -6;
-	pixel_x = 11
-	},
 /obj/machinery/reagentgrinder{
 	pixel_x = -5
 	},
 /obj/item/stack/sheet/mineral/plasma/thirty,
 /turf/open/floor/iron/white/smooth_large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "ld" = (
 /obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible{
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "le" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/iron/white,
@@ -3157,13 +2934,6 @@
 /area/station/tcommsat/server{
 	has_gravity = 1
 	})
-"lg" = (
-/obj/structure/cable,
-/obj/structure/particle_accelerator/particle_emitter/center{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "lh" = (
 /obj/structure/sign/warning/gas_mask,
 /turf/closed/wall/r_wall,
@@ -3173,9 +2943,7 @@
 "li" = (
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/command/sec/glass{
-	name = "Security"
-	},
+/obj/machinery/door/airlock/security/glass,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/command{
 	has_gravity = 1
@@ -3196,7 +2964,7 @@
 /obj/machinery/light_switch/directional/east,
 /obj/machinery/keycard_auth/directional/south,
 /obj/structure/bed/double,
-/obj/item/bedsheet/nk006_any_lime/double,
+/obj/item/bedsheet/hop/double,
 /turf/open/floor/carpet/orange,
 /area/station/command/heads_quarters/hop{
 	has_gravity = 1
@@ -3225,15 +2993,15 @@
 /obj/structure/bed{
 	dir = 4
 	},
-/obj/item/bedsheet/nk006_cmo{
-	dir = 1
-	},
 /turf/open/floor/iron/dark,
 /area/station/medical/virology{
 	has_gravity = 1
 	})
 "lq" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
+	dir = 1
+	},
+/obj/machinery/modular_computer/preset/id{
 	dir = 1
 	},
 /turf/open/floor/carpet/purple,
@@ -3246,7 +3014,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/proto_nitrate,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "ls" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -3277,9 +3045,7 @@
 	pixel_y = 10
 	},
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "lw" = (
 /turf/closed/wall,
 /area/station/command/heads_quarters/rd)
@@ -3297,7 +3063,7 @@
 	dir = 4
 	},
 /turf/closed/wall/r_wall,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "lA" = (
 /obj/machinery/door/window/left/directional/north{
 	base_state = "right";
@@ -3318,10 +3084,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /obj/machinery/meter,
 /turf/closed/wall/r_wall,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "lD" = (
 /obj/machinery/power/apc/auto_name/directional/north{
 	arc_shielded = 1
@@ -3356,9 +3119,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/kitchen,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "lJ" = (
 /obj/structure/flora/bush/large/style_random{
 	pixel_y = 0
@@ -3373,7 +3134,7 @@
 /obj/machinery/power/emitter/welded,
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "lL" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
 /turf/open/floor/iron,
@@ -3424,9 +3185,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/white/small,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "lT" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -3480,9 +3239,7 @@
 	pixel_y = 1
 	},
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "mb" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /turf/open/floor/iron/kitchen,
@@ -3497,10 +3254,8 @@
 /area/station/commons/dorms)
 "md" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
-/turf/open/floor/carpet/nk006_any_violet,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/green,
+/area/station/commons/dorms/apartment1)
 "me" = (
 /obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/iron/dark,
@@ -3518,7 +3273,7 @@
 /obj/structure/sign/warning/radiation/directional/east,
 /obj/machinery/light/directional/east,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "mh" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer2{
 	dir = 9
@@ -3558,6 +3313,7 @@
 	name = "Head of Security's Requests Console"
 	},
 /obj/machinery/status_display/evac/directional/east,
+/obj/item/stamp/head/hos,
 /turf/open/floor/carpet/purple,
 /area/station/command/heads_quarters/hos{
 	has_gravity = 1
@@ -3571,15 +3327,13 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "mp" = (
 /obj/effect/mapping_helpers/airlock/access/any/science/rd,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
-/obj/machinery/door/airlock/nk006/specialist/rd/glass{
-	name = "RD Office"
-	},
+/obj/machinery/door/airlock/rd,
 /turf/open/floor/iron/white,
 /area/station/command/heads_quarters/rd)
 "mr" = (
@@ -3591,13 +3345,6 @@
 /obj/effect/spawner/random/engineering/tracking_beacon,
 /turf/open/floor/iron/dark,
 /area/station/science/genetics)
-"mt" = (
-/obj/machinery/power/terminal{
-	dir = 8
-	},
-/obj/structure/cable,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "mu" = (
 /obj/structure/flora/tree/jungle/small/style_random,
 /turf/open/floor/grass,
@@ -3613,7 +3360,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /obj/structure/reflector/box/anchored,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "mx" = (
 /obj/machinery/computer/communications{
 	dir = 8
@@ -3668,9 +3415,7 @@
 "mN" = (
 /obj/machinery/chem_master,
 /turf/open/floor/iron/white/smooth_large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "mO" = (
 /obj/machinery/light_switch/directional/west,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
@@ -3724,10 +3469,6 @@
 "mX" = (
 /obj/structure/table/reinforced/rglass,
 /obj/machinery/light/directional/south,
-/obj/item/storage/backpack/duffelbag/med/surgery,
-/obj/item/storage/backpack/duffelbag/med/surgery{
-	pixel_y = 12
-	},
 /obj/item/reagent_containers/chem_pack{
 	pixel_x = 8;
 	pixel_y = 2
@@ -3777,10 +3518,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
-"nf" = (
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
+/area/station/engineering/supermatter)
 "nj" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 8
@@ -3854,10 +3592,7 @@
 /obj/item/fancy_pillow,
 /obj/item/fancy_pillow,
 /obj/item/fancy_pillow,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "nq" = (
 /obj/structure/sign/directions/engineering{
 	pixel_y = 8;
@@ -3881,7 +3616,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /obj/machinery/meter,
 /turf/closed/wall/r_wall,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "nu" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "QMLoad2"
@@ -3899,12 +3634,6 @@
 /area/mine/xenoarch/engineering{
 	name = "Tchiko's Castle Quarters"
 	})
-"nw" = (
-/obj/structure/cable,
-/obj/machinery/light/directional/south,
-/obj/structure/tank_dispenser,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sng)
 "ny" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -3940,18 +3669,14 @@
 	dir = 4
 	},
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "nG" = (
 /obj/effect/mapping_helpers/airlock/access/any/science/general,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/genetics/glass{
-	name = "Xenobiology"
-	},
+/obj/machinery/door/airlock/research/glass,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "nJ" = (
@@ -3972,9 +3697,7 @@
 	pixel_y = -24;
 	req_access = list("virology")
 	},
-/obj/machinery/door/airlock/nk006/specialist/science/xenobio/viro/glass{
-	name = "Virology"
-	},
+/obj/machinery/door/airlock/virology/glass,
 /turf/open/floor/iron/dark,
 /area/station/medical/virology{
 	has_gravity = 1
@@ -3984,11 +3707,8 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/nk006/command,
 /turf/open/floor/iron/white/small,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "nL" = (
 /obj/machinery/light/directional/north,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -4009,13 +3729,6 @@
 /area/station/cargo/storage{
 	has_gravity = 1
 	})
-"nN" = (
-/obj/structure/cable,
-/obj/machinery/airalarm/engine{
-	pixel_y = -22
-	},
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
 "nO" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -4042,10 +3755,8 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 1
 	},
-/turf/open/floor/carpet/nk006_any_violet,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/green,
+/area/station/commons/dorms/apartment1)
 "nS" = (
 /obj/machinery/door/window/left/directional/north{
 	dir = 1;
@@ -4062,7 +3773,7 @@
 "nU" = (
 /obj/machinery/light/floor,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "nV" = (
 /obj/machinery/light_switch/directional/south,
 /obj/item/stack/sheet/glass/fifty,
@@ -4096,9 +3807,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/support/hop/glass{
-	name = "HOP Office"
-	},
+/obj/machinery/door/airlock/hop,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/hop{
 	has_gravity = 1
@@ -4116,9 +3825,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/navigate_destination/dockesc,
-/obj/machinery/door/airlock/nk006/glass{
-	name = "External Airlock"
-	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/station/hallway/secondary/exit/departure_lounge{
 	has_gravity = 1
@@ -4130,7 +3837,7 @@
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "oc" = (
 /obj/effect/spawner/random/engineering/material_rare,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
@@ -4140,18 +3847,13 @@
 	pixel_y = -32
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter)
 "od" = (
 /obj/structure/flora/bush/jungle/b/style_random,
 /turf/open/floor/grass,
 /area/mine/xenoarch/science/cytology{
 	name = "Tchiko's Castle Gardens"
 	})
-"oe" = (
-/obj/structure/cable,
-/obj/machinery/power/rad_collector/anchored,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sng)
 "of" = (
 /obj/machinery/atmospherics/components/unary/passive_vent/layer4{
 	dir = 1
@@ -4201,9 +3903,7 @@
 "op" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/door/airlock/nk006/command{
-	name = "Dorm Room 3"
-	},
+/obj/machinery/door/airlock/research,
 /turf/open/floor/iron/dark,
 /area/station/commons/dorms)
 "os" = (
@@ -4244,7 +3944,7 @@
 	name = "Radiation Chamber Shutters"
 	},
 /turf/open/floor/plating,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "oz" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/ordnance_burn_chamber_input{
 	dir = 1
@@ -4252,9 +3952,6 @@
 /turf/open/floor/engine/vacuum,
 /area/station/science/ordnance/burnchamber)
 "oB" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Arrivals"
-	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore{
@@ -4353,7 +4050,7 @@
 "oV" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/visible/layer4,
 /turf/closed/wall/r_wall,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "oX" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/door/window/left/directional/south{
@@ -4426,10 +4123,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/dark/hidden,
 /turf/open/floor/iron/white,
 /area/station/science/cytology)
-"pj" = (
-/obj/machinery/light/directional/west,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "pk" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 4
@@ -4437,12 +4130,9 @@
 /turf/closed/wall,
 /area/station/command/heads_quarters/ce)
 "pl" = (
-/turf/open/floor/plating/snowed,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/plating/snowed)
 "pm" = (
-/obj/machinery/modular_computer/console/preset/cargochat/science,
+/obj/machinery/modular_computer/preset/cargochat/science,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "pn" = (
@@ -4472,9 +4162,7 @@
 	},
 /obj/structure/cable,
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/nk006/support/eng/glass{
-	name = "TComms"
-	},
+/obj/machinery/door/airlock/engineering/glass/critical,
 /turf/open/floor/iron,
 /area/station/tcommsat/computer{
 	has_gravity = 1
@@ -4527,18 +4215,13 @@
 "pC" = (
 /obj/structure/bookcase/random/fiction,
 /obj/machinery/light_switch/directional/west,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "pE" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 4
 	},
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "pH" = (
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible,
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer2{
@@ -4579,9 +4262,6 @@
 /obj/machinery/shower/directional/east,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/rd)
-"pP" = (
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
 "pQ" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 2
@@ -4665,7 +4345,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/manifold/layer2,
 /obj/machinery/atmospherics/pipe/heat_exchanging/manifold/layer4,
 /turf/open/floor/engine/airless,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "qk" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -4673,15 +4353,13 @@
 /area/icemoon/surface/outdoors/nospawn)
 "ql" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/carpet/nk006_any_lime,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/orange,
+/area/station/commons/dorms/apartment1)
 "qm" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /obj/structure/cable,
 /turf/open/floor/plating/snowed,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "qn" = (
 /obj/structure/fireplace,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
@@ -4773,9 +4451,7 @@
 	req_access = null
 	},
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "qA" = (
 /obj/structure/closet/secure_closet/medical3{
 	req_access = null
@@ -4788,9 +4464,7 @@
 /obj/item/storage/medkit/advanced,
 /obj/item/storage/medkit/tactical,
 /turf/open/floor/iron/white/smooth_large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "qB" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -4803,9 +4477,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "qE" = (
 /obj/structure/sign/directions/upload{
 	dir = 8;
@@ -4856,7 +4528,6 @@
 	has_gravity = 1
 	})
 "qP" = (
-/obj/machinery/rnd/bepis,
 /turf/open/floor/iron,
 /area/station/engineering/storage/tech{
 	has_gravity = 1
@@ -4898,10 +4569,7 @@
 	})
 "qX" = (
 /obj/machinery/libraryscanner,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "ra" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -5006,7 +4674,7 @@
 	name = "Dormitory Privacy Shutters";
 	pixel_y = 8
 	},
-/obj/item/bedsheet/nk006_any_lime/double{
+/obj/item/bedsheet/green/double{
 	dir = 1
 	},
 /turf/open/floor/carpet/green,
@@ -5029,7 +4697,7 @@
 "rw" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible/layer4,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "rx" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer2{
 	dir = 6
@@ -5037,7 +4705,7 @@
 /turf/open/floor/iron/dark/airless,
 /area/station/science/ordnance/freezerchamber)
 "ry" = (
-/obj/machinery/modular_computer/console/preset/id{
+/obj/machinery/modular_computer/preset/id{
 	dir = 8
 	},
 /turf/open/floor/carpet/green,
@@ -5100,17 +4768,15 @@
 "rH" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible/layer1,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "rI" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/machinery/door/airlock/external{
-	name = "Port Docking Bay 1"
-	},
 /obj/effect/landmark/navigate_destination{
 	location = "Arrival Shuttle"
 	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/station/hallway/secondary/entry{
 	has_gravity = 1
@@ -5143,10 +4809,7 @@
 "rO" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/visible/layer4,
 /turf/closed/wall/r_wall,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "rP" = (
 /obj/machinery/light/directional/south,
 /obj/machinery/vending/hydroseeds{
@@ -5171,19 +4834,14 @@
 "rR" = (
 /obj/structure/displaycase/trophy,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "rS" = (
 /obj/effect/mapping_helpers/airlock/access/all/medical/virology,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/science/xenobio/viro/glass{
-	name = "Virology"
-	},
+/obj/machinery/door/airlock/virology/glass,
 /turf/open/floor/iron/dark,
 /area/station/medical/virology{
 	has_gravity = 1
@@ -5195,7 +4853,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible/layer1,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "rV" = (
 /obj/structure/sign/warning/gas_mask,
 /turf/closed/wall,
@@ -5204,7 +4862,7 @@
 	})
 "rW" = (
 /obj/machinery/defibrillator_mount/directional/north,
-/obj/machinery/modular_computer/console/preset/cargochat/medical,
+/obj/machinery/modular_computer/preset/cargochat/medical,
 /turf/open/floor/iron/white,
 /area/station/medical/treatment_center{
 	has_gravity = 1
@@ -5276,7 +4934,7 @@
 	piping_layer = 4
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "si" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -5285,9 +4943,6 @@
 /area/station/science/research)
 "sj" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Fore Primary Hallway"
-	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/command{
 	has_gravity = 1
@@ -5311,10 +4966,7 @@
 	})
 "so" = (
 /obj/structure/bookcase/random/nonfiction,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "sq" = (
 /obj/structure/table/reinforced/plastitaniumglass,
 /obj/structure/sink/kitchen/directional/south,
@@ -5363,7 +5015,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/command/mining/glass,
 /turf/open/floor/iron,
 /area/station/cargo/miningoffice)
 "sv" = (
@@ -5380,7 +5031,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/manifold4w/layer2,
 /obj/machinery/atmospherics/pipe/heat_exchanging/manifold4w/layer4,
 /turf/open/floor/engine/airless,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "sy" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -5405,13 +5056,9 @@
 	pixel_y = 10
 	},
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "sE" = (
-/obj/machinery/door/airlock/nk006/support/fab/glass{
-	name = "Support Fab"
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry{
 	has_gravity = 1
@@ -5429,12 +5076,6 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron/white,
 /area/station/science/ordnance)
-"sM" = (
-/obj/effect/turf_decal/tile/nk006/department_specialist/opposingcorners,
-/turf/open/floor/iron,
-/area/station/medical/chemistry{
-	has_gravity = 1
-	})
 "sN" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
@@ -5512,9 +5153,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/nk006/support/cargo/glass{
-	name = "Cargonia"
-	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/station/cargo/storage{
 	has_gravity = 1
@@ -5561,39 +5200,16 @@
 /area/station/service/kitchen{
 	has_gravity = 1
 	})
-"tg" = (
-/obj/machinery/power/apc/sm_apc/directional/south{
-	arc_shielded = 1
-	},
-/obj/structure/cable,
-/obj/machinery/power/terminal{
-	dir = 8
-	},
-/obj/structure/tank_dispenser,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sng)
 "tk" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
-"tl" = (
-/obj/machinery/modular_computer/console/preset/cargochat/engineering{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/station/engineering/atmos{
-	has_gravity = 1
-	})
+/area/station/engineering/supermatter)
 "tm" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/station/science/ordnance/testlab)
-"tn" = (
-/obj/machinery/rnd/bepis,
-/turf/open/floor/iron/white,
-/area/station/science/research)
 "tp" = (
 /obj/structure/dresser,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
@@ -5621,14 +5237,11 @@
 	})
 "tt" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/nk006/glass,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "tv" = (
 /obj/effect/landmark/start/security_officer,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -5648,8 +5261,8 @@
 	has_gravity = 1
 	})
 "tz" = (
-/obj/machinery/modular_computer/console/preset/engineering,
 /obj/machinery/light/directional/west,
+/obj/machinery/modular_computer/preset/engineering,
 /turf/open/floor/iron,
 /area/station/command/bridge{
 	has_gravity = 1
@@ -5671,9 +5284,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/command/captain/glass{
-	name = "Captain's Office"
-	},
+/obj/machinery/door/airlock/captain,
 /turf/open/floor/iron,
 /area/station/command/bridge{
 	has_gravity = 1
@@ -5681,9 +5292,7 @@
 "tH" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/nk006{
-	name = "Restrooms"
-	},
+/obj/machinery/door/airlock/bathroom,
 /turf/open/floor/iron/white,
 /area/station/commons/toilet/locker)
 "tI" = (
@@ -5700,9 +5309,7 @@
 	})
 "tL" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/nk006{
-	name = "Dorms"
-	},
+/obj/machinery/door/airlock/bathroom,
 /turf/open/floor/iron/dark,
 /area/station/commons/dorms)
 "tM" = (
@@ -5732,9 +5339,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
-/obj/machinery/door/airlock/nk006/glass{
-	name = "External Airlock"
-	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/station/hallway/secondary/exit/departure_lounge{
 	has_gravity = 1
@@ -5750,17 +5355,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/holopad/secure,
 /turf/open/floor/iron/white/smooth_large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "tV" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "tX" = (
 /obj/structure/sign/directions/engineering{
 	pixel_y = 8;
@@ -5805,10 +5405,6 @@
 /area/station/tcommsat/server{
 	has_gravity = 1
 	})
-"ud" = (
-/obj/machinery/the_singularitygen/tesla,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "ue" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
@@ -5822,9 +5418,7 @@
 "ug" = (
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/support/service/glass{
-	name = "Bar"
-	},
+/obj/machinery/door/airlock/glass,
 /turf/open/floor/stone,
 /area/station/service/bar/atrium{
 	has_gravity = 1
@@ -5844,11 +5438,6 @@
 /area/station/engineering/storage/tech{
 	has_gravity = 1
 	})
-"uj" = (
-/obj/structure/cable,
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "uk" = (
 /obj/machinery/ntnet_relay,
 /turf/open/floor/circuit/telecomms/mainframe,
@@ -5872,9 +5461,7 @@
 /area/station/science/research)
 "uo" = (
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm,
-/obj/machinery/door/airlock/nk006/support/qm{
-	name = "QM's Quarters"
-	},
+/obj/machinery/door/airlock/qm,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/qm{
 	has_gravity = 1
@@ -5900,14 +5487,11 @@
 /turf/open/floor/carpet/orange,
 /area/station/commons/dorms)
 "us" = (
-/obj/machinery/door/airlock/nk006/support/eng/engine/sm/glass{
-	name = "Supermatter Coolant Chamber"
-	},
+/obj/machinery/door/airlock/engineering/glass/critical,
+/obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/open/floor/engine/air,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "ut" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -5919,10 +5503,7 @@
 "uu" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "uv" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -5979,10 +5560,6 @@
 /area/mine/lobby{
 	name = "Birdhouse Entry Hall"
 	})
-"uD" = (
-/obj/machinery/light/directional/east,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sng)
 "uE" = (
 /obj/machinery/light/directional/east,
 /turf/open/floor/iron/pool,
@@ -5992,7 +5569,7 @@
 	dir = 1
 	},
 /obj/machinery/keycard_auth/directional/west,
-/obj/item/bedsheet/nk006_ce/double{
+/obj/item/bedsheet/ce/double{
 	dir = 1
 	},
 /turf/open/floor/carpet/orange,
@@ -6111,30 +5688,17 @@
 	dir = 4
 	},
 /turf/open/floor/engine/airless,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "vg" = (
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/command{
 	has_gravity = 1
 	})
-"vi" = (
-/obj/machinery/holopad,
-/obj/effect/turf_decal/tile/nk006/department_sub_red/fourcorners,
-/turf/open/floor/iron,
-/area/station/medical/chemistry{
-	has_gravity = 1
-	})
-"vj" = (
-/obj/structure/plaque/static_plaque/to_absent_friends_naakako{
-	pixel_y = -32
-	},
-/turf/open/floor/iron/dark,
-/area/station/service/chapel)
 "vk" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/plating/snowed,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "vl" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/landmark/start/depsec/supply,
@@ -6151,19 +5715,12 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/white/smooth_large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "vp" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/holopad/secure,
-/turf/open/floor/carpet/nk006_hop,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/obj/machinery/holopad/secure)
 "vq" = (
 /obj/structure/bed,
-/obj/item/bedsheet/nk006_cmo,
 /turf/open/floor/iron/dark,
 /area/station/medical/virology{
 	has_gravity = 1
@@ -6174,7 +5731,7 @@
 	piping_layer = 1
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "vs" = (
 /obj/effect/spawner/random/engineering/material_cheap,
 /turf/open/floor/iron,
@@ -6302,10 +5859,6 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	piping_layer = 2
 	},
-/obj/machinery/airalarm/mixingchamber{
-	dir = 4;
-	pixel_x = 25
-	},
 /turf/open/floor/iron/white,
 /area/station/science/ordnance/freezerchamber)
 "vK" = (
@@ -6354,7 +5907,7 @@
 /obj/machinery/meter/layer4,
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "vX" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
@@ -6375,7 +5928,7 @@
 /obj/structure/cable,
 /obj/machinery/power/terminal,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "wb" = (
 /obj/machinery/door/window/right/directional/south{
 	dir = 8;
@@ -6404,7 +5957,7 @@
 	critical_machine = 1
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "wf" = (
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/hop{
@@ -6434,9 +5987,7 @@
 	})
 "wm" = (
 /turf/closed/wall/mineral/titanium/interior,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "wo" = (
 /obj/machinery/computer/monitor{
 	name = "Bridge Power Monitoring Console"
@@ -6455,16 +6006,15 @@
 	arc_shielded = 1
 	},
 /obj/machinery/status_display/evac/directional/north,
+/obj/item/stamp/head/qm,
 /turf/open/floor/carpet/orange,
 /area/station/command/heads_quarters/qm{
 	has_gravity = 1
 	})
 "wt" = (
 /obj/structure/dresser,
-/turf/open/floor/carpet/nk006_any_lime,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/orange,
+/area/station/commons/dorms/apartment1)
 "wu" = (
 /obj/machinery/airalarm/directional/east,
 /obj/structure/cable,
@@ -6501,14 +6051,6 @@
 /area/mine/lounge{
 	name = "Birdhouse Lounge"
 	})
-"wA" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/nk006/support,
-/turf/open/floor/carpet/nk006_any_orange,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
 "wB" = (
 /obj/machinery/chem_master,
 /obj/machinery/light/directional/south,
@@ -6538,7 +6080,6 @@
 /turf/open/floor/iron/dark,
 /area/station/science/ordnance/testlab)
 "wE" = (
-/turf/open/genturf/alternative,
 /area/icemoon/surface/outdoors/unexplored/rivers/no_monsters)
 "wF" = (
 /obj/structure/bed/double{
@@ -6549,7 +6090,7 @@
 	pixel_x = -32
 	},
 /obj/effect/spawner/random/entertainment/money_large,
-/obj/item/bedsheet/nk006_qm/double{
+/obj/item/bedsheet/qm/double{
 	dir = 1
 	},
 /turf/open/floor/carpet/orange,
@@ -6583,7 +6124,7 @@
 "wL" = (
 /obj/machinery/light/directional/west,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "wM" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer2,
 /obj/machinery/meter/layer2,
@@ -6594,7 +6135,7 @@
 "wN" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "wO" = (
 /obj/structure/flora/rock/icy/style_random,
 /turf/open/misc/asteroid/snow/icemoon,
@@ -6605,7 +6146,7 @@
 	name = "External Gas to Loop"
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "wR" = (
 /obj/structure/aquarium/prefilled,
 /turf/open/floor/wood/large,
@@ -6671,9 +6212,8 @@
 	name = "Tchiko's Castle Gardens"
 	})
 "xd" = (
-/obj/machinery/modular_computer/console/preset/engineering,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "xe" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -6717,10 +6257,7 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "xk" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/visible/layer2{
 	dir = 8
@@ -6748,16 +6285,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/retaliate/tegu/gus{
-	can_have_ai = 0;
-	ai_controller = null;
-	AIStatus = 0;
-	move_force = 1;
-	move_resist = 1;
-	wander = 0;
-	pixel_y = 3;
-	dir = 4
-	},
 /turf/open/floor/wood,
 /area/mine/living_quarters{
 	name = "Birdhouse Snuggle Room"
@@ -6782,9 +6309,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/support/eng/glass{
-	name = "Engineering Storage"
-	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry{
 	has_gravity = 1
@@ -6869,9 +6393,7 @@
 /area/station/command/heads_quarters/rd)
 "xQ" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/glass{
-	name = "Specialist Hall"
-	},
+/obj/machinery/door/airlock/multi_tile/public/glass,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry{
 	has_gravity = 1
@@ -6889,21 +6411,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/light/directional/south,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "xU" = (
 /obj/structure/table/reinforced/rglass,
 /turf/open/floor/carpet/purple,
 /area/station/command/meeting_room{
-	has_gravity = 1
-	})
-"xV" = (
-/obj/machinery/door/airlock/external{
-	name = "Port Docking Bay 1";
-	space_dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/floor/plating,
-/area/station/hallway/secondary/entry{
 	has_gravity = 1
 	})
 "xY" = (
@@ -6958,9 +6470,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Fore Primary Hallway"
-	},
+/obj/machinery/door/airlock/multi_tile/public/glass,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/command{
 	has_gravity = 1
@@ -6970,9 +6480,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/nk006/glass{
-	name = "External Airlock"
-	},
 /turf/open/floor/plating,
 /area/station/hallway/secondary/entry{
 	has_gravity = 1
@@ -6995,15 +6502,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/science/cytology)
-"yi" = (
-/obj/effect/turf_decal/tile/nk006/department_sub_red/half/contrasted{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/nk006/department_specialist/half/contrasted,
-/turf/open/floor/iron,
-/area/station/medical/chemistry{
-	has_gravity = 1
-	})
 "yj" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -7022,9 +6520,7 @@
 	pixel_y = -24;
 	req_access = list("virology")
 	},
-/obj/machinery/door/airlock/nk006/specialist/science/xenobio/viro/glass{
-	name = "Virology"
-	},
+/obj/machinery/door/airlock/virology/glass,
 /turf/open/floor/iron/dark,
 /area/station/medical/virology{
 	has_gravity = 1
@@ -7034,13 +6530,6 @@
 /turf/open/floor/iron,
 /area/station/medical{
 	has_gravity = 1
-	})
-"yl" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/carpet/nk006_any_lime,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
 	})
 "ym" = (
 /obj/structure/rack,
@@ -7065,9 +6554,7 @@
 "yo" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
-/obj/machinery/door/airlock/nk006{
-	name = "Restrooms"
-	},
+/obj/machinery/door/airlock/bathroom,
 /turf/open/floor/iron/dark,
 /area/station/commons/dorms)
 "yp" = (
@@ -7091,9 +6578,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "yt" = (
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron,
@@ -7111,10 +6596,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /turf/open/floor/iron/white,
 /area/station/science/research)
-"yv" = (
-/obj/machinery/light/directional/east,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "yw" = (
 /obj/machinery/stasis,
 /turf/open/floor/iron/white,
@@ -7183,7 +6664,7 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "yH" = (
 /obj/structure/table/reinforced/rglass,
 /obj/item/stack/ducts/fifty,
@@ -7198,19 +6679,11 @@
 /obj/structure/sign/warning/radiation/directional/west,
 /obj/machinery/light/directional/west,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "yJ" = (
 /turf/open/floor/iron/dark,
 /area/station/medical/virology{
 	has_gravity = 1
-	})
-"yK" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/structure/cable,
-/turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
 	})
 "yL" = (
 /obj/machinery/firealarm/directional/east,
@@ -7274,9 +6747,6 @@
 	})
 "yS" = (
 /obj/effect/landmark/start/chemist,
-/obj/effect/turf_decal/tile/nk006/department_specialist/half/contrasted{
-	dir = 1
-	},
 /turf/open/floor/iron,
 /area/station/medical/chemistry{
 	has_gravity = 1
@@ -7304,9 +6774,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/medical/chemlab/glass{
-	name = "Chemlab"
-	},
+/obj/machinery/door/airlock/science/glass,
 /turf/open/floor/iron,
 /area/station/medical/chemistry{
 	has_gravity = 1
@@ -7334,7 +6802,7 @@
 	dir = 8
 	},
 /turf/open/floor/engine/airless,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "ze" = (
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/firealarm/directional/south,
@@ -7360,7 +6828,7 @@
 "zi" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber,
 /turf/open/floor/plating/snowed,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "zk" = (
 /turf/open/floor/plating/cobblestone/planet,
 /area/mine/xenoarch/science/cytology{
@@ -7381,11 +6849,8 @@
 	pixel_y = 8;
 	layer = 4
 	},
-/obj/structure/table/wood/fancy/nk006_any_orange,
-/turf/open/floor/carpet/nk006_any_orange,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/purple,
+/area/station/commons/dorms/apartment1)
 "zr" = (
 /obj/structure/flora/rock/style_random,
 /turf/open/floor/grass,
@@ -7398,7 +6863,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "zy" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -7414,10 +6879,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron,
 /area/station/commons/dorms)
-"zC" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
 "zD" = (
 /obj/machinery/hydroponics/constructable,
 /turf/open/floor/iron,
@@ -7430,9 +6891,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/support/eng/engine/glass{
-	name = "Engine Room"
-	},
+/obj/machinery/door/airlock/engineering/glass/critical,
 /turf/open/floor/iron,
 /area/station/engineering/power_room{
 	has_gravity = 1
@@ -7443,13 +6902,6 @@
 	},
 /turf/open/floor/engine,
 /area/station/science/research)
-"zI" = (
-/obj/machinery/power/apc/sm_apc/directional/south{
-	arc_shielded = 1
-	},
-/obj/structure/cable,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "zJ" = (
 /turf/closed/wall,
 /area/station/command/meeting_room{
@@ -7668,7 +7120,7 @@
 	piping_layer = 2
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Ay" = (
 /mob/living/carbon/human/species/monkey,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -7698,14 +7150,6 @@
 /area/mine/xenoarch/maintenance/west{
 	name = "Tchiko's Castle Jani Closet"
 	})
-"AE" = (
-/obj/effect/turf_decal/tile/nk006/department_specialist/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/station/medical/chemistry{
-	has_gravity = 1
-	})
 "AF" = (
 /obj/machinery/computer/atmos_control/air_tank,
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible,
@@ -7715,9 +7159,7 @@
 	})
 "AG" = (
 /obj/effect/mapping_helpers/airlock/access/any/science/rd,
-/obj/machinery/door/airlock/nk006/specialist/rd{
-	name = "RD Quarters"
-	},
+/obj/machinery/door/airlock/rd,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/rd)
 "AH" = (
@@ -7753,9 +7195,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/genetics/glass{
-	name = "Xenobiology"
-	},
+/obj/machinery/door/airlock/research/glass,
 /turf/open/floor/iron/white,
 /area/station/science/cytology)
 "AO" = (
@@ -7763,21 +7203,6 @@
 /turf/open/floor/iron/pool,
 /area/mine/xenoarch/maintenance/east{
 	name = "Tchiko's Castle Restroom"
-	})
-"AP" = (
-/obj/structure/statue/uranium/eng,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sng)
-"AQ" = (
-/obj/effect/turf_decal/tile/nk006/department_sub_red/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/nk006/department_specialist/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/station/medical/chemistry{
-	has_gravity = 1
 	})
 "AT" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -7811,8 +7236,8 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/nk006/support/fab/glass{
-	name = "Support Fab"
+/obj/machinery/door/airlock/multi_tile/public/glass{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry{
@@ -7831,7 +7256,7 @@
 	dir = 4
 	},
 /turf/closed/wall/r_wall,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Bg" = (
 /obj/machinery/airalarm/directional/east,
 /obj/structure/cable,
@@ -7862,7 +7287,7 @@
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Bl" = (
 /obj/structure/bodycontainer/morgue{
 	dir = 2
@@ -7875,10 +7300,10 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/public/glass{
-	name = "Escape"
-	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/multi_tile/public/glass{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit/departure_lounge{
 	has_gravity = 1
@@ -7886,7 +7311,7 @@
 "Bp" = (
 /obj/structure/closet/radiation,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Br" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -7900,7 +7325,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Bt" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
 /obj/item/clothing/glasses/meson/engine,
@@ -7911,18 +7336,9 @@
 "Bv" = (
 /obj/machinery/computer/atmos_alert,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Bw" = (
 /obj/structure/bed/dogbed,
-/obj/structure/chair/pillow_small{
-	icon_state = "pillowpile_small_spt";
-	pillow1_color_changed = 1;
-	pillow2_color_changed = 1;
-	current_color = "spt";
-	pillow1_color = "spt";
-	pillow2_color = "spt";
-	transform = matrix()*0.75
-	},
 /obj/item/toy/plush/skyrat/borbplushie{
 	attack_verb_simple = list("peep");
 	attack_verb_continuous = list("peeps");
@@ -7953,6 +7369,9 @@
 	desc = "A large, leathery egg.  You feel like its occupant is peeping at you, faintly.";
 	pixel_x = 5;
 	pixel_y = 2
+	},
+/obj/structure/chair/pillow_small{
+	layer = 2.9
 	},
 /turf/open/floor/wood/large,
 /area/mine/xenoarch/engineering{
@@ -8003,10 +7422,8 @@
 	})
 "BE" = (
 /obj/structure/dresser,
-/turf/open/floor/carpet/nk006_any_orange,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/purple,
+/area/station/commons/dorms/apartment1)
 "BG" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -8167,18 +7584,6 @@
 	})
 "Cg" = (
 /obj/structure/flora/rock/pile/style_random,
-/mob/living/simple_animal/hostile/retaliate/tegu{
-	dir = 4;
-	aggro_vision_range = 0;
-	vision_range = 0;
-	AIStatus = 0;
-	move_force = 1;
-	move_resist = 1;
-	wander = 0;
-	can_have_ai = 0;
-	name = "Sana";
-	desc = "Smol!"
-	},
 /turf/open/floor/grass,
 /area/mine/xenoarch/science/cytology{
 	name = "Tchiko's Castle Gardens"
@@ -8207,11 +7612,9 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/machinery/door/airlock/nk006/support/eng/engine/sm/glass{
-	name = "Supermatter Engine"
-	},
+/obj/machinery/door/airlock/engineering/glass/critical,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter)
 "Cj" = (
 /obj/structure/cable,
 /turf/open/floor/plating/snowed,
@@ -8229,9 +7632,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/nk006/specialist/science/robotics/glass{
-	name = "Freeze Chamber"
-	},
+/obj/machinery/door/airlock/research/glass/incinerator,
 /turf/open/floor/iron/dark/airless,
 /area/station/science/ordnance/freezerchamber)
 "Cn" = (
@@ -8262,10 +7663,7 @@
 	volume_rate = 200
 	},
 /turf/open/floor/engine,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "Cr" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 8
@@ -8281,9 +7679,6 @@
 "Cs" = (
 /obj/effect/landmark/navigate_destination/med,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/medical/glass{
-	name = "Medbay Access"
-	},
 /turf/open/floor/iron/white,
 /area/station/hallway/primary/fore{
 	has_gravity = 1
@@ -8333,7 +7728,7 @@
 /obj/machinery/light/floor,
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "CD" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -8346,9 +7741,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/cmo/glass{
-	name = "CMO Office"
-	},
+/obj/machinery/door/airlock/cmo,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/cmo{
 	has_gravity = 1
@@ -8415,9 +7808,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/nk006/specialist/science/robotics/glass{
-	name = "Freeze Chamber"
-	},
+/obj/machinery/door/airlock/research/glass/incinerator,
 /turf/open/floor/iron/dark/airless,
 /area/station/science/ordnance/freezerchamber)
 "CR" = (
@@ -8594,7 +7985,7 @@
 "DC" = (
 /obj/machinery/computer/station_alert,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "DD" = (
 /obj/structure/table,
 /obj/item/assembly/igniter{
@@ -8656,9 +8047,7 @@
 "DL" = (
 /obj/effect/mapping_helpers/airlock/access/all/command/hop,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/support/hop{
-	name = "HOP Quarters"
-	},
+/obj/machinery/door/airlock/hop,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/hop{
 	has_gravity = 1
@@ -8731,19 +8120,11 @@
 	name = "Tchiko's Castle Lounge"
 	})
 "DZ" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Escape"
-	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit/departure_lounge{
 	has_gravity = 1
 	})
-"Eb" = (
-/obj/structure/cable,
-/obj/machinery/light/directional/south,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sng)
 "Ed" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 4
@@ -8757,9 +8138,6 @@
 /area/station/engineering/power_room{
 	has_gravity = 1
 	})
-"Eg" = (
-/turf/closed/wall/r_wall,
-/area/station/nk006/support/eng/engine/sm)
 "Ei" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -8894,16 +8272,14 @@
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "ED" = (
 /obj/effect/mapping_helpers/airlock/access/any/medical/general,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/medical/morgue{
-	name = "Morgue"
-	},
+/obj/machinery/door/airlock/medical/glass,
 /turf/open/floor/iron/white,
 /area/station/medical/morgue{
 	has_gravity = 1
@@ -8924,7 +8300,7 @@
 "EI" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/closed/wall/r_wall,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "EJ" = (
 /obj/structure/closet/secure_closet/freezer/kitchen{
 	req_access = null
@@ -8933,9 +8309,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "EK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -8960,9 +8334,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/landmark/navigate_destination/tcomms,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/support/eng/glass{
-	name = "TComms"
-	},
+/obj/machinery/door/airlock/engineering/glass/critical,
 /turf/open/floor/iron,
 /area/station/tcommsat/computer{
 	has_gravity = 1
@@ -8986,9 +8358,7 @@
 	})
 "EQ" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/airlock/nk006/glass{
-	name = "External Airlock"
-	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/station/engineering/power_room{
 	has_gravity = 1
@@ -9048,9 +8418,7 @@
 /obj/machinery/shower/directional/east,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/white/small,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Fb" = (
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -9083,21 +8451,6 @@
 /area/station/medical/virology{
 	has_gravity = 1
 	})
-"Fj" = (
-/obj/machinery/door/airlock/nk006/specialist/cmo/glass,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/iron/white/smooth_large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
-"Fk" = (
-/obj/structure/cable,
-/obj/machinery/power/apc/sm_apc/directional/north{
-	arc_shielded = 1
-	},
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
 "Fl" = (
 /obj/machinery/power/smes/engineering,
 /turf/open/floor/iron/dark,
@@ -9108,17 +8461,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/science/ordnance)
-"Fn" = (
-/obj/effect/turf_decal/tile/nk006/department_sub_red/half/contrasted{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/nk006/department_specialist/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/station/medical/chemistry{
-	has_gravity = 1
-	})
 "Fo" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 4
@@ -9165,9 +8507,7 @@
 	})
 "Fw" = (
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/machinery/door/airlock/nk006/command/sec/glass{
-	name = "Security"
-	},
+/obj/machinery/door/airlock/security/glass,
 /turf/open/floor/iron,
 /area/station/security{
 	has_gravity = 1
@@ -9186,18 +8526,11 @@
 /obj/machinery/light_switch/directional/east,
 /obj/machinery/keycard_auth/directional/south,
 /obj/structure/bed/double,
-/obj/item/bedsheet/nk006_hos/double,
+/obj/item/bedsheet/hos/double,
 /turf/open/floor/carpet/purple,
 /area/station/command/heads_quarters/hos{
 	has_gravity = 1
 	})
-"FD" = (
-/obj/structure/cable,
-/obj/structure/particle_accelerator/end_cap{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "FE" = (
 /obj/machinery/telecomms/server/presets/science,
 /turf/open/floor/circuit/telecomms/mainframe,
@@ -9247,10 +8580,7 @@
 	volume_rate = 200
 	},
 /turf/open/floor/engine,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "FM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -9262,7 +8592,7 @@
 "FN" = (
 /obj/structure/reflector/box/anchored,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "FR" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -9350,30 +8680,20 @@
 	},
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Gi" = (
-/obj/machinery/modular_computer/console/preset/curator{
-	dir = 1
-	},
-/turf/open/floor/carpet/nk006_hop,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+)
 "Gj" = (
 /obj/effect/mapping_helpers/airlock/access/any/science/general,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
-/obj/machinery/door/airlock/nk006/specialist/science/robotics/glass{
-	name = "Robotics"
-	},
+/obj/machinery/door/airlock/research/glass,
 /turf/open/floor/iron,
 /area/station/science/robotics/mechbay)
 "Gk" = (
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Gm" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 1
@@ -9393,7 +8713,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/reflector/box/anchored,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Gp" = (
 /obj/structure/bed/double{
 	dir = 8
@@ -9410,13 +8730,11 @@
 	name = "Dormitory Privacy Shutters";
 	pixel_y = 8
 	},
-/obj/item/bedsheet/nk006_any_violet/double,
+/obj/item/bedsheet/purple/double,
 /turf/open/floor/carpet/purple,
 /area/station/commons/dorms)
 "Gr" = (
-/obj/machinery/door/airlock/nk006{
-	name = "Restrooms"
-	},
+/obj/machinery/door/airlock/bathroom,
 /turf/open/floor/iron/white,
 /area/station/commons/toilet/restrooms)
 "Gt" = (
@@ -9425,7 +8743,7 @@
 /obj/structure/bed/double{
 	dir = 1
 	},
-/obj/item/bedsheet/nk006_cmo/double{
+/obj/item/bedsheet/cmo/double{
 	dir = 1
 	},
 /turf/open/floor/carpet/green,
@@ -9434,7 +8752,7 @@
 	})
 "Gu" = (
 /turf/closed/wall/r_wall,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "Gv" = (
 /obj/machinery/oven,
 /obj/machinery/microwave{
@@ -9443,9 +8761,7 @@
 	layer = 3
 	},
 /turf/open/floor/iron/kitchen,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Gw" = (
 /obj/machinery/light/directional/south,
 /obj/structure/cable,
@@ -9467,14 +8783,6 @@
 /obj/machinery/hydroponics/constructable,
 /turf/open/floor/iron/kitchen/herringbone,
 /area/station/service/hydroponics/garden)
-"GA" = (
-/obj/effect/turf_decal/tile/nk006/department_specialist/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/station/medical/chemistry{
-	has_gravity = 1
-	})
 "GB" = (
 /obj/machinery/status_display/evac/directional/north,
 /turf/open/floor/iron/pool,
@@ -9499,10 +8807,8 @@
 /area/station/science/ordnance)
 "GF" = (
 /obj/structure/closet/cabinet,
-/turf/open/floor/carpet/nk006_any_lime,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/orange,
+/area/station/commons/dorms/apartment1)
 "GG" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 1
@@ -9536,9 +8842,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/nk006/support/cargo/glass{
-	name = "Cargonia"
-	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/station/cargo/storage{
 	has_gravity = 1
@@ -9594,17 +8898,11 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/effect/mapping_helpers/airlock/access/any/science/general,
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/nk006/specialist/science/robotics/glass{
-	name = "Burn Chamber"
-	},
+/obj/machinery/door/airlock/research/glass/incinerator/ordmix_interior,
 /turf/open/floor/engine,
 /area/station/science/ordnance/burnchamber)
 "Hc" = (
-/obj/machinery/photocopier,
-/turf/open/floor/carpet/nk006_hop,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/obj/machinery/photocopier)
 "Hd" = (
 /obj/machinery/suit_storage_unit/rd,
 /obj/machinery/light/directional/north,
@@ -9615,7 +8913,7 @@
 /obj/structure/closet/firecloset/full,
 /obj/machinery/light/directional/east,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Hh" = (
 /obj/machinery/camera/directional/west{
 	c_tag = "Cargo Receiving Dock"
@@ -9668,7 +8966,7 @@
 "Hm" = (
 /obj/effect/spawner/random/engineering/tracking_beacon,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Ho" = (
 /obj/structure/table,
 /obj/effect/turf_decal/siding/wood{
@@ -9703,18 +9001,10 @@
 /area/station/cargo/miningoffice)
 "Hs" = (
 /obj/structure/chair/pillow_small{
-	icon_state = "pillowpile_small_srv";
-	pillow1_color_changed = 1;
-	pillow2_color_changed = 1;
-	current_color = "srv";
-	pillow1_color = "srv";
-	pillow2_color = "srv";
-	transform = matrix()*0.75
+	layer = 2.9
 	},
-/turf/open/floor/carpet/nk006_any_orange,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/purple,
+/area/station/commons/dorms/apartment1)
 "Ht" = (
 /obj/machinery/computer/telecomms/server,
 /turf/open/floor/iron,
@@ -9735,11 +9025,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
-/obj/machinery/door/airlock/nk006/support/eng/engine/sm/glass{
-	name = "Supermatter Engine"
-	},
+/obj/machinery/door/airlock/engineering/glass/critical,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter)
 "Hz" = (
 /obj/machinery/atmospherics/pipe/smart/simple/violet/visible/layer2{
 	dir = 5
@@ -9759,13 +9047,14 @@
 	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
+/obj/machinery/computer/security/hos,
 /turf/open/floor/carpet/purple,
 /area/station/command/heads_quarters/hos{
 	has_gravity = 1
 	})
 "HD" = (
 /turf/closed/wall/r_wall,
-/area/station/nk006/support/eng/engine/teg)
+/area/station/engineering/supermatter)
 "HF" = (
 /obj/structure/bed/double{
 	dir = 1
@@ -9775,7 +9064,7 @@
 	},
 /obj/machinery/light_switch/directional/west,
 /obj/structure/cable,
-/obj/item/bedsheet/nk006_rd/double{
+/obj/item/bedsheet/rd/double{
 	dir = 1
 	},
 /turf/open/floor/carpet/green,
@@ -9876,9 +9165,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
-/obj/machinery/door/airlock/nk006/glass{
-	name = "External Airlock"
-	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/station/hallway/secondary/exit/departure_lounge{
 	has_gravity = 1
@@ -9889,9 +9176,7 @@
 	},
 /obj/machinery/light/directional/south,
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Ic" = (
 /obj/machinery/light_switch/directional/north,
 /obj/machinery/computer/crew,
@@ -9953,14 +9238,9 @@
 /turf/closed/wall/r_wall,
 /area/station/science/cytology)
 "Ii" = (
-/obj/machinery/door/airlock/nk006/support/hop/glass,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/structure/fans/tiny,
-/turf/open/floor/carpet/nk006_hop,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/obj/structure/fans/tiny)
 "Ij" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
@@ -9971,10 +9251,6 @@
 /area/station/engineering/atmos{
 	has_gravity = 1
 	})
-"Ik" = (
-/obj/machinery/particle_accelerator/control_box,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "Il" = (
 /obj/machinery/module_duplicator,
 /turf/open/floor/iron/white,
@@ -9993,9 +9269,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/white/small,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Ip" = (
 /obj/structure/table,
 /obj/item/assembly/signaler{
@@ -10019,11 +9293,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/science/ordnance/testlab)
-"Iq" = (
-/obj/machinery/light/directional/south,
-/obj/structure/cable,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "Ir" = (
 /obj/machinery/light_switch/directional/north,
 /turf/open/floor/iron/white,
@@ -10034,9 +9303,7 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/effect/mapping_helpers/airlock/access/any/science/general,
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/nk006/specialist/science/robotics/glass{
-	name = "Electrolysis Chamber"
-	},
+/obj/machinery/door/airlock/research/glass/incinerator,
 /turf/open/floor/iron/dark/airless,
 /area/station/science/ordnance)
 "Iu" = (
@@ -10070,7 +9337,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "IB" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 2
@@ -10091,9 +9358,7 @@
 /obj/structure/table/optable,
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/iron/white/smooth_large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "IG" = (
 /obj/effect/spawner/random/medical/two_percent_xeno_egg_spawner,
 /turf/open/floor/engine,
@@ -10107,21 +9372,16 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/nk006/support/eng/engine/sm/glass{
-	name = "Supermatter Engine"
-	},
+/obj/machinery/door/airlock/engineering/glass/critical,
 /turf/open/floor/plating,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "II" = (
 /obj/structure/bed/double,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
 	},
-/obj/item/bedsheet/nk006_any_lime/double,
-/turf/open/floor/carpet/nk006_any_lime,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/orange,
+/area/station/commons/dorms/apartment1)
 "IK" = (
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -10135,17 +9395,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore{
-	has_gravity = 1
-	})
-"IM" = (
-/obj/effect/turf_decal/tile/nk006/department_sub_red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/nk006/department_specialist/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/station/medical/chemistry{
 	has_gravity = 1
 	})
 "IN" = (
@@ -10204,11 +9453,8 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
-/obj/machinery/door/airlock/nk006/command,
-/turf/open/floor/carpet/nk006_any_violet,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/space/basic,
+/area/station/commons/dorms/apartment1)
 "IW" = (
 /obj/structure/closet/secure_closet/bar,
 /obj/machinery/light/directional/west,
@@ -10254,7 +9500,7 @@
 	dir = 1
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Jd" = (
 /obj/machinery/chem_dispenser/drinks{
 	dir = 1
@@ -10305,18 +9551,7 @@
 /area/station/commons/lounge{
 	has_gravity = 1
 	})
-"Jk" = (
-/obj/structure/chair/sofa/corp,
-/obj/machinery/light/directional/north,
-/obj/structure/plaque/static_plaque/to_absent_friends_naakako{
-	pixel_y = 32
-	},
-/turf/open/floor/iron/white,
-/area/station/medical/medbay/lobby{
-	has_gravity = 1
-	})
 "Jm" = (
-/mob/living/simple_animal/chicken,
 /obj/machinery/status_display/evac/directional/east,
 /obj/machinery/light/directional/east,
 /turf/open/floor/grass,
@@ -10392,18 +9627,12 @@
 	dir = 10
 	},
 /obj/structure/cable,
-/obj/machinery/airalarm/mixingchamber{
-	pixel_y = -20;
-	pixel_x = -8
-	},
 /turf/open/floor/iron/white,
 /area/station/science/ordnance/burnchamber)
 "JE" = (
 /obj/structure/sink/directional/west,
 /turf/open/floor/iron/white/small,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "JF" = (
 /turf/closed/wall/mineral/stone,
 /area/mine/xenoarch/living{
@@ -10430,7 +9659,7 @@
 	piping_layer = 1
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "JL" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /turf/open/floor/iron/white,
@@ -10475,9 +9704,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "JR" = (
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/station/tcommsat/server{
@@ -10488,7 +9715,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "JT" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/oxygen_input{
 	dir = 1
@@ -10508,7 +9735,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/light/directional/south,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "JY" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -10532,11 +9759,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/white,
 /area/station/science/research)
-"Kc" = (
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sng{
-	name = "Passive Engine"
-	})
 "Kd" = (
 /obj/machinery/smartfridge/chemistry/virology/preloaded,
 /turf/open/floor/iron/dark,
@@ -10578,7 +9800,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/visible/layer4,
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Kk" = (
 /obj/structure/sink/directional/east,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
@@ -10607,7 +9829,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/violet/visible/layer2,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Ko" = (
 /turf/closed/wall,
 /area/station/hallway/secondary/entry{
@@ -10642,7 +9864,7 @@
 	name = "Dormitory Privacy Shutters";
 	pixel_y = 8
 	},
-/obj/item/bedsheet/nk006_any_orange/double{
+/obj/item/bedsheet/orange/double{
 	dir = 1
 	},
 /turf/open/floor/carpet/orange,
@@ -10650,9 +9872,7 @@
 "Ku" = (
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/structure/cable,
-/obj/machinery/door/airlock/nk006/command/glass{
-	name = "Meeting Room"
-	},
+/obj/machinery/door/airlock/command/glass,
 /turf/open/floor/iron,
 /area/station/command/bridge{
 	has_gravity = 1
@@ -10670,13 +9890,13 @@
 /turf/open/floor/iron/white,
 /area/station/science/robotics/mechbay)
 "KA" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Arrivals"
-	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/multi_tile/public/glass{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore{
 	has_gravity = 1
@@ -10730,11 +9950,6 @@
 /area/station/medical/virology{
 	has_gravity = 1
 	})
-"KI" = (
-/obj/structure/cable,
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "KJ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -10782,7 +9997,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "KT" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 1
@@ -10796,9 +10011,7 @@
 	layer = 2.7
 	},
 /turf/open/floor/iron/white/smooth_large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "KV" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 8;
@@ -10822,15 +10035,6 @@
 	has_gravity = 1
 	})
 "KX" = (
-/obj/structure/chair/pillow_small{
-	icon_state = "pillowpile_small_cmd";
-	pillow1_color_changed = 1;
-	pillow2_color_changed = 1;
-	current_color = "cmd";
-	pillow1_color = "cmd";
-	pillow2_color = "cmd";
-	transform = matrix()*0.75
-	},
 /obj/item/toy/plush/skyrat/borbplushie{
 	attack_verb_simple = list("peep");
 	attack_verb_continuous = list("peeps");
@@ -10861,10 +10065,11 @@
 	pixel_y = -5;
 	pixel_x = -3
 	},
-/turf/open/floor/carpet/nk006_any_violet,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/obj/structure/chair/pillow_small{
+	layer = 2.9
+	},
+/turf/open/floor/carpet/green,
+/area/station/commons/dorms/apartment1)
 "KY" = (
 /obj/machinery/autolathe,
 /turf/open/floor/wood,
@@ -10875,20 +10080,9 @@
 /obj/machinery/status_display/evac/directional/south,
 /turf/open/floor/carpet/orange,
 /area/station/command/heads_quarters/ce)
-"La" = (
-/obj/effect/turf_decal/tile/nk006/department_sub_red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/nk006/department_specialist/anticorner/contrasted,
-/turf/open/floor/iron,
-/area/station/medical/chemistry{
-	has_gravity = 1
-	})
 "Lb" = (
 /turf/open/floor/iron/white/small,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Ld" = (
 /obj/machinery/smartfridge/extract/preloaded,
 /turf/closed/wall/r_wall,
@@ -10908,14 +10102,6 @@
 /area/station/medical/morgue{
 	has_gravity = 1
 	})
-"Lj" = (
-/obj/structure/fans/tiny,
-/obj/structure/cable,
-/obj/machinery/door/airlock/nk006/support/eng/engine/singulo/glass{
-	name = "Radcol Access"
-	},
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "Lk" = (
 /obj/machinery/vending/boozeomat,
 /turf/closed/wall,
@@ -10947,15 +10133,9 @@
 	})
 "Ln" = (
 /obj/structure/table,
-/obj/item/storage/backpack/duffelbag/med/surgery{
-	pixel_y = 12
-	},
 /obj/item/storage/box/beakers/variety,
-/obj/item/roller,
 /turf/open/floor/iron/white/smooth_large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Lo" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
@@ -11019,18 +10199,7 @@
 /area/station/command/heads_quarters/ce)
 "LB" = (
 /obj/machinery/light/directional/south,
-/turf/open/floor/plating/snowed,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
-"LD" = (
-/obj/machinery/power/terminal{
-	dir = 4
-	},
-/obj/structure/cable,
-/obj/structure/tank_dispenser,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sng)
+/turf/open/floor/plating/snowed)
 "LE" = (
 /obj/machinery/autolathe/hacked,
 /obj/machinery/power/apc/auto_name/directional/north{
@@ -11095,7 +10264,7 @@
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "LM" = (
 /obj/effect/spawner/random/engineering/tracking_beacon,
 /turf/open/floor/iron/white,
@@ -11131,7 +10300,7 @@
 "LR" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "LS" = (
 /turf/closed/wall/r_wall,
 /area/station/science/ordnance)
@@ -11145,7 +10314,7 @@
 /obj/item/storage/belt/utility/full/powertools,
 /obj/item/clothing/head/utility/welding,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "LW" = (
 /obj/machinery/computer/operating{
 	dir = 1
@@ -11189,16 +10358,14 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Md" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Mg" = (
-/turf/open/floor/carpet/nk006_any_orange,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/purple,
+/area/station/commons/dorms/apartment1)
 "Mh" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/iron/white,
@@ -11211,7 +10378,7 @@
 	name = "Birdhouse Entry Hall"
 	})
 "Mj" = (
-/obj/machinery/modular_computer/console/preset/command,
+/obj/machinery/modular_computer/preset/id,
 /turf/open/floor/iron,
 /area/station/command/bridge{
 	has_gravity = 1
@@ -11236,10 +10403,7 @@
 /area/station/command/heads_quarters/rd)
 "Mn" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/airlock/external{
-	name = "Port Docking Bay 1";
-	space_dir = 1
-	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/station/hallway/secondary/entry{
 	has_gravity = 1
@@ -11262,7 +10426,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible/layer1,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Mr" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/auto_name/directional/west{
@@ -11281,7 +10445,7 @@
 	has_gravity = 1
 	})
 "Mu" = (
-/obj/machinery/modular_computer/console/preset/id{
+/obj/machinery/modular_computer/preset/research{
 	dir = 1
 	},
 /turf/open/floor/carpet/green,
@@ -11324,9 +10488,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/science/xenobio/viro/glass{
-	name = "Virology"
-	},
+/obj/machinery/door/airlock/virology/glass,
 /turf/open/floor/iron/dark,
 /area/station/medical/virology{
 	has_gravity = 1
@@ -11337,13 +10499,6 @@
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/engine,
 /area/station/science/research)
-"MF" = (
-/obj/machinery/power/emitter/welded{
-	dir = 8
-	},
-/obj/structure/cable,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "MG" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 10
@@ -11391,12 +10546,6 @@
 /area/station/medical/cryo{
 	has_gravity = 1
 	})
-"MP" = (
-/obj/effect/turf_decal/tile/nk006/department_sub_red/half/contrasted,
-/turf/open/floor/iron,
-/area/station/medical/chemistry{
-	has_gravity = 1
-	})
 "MR" = (
 /turf/closed/wall,
 /area/station/medical/chemistry{
@@ -11413,9 +10562,7 @@
 /obj/effect/landmark/navigate_destination/bridge,
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/command/glass{
-	name = "Bridge"
-	},
+/obj/machinery/door/airlock/command/glass,
 /turf/open/floor/iron,
 /area/station/command/bridge{
 	has_gravity = 1
@@ -11441,10 +10588,7 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "MZ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -11472,14 +10616,11 @@
 	})
 "Nd" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/sm_apc/directional/north{
-	arc_shielded = 1
-	},
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
 	piping_layer = 2
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Nf" = (
 /obj/machinery/stasis,
 /obj/machinery/light/directional/east,
@@ -11488,9 +10629,7 @@
 	},
 /obj/machinery/iv_drip,
 /turf/open/floor/iron/white/smooth_large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Ni" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/open/floor/iron,
@@ -11590,7 +10729,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /obj/machinery/light/directional/east,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "ND" = (
 /obj/machinery/medical_kiosk,
 /turf/open/floor/iron/white,
@@ -11602,9 +10741,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
-/obj/machinery/door/airlock/nk006/support/cargo/glass{
-	name = "Cargonia"
-	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/station/cargo/storage{
 	has_gravity = 1
@@ -11648,9 +10785,6 @@
 "NK" = (
 /turf/open/floor/engine/vacuum,
 /area/station/science/ordnance/burnchamber)
-"NL" = (
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sng)
 "NN" = (
 /obj/machinery/power/apc/auto_name/directional/north{
 	arc_shielded = 1
@@ -11687,18 +10821,14 @@
 	req_access = null
 	},
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "NU" = (
 /obj/effect/mapping_helpers/airlock/access/any/science/general,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/science/robotics/glass{
-	name = "Toxins"
-	},
+/obj/machinery/door/airlock/research/glass,
 /turf/open/floor/iron/white,
 /area/station/science/ordnance)
 "NV" = (
@@ -11751,7 +10881,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Of" = (
 /obj/machinery/light/directional/west,
 /turf/open/floor/carpet/purple,
@@ -11761,9 +10891,7 @@
 "Oh" = (
 /obj/effect/mapping_helpers/airlock/access/all/security/hos,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/command/hos{
-	name = "HOS Quarters"
-	},
+/obj/machinery/door/airlock/hos,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/hos{
 	has_gravity = 1
@@ -11849,10 +10977,7 @@
 /area/station/science/research)
 "Ow" = (
 /turf/closed/wall/r_wall,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "Ox" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 4
@@ -11879,12 +11004,13 @@
 	name = "Tchiko's Castle Lounge"
 	})
 "OA" = (
-/obj/machinery/power/emitter/welded{
-	dir = 4
+/obj/machinery/computer/department_orders/security{
+	dir = 8
 	},
-/obj/structure/cable,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
+/turf/open/floor/iron,
+/area/station/security{
+	has_gravity = 1
+	})
 "OB" = (
 /turf/open/floor/engine,
 /area/station/science/cytology)
@@ -11940,10 +11066,6 @@
 "OL" = (
 /turf/open/floor/iron,
 /area/station/science/research)
-"OM" = (
-/obj/machinery/power/smes/engineering,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "ON" = (
 /obj/structure/sign/directions/supply{
 	pixel_y = 8
@@ -11952,13 +11074,6 @@
 /area/station/engineering/power_room{
 	has_gravity = 1
 	})
-"OO" = (
-/obj/structure/cable,
-/obj/structure/particle_accelerator/fuel_chamber{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "OP" = (
 /obj/structure/window/reinforced,
 /obj/structure/flora/grass/green/style_random,
@@ -11979,10 +11094,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
-/turf/open/floor/plating/snowed,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/plating/snowed)
 "OV" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 4
@@ -12063,12 +11175,10 @@
 	has_gravity = 1
 	})
 "Pe" = (
-/obj/machinery/door/airlock/external{
-	name = "Port Docking Bay 1"
-	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/station/hallway/secondary/entry{
 	has_gravity = 1
@@ -12088,16 +11198,14 @@
 /obj/structure/cable,
 /obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "Pk" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
 /obj/machinery/holopad/secure,
 /turf/open/floor/iron/kitchen,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Pm" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -12144,9 +11252,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/medical/glass{
-	name = "Medbay Access"
-	},
+/obj/machinery/door/airlock/multi_tile/public/glass,
 /turf/open/floor/iron/white,
 /area/station/hallway/primary/fore{
 	has_gravity = 1
@@ -12231,7 +11337,7 @@
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/clothing/head/utility/welding,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "PO" = (
 /obj/machinery/light_switch/directional/north,
 /turf/open/floor/carpet/purple,
@@ -12249,7 +11355,7 @@
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "PR" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 9
@@ -12300,26 +11406,6 @@
 	},
 /turf/open/floor/carpet/green,
 /area/station/commons/dorms)
-"Qd" = (
-/mob/living/simple_animal/hostile/asteroid/goliath/beast{
-	unique_name = 1;
-	name_archive = "Rilo";
-	real_name = "Rilo";
-	name = "Rilo";
-	can_have_ai = 0;
-	aggro_vision_range = 0;
-	vision_range = 0;
-	AIStatus = 0;
-	wander = 0;
-	move_force = 1;
-	move_resist = 1;
-	dir = 8;
-	desc = "Fierce."
-	},
-/turf/open/floor/grass,
-/area/mine/xenoarch/science/cytology{
-	name = "Tchiko's Castle Gardens"
-	})
 "Qe" = (
 /obj/structure/marker_beacon/burgundy,
 /turf/open/misc/asteroid/snow/icemoon,
@@ -12349,6 +11435,9 @@
 /area/station/science/research)
 "Qi" = (
 /obj/machinery/light/directional/east,
+/obj/machinery/modular_computer/preset/cargochat/engineering{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/station/engineering/atmos{
 	has_gravity = 1
@@ -12361,7 +11450,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "Qk" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -12398,9 +11487,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
-/obj/machinery/door/airlock/nk006/glass{
-	name = "External Airlock"
-	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/station/hallway/secondary/exit/departure_lounge{
 	has_gravity = 1
@@ -12428,16 +11515,6 @@
 /obj/structure/table/reinforced/rglass,
 /obj/machinery/light/directional/south,
 /obj/machinery/firealarm/directional/south,
-/mob/living/simple_animal/pet/cat/syndicat{
-	health = 50000;
-	can_have_ai = 0;
-	AIStatus = 0;
-	wander = 0;
-	move_force = 1;
-	move_resist = 1;
-	pixel_y = 13;
-	dir = 4
-	},
 /turf/open/floor/carpet/purple,
 /area/station/command/meeting_room{
 	has_gravity = 1
@@ -12453,7 +11530,7 @@
 	critical_machine = 1
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Qx" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 4
@@ -12469,9 +11546,7 @@
 "Qy" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/nk006/specialist{
-	name = "Dorm Room 2"
-	},
+/obj/machinery/door/airlock,
 /turf/open/floor/iron/dark,
 /area/station/commons/dorms)
 "Qz" = (
@@ -12564,9 +11639,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/command/hos/glass{
-	name = "HOS Office"
-	},
+/obj/machinery/door/airlock/hos,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/hos{
 	has_gravity = 1
@@ -12603,7 +11676,7 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "QX" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
@@ -12619,10 +11692,8 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/carpet/nk006_any_lime,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/orange,
+/area/station/commons/dorms/apartment1)
 "Rb" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
@@ -12683,7 +11754,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Rj" = (
 /obj/machinery/light/directional/west,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
@@ -12693,9 +11764,7 @@
 	req_access = null
 	},
 /turf/open/floor/iron/white/smooth_large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Rl" = (
 /obj/machinery/light/directional/south,
 /obj/structure/table/reinforced/rglass,
@@ -12727,7 +11796,7 @@
 	dir = 1
 	},
 /turf/open/floor/engine/airless,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "Rp" = (
 /turf/open/lava/plasma/ice_moon,
 /area/icemoon/underground/explored)
@@ -12746,13 +11815,6 @@
 /area/station/engineering/atmos/project{
 	has_gravity = 1
 	})
-"Rs" = (
-/obj/structure/cable,
-/obj/structure/particle_accelerator/power_box{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "Ru" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer2,
@@ -12760,10 +11822,7 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "Rv" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -12805,24 +11864,15 @@
 	dir = 1
 	},
 /obj/machinery/light/directional/south,
-/obj/item/storage/backpack/duffelbag/med/surgery{
-	pixel_y = 12
-	},
 /turf/open/floor/iron/white,
 /area/station/medical/morgue{
 	has_gravity = 1
 	})
 "RD" = (
-/turf/closed/wall/mineral/wood,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/closed/wall/mineral/wood)
 "RE" = (
 /obj/structure/bookcase/random/reference,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "RG" = (
 /obj/effect/mapping_helpers/airlock/access/any/science/general,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -12830,9 +11880,7 @@
 /obj/structure/cable,
 /obj/effect/landmark/navigate_destination/research,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/science/glass{
-	name = "Science"
-	},
+/obj/machinery/door/airlock/research/glass,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "RH" = (
@@ -12859,9 +11907,7 @@
 "RJ" = (
 /obj/machinery/griddle,
 /turf/open/floor/iron/kitchen,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "RK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -12879,7 +11925,7 @@
 /obj/structure/cable,
 /obj/machinery/power/emitter/welded,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "RP" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 5
@@ -12900,7 +11946,7 @@
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "RR" = (
 /obj/effect/turf_decal/stripes/red/line,
 /turf/open/floor/engine,
@@ -12932,7 +11978,6 @@
 /turf/open/floor/iron/white,
 /area/station/science/ordnance)
 "Sa" = (
-/mob/living/simple_animal/pet/fox/renault,
 /turf/open/floor/carpet/purple,
 /area/station/command/heads_quarters/captain/private)
 "Sb" = (
@@ -12961,11 +12006,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /obj/machinery/meter,
 /turf/closed/wall/r_wall,
-/area/station/nk006/support/eng/engine/sm/chamber)
-"Sf" = (
-/obj/machinery/light/directional/south,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
+/area/station/engineering/supermatter/room)
 "Sg" = (
 /obj/structure/table/reinforced/rglass,
 /obj/structure/table/reinforced/rglass,
@@ -13003,21 +12044,19 @@
 	},
 /obj/machinery/anesthetic_machine,
 /turf/open/floor/iron/white/smooth_large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Sm" = (
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/iron/white,
 /area/station/commons/toilet/restrooms)
 "Sn" = (
-/obj/machinery/modular_computer/console/preset/id,
 /obj/machinery/requests_console/directional/north{
 	announcementConsole = 1;
 	department = "Head of Personnel's Desk";
 	departmentType = 5;
 	name = "Head of Personnel's Requests Console"
 	},
+/obj/machinery/modular_computer/preset/id,
 /turf/open/floor/carpet/orange,
 /area/station/command/heads_quarters/hop{
 	has_gravity = 1
@@ -13034,10 +12073,7 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "Sr" = (
 /obj/machinery/airalarm/directional/north,
 /obj/machinery/requests_console/directional/west{
@@ -13048,7 +12084,6 @@
 	},
 /obj/structure/table/reinforced/rglass,
 /obj/machinery/computer/med_data/laptop,
-/obj/item/stamp/cmo,
 /obj/item/folder/blue{
 	pixel_x = 6;
 	pixel_y = 6
@@ -13081,7 +12116,7 @@
 /obj/machinery/power/smes/engineering,
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Sx" = (
 /obj/structure/sign/warning,
 /turf/closed/wall/ice,
@@ -13101,7 +12136,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "SC" = (
 /obj/machinery/atmospherics/components/binary/valve/digital{
 	dir = 4
@@ -13111,7 +12146,7 @@
 "SG" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "SH" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -13135,9 +12170,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/airlock/nk006/glass{
-	name = "External Airlock"
-	},
 /turf/open/floor/plating,
 /area/station/hallway/secondary/entry{
 	has_gravity = 1
@@ -13148,7 +12180,6 @@
 /obj/item/pickaxe/mini{
 	pixel_x = 8
 	},
-/obj/item/stamp/captain,
 /obj/machinery/requests_console/directional/west{
 	announcementConsole = 1;
 	department = "Captain's Desk";
@@ -13167,13 +12198,8 @@
 /obj/structure/closet/secure_closet/chief_medical,
 /obj/item/screwdriver,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
-/obj/item/reagent_containers/spray/bluespace{
-	icon_state = "sprayer_blu_spt";
-	inhand_icon_state = "sprayer_blu_spt";
-	list_reagents = list(/datum/reagent/space_cleaner=400);
-	current_skin = sprayer_blu_spt
-	},
 /obj/machinery/status_display/evac/directional/east,
+/obj/item/stamp/head/cmo,
 /turf/open/floor/carpet/green,
 /area/station/command/heads_quarters/cmo{
 	has_gravity = 1
@@ -13225,13 +12251,8 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 4
 	},
-/obj/item/bedsheet/nk006_any_orange/double{
-	dir = 1
-	},
-/turf/open/floor/carpet/nk006_any_orange,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/purple,
+/area/station/commons/dorms/apartment1)
 "Td" = (
 /obj/machinery/newscaster/directional/east,
 /turf/open/floor/carpet/orange,
@@ -13262,10 +12283,6 @@
 /area/mine/living_quarters{
 	name = "Birdhouse Snuggle Room"
 	})
-"Th" = (
-/obj/machinery/field/generator/anchored,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/teg)
 "Ti" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
@@ -13325,9 +12342,7 @@
 /obj/item/fancy_pillow,
 /obj/item/fancy_pillow,
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Tp" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 4
@@ -13343,15 +12358,13 @@
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Tr" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
 /obj/effect/landmark/navigate_destination/dorms,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006{
-	name = "Restrooms"
-	},
+/obj/machinery/door/airlock/multi_tile/public/glass,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit/departure_lounge{
 	has_gravity = 1
@@ -13359,18 +12372,14 @@
 "Ts" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Tt" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/any/service/general,
-/obj/machinery/door/airlock/nk006/specialist/science/xenobio/glass{
-	name = "Garden"
-	},
+/obj/machinery/door/airlock/glass,
 /turf/open/floor/iron/kitchen/herringbone,
 /area/station/service/hydroponics/garden)
 "Tu" = (
@@ -13402,15 +12411,11 @@
 /area/station/science/cytology)
 "Ty" = (
 /obj/machinery/computer/libraryconsole,
-/obj/structure/table/wood/fancy/nk006_hop,
 /obj/structure/cable,
 /obj/machinery/power/apc/auto_name/directional/west{
 	arc_shielded = 1
 	},
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "TD" = (
 /obj/structure/table,
 /turf/open/floor/engine,
@@ -13457,9 +12462,7 @@
 /obj/structure/sink/directional/east,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/white/small,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "TP" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -13497,12 +12500,6 @@
 /mob/living/basic/cow,
 /turf/open/floor/grass,
 /area/station/service/hydroponics/garden)
-"TW" = (
-/obj/vehicle/sealed/mecha/working/ripley/cargo,
-/turf/open/floor/iron,
-/area/station/cargo/storage{
-	has_gravity = 1
-	})
 "TX" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
@@ -13517,7 +12514,7 @@
 	dir = 6
 	},
 /turf/open/floor/engine/airless,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "TY" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 6
@@ -13525,9 +12522,6 @@
 /turf/open/floor/engine,
 /area/station/science/cytology)
 "TZ" = (
-/obj/structure/plaque/static_plaque/to_absent_friends_naakako{
-	pixel_x = 32
-	},
 /obj/machinery/rnd/production/techfab/department/service,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/exit/departure_lounge{
@@ -13539,9 +12533,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/medical/surgery{
-	name = "Surgical Theatre"
-	},
+/obj/machinery/door/airlock/medical/glass,
 /turf/open/floor/iron/white,
 /area/station/medical/treatment_center{
 	has_gravity = 1
@@ -13596,7 +12588,6 @@
 	has_gravity = 1
 	})
 "Um" = (
-/turf/open/genturf/alternative,
 /area/icemoon/underground/unexplored/rivers/deep/shoreline)
 "Un" = (
 /obj/machinery/holopad,
@@ -13624,9 +12615,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/command/sec/glass{
-	name = "Security"
-	},
+/obj/machinery/door/airlock/security/glass,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/command{
 	has_gravity = 1
@@ -13647,9 +12636,7 @@
 	},
 /obj/machinery/defibrillator_mount/directional/east,
 /turf/open/floor/iron/white/smooth_large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Uw" = (
 /obj/structure/table/reinforced/rglass,
 /obj/item/screwdriver{
@@ -13676,24 +12663,19 @@
 /obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /obj/structure/fans/tiny,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "Uz" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "UA" = (
 /obj/effect/mapping_helpers/airlock/access/any/medical/general,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/medical/pharmacy/glass{
-	name = "Pharmacy"
-	},
+/obj/machinery/door/airlock/science/glass,
 /turf/open/floor/iron/white,
 /area/station/medical/pharmacy{
 	has_gravity = 1
@@ -13718,9 +12700,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/effect/landmark/navigate_destination/cargo,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/support/cargo/glass{
-	name = "Cargonia"
-	},
+/obj/machinery/door/airlock/mining/glass,
 /turf/open/floor/iron,
 /area/station/engineering/atmos{
 	has_gravity = 1
@@ -13735,10 +12715,8 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
-/turf/open/floor/carpet/nk006_any_violet,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/green,
+/area/station/commons/dorms/apartment1)
 "UJ" = (
 /turf/open/floor/wood,
 /area/mine/storage{
@@ -13835,20 +12813,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "Vb" = (
-/obj/machinery/airalarm/mixingchamber{
-	dir = 1;
-	pixel_y = 25
-	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/engine,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "Vc" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -13856,14 +12827,6 @@
 /obj/structure/table/reinforced/rglass,
 /obj/item/storage/box/syringes{
 	pixel_y = -8
-	},
-/obj/item/reagent_containers/spray/bluespace{
-	icon_state = "sprayer_blu_spt";
-	inhand_icon_state = "sprayer_blu_spt";
-	list_reagents = list(/datum/reagent/space_cleaner=400);
-	current_skin = sprayer_blu_spt;
-	pixel_y = -6;
-	pixel_x = 11
 	},
 /obj/item/storage/medkit/surgery{
 	pixel_y = 10;
@@ -13931,11 +12894,8 @@
 	})
 "Vk" = (
 /obj/structure/bed/double,
-/obj/item/bedsheet/nk006_any_violet/double,
-/turf/open/floor/carpet/nk006_any_violet,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/green,
+/area/station/commons/dorms/apartment1)
 "Vm" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
@@ -14018,7 +12978,7 @@
 /obj/structure/bed/double{
 	dir = 1
 	},
-/obj/item/bedsheet/nk006_captain/double{
+/obj/item/bedsheet/captain/double{
 	dir = 1
 	},
 /turf/open/floor/carpet/purple,
@@ -14064,15 +13024,10 @@
 "VG" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "VH" = (
 /obj/effect/mapping_helpers/airlock/access/any/engineering/ce,
-/obj/machinery/door/airlock/nk006/support/ce{
-	name = "CE Quarters"
-	},
+/obj/machinery/door/airlock/ce,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/ce)
 "VI" = (
@@ -14082,6 +13037,7 @@
 	layer = 2.9
 	},
 /obj/machinery/airalarm/directional/west,
+/obj/item/stamp/head/captain,
 /turf/open/floor/carpet/purple,
 /area/station/command/heads_quarters/captain/private)
 "VJ" = (
@@ -14091,7 +13047,6 @@
 	has_gravity = 1
 	})
 "VK" = (
-/obj/machinery/modular_computer/console/preset/engineering,
 /obj/machinery/requests_console/directional/north{
 	announcementConsole = 1;
 	department = "Chief Engineer's Desk";
@@ -14099,13 +13054,14 @@
 	name = "Chief Engineer's Requests Console"
 	},
 /obj/machinery/airalarm/directional/west,
+/obj/machinery/modular_computer/preset/id,
 /turf/open/floor/carpet/orange,
 /area/station/command/heads_quarters/ce)
 "VM" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/visible/layer4,
 /obj/machinery/meter/layer4,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "VQ" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -14138,15 +13094,13 @@
 	},
 /obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "VT" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/support/atmosia/mix/glass{
-	name = "Atmosia"
-	},
+/obj/machinery/door/airlock/atmos/glass,
 /turf/open/floor/iron,
 /area/station/engineering/atmos/project{
 	has_gravity = 1
@@ -14162,10 +13116,10 @@
 /turf/open/floor/iron/white,
 /area/station/commons/toilet/restrooms)
 "VW" = (
-/obj/machinery/modular_computer/console/preset/cargochat/cargo{
+/obj/machinery/light/directional/south,
+/obj/machinery/modular_computer/preset/cargochat/cargo{
 	dir = 1
 	},
-/obj/machinery/light/directional/south,
 /turf/open/floor/iron,
 /area/station/cargo/storage{
 	has_gravity = 1
@@ -14229,7 +13183,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "Wj" = (
 /obj/structure/cable,
 /obj/machinery/button/door/directional/north{
@@ -14243,7 +13197,7 @@
 	pixel_y = -32
 	},
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter)
 "Wk" = (
 /mob/living/carbon/human/species/monkey,
 /obj/structure/cable,
@@ -14273,9 +13227,7 @@
 "Wq" = (
 /obj/machinery/deepfryer,
 /turf/open/floor/iron/kitchen,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Wr" = (
 /obj/structure/rack,
 /obj/item/multitool,
@@ -14321,9 +13273,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/support/qm/glass{
-	name = "QM's Office"
-	},
+/obj/machinery/door/airlock/qm,
 /turf/open/floor/iron,
 /area/station/cargo/storage{
 	has_gravity = 1
@@ -14340,10 +13290,8 @@
 /turf/open/floor/iron/kitchen/herringbone,
 /area/station/service/hydroponics/garden)
 "WA" = (
-/turf/open/floor/carpet/nk006_any_violet,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/green,
+/area/station/commons/dorms/apartment1)
 "WB" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -14373,14 +13321,13 @@
 /obj/structure/closet/secure_closet/research_director,
 /obj/machinery/airalarm/directional/north,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
+/obj/item/stamp/head/rd,
 /turf/open/floor/carpet/green,
 /area/station/command/heads_quarters/rd)
 "WI" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/white/smooth_large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "WL" = (
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible/layer2{
 	dir = 9
@@ -14408,9 +13355,7 @@
 	})
 "WO" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/machinery/door/airlock/nk006/support/eng/engine/glass{
-	name = "Engine Room"
-	},
+/obj/machinery/door/airlock/engineering/glass/critical,
 /turf/open/floor/iron{
 	dir = 1
 	},
@@ -14438,15 +13383,11 @@
 /turf/open/floor/iron/white,
 /area/station/science/ordnance)
 "WS" = (
-/obj/machinery/door/airlock/nk006/support/service/glass,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
 /obj/structure/fans/tiny,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "WU" = (
 /turf/open/floor/iron/kitchen/herringbone,
 /area/station/service/hydroponics/garden)
@@ -14470,9 +13411,7 @@
 /obj/machinery/light_switch/directional/south,
 /obj/machinery/rnd/production/protolathe/department/medical,
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "WY" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
@@ -14501,27 +13440,18 @@
 "Xe" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/closed/wall/r_wall,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "Xf" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/effect/landmark/navigate_destination/hydro,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/nk006/specialist/science/xenobio/glass{
-	name = "Botany"
-	},
+/obj/machinery/door/airlock/glass,
 /turf/open/floor/iron,
 /area/station/service/hydroponics{
 	has_gravity = 1
 	})
-"Xg" = (
-/obj/structure/cable,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
 "Xi" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/firedoor,
@@ -14561,17 +13491,11 @@
 	})
 "Xo" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
-/obj/machinery/power/apc/sm_apc/directional/north{
-	arc_shielded = 1
-	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/engine,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "Xp" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/spawner/random/engineering/tracking_beacon,
@@ -14597,7 +13521,7 @@
 /obj/machinery/portable_atmospherics/canister/proto_nitrate,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/visible/layer4,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "Xu" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/carpet/green,
@@ -14651,10 +13575,7 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/station/engineering/supermatter/room{
-	has_gravity = 1;
-	name = "\improper Tesla Engine Room"
-	})
+/area/station/engineering/supermatter/waste)
 "XC" = (
 /obj/structure/table/reinforced/plastitaniumglass,
 /obj/item/kitchen/rollingpin{
@@ -14671,14 +13592,6 @@
 	pixel_x = -11;
 	pixel_y = 15
 	},
-/obj/item/reagent_containers/spray/bluespace{
-	icon_state = "sprayer_blu_spt";
-	inhand_icon_state = "sprayer_blu_spt";
-	list_reagents = list(/datum/reagent/space_cleaner=400);
-	current_skin = sprayer_blu_spt;
-	pixel_x = -3;
-	pixel_y = 13
-	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -14694,17 +13607,12 @@
 	})
 "XG" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "XH" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/machinery/door/airlock/nk006/glass{
-	name = "External Airlock"
-	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/station/engineering/power_room{
 	has_gravity = 1
@@ -14734,20 +13642,12 @@
 "XQ" = (
 /obj/structure/bookcase{
 	name = "Forbidden Knowledge"
-	},
-/turf/open/floor/carpet/nk006_hop,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
 	})
 "XS" = (
 /turf/open/floor/iron/white,
 /area/station/medical/treatment_center{
 	has_gravity = 1
 	})
-"XT" = (
-/obj/machinery/light/directional/west,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sng)
 "XU" = (
 /obj/effect/spawner/random/engineering/tracking_beacon,
 /turf/open/floor/iron/white,
@@ -14847,21 +13747,15 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Yj" = (
 /obj/item/flashlight/lamp{
 	pixel_y = 8;
 	layer = 4
 	},
-/obj/structure/table/wood/fancy/nk006_any_violet,
-/turf/open/floor/carpet/nk006_any_violet,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/green,
+/area/station/commons/dorms/apartment1)
 "Yl" = (
-/obj/effect/landmark/start/security_medic,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/security{
@@ -14870,17 +13764,13 @@
 "Yn" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/carpet/nk006_any_violet,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/turf/open/floor/carpet/green,
+/area/station/commons/dorms/apartment1)
 "Yo" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "Yp" = (
 /obj/structure/table/reinforced/rglass,
 /obj/machinery/status_display/evac/directional/south,
@@ -14952,9 +13842,6 @@
 	})
 "Yz" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/glass_large{
-	name = "Tchiko's Castle"
-	},
 /turf/open/floor/plating/cobblestone/planet,
 /area/mine/xenoarch/science/cytology{
 	name = "Tchiko's Castle Gardens"
@@ -15009,9 +13896,7 @@
 	},
 /obj/item/food/sweet_piru_noodles,
 /turf/open/floor/iron/kitchen,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "YG" = (
 /obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /obj/structure/window/reinforced/plasma{
@@ -15020,7 +13905,7 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange/visible,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm/chamber)
+/area/station/engineering/supermatter/room)
 "YI" = (
 /obj/machinery/holopad,
 /obj/structure/cable,
@@ -15100,10 +13985,7 @@
 	})
 "YW" = (
 /obj/structure/bookcase/random/religion,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "YX" = (
 /obj/structure/table,
 /obj/item/plant_analyzer,
@@ -15121,17 +14003,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/pool,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
-"Za" = (
-/obj/effect/turf_decal/tile/nk006/department_specialist/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/station/medical/chemistry{
-	has_gravity = 1
-	})
+/area/station/commons/dorms/apartment1)
 "Zb" = (
 /turf/closed/wall,
 /area/station/commons/toilet/restrooms)
@@ -15143,17 +14015,11 @@
 /area/station/command/heads_quarters/captain/private)
 "Ze" = (
 /obj/effect/mapping_helpers/airlock/access/any/medical/cmo,
-/obj/machinery/door/airlock/nk006/specialist/cmo{
-	name = "CMO Quarters"
-	},
+/obj/machinery/door/airlock/cmo,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/cmo{
 	has_gravity = 1
 	})
-"Zf" = (
-/obj/structure/cable,
-/turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sng)
 "Zg" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 4
@@ -15239,11 +14105,7 @@
 	})
 "Zx" = (
 /obj/structure/destructible/cult/item_dispenser/archives/library,
-/obj/item/book/codex_gigas,
-/turf/open/floor/carpet/nk006_hop,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/obj/item/book/codex_gigas)
 "Zy" = (
 /obj/structure/sign/directions/supply{
 	pixel_y = 8;
@@ -15264,7 +14126,7 @@
 /obj/structure/cable,
 /obj/structure/fans/tiny,
 /turf/open/floor/engine,
-/area/station/nk006/support/eng/engine/sm)
+/area/station/engineering/supermatter)
 "ZB" = (
 /obj/structure/toilet{
 	dir = 1
@@ -15274,14 +14136,11 @@
 	has_gravity = 1
 	})
 "ZE" = (
-/obj/machinery/door/airlock/nk006/glass,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
 /turf/open/floor/wood/large,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "ZF" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
 /turf/open/floor/iron,
@@ -15299,16 +14158,10 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 1
 	},
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "ZL" = (
 /obj/machinery/light/floor,
-/turf/open/floor/wood/large,
-/area/station/nk006/support/srv/vip{
-	name = "Ranya's Library"
-	})
+/turf/open/floor/wood/large)
 "ZM" = (
 /obj/structure/cable,
 /obj/structure/cable,
@@ -15377,9 +14230,7 @@
 	},
 /obj/effect/spawner/liquids_spawner,
 /turf/open/floor/iron/pool,
-/area/station/nk006/specialist/rob{
-	name = "Casa de Ko"
-	})
+/area/station/commons/dorms/apartment1)
 "ZY" = (
 /obj/machinery/atmospherics/components/unary/passive_vent/layer2{
 	dir = 1
@@ -18746,19 +17597,19 @@ BT
 Wx
 Cj
 Qe
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
+HD
+HD
+HD
+HD
+HD
+HD
+HD
+HD
+HD
+HD
+HD
 oV
-Eg
+HD
 hQ
 hQ
 hQ
@@ -18801,7 +17652,7 @@ BT
 EX
 PC
 FG
-Qd
+gX
 xc
 BC
 eb
@@ -19003,19 +17854,19 @@ BT
 Wx
 Cj
 Wx
-Eg
-pP
+HD
+xd
 PQ
 wL
 PQ
-pP
+xd
 PQ
-pP
+xd
 PQ
 wL
-pP
+xd
 fO
-Eg
+HD
 Wx
 Wx
 PK
@@ -19260,8 +18111,8 @@ BT
 Wx
 Cj
 Wx
-Eg
-pP
+HD
+xd
 rw
 sg
 rw
@@ -19270,9 +18121,9 @@ rw
 sg
 rw
 sg
-pP
+xd
 Xt
-Eg
+HD
 nz
 Wx
 HN
@@ -19500,24 +18351,24 @@ Vq
 Vq
 "}
 (17,1,1) = {"
-kx
-kx
-kx
-kx
-kx
-kx
-kx
-kx
-kx
-kx
-kx
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 BT
 BT
 BT
 la
 Cj
 la
-Eg
+HD
 vV
 Qw
 we
@@ -19529,7 +18380,7 @@ Qw
 we
 ia
 VM
-Eg
+HD
 Wx
 KP
 JP
@@ -19757,36 +18608,36 @@ Vq
 Vq
 "}
 (18,1,1) = {"
-kx
-NL
-NL
-NL
-XT
-NL
-NL
-NL
-NL
-NL
-kx
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 BT
 BT
 BT
 la
 Cj
 la
-Eg
+HD
 Kj
 nU
 ld
-pP
+xd
 ld
-pP
+xd
 ld
 nU
 ld
 lr
 Gg
-Eg
+HD
 Wx
 KP
 aX
@@ -20014,24 +18865,24 @@ Vq
 Vq
 "}
 (19,1,1) = {"
-kx
-NL
-NL
-NL
-NL
-NL
-NL
-NL
-NL
-hF
-kx
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 BT
 BT
 BT
 la
 Cj
 la
-Eg
+HD
 Kj
 tk
 fg
@@ -20271,24 +19122,24 @@ Vq
 Vq
 "}
 (20,1,1) = {"
-kx
-oe
-oe
-oe
-oe
-oe
-oe
-oe
-NL
-NL
-kx
-kx
-kx
-kx
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 la
 Cj
 la
-Eg
+HD
 Kj
 SG
 gI
@@ -20528,27 +19379,27 @@ Vq
 Vq
 "}
 (21,1,1) = {"
-kx
-oe
-NL
-NL
-NL
-NL
-NL
-oe
-NL
-NL
-NL
-NL
-dw
-kx
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 la
 Cj
 la
-Eg
+HD
 Kj
 SG
-pP
+xd
 JW
 Gu
 Gu
@@ -20785,24 +19636,24 @@ Vq
 Vq
 "}
 (22,1,1) = {"
-kx
-oe
-NL
-NL
-NL
-NL
-NL
-oe
-NL
-NL
-NL
-NL
-tg
-kx
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 Qe
 Cj
 Wx
-Eg
+HD
 Kj
 Bs
 zw
@@ -20813,7 +19664,7 @@ YG
 ob
 Ph
 Gu
-zC
+SG
 WZ
 ym
 gU
@@ -21042,24 +19893,24 @@ Vq
 Vq
 "}
 (23,1,1) = {"
-kx
-oe
-NL
-NL
-AP
-NL
-NL
-Zf
-Zf
-Zf
-Zf
-Zf
-nw
-kx
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 la
 Cj
 la
-Eg
+HD
 lK
 mw
 LR
@@ -21299,24 +20150,24 @@ Vq
 Vq
 "}
 (24,1,1) = {"
-kx
-oe
-NL
-NL
-NL
-NL
-Kc
-oe
-NL
-NL
-NL
-NL
-LD
-kx
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 la
 Cj
 la
-Eg
+HD
 RO
 SG
 FN
@@ -21327,7 +20178,7 @@ sw
 qh
 Uy
 IH
-nN
+cG
 WZ
 OS
 kN
@@ -21556,27 +20407,27 @@ Vq
 Vq
 "}
 (25,1,1) = {"
-kx
-oe
-NL
-NL
-NL
-NL
-NL
-oe
-NL
-NL
-NL
-NL
-dw
-kx
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 la
 Cj
 la
-Eg
+HD
 lK
 mw
-pP
+xd
 Go
 cg
 Rn
@@ -21587,7 +20438,7 @@ Gu
 Wj
 WZ
 vz
-TW
+Bx
 vs
 CX
 oZ
@@ -21813,24 +20664,24 @@ Vq
 Vq
 "}
 (26,1,1) = {"
-kx
-oe
-oe
-oe
-oe
-oe
-oe
-oe
-Zf
-Zf
-kx
-kx
-kx
-kx
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 la
 Cj
 la
-Eg
+HD
 Kj
 KS
 Sz
@@ -21841,7 +20692,7 @@ yG
 Qj
 Va
 Gu
-Fk
+cG
 WZ
 YB
 Qf
@@ -22070,27 +20921,27 @@ Vq
 Vq
 "}
 (27,1,1) = {"
-kx
-NL
-NL
-NL
-NL
-NL
-NL
-NL
-NL
-Eb
-kx
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 iA
 iA
 iA
 la
 Cj
 la
-Eg
+HD
 ia
 SG
-pP
+xd
 xT
 Gu
 lz
@@ -22327,17 +21178,17 @@ Vq
 Vq
 "}
 (28,1,1) = {"
-kx
-NL
-NL
-NL
-uD
-NL
-NL
-NL
-NL
-Zf
-kx
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 iA
 iA
 iA
@@ -22353,9 +21204,9 @@ rT
 jq
 Mq
 Jc
-Xg
+cG
 yI
-Xg
+cG
 gO
 gO
 gO
@@ -22584,17 +21435,17 @@ Vq
 Vq
 "}
 (29,1,1) = {"
-HD
-HD
-HD
-HD
-HD
-HD
-HD
-HD
-HD
-Lj
-HD
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 iA
 iA
 iA
@@ -22612,7 +21463,7 @@ Mq
 Jc
 gC
 Sw
-Xg
+cG
 gO
 PF
 kk
@@ -22841,17 +21692,17 @@ Vq
 Vq
 "}
 (30,1,1) = {"
-HD
-nf
-OA
-nf
-pj
-nf
-OA
-nf
-cm
-dP
-HD
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 iA
 iA
 iA
@@ -23098,17 +21949,17 @@ Vq
 Vq
 "}
 (31,1,1) = {"
-HD
-nf
-dP
-nf
-nf
-nf
-dP
-nf
-nf
-Iq
-HD
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 iA
 iA
 iA
@@ -23120,13 +21971,13 @@ FK
 Cq
 us
 JS
-pP
+xd
 xd
 Mq
 vr
 gC
 Sw
-Xg
+cG
 gO
 ja
 JT
@@ -23355,20 +22206,20 @@ Vq
 Vq
 "}
 (32,1,1) = {"
-HD
-uj
-dP
-KI
-KI
-KI
-dP
-uj
-dP
-dP
-HD
-HD
-HD
-HD
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+Wx
+Wx
+Wx
+Wx
 la
 Cj
 Ow
@@ -23381,9 +22232,9 @@ aA
 ac
 Mq
 vr
-Xg
+cG
 Hm
-pP
+xd
 gO
 tK
 nb
@@ -23612,34 +22463,34 @@ Vq
 Vq
 "}
 (33,1,1) = {"
-HD
-KI
-Th
-nf
-nf
-nf
-Th
-KI
-nf
-nf
-nf
-nf
-OM
-HD
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+Wx
+Wx
+Wx
+Wx
 la
 Ob
 Qe
-Eg
+HD
 Nd
 bz
 EC
 JS
-Xg
-Xg
+cG
+cG
 jm
 JK
 Hg
-pP
+xd
 Bp
 gO
 gb
@@ -23869,23 +22720,23 @@ Vq
 Vq
 "}
 (34,1,1) = {"
-hW
-dP
-nf
-nf
-nf
-nf
-nf
-dP
-cl
-nf
-nf
-nf
-mt
-HD
-HD
-io
-HD
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+Wx
+Wx
+Wx
+Wx
+Wx
+Wx
+Wx
 HD
 Ax
 Kn
@@ -24126,23 +22977,23 @@ Vq
 Vq
 "}
 (35,1,1) = {"
-hW
-dP
-nf
-nf
-ud
-nf
-nf
-dP
-lg
-Rs
-OO
-FD
-dP
-cG
-dP
-dP
-dP
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+Wx
+Wx
+Wx
+Wx
+Wx
+Wx
+Wx
 cG
 Ri
 mn
@@ -24383,32 +23234,32 @@ Vq
 Vq
 "}
 (36,1,1) = {"
-hW
-dP
-nf
-nf
-nf
-nf
-nf
-dP
-cR
-nf
-Ik
-nf
-zI
-HD
-HD
-io
-HD
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+Wx
+Wx
+Wx
+Wx
+Wx
+Wx
+Wx
 HD
 Zz
 LJ
 Bf
-Eg
-Eg
-Eg
+HD
+HD
+HD
 Bf
-Eg
+HD
 bv
 bT
 rN
@@ -24640,20 +23491,20 @@ Vq
 Vq
 "}
 (37,1,1) = {"
-HD
-KI
-Th
-nf
-nf
-nf
-Th
-KI
-nf
-nf
-nf
-nf
-nf
-HD
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+Wx
+Wx
+Wx
+Wx
 Wx
 Wx
 Wx
@@ -24674,7 +23525,7 @@ Bt
 ON
 Yh
 eu
-tl
+MM
 xv
 Qi
 MM
@@ -24897,20 +23748,20 @@ Vq
 Vq
 "}
 (38,1,1) = {"
-HD
-uj
-dP
-KI
-KI
-KI
-dP
-uj
-nf
-nf
-HD
-HD
-HD
-HD
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+Wx
+Wx
+Wx
+Wx
 Wx
 Pu
 Wx
@@ -25154,17 +24005,17 @@ Vq
 Vq
 "}
 (39,1,1) = {"
-HD
-nf
-dP
-nf
-nf
-nf
-dP
-nf
-nf
-Sf
-HD
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+Wx
 Wx
 Wx
 Wx
@@ -25411,17 +24262,17 @@ Vq
 Vq
 "}
 (40,1,1) = {"
-HD
-nf
-MF
-nf
-yv
-nf
-MF
-nf
-nf
-nf
-HD
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+Wx
 Wx
 ay
 ay
@@ -25453,7 +24304,7 @@ Wx
 Ko
 Ko
 Ko
-sE
+aS
 Bc
 Ko
 MR
@@ -25668,17 +24519,17 @@ Vq
 Vq
 "}
 (41,1,1) = {"
-HD
-HD
-HD
-HD
-HD
-HD
-HD
-HD
-HD
-HD
-HD
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+Wx
 Wx
 Wx
 ay
@@ -25707,7 +24558,7 @@ Wx
 Wx
 Wx
 Wx
-xV
+Mn
 vT
 Pe
 aS
@@ -26229,10 +25080,10 @@ TP
 Ko
 gd
 ky
-Za
-GA
-AQ
-IM
+Wm
+Wm
+Wm
+Wm
 Wm
 Wm
 Wm
@@ -26487,9 +25338,9 @@ Ko
 lx
 sy
 yS
-MP
-vi
-yi
+Wm
+Un
+Wm
 Pw
 Wm
 Wm
@@ -26743,10 +25594,10 @@ TP
 Ko
 Wm
 sy
-sM
-AE
-Fn
-La
+Wm
+Wm
+Wm
+Wm
 Wm
 Wm
 Wm
@@ -28301,7 +27152,7 @@ TT
 bf
 qs
 fa
-tn
+WQ
 fn
 sI
 qb
@@ -29053,7 +27904,7 @@ TP
 wu
 TP
 TP
-xQ
+sE
 TF
 yk
 TF
@@ -29820,7 +28671,7 @@ ty
 dp
 uU
 fI
-vj
+NO
 dp
 tA
 xy
@@ -31081,8 +29932,8 @@ Pk
 jc
 jc
 ZE
-yK
-yK
+ZE
+ZE
 Ts
 wm
 Wx
@@ -31352,7 +30203,7 @@ Yt
 kF
 gn
 pf
-hb
+OA
 hb
 hb
 li
@@ -31589,7 +30440,7 @@ wm
 IF
 vo
 vo
-Fj
+vo
 lI
 jc
 dK
@@ -31848,7 +30699,7 @@ Nf
 Ln
 wm
 To
-yK
+ZE
 Gk
 pE
 wm
@@ -32105,10 +30956,10 @@ wm
 wm
 wm
 Gk
-yK
+ZE
 Yo
 Yo
-wA
+hd
 hd
 hd
 Mg
@@ -32138,7 +30989,7 @@ zJ
 te
 xy
 VU
-Jk
+QF
 fB
 Mp
 ct
@@ -32362,7 +31213,7 @@ Fa
 iu
 wm
 nF
-yK
+ZE
 Gk
 sD
 wm
@@ -33133,7 +31984,7 @@ Yn
 Yj
 wm
 qC
-yK
+ZE
 Gk
 iS
 wm
@@ -33389,8 +32240,8 @@ md
 UI
 UI
 IV
-yK
-yK
+ZE
+ZE
 JQ
 sD
 wm
@@ -33651,8 +32502,8 @@ Yo
 Yo
 Yo
 bp
-yl
-yl
+bp
+bp
 bL
 wm
 Wx
@@ -36487,7 +35338,7 @@ Zb
 VV
 xI
 MW
-eM
+fY
 Xj
 sb
 aG
