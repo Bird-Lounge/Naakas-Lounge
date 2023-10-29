@@ -1,5 +1,5 @@
-/// Helper to format the text that gets thrown onto the chem hud element.
-#define FORMAT_CHEM_CHARGES_TEXT(charges) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(charges)]</font></div>")
+/// Helper to format the text that gets thrown onto the chem hud element.  NAAKAS-LOUNGE EDIT: MNC maptext, new color
+#define FORMAT_CHEM_CHARGES_TEXT(charges) MAPTEXT_MNC("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#AAFF00'>[round(charges)]</font></div>")
 
 /datum/antagonist/changeling
 	name = "\improper Changeling"

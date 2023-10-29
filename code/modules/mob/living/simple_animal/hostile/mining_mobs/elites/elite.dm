@@ -106,7 +106,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(timeleft == 0)
 		button.maptext = ""
 	else
-		button.maptext = MAPTEXT("<b>[round(timeleft/10, 0.1)]</b>")
+		button.maptext = MAPTEXT_MNC("<b>[round(timeleft/10, 0.1)]</b>") /// NAAKAS-LOUNGE EDIT: MNC Maptext
 
 /datum/action/innate/elite_attack/Grant(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/asteroid/elite))
