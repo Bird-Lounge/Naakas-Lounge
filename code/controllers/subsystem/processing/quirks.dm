@@ -196,8 +196,9 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		if (isnull(quirk))
 			continue
 
-		if ((initial(quirk.quirk_flags) & QUIRK_MOODLET_BASED) && CONFIG_GET(flag/disable_human_mood))
-			continue
+		/// NAAKAS-LOUNGE REMOVAL: This is buggy and annoying when you have mood turned off
+		/*if ((initial(quirk.quirk_flags) & QUIRK_MOODLET_BASED) && CONFIG_GET(flag/disable_human_mood))
+			continue*/
 
 		var/blacklisted = FALSE
 
