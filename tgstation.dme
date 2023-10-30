@@ -7801,6 +7801,7 @@
 #include "modular_skyrat\modules\xenoarch\code\modules\research\xenoarch\xenoarch_machine.dm"
 #include "modular_skyrat\modules\xenoarch\code\modules\research\xenoarch\xenoarch_reward.dm"
 #include "modular_skyrat\modules\xenoarch\code\modules\research\xenoarch\xenoarch_tool.dm"
+#include "modular_zskyraptor\modules_lounge\naaka_nom_sys\equippable_belly.dm"
 #include "modular_skyrat\modules\xenos_skyrat_redo\code\base_skyrat_xeno.dm"
 #include "modular_skyrat\modules\xenos_skyrat_redo\code\human_defense.dm"
 #include "modular_skyrat\modules\xenos_skyrat_redo\code\larva.dm"

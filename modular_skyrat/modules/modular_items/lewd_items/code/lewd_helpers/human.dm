@@ -308,6 +308,11 @@
 		return
 
 	var/icon_file = nipples?.worn_icon
+	/// NAAKAS-LOUNGE ADDITION: quick fix to apply tesh icons correctly here, if they're provided
+	if(dna.species.id == SPECIES_TESHARI)
+		if(nipples?.worn_icon_teshari)
+			icon_file = nipples.worn_icon_teshari
+	/// NAAKAS-LOUNGE ADDITION END
 	var/mutable_appearance/nipples_overlay
 
 	if(!nipples_overlay)
