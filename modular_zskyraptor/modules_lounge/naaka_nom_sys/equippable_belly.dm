@@ -56,10 +56,10 @@
 		src.color = temp_col
 
 /obj/item/clothing/sextoy/belly_function/CtrlClick(mob/living/user)
-	var/temp_size = input("Enter a size (0.0-1.0) for your guest:", src.endo_size)
-	if(temp_size != null)
-		if(temp_size >= 0.0 && temp_size <= 1)
-			endo_size = temp_size
+	var/temp_size = tgui_input_number(user, "What size do you want bellyguests to be?  (0.0-1.0)", "Endo SIze", max_value = 1.0)
+	if(isnull(deg) || QDELETED(user) || QDELETED(src))
+		return
+	endo_size = temp_size
 
 /obj/item/clothing/sextoy/belly_function/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
@@ -106,17 +106,17 @@
 		full_cooldown = full_cooldown - (seconds_per_tick * total_fullness)
 		if(full_cooldown < 0)
 			full_cooldown = rand(6, 36)
-			playsound(user, pick(full_sounds), 30 + (10*total_fullness), TRUE)
+			play_lewd_sound(user, pick(full_sounds), 10 + round(total_fullness/80, 1), TRUE)
 	if(stuffed_temp >= 0.2)
 		stuffLo_cooldown = stuffLo_cooldown - (seconds_per_tick * (stuffed_temp + (total_fullness/5)))
 		if(stuffLo_cooldown < 0)
 			stuffLo_cooldown = rand(3, 6)
-			playsound(user, pick(stuff_minor), 20 + (10*stuffed_temp), TRUE)
+			play_lewd_sound(user, pick(stuff_minor), 10 + round(total_fullness/80, 1), TRUE)
 	if(stuffed_temp >= 0.5)
 		stuffHi_cooldown = stuffHi_cooldown - (seconds_per_tick * (stuffed_temp + (total_fullness/10)))
 		if(stuffHi_cooldown < 0)
 			stuffHi_cooldown = rand(9, 60)
-			playsound(user, pick(stuff_major), 40 + (5*stuffed_temp), TRUE)
+			play_lewd_sound(user, pick(stuff_major), 20 + round(total_fullness/50, 1), TRUE)
 	
 /obj/item/clothing/sextoy/belly_function/attack(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	. = ..()
@@ -135,10 +135,10 @@
 		for(var/something_in_list in hopefully_lungs.breathe_always)
 			var/datum/gas/a_gas = new something_in_list()
 			if(istype(a_gas))
-				user.visible_message("Debugging: [target]'s lungs have the following breath gas [a_gas]")
+				//user.visible_message("Debugging: [target]'s lungs have the following breath gas [a_gas]")
 				last_gasmix = "[last_gasmix][a_gas.id]=100;"
 			else
-				user.visible_message("Debugging: [target]'s lungs breath list was malformed, got [something_in_list] when querying for gas datums")
+				//user.visible_message("Debugging: [target]'s lungs breath list was malformed, got [something_in_list] when querying for gas datums")
 		last_gasmix = "[last_gasmix]TEMP=293.15"
 	else
 		last_gasmix = "o2=5;n2=10;TEMP=293.15"
@@ -147,15 +147,15 @@
 	target.forceMove(src)
 
 /obj/item/clothing/sextoy/belly_function/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
-	to_chat(world, "Debugging: [lifeform_inside_me] is inside [src]")
+	//to_chat(world, "Debugging: [lifeform_inside_me] is inside [src]")
 	if(breath_request <= 0)
-		to_chat(world, "Debugging: [lifeform_inside_me] didn't request breath")
+		//to_chat(world, "Debugging: [lifeform_inside_me] didn't request breath")
 		return null
-	to_chat(world, "Debugging: breath was requested, parsing gas string [last_gasmix]")
+	//to_chat(world, "Debugging: breath was requested, parsing gas string [last_gasmix]")
 	var/datum/gas_mixture/mm_life = SSair.parse_gas_string(last_gasmix)
-	to_chat(world, "Debugging: generated [mm_life] from gasmix string")
+	//to_chat(world, "Debugging: generated [mm_life] from gasmix string")
 	var/breath_percentage = breath_request / mm_life.volume
-	to_chat(world, "Debugging: breath percentage will be [breath_percentage]")
+	//to_chat(world, "Debugging: breath percentage will be [breath_percentage]")
 	var/removed = mm_life.remove(mm_life.total_moles() * breath_percentage)
-	to_chat(world, "Debugging: removed [removed] from breathmix")
+	//to_chat(world, "Debugging: removed [removed] from breathmix")
 	return removed
