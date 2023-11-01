@@ -82,7 +82,7 @@
 		return
 	
 	var/guest_temp = istype(nommed) ? endo_size : 0
-	var/stuffed_temp = (user.get_fullness() - (user.nutrition * 0.9)) / 800 //800u == more or less @ same-size endo
+	var/stuffed_temp = (user.get_fullness() - (user.nutrition * 0.66)) / 800 //800u == more or less @ same-size endo
 	if(stuffed_temp < 0)
 		stuffed_temp = 0
 	var/total_fullness = guest_temp + stuffed_temp //maximum creaks from overfilled belly
