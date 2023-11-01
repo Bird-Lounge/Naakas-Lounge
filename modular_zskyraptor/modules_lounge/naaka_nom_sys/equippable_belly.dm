@@ -57,7 +57,7 @@
 
 /obj/item/clothing/sextoy/belly_function/CtrlClick(mob/living/user)
 	var/temp_size = tgui_input_number(user, "What size do you want bellyguests to be?  (0.0-1.0)", "Endo SIze", max_value = 1.0)
-	if(isnull(deg) || QDELETED(user) || QDELETED(src))
+	if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
 		return
 	endo_size = temp_size
 
