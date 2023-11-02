@@ -56,7 +56,7 @@
 		src.color = temp_col
 
 /obj/item/clothing/sextoy/belly_function/CtrlClick(mob/living/user)
-	var/temp_size = tgui_input_number(user, "What size do you want bellyguests to be?  (0.0-1.0)", "Endo SIze", max_value = 1.0)
+	var/temp_size = tgui_input_number(user, "What size do you want bellyguests to be?  (0.0-1.0)", "Endo Size", max_value = 1.0)
 	if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
 		return
 	endo_size = temp_size
@@ -82,7 +82,7 @@
 		return
 	
 	var/guest_temp = istype(nommed) ? endo_size : 0
-	var/stuffed_temp = (user.get_fullness() - (user.nutrition * 0.66)) / 800 //800u == more or less @ same-size endo
+	var/stuffed_temp = (user.get_fullness() - (user.nutrition * 0.8)) / 800 //800u == more or less @ same-size endo
 	if(stuffed_temp < 0)
 		stuffed_temp = 0
 	var/total_fullness = guest_temp + stuffed_temp //maximum creaks from overfilled belly
@@ -102,21 +102,21 @@
 		update_icon()
 		user.update_inv_nipples()
 	
-	if(total_fullness >= 0.3)
+	if(total_fullness >= 0.33)
 		full_cooldown = full_cooldown - (seconds_per_tick * total_fullness)
 		if(full_cooldown < 0)
 			full_cooldown = rand(6, 36)
-			play_lewd_sound(user, pick(full_sounds), 10 + round(total_fullness/80, 1), TRUE)
-	if(stuffed_temp >= 0.2)
+			play_lewd_sound(user, pick(full_sounds), min(10 + round(total_fullness/40, 1), 30), TRUE)
+	if(stuffed_temp >= 0.33)
 		stuffLo_cooldown = stuffLo_cooldown - (seconds_per_tick * (stuffed_temp + (total_fullness/5)))
 		if(stuffLo_cooldown < 0)
 			stuffLo_cooldown = rand(3, 6)
-			play_lewd_sound(user, pick(stuff_minor), 10 + round(total_fullness/80, 1), TRUE)
+			play_lewd_sound(user, pick(stuff_minor), min(12 + round(total_fullness/40, 1), 30), TRUE)
 	if(stuffed_temp >= 0.5)
 		stuffHi_cooldown = stuffHi_cooldown - (seconds_per_tick * (stuffed_temp + (total_fullness/10)))
 		if(stuffHi_cooldown < 0)
 			stuffHi_cooldown = rand(9, 60)
-			play_lewd_sound(user, pick(stuff_major), 20 + round(total_fullness/50, 1), TRUE)
+			play_lewd_sound(user, pick(stuff_major), min(20 + round(total_fullness/32, 1), 50), TRUE)
 	
 /obj/item/clothing/sextoy/belly_function/attack(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	. = ..()
@@ -126,11 +126,11 @@
 	target.visible_message("[user] gulps down [target]!")
 	nommed = target
 	
-	user.visible_message("Debugging: [user] nomming [target] with [src].")
+	//user.visible_message("Debugging: [user] nomming [target] with [src].")
 	
 	var/obj/item/organ/internal/lungs/hopefully_lungs = target.organs_slot["lungs"]
 	if(hopefully_lungs)
-		user.visible_message("Debugging: [target]'s lungs were found; they are [hopefully_lungs]")
+		//user.visible_message("Debugging: [target]'s lungs were found; they are [hopefully_lungs]")
 		last_gasmix = ""
 		for(var/something_in_list in hopefully_lungs.breathe_always)
 			var/datum/gas/a_gas = new something_in_list()
