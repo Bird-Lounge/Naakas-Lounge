@@ -11,7 +11,32 @@
 	medical_record_text = "Patient's midriff and stomach are unusually stretchy."
 
 /datum/quirk/item_quirk/stuffable/add_unique(client/client_source)
-	give_item_to_holder(/obj/item/clothing/sextoy/belly_function, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS))
+	var/obj/item/the_bwelly = new /obj/item/clothing/sextoy/belly_function(get_turf(quirk_holder))
+	var/the_color = client_source.prefs.read_preference(/datum/preference/color/lounge_bellyitem_color) //this makes the (potentially dangerous) assumption this is valid
+	if(the_color == null)
+		the_color = "#FFFFFF"
+	the_bwelly.color = the_color
+	give_item_to_holder(the_bwelly, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS))
+
+
+
+/datum/preference/color/lounge_bellyitem_color
+	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
+	savefile_identifier = PREFERENCE_CHARACTER
+	savefile_key = "lounge_bellyitem_color"
+
+/datum/preference/color/lounge_bellyitem_color/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+	return FALSE
+
+
+
+/datum/quirk_constant_data/stuffable
+	associated_typepath = /datum/quirk/item_quirk/stuffable
+
+/datum/quirk_constant_data/stuffable/New()
+	customization_options = list(/datum/preference/color/lounge_bellyitem_color)
+
+	return ..()
 
 
 
@@ -21,29 +46,33 @@
 	name = "bwelly"
 	desc = "Gobble friends, stuff yourself, be big and round, get cancelled on Twitter for endosoma only.  Equip with Ctrl-Shift-Click on your Nipples slot for display of stuffedness, or click a friend with this to nom them beforehand.  Drop on the floor or unequip from the Interact menu to free a nommed friend."
 	icon_state = "bwelly"
+	base_icon_state = "belly"
 	icon = 'modular_zskyraptor/modules_lounge/naaka_nom_sys/items.dmi'
-	worn_icon_state = "Belly0"
+	worn_icon_state = "haha-no" //wish us luck
 	worn_icon = 'modular_zskyraptor/modules_lounge/naaka_nom_sys/bellies.dmi'
 	worn_icon_teshari = 'modular_zskyraptor/modules_lounge/naaka_nom_sys/bellies_teshari.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	lewd_slot_flags = LEWD_SLOT_NIPPLES
 	color = "#b1f91f"
-	
+
 	/// Tracks whoever got gobbled.
 	var/mob/living/carbon/human/nommed
-	
+
 	/// Base-size for calculating fullness/size with one occupant.
-	var/endo_size = 1.0
-	
+	var/endo_size = 1.2
+
 	/// Sound cooldowns.
 	var/full_cooldown = 6
 	var/stuffLo_cooldown = 3
 	var/stuffHi_cooldown = 9
-	
+
 	/// Used to avoid spamming sprite icon state changes.
 	var/last_size = 0
 	var/last_gasmix = ""
-	
+	var/mutable_appearance/overlay_south
+	var/mutable_appearance/overlay_north
+	var/mutable_appearance/overlay_hori
+
 	/// Sound lists setup as local vars because we aren't spawning enough of these for memory to be a worry & this makes it easier to fix broken sound lists during gameplay
 	var/full_sounds = list("modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/digest (36).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/digest (47).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/Gurgle6.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/Gurgle8.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/Gurgle14.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/digest (8).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/digest (9).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/digest (13).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/digest (15).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/digest (18).ogg")
 	var/stuff_minor = list("modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (25).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (26).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (28).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (29).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (31).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (33).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (34).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (37).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (48).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle1.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle2.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle3.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle9.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle10.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle11.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle12.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle13.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle15.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle16.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/stomach-burble.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (3).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (11).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (17).ogg")
@@ -74,60 +103,102 @@
 			nommed.forceMove(drop_location())
 			nommed = null
 		STOP_PROCESSING(SSobj, src)
+	if(overlay_south != null) //remove overlays if needed
+		user.cut_overlay(overlay_south)
+		user.cut_overlay(overlay_north)
+		user.cut_overlay(overlay_hori)
+
+/obj/item/clothing/sextoy/belly_function/proc/refresh_overlays(mob/living/carbon/human/user, var/icon_state_wew)
+	// cut out-of-date overlays
+	if(overlay_south != null)
+		user.cut_overlay(overlay_south)
+		user.cut_overlay(overlay_north)
+		user.cut_overlay(overlay_hori)
+
+	// setup working variables
+	var/oldstate = worn_icon_state
+	var/iconfile = worn_icon
+	if(user.dna.species.id == SPECIES_TESHARI)
+		iconfile = worn_icon_teshari
+
+	// generate the appearances
+	worn_icon_state = "[icon_state_wew]_HORI"
+	overlay_hori = src.build_worn_icon(default_layer = BODYPARTS_LOW_LAYER, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
+	worn_icon_state = "[icon_state_wew]_FRONT"
+	overlay_south = src.build_worn_icon(default_layer = FRONT_MUTATIONS_LAYER, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
+	worn_icon_state = "[icon_state_wew]_BACK"
+	overlay_north = src.build_worn_icon(default_layer = BODY_BEHIND_LAYER, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
+	worn_icon_state = oldstate
+
+	// add the overlays
+	user.add_overlay(overlay_south)
+	user.add_overlay(overlay_north)
+	user.add_overlay(overlay_hori)
 
 /obj/item/clothing/sextoy/belly_function/process(seconds_per_tick)
 	//to_chat(world, "screem - process is running")
 	var/mob/living/carbon/human/user = loc
 	if(!istype(user))
 		return
-	
+
 	var/guest_temp = istype(nommed) ? endo_size : 0
-	var/stuffed_temp = (user.get_fullness() - (user.nutrition * 0.8)) / 800 //800u == more or less @ same-size endo
+	var/stuffed_temp = (user.get_fullness() - (user.nutrition * 0.8)) / 800 //1200u == same-size endo-ish
 	if(stuffed_temp < 0)
 		stuffed_temp = 0
 	var/total_fullness = guest_temp + stuffed_temp //maximum creaks from overfilled belly
 	var/spr_size = 0
-	if(total_fullness >= 1)
+	if(total_fullness >= 1.8)
+		spr_size = 9
+	else if(total_fullness >= 1.6)
+		spr_size = 8
+	else if(total_fullness >= 1.4)
+		spr_size = 7
+	else if(total_fullness >= 1.2)
+		spr_size = 6
+	else if(total_fullness >= 1.0)
+		spr_size = 5
+	else if(total_fullness >= 0.8)
+		spr_size = 4
+	else if(total_fullness >= 0.6)
 		spr_size = 3
-	else if(total_fullness >= 0.66)
+	else if(total_fullness >= 0.4)
 		spr_size = 2
-	else if(total_fullness >= 0.33)
+	else if(total_fullness >= 0.2)
 		spr_size = 1
 	else
 		spr_size = 0
 	if(spr_size != last_size)
 		last_size = spr_size
-		worn_icon_state = "Belly[spr_size]"
 		update_icon_state()
 		update_icon()
-		user.update_inv_nipples()
-	
-	if(total_fullness >= 0.33)
+		refresh_overlays(user, "[base_icon_state]-[spr_size]")
+
+	if(total_fullness >= 0.2)
 		full_cooldown = full_cooldown - (seconds_per_tick * total_fullness)
 		if(full_cooldown < 0)
 			full_cooldown = rand(6, 36)
 			play_lewd_sound(user, pick(full_sounds), min(10 + round(total_fullness/40, 1), 30), TRUE)
-	if(stuffed_temp >= 0.33)
+	if(stuffed_temp >= 0.2)
 		stuffLo_cooldown = stuffLo_cooldown - (seconds_per_tick * (stuffed_temp + (total_fullness/5)))
 		if(stuffLo_cooldown < 0)
 			stuffLo_cooldown = rand(3, 6)
 			play_lewd_sound(user, pick(stuff_minor), min(12 + round(total_fullness/40, 1), 30), TRUE)
-	if(stuffed_temp >= 0.5)
+	if(stuffed_temp >= 0.4)
 		stuffHi_cooldown = stuffHi_cooldown - (seconds_per_tick * (stuffed_temp + (total_fullness/10)))
 		if(stuffHi_cooldown < 0)
 			stuffHi_cooldown = rand(9, 60)
 			play_lewd_sound(user, pick(stuff_major), min(20 + round(total_fullness/32, 1), 50), TRUE)
-	
+
 /obj/item/clothing/sextoy/belly_function/attack(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	. = ..()
 	if(!ishuman(target) || (target.stat == DEAD) || !ishuman(user) || ishuman(nommed) || user == target) //sanity check
 		return
-	
+
 	target.visible_message("[user] gulps down [target]!")
 	nommed = target
-	
+
 	//user.visible_message("Debugging: [user] nomming [target] with [src].")
-	
+
 	var/obj/item/organ/internal/lungs/hopefully_lungs = target.organs_slot["lungs"]
 	if(hopefully_lungs)
 		//user.visible_message("Debugging: [target]'s lungs were found; they are [hopefully_lungs]")
@@ -142,7 +213,7 @@
 		last_gasmix = "[last_gasmix]TEMP=293.15"
 	else
 		last_gasmix = "o2=5;n2=10;TEMP=293.15"
-	
+
 	SEND_SIGNAL(user, COMSIG_MACHINERY_SET_OCCUPANT, target)
 	target.forceMove(src)
 
