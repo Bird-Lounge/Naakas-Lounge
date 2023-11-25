@@ -59,7 +59,7 @@
 	var/mob/living/carbon/human/nommed
 
 	/// Base-size for calculating fullness/size with one occupant.
-	var/endo_size = 1.2
+	var/endo_size = 1000
 
 	/// Sound cooldowns.
 	var/full_cooldown = 6
@@ -68,6 +68,7 @@
 
 	/// Used to avoid spamming sprite icon state changes.
 	var/last_size = 0
+	var/current_size_unclamped = 0
 	var/last_gasmix = ""
 	var/mutable_appearance/overlay_south
 	var/mutable_appearance/overlay_north
@@ -85,7 +86,7 @@
 		src.color = temp_col
 
 /obj/item/clothing/sextoy/belly_function/CtrlClick(mob/living/user)
-	var/temp_size = tgui_input_number(user, "What size do you want bellyguests to be?  (0.0-1.0)", "Endo Size", max_value = 1.0)
+	var/temp_size = tgui_input_number(user, "What size do you want bellyguests to be?  (0.0-2000.0, 1000 is same-sizeish)", "Endo Size")
 	if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
 		return
 	endo_size = temp_size
@@ -103,10 +104,10 @@
 			nommed.forceMove(drop_location())
 			nommed = null
 		STOP_PROCESSING(SSobj, src)
-	if(overlay_south != null) //remove overlays if needed
-		user.cut_overlay(overlay_south)
-		user.cut_overlay(overlay_north)
-		user.cut_overlay(overlay_hori)
+		if(overlay_south != null) //remove overlays if needed
+			user.cut_overlay(overlay_south)
+			user.cut_overlay(overlay_north)
+			user.cut_overlay(overlay_hori)
 
 /obj/item/clothing/sextoy/belly_function/proc/refresh_overlays(mob/living/carbon/human/user, var/icon_state_wew)
 	// cut out-of-date overlays
@@ -141,32 +142,53 @@
 	if(!istype(user))
 		return
 
+	// TODO: calculate fullness on the fly
+	// formula should be pow(pow(food_units, 1.5) / (4/3) / PI, 1/3)
+	// endo size should PROLLY be changed to be in food_units rather than overall size to avoid complications
 	var/guest_temp = istype(nommed) ? endo_size : 0
-	var/stuffed_temp = (user.get_fullness() - (user.nutrition * 0.8)) / 800 //1200u == same-size endo-ish
-	if(stuffed_temp < 0)
-		stuffed_temp = 0
-	var/total_fullness = guest_temp + stuffed_temp //maximum creaks from overfilled belly
-	var/spr_size = 0
-	if(total_fullness >= 1.8)
+	var/stuffed_temp_orig = (user.get_fullness() - (user.nutrition * 0.6) - 500) //nutrition 6500 == maximum fullness
+	if(stuffed_temp_orig < 0)
+		stuffed_temp_orig = 0
+	var/total_fullness_orig = guest_temp + stuffed_temp_orig //maximum creaks from overfilled belly
+	var/total_fullness = total_fullness_orig / 10
+	var/stuffed_temp = stuffed_temp_orig / 10
+
+	total_fullness = (((total_fullness)**1.5) / (4/3) / PI)**(1/3)
+	stuffed_temp = (((stuffed_temp)**1.5) / (4/3) / PI)**(1/3)
+
+	current_size_unclamped = total_fullness
+
+	var/spr_size = FLOOR(total_fullness, 1)
+	if(spr_size > 9)
 		spr_size = 9
-	else if(total_fullness >= 1.6)
+	if(spr_size < 0)
+		spr_size = 0
+
+	// clamps these to previous scales for noise, more or less
+	total_fullness = (total_fullness/3) + (total_fullness_orig / 1000)
+	stuffed_temp = (stuffed_temp/3) + (stuffed_temp_orig / 1000)
+
+	/*if(total_fullness >= 2.46)
+		spr_size = 9
+	else if(total_fullness >= 2.067)
 		spr_size = 8
-	else if(total_fullness >= 1.4)
+	else if(total_fullness >= 1.708)
 		spr_size = 7
-	else if(total_fullness >= 1.2)
+	else if(total_fullness >= 1.384)
 		spr_size = 6
-	else if(total_fullness >= 1.0)
+	else if(total_fullness >= 1.093)
 		spr_size = 5
-	else if(total_fullness >= 0.8)
+	else if(total_fullness >= 0.837)
 		spr_size = 4
-	else if(total_fullness >= 0.6)
+	else if(total_fullness >= 0.615)
 		spr_size = 3
-	else if(total_fullness >= 0.4)
+	else if(total_fullness >= 0.427)
 		spr_size = 2
-	else if(total_fullness >= 0.2)
+	else if(total_fullness >= 0.273)
 		spr_size = 1
 	else
-		spr_size = 0
+		spr_size = 0*/
+
 	if(spr_size != last_size)
 		last_size = spr_size
 		update_icon_state()
@@ -177,17 +199,17 @@
 		full_cooldown = full_cooldown - (seconds_per_tick * total_fullness)
 		if(full_cooldown < 0)
 			full_cooldown = rand(6, 36)
-			play_lewd_sound(user, pick(full_sounds), min(10 + round(total_fullness/40, 1), 30), TRUE)
+			play_lewd_sound(user, pick(full_sounds), min(10 + round(total_fullness/40, 1), 30), TRUE, frequency=rand(40000, 50000))
 	if(stuffed_temp >= 0.2)
 		stuffLo_cooldown = stuffLo_cooldown - (seconds_per_tick * (stuffed_temp + (total_fullness/5)))
 		if(stuffLo_cooldown < 0)
 			stuffLo_cooldown = rand(3, 6)
-			play_lewd_sound(user, pick(stuff_minor), min(12 + round(total_fullness/40, 1), 30), TRUE)
+			play_lewd_sound(user, pick(stuff_minor), min(12 + round(total_fullness/40, 1), 30), TRUE, frequency=rand(40000, 50000))
 	if(stuffed_temp >= 0.4)
 		stuffHi_cooldown = stuffHi_cooldown - (seconds_per_tick * (stuffed_temp + (total_fullness/10)))
 		if(stuffHi_cooldown < 0)
 			stuffHi_cooldown = rand(9, 60)
-			play_lewd_sound(user, pick(stuff_major), min(20 + round(total_fullness/32, 1), 50), TRUE)
+			play_lewd_sound(user, pick(stuff_major), min(20 + round(total_fullness/32, 1), 50), TRUE, frequency=rand(40000, 50000))
 
 /obj/item/clothing/sextoy/belly_function/attack(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	. = ..()
