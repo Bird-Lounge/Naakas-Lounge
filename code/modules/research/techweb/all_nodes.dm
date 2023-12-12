@@ -320,6 +320,7 @@
 	design_ids = list(
 		"circuit_multitool",
 		"comp_access_checker",
+		"comp_arctan2",
 		"comp_arithmetic",
 		"comp_assoc_list_pick",
 		"comp_assoc_list_remove",
@@ -2273,7 +2274,6 @@
 		"advanced_camera",
 		"ai_cam_upgrade",
 		"borg_syndicate_module",
-		"decloner",
 		"donksoft_refill",
 		"donksofttoyvendor",
 		"largecrossbow",
