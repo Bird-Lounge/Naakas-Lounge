@@ -66,7 +66,8 @@
 
 	if(isliving(bumpee))
 		var/mob/living/living = bumpee
-		living.dust()
+		//living.dust() /// SKYRAT REMOVAL
+		living.gib(DROP_ALL_REMAINS) /// SKYRAT REPLACEMENT: dust is bad, exploding into a shower of gore is better
 
 /obj/effect/anomaly/pyro/big/anomalyEffect(seconds_per_tick)
 	. = ..()

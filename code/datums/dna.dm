@@ -983,13 +983,17 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 				investigate_log("has been gibbed by DNA instability.", INVESTIGATE_DEATHS)
 				gib(DROP_ALL_REMAINS)
 			if(1)
-				investigate_log("has been dusted by DNA instability.", INVESTIGATE_DEATHS)
-				dust()
+				/*investigate_log("has been dusted by DNA instability.", INVESTIGATE_DEATHS) /// SKYRAT REMOVAL BEGIN
+				dust()*/ /// SKYRAT REMOVAL END
+				investigate_log("has been gibbed by DNA instability.", INVESTIGATE_DEATHS)
+				gib(DROP_ALL_REMAINS) /// SKYRAT REPLACEMENT: Get gibbed instead, brain is recoverable
 			if(2)
-				investigate_log("has been transformed into a statue by DNA instability.", INVESTIGATE_DEATHS)
+				/*investigate_log("has been transformed into a statue by DNA instability.", INVESTIGATE_DEATHS) /// SKYRAT REMOVAL BEGIN
 				death()
 				petrify(statue_timer = INFINITY, save_brain = FALSE)
-				ghostize(FALSE)
+				ghostize(FALSE)*/ /// SKYRAT REMOVAL END
+				investigate_log("has been gibbed by DNA instability.", INVESTIGATE_DEATHS)
+				gib(DROP_ALL_REMAINS) /// SKYRAT REPLACEMENT: See above
 			if(3)
 				if(prob(95))
 					var/obj/item/bodypart/BP = get_bodypart(pick(BODY_ZONE_CHEST,BODY_ZONE_HEAD))
