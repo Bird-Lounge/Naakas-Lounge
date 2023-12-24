@@ -8,8 +8,8 @@ body {
 }
 
 body.dark {
-	background-color: #131313;
-	color: #b2c4dd;
+	background-color: #141513;
+	color: #e2f2c2;
 	scrollbar-base-color: #1c1c1c;
 	scrollbar-face-color: #3b3b3b;
 	scrollbar-3dlight-color: #252525;
@@ -27,7 +27,7 @@ body.dark {
 }
 
 .dark #menu {
-	background-color: #202020;
+	background-color: #232520;
 }
 
 #statcontent {
@@ -40,7 +40,7 @@ a {
 }
 
 .dark a {
-	color: #b2c4dd;
+	color: #aaff00;
 }
 
 a:hover,
@@ -95,11 +95,19 @@ li a:hover:not(.active) {
 	transition-duration: 100ms;
 	order: 3;
 	min-width: 40px;
+	border-top-color: #cecece;
+	border-left-color: #c0c0c0;
+	border-right-color: #c8c8c8;
+	border-bottom-color: #c0c0c0;
 }
 
 .dark button {
-	background-color: #222222;
-	border-color: #343434;
+	background-color: #252722;
+	border-color: #101010;
+	border-top-color: #121212;
+	border-left-color: #101010;
+	border-right-color: #111111;
+	border-bottom-color: #101010;
 	color: rgba(255, 255, 255, 0.5);
 }
 
@@ -109,7 +117,7 @@ li a:hover:not(.active) {
 }
 
 .dark button:hover {
-	background-color: #2e2e2e;
+	background-color: #2e302c;
 }
 
 .button:active,
@@ -124,11 +132,11 @@ li a:hover:not(.active) {
 
 .dark .button:active,
 .dark .button.active {
-	background-color: #444444;
+	background-color: #464843;
 	color: white;
-	border-top-color: #343434;
-	border-left-color: #343434;
-	border-right-color: #343434;
+	border-top-color: #202020;
+	border-left-color: #202020;
+	border-right-color: #202020;
 	border-bottom-color: #ffffff;
 }
 
@@ -209,7 +217,7 @@ li a:hover:not(.active) {
 }
 
 .dark .link {
-	color: #abc6ec;
+	color: #aaff00;
 }
 
 .link:hover {
