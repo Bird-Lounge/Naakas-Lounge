@@ -1,8 +1,8 @@
-// THIS IS A SKYRAT UI FILE
+// THIS IS A NOVA SECTOR UI FILE
 import {
   CheckboxInput,
-  FeatureDropdownInput,
   FeatureChoiced,
+  FeatureDropdownInput,
   FeatureToggle,
 } from '../../base';
 

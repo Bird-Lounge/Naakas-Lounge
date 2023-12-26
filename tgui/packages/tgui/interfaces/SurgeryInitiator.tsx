@@ -2,6 +2,7 @@ import { sortBy } from 'common/collections';
 import { KEY_DOWN, KEY_ENTER, KEY_UP } from 'common/keycodes';
 import { BooleanLike } from 'common/react';
 import { Component } from 'react';
+
 import { useBackend } from '../backend';
 import { Button, KeyListener, Stack } from '../components';
 import { BodyZone, BodyZoneSelector } from '../components/BodyZoneSelector';
@@ -10,7 +11,7 @@ import { Window } from '../layouts';
 type Surgery = {
   name: string;
   blocked?: BooleanLike;
-  blocked_reason?: string; // SKYRAT EDIT ADDITION - Surgically unremovable limb
+  blocked_reason?: string; // NOVA EDIT ADDITION - Surgically unremovable limb
 };
 
 type SurgeryInitiatorData = {
@@ -99,7 +100,7 @@ class SurgeryInitiatorInner extends Component<
                         ? surgery.blocked_reason ??
                           'That surgery is unavailable!'
                         : undefined
-                    } // SKYRAT EDIT - ORIGINAL: tooltip={surgery.blocked ? "Their body is covered!" : undefined}
+                    } // NOVA EDIT - ORIGINAL: tooltip={surgery.blocked ? "Their body is covered!" : undefined}
                     key={surgery.name}
                     fluid
                   >

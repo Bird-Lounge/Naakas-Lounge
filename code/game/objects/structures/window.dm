@@ -108,7 +108,7 @@
 
 /obj/structure/window/singularity_pull(S, current_size)
 	..()
-	if(anchored && current_size >= STAGE_FIVE) //SKYRAT EDIT CHANGE
+	if(anchored && current_size >= STAGE_FIVE) //NOVA EDIT CHANGE
 		set_anchored(FALSE)
 	if(current_size >= STAGE_FIVE)
 		deconstruct(FALSE)
@@ -803,7 +803,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/tinted/frosted/spaw
 
 /obj/structure/window/reinforced/shuttle/indestructible
 	name = "hardened shuttle window"
-	obj_flags = NO_DECONSTRUCTION
+	obj_flags = /obj::obj_flags | NO_DECONSTRUCTION
 	flags_1 = PREVENT_CLICK_UNDER_1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 

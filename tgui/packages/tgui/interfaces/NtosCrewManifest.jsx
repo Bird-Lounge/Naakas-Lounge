@@ -1,9 +1,10 @@
 import { map } from 'common/collections';
+
 import { useBackend } from '../backend';
 import { Button, Section, Table } from '../components';
 import { NtosWindow } from '../layouts';
 
-// SKYRAT EDIT BEGIN - ALTERNATIVE_JOB_TITLES
+// NOVA EDIT BEGIN - ALTERNATIVE_JOB_TITLES
 //
 // width={500} - Original: width={400}
 //
@@ -50,4 +51,4 @@ export const NtosCrewManifest = (props) => {
     </NtosWindow>
   );
 };
-// SKYRAT EDIT END - ALTERNATIVE_JOB_TITLES
+// NOVA EDIT END - ALTERNATIVE_JOB_TITLES

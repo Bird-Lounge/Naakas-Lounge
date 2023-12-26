@@ -1,19 +1,20 @@
+import { filter, sortBy } from 'common/collections';
+import { flow } from 'common/fp';
 import { BooleanLike, classes } from 'common/react';
 import { createSearch } from 'common/string';
-import { flow } from 'common/fp';
-import { filter, sortBy } from 'common/collections';
+
 import { useBackend, useLocalState } from '../backend';
 import {
-  Divider,
-  Button,
-  Section,
-  Tabs,
-  Stack,
   Box,
-  Input,
+  Button,
+  Divider,
   Icon,
-  Tooltip,
+  Input,
   NoticeBox,
+  Section,
+  Stack,
+  Tabs,
+  Tooltip,
 } from '../components';
 import { Window } from '../layouts';
 import { Food } from './PreferencesMenu/data';
@@ -21,7 +22,7 @@ import { Food } from './PreferencesMenu/data';
 const TYPE_ICONS = {
   'Can Make': 'utensils',
   [Food.Alcohol]: 'wine-glass',
-  [Food.Bloody]: 'tint', // SKYRAT EDIT ADDITION - Hemophage Food
+  [Food.Bloody]: 'tint', // NOVA EDIT ADDITION - Hemophage Food
   [Food.Breakfast]: 'sun',
   [Food.Bugs]: 'bug',
   [Food.Cloth]: 'tshirt',
@@ -75,7 +76,7 @@ const CATEGORY_ICONS_COOKING = {
   Cakes: 'cake-candles',
   'Egg-Based Food': 'egg',
   Frozen: 'ice-cream',
-  'Hemophage Food': 'tint', // SKYRAT EDIT ADDITION - Hemophage Food
+  'Hemophage Food': 'tint', // NOVA EDIT ADDITION - Hemophage Food
   'Lizard Food': 'dragon',
   Meats: 'bacon',
   'Mexican Food': 'pepper-hot',
@@ -89,7 +90,7 @@ const CATEGORY_ICONS_COOKING = {
   Seafood: 'fish',
   Soups: 'mug-hot',
   Spaghettis: 'wheat-awn',
-  'Teshari Food': 'feather-pointed', // SKYRAT EDIT ADDITION - Teshari Food
+  'Teshari Food': 'feather-pointed', // NOVA EDIT ADDITION - Teshari Food
 } as const;
 
 enum MODE {
@@ -259,7 +260,7 @@ export const PersonalCrafting = (props) => {
                       (mode === MODE.cooking ? ' recipes...' : ' designs...')
                     }
                     value={searchText}
-                    onChange={(e, value) => {
+                    onInput={(e, value) => {
                       setPages(1);
                       setSearchText(value);
                     }}
@@ -494,8 +495,7 @@ export const PersonalCrafting = (props) => {
           </Stack.Item>
           <Stack.Item grow my={-1}>
             <Box
-              id="content"
-              height={'100%'}
+              height="100%"
               pr={1}
               pt={1}
               mr={-1}

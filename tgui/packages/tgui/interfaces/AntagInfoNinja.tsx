@@ -1,15 +1,14 @@
 import { BooleanLike } from 'common/react';
+
 import { useBackend } from '../backend';
 import { Icon, Section, Stack } from '../components';
 import { Window } from '../layouts';
+import { Rules } from './AntagInfoRules'; // NOVA EDIT ADDITION
 import {
-  ObjectivePrintout,
   Objective,
+  ObjectivePrintout,
   ReplaceObjectivesButton,
 } from './common/Objectives';
-// SKYRAT EDIT BEGIN
-import { Rules } from './AntagInfoRules';
-// SKYRAT EDIT END
 
 const ninja_emphasis = {
   color: 'red',
@@ -55,11 +54,11 @@ export const AntagInfoNinja = (props) => {
                 what you can do!
               </Section>
             </Stack.Item>
-            {/* SKYRAT EDIT ADDITION START */}
+            {/* NOVA EDIT ADDITION START */}
             <Stack.Item>
               <Rules />
             </Stack.Item>
-            {/* SKYRAT EDIT ADDITION END */}
+            {/* NOVA EDIT ADDITION END */}
             <Stack.Item>
               <ObjectivePrintout
                 objectives={objectives}

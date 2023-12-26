@@ -1,37 +1,38 @@
+import { filterMap, sortBy } from 'common/collections';
 import { classes } from 'common/react';
+
 import { sendAct, useBackend, useLocalState } from '../../backend';
 import {
   Autofocus,
   Box,
   Button,
+  Dropdown, // NOVA EDIT ADDITION
   Flex,
   LabeledList,
   Popper,
   Stack,
   TrackOutsideClicks,
-  Dropdown, // SKYRAT EDIT ADDITION
 } from '../../components';
+import { CharacterPreview } from '../common/CharacterPreview';
 import {
   createSetPreference,
   PreferencesMenuData,
   RandomSetting,
   ServerData,
 } from './data';
-import { CharacterPreview } from '../common/CharacterPreview';
-import { RandomizationButton } from './RandomizationButton';
-import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import { MultiNameInput, NameInput } from './names';
-import { Gender, GENDERS } from './preferences/gender';
 import features from './preferences/features';
 import {
   FeatureChoicedServerData,
   FeatureValueInput,
 } from './preferences/features/base';
-import { filterMap, sortBy } from 'common/collections';
+import { Gender, GENDERS } from './preferences/gender';
+import { RandomizationButton } from './RandomizationButton';
+import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import { useRandomToggleState } from './useRandomToggleState';
 
 const CLOTHING_CELL_SIZE = 48;
-const CLOTHING_SIDEBAR_ROWS = 13.4; // SKYRAT EDIT CHANGE - ORIGINAL:  9
+const CLOTHING_SIDEBAR_ROWS = 13.4; // NOVA EDIT CHANGE - ORIGINAL:  9
 
 const CLOTHING_SELECTION_CELL_SIZE = 48;
 const CLOTHING_SELECTION_WIDTH = 5.4;
@@ -40,7 +41,7 @@ const CLOTHING_SELECTION_MULTIPLIER = 5.2;
 const CharacterControls = (props: {
   handleRotate: () => void;
   handleOpenSpecies: () => void;
-  handleLoadout: () => void; // SKYRAT EDIT ADDITION
+  handleLoadout: () => void; // NOVA EDIT ADDITION
   gender: Gender;
   setGender: (gender: Gender) => void;
   showGender: boolean;
@@ -76,7 +77,7 @@ const CharacterControls = (props: {
         </Stack.Item>
       )}
       {props.handleLoadout && (
-        // SKYRAT EDIT ADDITION
+        // NOVA EDIT ADDITION
         <Stack.Item>
           <Button
             onClick={props.handleLoadout}
@@ -576,13 +577,13 @@ export const MainPage = (props: { openSpecies: () => void }) => {
 
                   <Stack.Item grow>
                     <CharacterPreview
-                      height="80%" // SKYRAT EDIT - ORIGINAL: height="100%"
+                      height="80%" // NOVA EDIT - ORIGINAL: height="100%"
                       id={data.character_preview_view}
                     />
                   </Stack.Item>
 
                   <Stack.Item
-                    // SKYRAT EDIT ADDITION
+                    // NOVA EDIT ADDITION
                     position="relative"
                   >
                     <Dropdown

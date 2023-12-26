@@ -1,17 +1,18 @@
+import { deepMerge } from 'common/collections';
+import { Color } from 'common/color';
+import { BooleanLike } from 'common/react';
+
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  StyleableSection,
   Icon,
-  Stack,
   NoticeBox,
+  Stack,
+  StyleableSection,
 } from '../components';
 import { Window } from '../layouts';
-import { Color } from 'common/color';
 import { JOB2ICON } from './common/JobToIcon';
-import { deepMerge } from 'common/collections';
-import { BooleanLike } from 'common/react';
 
 type Job = {
   unavailable_reason: string | null;
@@ -36,7 +37,7 @@ type Data = {
   disable_jobs_for_non_observers: BooleanLike;
   priority: BooleanLike;
   round_duration: string;
-  alert_level: { name: string; color: string }; // SKYRAT EDIT ADDITION - Alert level on jobs menu
+  alert_level: { name: string; color: string }; // NOVA EDIT ADDITION - Alert level on jobs menu
 };
 
 export const JobEntry = (data: {
@@ -112,9 +113,9 @@ export const JobSelection = (props) => {
   return (
     <Window
       width={1012}
-      /* SKYRAT EDIT CHANGE START - Expand UI for available jobs */
+      /* NOVA EDIT CHANGE START - Expand UI for available jobs */
       height={data.shuttle_status ? 916 : 900 /* Hahahahahaha */}
-      /* SKYRAT EDIT CHANGE END */
+      /* NOVA EDIT CHANGE END */
     >
       <Window.Content scrollable>
         <StyleableSection
@@ -124,7 +125,7 @@ export const JobSelection = (props) => {
                 <NoticeBox info>{data.shuttle_status}</NoticeBox>
               )}
               {
-                // SKYRAT EDIT ADDITION - Alert level on jobs menu
+                // NOVA EDIT ADDITION - Alert level on jobs menu
                 <NoticeBox color={data.alert_level.color}>
                   The current alert level is: {data.alert_level.name}
                 </NoticeBox>
@@ -142,7 +143,7 @@ export const JobSelection = (props) => {
           }
           titleStyle={{ minHeight: '3.4em' }}
         >
-          <Box wrap="wrap" style={{ columns: '20em' }}>
+          <Box style={{ columns: '20em' }}>
             {Object.entries(departments).map((departmentEntry) => {
               const departmentName = departmentEntry[0];
               const entry = departmentEntry[1];

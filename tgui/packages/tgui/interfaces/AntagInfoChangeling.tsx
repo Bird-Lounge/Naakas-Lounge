@@ -1,24 +1,23 @@
 import { BooleanLike } from 'common/react';
 import { multiline } from 'common/string';
 import { useState } from 'react';
+
 import { useBackend } from '../backend';
 import {
   Button,
   Dimmer,
   Dropdown,
+  NoticeBox,
   Section,
   Stack,
-  NoticeBox,
 } from '../components';
 import { Window } from '../layouts';
+import { Rules } from './AntagInfoRules'; // NOVA EDIT ADDITION
 import {
-  ObjectivePrintout,
   Objective,
+  ObjectivePrintout,
   ReplaceObjectivesButton,
 } from './common/Objectives';
-// SKYRAT EDIT BEGIN
-import { Rules } from './AntagInfoRules';
-// SKYRAT EDIT END
 
 const hivestyle = {
   fontWeight: 'bold',
@@ -69,7 +68,7 @@ type Info = {
   can_change_objective: BooleanLike;
 };
 
-// SKYRAT EDIT change height from 750 to 900
+// NOVA EDIT change height from 750 to 900
 export const AntagInfoChangeling = (props) => {
   return (
     <Window width={720} height={900}>
@@ -82,11 +81,11 @@ export const AntagInfoChangeling = (props) => {
           <Stack.Item maxHeight={16}>
             <IntroductionSection />
           </Stack.Item>
-          {/* SKYRAT EDIT ADDITION START */}
+          {/* NOVA EDIT ADDITION START */}
           <Stack.Item>
             <Rules />
           </Stack.Item>
-          {/* SKYRAT EDIT ADDITION END */}
+          {/* NOVA EDIT ADDITION END */}
           <Stack.Item grow={4}>
             <AbilitiesSection />
           </Stack.Item>
