@@ -135,7 +135,7 @@
 					build_step++
 
 		if(ASSEMBLY_FIFTH_STEP)
-			if(istype(W, /obj/item/clothing/head/helmet))
+			if(istype(W, /obj/item/clothing/head/helmet/sec))
 				if(!user.temporarilyRemoveItemFromInventory(W))
 					return
 				to_chat(user, span_notice("You add [W] to [src]."))
@@ -273,10 +273,10 @@
 	switch(build_step)
 		if(ASSEMBLY_FIRST_STEP)
 			if(istype(W, /obj/item/healthanalyzer))
-				var/obj/item/healthanalyzer/analyzer = W // SKYRAT EDIT ADDITION BEGIN -- EXTRA ROBOTICS HEALTH ANALYZERS
+				var/obj/item/healthanalyzer/analyzer = W // NOVA EDIT ADDITION BEGIN -- EXTRA ROBOTICS HEALTH ANALYZERS
 				if (!analyzer.can_be_used_in_medibot())
 					user?.balloon_alert(user, "no attachment ports!")
-					return // SKYRAT EDIT ADDITION END
+					return // NOVA EDIT ADDITION END
 				if(!user.temporarilyRemoveItemFromInventory(W))
 					return
 				healthanalyzer = W.type

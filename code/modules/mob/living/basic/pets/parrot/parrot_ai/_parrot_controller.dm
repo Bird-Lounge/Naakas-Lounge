@@ -18,7 +18,7 @@
 
 /datum/idle_behavior/idle_random_walk/parrot
 	///chance of us moving while perched
-	var/walk_chance_when_perched = 1 // SKYRAT EDIT CHANGE - More obedient poly ORIGINAL : var/walk_chance_when_perched = 5
+	var/walk_chance_when_perched = 1 // NOVA EDIT CHANGE - More obedient poly ORIGINAL : var/walk_chance_when_perched = 5
 
 /datum/idle_behavior/idle_random_walk/parrot/perform_idle_behavior(seconds_per_tick, datum/ai_controller/controller)
 	var/mob/living/living_pawn = controller.pawn
@@ -30,6 +30,8 @@
 /datum/ai_behavior/travel_towards/and_drop/finish_action(datum/ai_controller/controller, succeeded, target_key)
 	. = ..()
 	var/mob/living/living_mob = controller.pawn
+	if(QDELETED(living_mob)) // pawn can be null at this point
+		return
 	var/obj/drop_item = locate(/obj/item) in (living_mob.contents - typecache_filter_list(living_mob.contents, controller.blackboard[BB_IGNORE_ITEMS]))
 	drop_item?.forceMove(get_turf(living_mob))
 

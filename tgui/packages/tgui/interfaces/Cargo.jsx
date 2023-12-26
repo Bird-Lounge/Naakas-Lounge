@@ -1,5 +1,6 @@
-import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
+import { flow } from 'common/fp';
+
 import { useBackend, useSharedState } from '../backend';
 import {
   AnimatedNumber,
@@ -8,9 +9,9 @@ import {
   Flex,
   Icon,
   Input,
-  RestrictedInput,
   LabeledList,
   NoticeBox,
+  RestrictedInput,
   Section,
   Stack,
   Table,
@@ -30,9 +31,9 @@ export const Cargo = (props) => {
 };
 
 export const CargoContent = (props) => {
-  /* SKYRAT EDIT BELOW - ADDS act */
+  /* NOVA EDIT BELOW - ADDS act */
   const { act, data } = useBackend();
-  /* SKYRAT EDIT END */
+  /* NOVA EDIT END */
   const [tab, setTab] = useSharedState('tab', 'catalog');
   const { cart = [], requests = [], requestonly } = data;
   const cart_length = cart.reduce((total, entry) => total + entry.amount, 0);
@@ -234,7 +235,7 @@ export const CargoCatalog = (props) => {
                     fluid
                     placeholder="Search..."
                     value={searchText}
-                    onChange={(e, value) => {
+                    onInput={(e, value) => {
                       if (value === searchText) {
                         return;
                       }

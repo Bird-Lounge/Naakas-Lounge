@@ -73,7 +73,9 @@
 	///The minimum value for the light's power in low power mode
 	var/bulb_low_power_pow_min = 0.5
 	///The Light range to use when working in fire alarm status
-	var/fire_brightness = 4
+	var/fire_brightness = 9
+	///The Light power to use when working in fire alarm status
+	var/fire_power = 0.5
 	///The Light colour to use when working in fire alarm status
 	var/fire_colour = COLOR_FIRE_LIGHT_RED
 
@@ -185,10 +187,10 @@
 	. += mutable_appearance(overlay_icon, base_state)
 
 
-//SKYRAT EDIT ADDITION BEGIN - AESTHETICS
+//NOVA EDIT ADDITION BEGIN - AESTHETICS
 #define LIGHT_ON_DELAY_UPPER (2 SECONDS)
 #define LIGHT_ON_DELAY_LOWER (0.25 SECONDS)
-//SKYRAT EDIT END
+//NOVA EDIT END
 
 // Area sensitivity is traditionally tied directly to power use, as an optimization
 // But since we want it for fire reacting, we disregard that
@@ -210,16 +212,16 @@
 
 /obj/machinery/light/proc/handle_fire(area/source, new_fire)
 	SIGNAL_HANDLER
-	update(instant = TRUE, play_sound = FALSE) //SKYRAT EDIT CHANGE
+	update(instant = TRUE, play_sound = FALSE) //NOVA EDIT CHANGE
 
 // update the icon_state and luminosity of the light depending on its state
-/obj/machinery/light/proc/update(trigger = TRUE, instant = FALSE, play_sound = TRUE) //SKYRAT EDIT CHANGE
+/obj/machinery/light/proc/update(trigger = TRUE, instant = FALSE, play_sound = TRUE) //NOVA EDIT CHANGE
 	switch(status)
 		if(LIGHT_BROKEN,LIGHT_BURNED,LIGHT_EMPTY)
 			on = FALSE
 	low_power_mode = FALSE
 	if(on)
-	/* SKYRAT EDIT ORIGINAL
+	/* NOVA EDIT ORIGINAL
 		var/brightness_set = brightness
 		var/power_set = bulb_power
 		var/color_set = bulb_colour
@@ -230,6 +232,7 @@
 		var/area/local_area = get_room_area()
 		if (local_area?.fire)
 			color_set = fire_colour
+			power_set = fire_power
 			brightness_set = fire_brightness
 		else if (nightshift_enabled)
 			brightness_set = nightshift_brightness
@@ -253,7 +256,7 @@
 					l_color = color_set
 					)
 		*/
-		//SKYRAT EDIT CHANGE BEGIN - AESTHETICS
+		//NOVA EDIT CHANGE BEGIN - AESTHETICS
 		if(instant)
 			turn_on(trigger, play_sound)
 		else if(maploaded)
@@ -262,7 +265,7 @@
 		else if(!turning_on)
 			turning_on = TRUE
 			addtimer(CALLBACK(src, PROC_REF(turn_on), trigger, play_sound), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
-		//SKYRAT EDIT END
+		//NOVA EDIT END
 	else if(has_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
 		use_power = IDLE_POWER_USE
 		low_power_mode = TRUE
@@ -275,10 +278,10 @@
 	broken_sparks(start_only=TRUE)
 
 
-//SKYRAT EDIT ADDITION BEGIN - AESTHETICS
+//NOVA EDIT ADDITION BEGIN - AESTHETICS
 #undef LIGHT_ON_DELAY_UPPER
 #undef LIGHT_ON_DELAY_LOWER
-//SKYRAT EDIT END
+//NOVA EDIT END
 
 /obj/machinery/light/update_current_power_usage()
 	if(!on && static_power_used > 0) //Light is off but still powered
@@ -353,10 +356,10 @@
 			. += "The [fitting] has been smashed."
 	if(cell || has_mock_cell)
 		. += "Its backup power charge meter reads [has_mock_cell ? 100 : round((cell.charge / cell.maxcharge) * 100, 0.1)]%."
-	//SKYRAT EDIT ADDITION
+	//NOVA EDIT ADDITION
 	if(constant_flickering)
 		. += span_danger("The lighting ballast appears to be damaged, this could be fixed with a multitool.")
-	//SKYRAT EDIT END
+	//NOVA EDIT END
 
 
 
@@ -476,16 +479,16 @@
 // if a light is turned off, it won't activate emergency power
 /obj/machinery/light/proc/turned_off()
 	var/area/local_area = get_room_area()
-	return !local_area.lightswitch && local_area.power_light || flickering || constant_flickering //SKYRAT EDIT CHANGE - ORIGINAL : return !local_area.lightswitch && local_area.power_light || flickering
+	return !local_area.lightswitch && local_area.power_light || flickering || constant_flickering //NOVA EDIT CHANGE - ORIGINAL : return !local_area.lightswitch && local_area.power_light || flickering
 
 // returns whether this light has power
 // true if area has power and lightswitch is on
 /obj/machinery/light/proc/has_power()
 	var/area/local_area = get_room_area()
-	//SKYRAT EDIT ADDITION BEGIN
+	//NOVA EDIT ADDITION BEGIN
 	if(isnull(local_area))
 		return FALSE
-	//SKYRAT EDIT END
+	//NOVA EDIT END
 	return local_area.lightswitch && local_area.power_light
 
 // returns whether this light has emergency power
@@ -527,13 +530,13 @@
 			if(status != LIGHT_OK || !has_power())
 				break
 			on = !on
-			update(FALSE, TRUE) //SKYRAT EDIT CHANGE
+			update(FALSE, TRUE) //NOVA EDIT CHANGE
 			sleep(rand(5, 15))
 		if(has_power())
 			on = (status == LIGHT_OK)
 		else
 			on = FALSE
-		update(FALSE, TRUE) // SKYRAT EDIT CHANGE
+		update(FALSE, TRUE) // NOVA EDIT CHANGE
 		. = TRUE //did we actually flicker?
 	flickering = FALSE
 
@@ -748,7 +751,7 @@
 	light_type = /obj/item/light/bulb
 	fitting = "bulb"
 	nightshift_brightness = 3
-	fire_brightness = 2
+	fire_brightness = 4.5
 
 /obj/machinery/light/floor/get_light_offset()
 	return list(0, 0)

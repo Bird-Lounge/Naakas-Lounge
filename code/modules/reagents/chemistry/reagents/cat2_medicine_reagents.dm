@@ -98,6 +98,8 @@
 	ph = 8.2
 	taste_description = "bitter with a hint of alcohol"
 	reagent_state = SOLID
+	inverse_chem_val = 0.3
+	inverse_chem = /datum/reagent/inverse/libitoil
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/medicine/c2/libital/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
@@ -161,13 +163,16 @@
 /*Suffix: -uri*/
 /datum/reagent/medicine/c2/lenturi
 	name = "Lenturi"
-	description = "Used to treat burns. Makes you move slower while it is in your system. Applies stomach damage when it leaves your system."
+	description = "Used to treat burns. Applies stomach damage when it leaves your system."
 	reagent_state = LIQUID
 	color = "#6171FF"
 	ph = 4.7
 	var/resetting_probability = 0 //What are these for?? Can I remove them?
 	var/spammer = 0
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	inverse_chem_val = 0.4
+	inverse_chem = /datum/reagent/inverse/lentslurri
+
 
 /datum/reagent/medicine/c2/lenturi/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	. = ..()
@@ -186,6 +191,8 @@
 	var/resetting_probability = 0 //same with this? Old legacy vars that should be removed?
 	var/message_cd = 0
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	inverse_chem_val = 0.35
+	inverse_chem = /datum/reagent/inverse/aiuri
 
 /datum/reagent/medicine/c2/aiuri/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	. = ..()
@@ -206,19 +213,19 @@
 	inverse_chem = /datum/reagent/inverse/hercuri
 	inverse_chem_val = 0.3
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-	process_flags = REAGENT_ORGANIC | REAGENT_SYNTHETIC // SKYRAT EDIT ADDITION - Lets hercuri process in synths
+	process_flags = REAGENT_ORGANIC | REAGENT_SYNTHETIC // NOVA EDIT ADDITION - Lets hercuri process in synths
 
 /datum/reagent/medicine/c2/hercuri/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	. = ..()
 	var/need_mob_update
-	// SKYRAT EDIT CHANGE BEGIN -- Adds check for owner_flags; indented the getFireLoss check and everything under it, so synths can get cooled down
+	// NOVA EDIT CHANGE BEGIN -- Adds check for owner_flags; indented the getFireLoss check and everything under it, so synths can get cooled down
 	var/owner_flags = affected_mob.dna.species.reagent_flags
 	if (owner_flags & PROCESS_ORGANIC)
 		if(affected_mob.getFireLoss() > 50)
 			need_mob_update = affected_mob.adjustFireLoss(-2 * REM * seconds_per_tick * normalise_creation_purity(), updating_health = FALSE, required_bodytype = affected_bodytype)
 		else
 			need_mob_update = affected_mob.adjustFireLoss(-1.25 * REM * seconds_per_tick * normalise_creation_purity(), updating_health = FALSE, required_bodytype = affected_bodytype)
-	// SKYRAT EDIT CHANGE END
+	// NOVA EDIT CHANGE END
 	affected_mob.adjust_bodytemperature(rand(-25,-5) * TEMPERATURE_DAMAGE_COEFFICIENT * REM * seconds_per_tick, 50)
 	if(ishuman(affected_mob))
 		var/mob/living/carbon/human/humi = affected_mob
@@ -519,11 +526,11 @@
 	if(HAS_TRAIT_FROM(exposed_mob, TRAIT_HUSK, BURN) && carbies.getFireLoss() < UNHUSK_DAMAGE_THRESHOLD && (carbies.reagents.get_reagent_amount(/datum/reagent/medicine/c2/synthflesh) + reac_volume >= SYNTHFLESH_UNHUSK_AMOUNT))
 		carbies.cure_husk(BURN)
 		carbies.visible_message("<span class='nicegreen'>A rubbery liquid coats [carbies]'s burns. [carbies] looks a lot healthier!") //we're avoiding using the phrases "burnt flesh" and "burnt skin" here because carbies could be a skeleton or a golem or something
-	// SKYRAT EDIT ADDITION BEGIN - non-modular changeling balancing
+	// NOVA EDIT ADDITION BEGIN - non-modular changeling balancing
 	if(HAS_TRAIT_FROM(exposed_mob, TRAIT_HUSK, CHANGELING_DRAIN) && (carbies.reagents.get_reagent_amount(/datum/reagent/medicine/c2/synthflesh) + reac_volume >= SYNTHFLESH_LING_UNHUSK_AMOUNT))//Costs a little more than a normal husk
 		carbies.cure_husk(CHANGELING_DRAIN)
 		carbies.visible_message("<span class='nicegreen'>A rubbery liquid coats [carbies]'s tissues. [carbies] looks a lot healthier!")
-	// SKYRAT EDIT ADDITION END
+	// NOVA EDIT ADDITION END
 
 /******ORGAN HEALING******/
 /*Suffix: -rite*/
@@ -567,7 +574,7 @@
 /datum/reagent/medicine/c2/penthrite/on_mob_life(mob/living/carbon/human/affected_mob, seconds_per_tick, times_fired)
 	. = ..()
 	var/need_mob_update
-	need_mob_update = affected_mob.adjustStaminaLoss(-12.5 * REM * seconds_per_tick, updating_stamina = FALSE) //SKYRAT EDIT ADDITION - COMBAT - makes your heart beat faster, fills you with energy. For miners
+	need_mob_update = affected_mob.adjustStaminaLoss(-12.5 * REM * seconds_per_tick, updating_stamina = FALSE) //NOVA EDIT ADDITION - COMBAT - makes your heart beat faster, fills you with energy. For miners
 	need_mob_update = affected_mob.adjustOrganLoss(ORGAN_SLOT_STOMACH, 0.25 * REM * seconds_per_tick, required_organ_flag = affected_organ_flags)
 	if(affected_mob.health <= HEALTH_THRESHOLD_CRIT && affected_mob.health > (affected_mob.crit_threshold + HEALTH_THRESHOLD_FULLCRIT * (2 * normalise_creation_purity()))) //we cannot save someone below our lowered crit threshold.
 

@@ -1,26 +1,27 @@
-import { NoteKeeper } from './NoteKeeper';
 import {
-  Stack,
-  Section,
-  NoticeBox,
   Box,
-  LabeledList,
   Button,
+  LabeledList,
+  NoticeBox,
   RestrictedInput,
+  Section,
+  Stack,
 } from 'tgui/components';
-import { CharacterPreview } from '../common/CharacterPreview';
-import { getMedicalRecord, getQuirkStrings } from './helpers';
+
 import { useBackend } from '../../backend';
+import { CharacterPreview } from '../common/CharacterPreview';
+import { EditableText } from '../common/EditableText';
 import {
-  PHYSICALSTATUS2COLOR,
-  PHYSICALSTATUS2DESC,
-  PHYSICALSTATUS2ICON,
   MENTALSTATUS2COLOR,
   MENTALSTATUS2DESC,
   MENTALSTATUS2ICON,
+  PHYSICALSTATUS2COLOR,
+  PHYSICALSTATUS2DESC,
+  PHYSICALSTATUS2ICON,
 } from './constants';
+import { getMedicalRecord, getQuirkStrings } from './helpers';
+import { NoteKeeper } from './NoteKeeper';
 import { MedicalRecordData } from './types';
-import { EditableText } from '../common/EditableText';
 
 /** Views a selected record. */
 export const MedicalRecordView = (props) => {
@@ -45,10 +46,10 @@ export const MedicalRecordView = (props) => {
     name,
     quirk_notes,
     rank,
-    // SKYRAT EDIT START - RP Records
+    // NOVA EDIT START - RP Records
     past_general_records,
     past_medical_records,
-    // SKYRAT EDIT END
+    // NOVA EDIT END
     species,
   } = foundRecord;
 
@@ -82,7 +83,6 @@ export const MedicalRecordView = (props) => {
           fill
           scrollable
           title={name}
-          wrap
         >
           <LabeledList>
             <LabeledList.Item label="Name">
@@ -209,18 +209,18 @@ export const MedicalRecordView = (props) => {
                 <Box key={index}>&#8226; {quirk}</Box>
               ))}
             </LabeledList.Item>
-            {/* SKYRAT EDIT START - RP Records (Not pretty but it's there) */}
+            {/* NOVA EDIT START - RP Records (Not pretty but it's there) */}
             <LabeledList.Item label="General Records">
-              <Box wrap maxWidth="100%" preserveWhitespace>
+              <Box maxWidth="100%" preserveWhitespace>
                 {past_general_records || 'N/A'}
               </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Past Medical Records">
-              <Box wrap maxWidth="100%" preserveWhitespace>
+              <Box maxWidth="100%" preserveWhitespace>
                 {past_medical_records || 'N/A'}
               </Box>
             </LabeledList.Item>
-            {/* SKYRAT EDIT END */}
+            {/* NOVA EDIT END */}
           </LabeledList>
         </Section>
       </Stack.Item>

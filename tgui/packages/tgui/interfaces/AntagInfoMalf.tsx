@@ -1,18 +1,17 @@
-import { useBackend } from '../backend';
-import { multiline } from 'common/string';
-import { GenericUplink, Item } from './Uplink/GenericUplink';
-import { BlockQuote, Button, Section, Stack, Tabs } from '../components';
 import { BooleanLike } from 'common/react';
+import { multiline } from 'common/string';
+import { useState } from 'react';
+
+import { useBackend } from '../backend';
+import { BlockQuote, Button, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
+import { Rules } from './AntagInfoRules'; // NOVA EDIT ADDITION
 import {
-  ObjectivePrintout,
   Objective,
+  ObjectivePrintout,
   ReplaceObjectivesButton,
 } from './common/Objectives';
-import { useState } from 'react';
-// SKYRAT EDIT BEGIN
-import { Rules } from './AntagInfoRules';
-// SKYRAT EDIT END
+import { GenericUplink, Item } from './Uplink/GenericUplink';
 
 const allystyle = {
   fontWeight: 'bold',
@@ -63,7 +62,7 @@ const IntroductionSection = (props) => {
               />
             }
           />
-          <Rules /* SKYRAT EDIT ADDITION */ />
+          <Rules /* NOVA EDIT ADDITION */ />
         </Stack.Item>
       </Stack>
     </Section>
@@ -82,7 +81,7 @@ const FlavorSection = (props) => {
           mr={-0.8}
           mt={-0.5}
           icon="hammer"
-          /* SKYRAT EDIT: ORIGINAL TOOLTIP
+          /* NOVA EDIT: ORIGINAL TOOLTIP
           tooltip={multiline`
             This is a gameplay suggestion for bored ais.
             You don't have to follow it, unless you want some

@@ -1,12 +1,11 @@
-import { useBackend } from '../backend';
-import { multiline } from 'common/string';
-import { BlockQuote, Button, Dimmer, Section, Stack } from '../components';
 import { BooleanLike } from 'common/react';
+import { multiline } from 'common/string';
+
+import { useBackend } from '../backend';
+import { BlockQuote, Button, Dimmer, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { ObjectivePrintout, Objective } from './common/Objectives';
-// SKYRAT EDIT BEGIN
-import { Rules } from './AntagInfoRules';
-// SKYRAT EDIT END
+import { Rules } from './AntagInfoRules'; // NOVA EDIT ADDITION
+import { Objective, ObjectivePrintout } from './common/Objectives';
 
 const allystyle = {
   fontWeight: 'bold',
@@ -51,14 +50,14 @@ const IntroductionSection = (props) => {
         <Stack.Item grow>
           <ObjectivePrintout objectives={objectives} />
         </Stack.Item>
-        {/* SKYRAT EDIT ADDITION START */}
+        {/* NOVA EDIT ADDITION START */}
         <Stack.Item grow>
-          {/* SKYRAT EDIT ADDITION START */}
+          {/* NOVA EDIT ADDITION START */}
           <Stack.Item>
             <Rules />
           </Stack.Item>
         </Stack.Item>
-        {/* SKYRAT EDIT ADDITION END */}
+        {/* NOVA EDIT ADDITION END */}
       </Stack>
     </Section>
   );
@@ -231,7 +230,7 @@ const CodewordsSection = (props) => {
   );
 };
 
-// SKYRAT EDIT: change height from 580 to 650
+// NOVA EDIT: change height from 580 to 650
 export const AntagInfoTraitor = (props) => {
   const { data } = useBackend<Info>();
   const { theme } = data;

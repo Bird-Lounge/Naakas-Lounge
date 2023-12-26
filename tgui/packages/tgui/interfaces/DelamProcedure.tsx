@@ -1,5 +1,5 @@
-// THIS IS A SKYRAT UI FILE
-import { Section, BlockQuote, Box, NoticeBox } from '../components';
+// THIS IS A NOVA SECTOR UI FILE
+import { BlockQuote, Box, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
 
 export const DelamProcedure = () => {

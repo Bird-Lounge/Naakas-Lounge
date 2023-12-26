@@ -19,6 +19,7 @@
 	melee_damage_upper = 25
 	gold_core_spawnable = HOSTILE_SPAWN
 	ai_controller = /datum/ai_controller/basic_controller/giant_spider
+	bite_injection_flags = INJECT_CHECK_PENETRATE_THICK
 	/// Actions to grant on Initialize
 	var/list/innate_actions = null
 
@@ -108,7 +109,7 @@
 	. = ..()
 	AddElement(/datum/element/web_walker, /datum/movespeed_modifier/fast_web)
 
-/mob/living/basic/spider/giant/hunter/mold //skyrat edit: exists to make molds not spam the world with simple mobs
+/mob/living/basic/spider/giant/hunter/mold //NOVA EDIT: exists to make molds not spam the world with simple mobs
 	basic_mob_flags = DEL_ON_DEATH
 
 /**

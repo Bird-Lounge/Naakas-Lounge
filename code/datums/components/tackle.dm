@@ -54,18 +54,18 @@
 
 /datum/component/tackler/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOB_CLICKON, PROC_REF(checkTackle))
-	RegisterSignal(parent, COMSIG_MOVABLE_IMPACT, PROC_REF(sack))
+	RegisterSignal(parent, COMSIG_MOVABLE_PRE_IMPACT, PROC_REF(sack))
 	RegisterSignal(parent, COMSIG_MOVABLE_POST_THROW, PROC_REF(registerTackle))
 
 /datum/component/tackler/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_MOB_CLICKON, COMSIG_MOVABLE_IMPACT, COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_POST_THROW))
+	UnregisterSignal(parent, list(COMSIG_MOB_CLICKON, COMSIG_MOVABLE_PRE_IMPACT, COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_POST_THROW))
 
 ///Store the thrownthing datum for later use
 /datum/component/tackler/proc/registerTackle(mob/living/carbon/user, datum/thrownthing/tackle)
 	SIGNAL_HANDLER
 
 	tackle_ref = WEAKREF(tackle)
-	tackle.thrower = user
+	tackle.thrower = WEAKREF(user)
 
 ///See if we can tackle or not. If we can, leap!
 /datum/component/tackler/proc/checkTackle(mob/living/carbon/user, atom/clicked_atom, list/modifiers)
@@ -106,7 +106,7 @@
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(checkObstacle))
 	playsound(user, 'sound/weapons/thudswoosh.ogg', 40, TRUE, -1)
 
-	var/leap_word = isfeline(user) ? "pounce" : "leap" //If cat, "pounce" instead of "leap". // SKYRAT EDIT - FELINE TRAITS. Was: isfelinid(user)
+	var/leap_word = isfeline(user) ? "pounce" : "leap" //If cat, "pounce" instead of "leap". // NOVA EDIT - FELINE TRAITS. Was: isfelinid(user)
 	if(can_see(user, clicked_atom, 7))
 		user.visible_message(span_warning("[user] [leap_word]s at [clicked_atom]!"), span_danger("You [leap_word] at [clicked_atom]!"))
 	else
@@ -152,7 +152,7 @@
 		return
 
 	var/mob/living/carbon/target = hit
-	var/tackle_word = isfeline(user) ? "pounce" : "tackle" //If cat, "pounce" instead of "tackle". // SKYRAT EDIT - FELINE TRAITS - ORIGINAL : var/tackle_word = isfelinid(user) ? "pounce" : "tackle" 
+	var/tackle_word = isfeline(user) ? "pounce" : "tackle" //If cat, "pounce" instead of "tackle". // NOVA EDIT - FELINE TRAITS - ORIGINAL : var/tackle_word = isfelinid(user) ? "pounce" : "tackle" 
 
 	var/roll = rollTackle(target)
 	tackling = FALSE
