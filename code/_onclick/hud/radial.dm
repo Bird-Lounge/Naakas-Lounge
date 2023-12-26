@@ -111,7 +111,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/hudfix_method = TRUE //TRUE to change anchor to user, FALSE to shift by py_shift
 	var/py_shift = 0
 	var/entry_animation = TRUE
-	var/icon_path = 'icons/hud/radial.dmi' //SKYRAT EDIT ADDITION - GUNPOINT
+	var/icon_path = 'icons/hud/radial.dmi' //NOVA EDIT ADDITION - GUNPOINT
 
 	///A replacement icon state for the generic radial slice bg icon. Doesn't affect the next page nor the center buttons
 	var/radial_slice_icon
@@ -159,7 +159,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		var/elements_to_add = max_elements - elements.len
 		for(var/i in 1 to elements_to_add) //Create all elements
 			var/atom/movable/screen/radial/slice/new_element = new /atom/movable/screen/radial/slice
-			new_element.icon = icon_path //SKYRAT EDIT ADDITION - GUNPOINT
+			new_element.icon = icon_path //NOVA EDIT ADDITION - GUNPOINT
 			new_element.tooltips = use_tooltips
 			new_element.set_parent(src)
 			elements += new_element
@@ -347,9 +347,13 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	Choices should be a list where list keys are movables or text used for element names and return value
 	and list values are movables/icons/images used for element icons
 */
-/proc/show_radial_menu(mob/user, atom/anchor, list/choices, uniqueid, radius, datum/callback/custom_check, require_near = FALSE, tooltips = FALSE, no_repeat_close = FALSE, radial_slice_icon = "radial_slice")
+/proc/show_radial_menu(mob/user, atom/anchor, list/choices, uniqueid, radius, datum/callback/custom_check, require_near = FALSE, tooltips = FALSE, no_repeat_close = FALSE, radial_slice_icon = "radial_slice", autopick_single_option = TRUE)
 	if(!user || !anchor || !length(choices))
 		return
+
+	if(length(choices)==1 && autopick_single_option)
+		return choices[1]
+
 	if(!uniqueid)
 		uniqueid = "defmenu_[REF(user)]_[REF(anchor)]"
 

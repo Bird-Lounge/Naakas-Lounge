@@ -370,10 +370,10 @@
 	if (.)
 		return
 	if (!internal_magazine && istype(A, /obj/item/ammo_box/magazine))
-		// SKYRAT EDIT ADDITION START - this return is intentional; we do not want to run TG's version of this case handling
+		// NOVA EDIT ADDITION START - this return is intentional; we do not want to run TG's version of this case handling
 		if(handle_magazine(user, A))
 			return
-		// SKYRAT EDIT ADDITION END
+		// NOVA EDIT ADDITION END
 		var/obj/item/ammo_box/magazine/AM = A
 		if (!magazine)
 			insert_magazine(user, AM)
@@ -394,11 +394,11 @@
 				chambered = null
 			var/num_loaded = magazine?.attackby(A, user, params, TRUE)
 			if (num_loaded)
-				handle_box_reload(user, A, num_loaded) // SKYRAT EDIT CHANGE - ORIGINAL: balloon_alert(user, "[num_loaded] [cartridge_wording]\s loaded")
+				handle_box_reload(user, A, num_loaded) // NOVA EDIT CHANGE - ORIGINAL: balloon_alert(user, "[num_loaded] [cartridge_wording]\s loaded")
 				playsound(src, load_sound, load_sound_volume, load_sound_vary)
 				if (chambered == null && bolt_type == BOLT_TYPE_NO_BOLT)
 					chamber_round()
-				SEND_SIGNAL(src, COMSIG_UPDATE_AMMO_HUD) // SKYRAT EDIT ADDITION - this is normally done by handle_magazine which does not get called so we have to do it manually here
+				SEND_SIGNAL(src, COMSIG_UPDATE_AMMO_HUD) // NOVA EDIT ADDITION - this is normally done by handle_magazine which does not get called so we have to do it manually here
 				A.update_appearance()
 				update_appearance()
 			return
@@ -490,11 +490,11 @@
 		if (empty_alarm && last_shot_succeeded)
 			playsound(src, empty_alarm_sound, empty_alarm_volume, empty_alarm_vary)
 			update_appearance()
-		if (last_shot_succeeded && bolt_type == BOLT_TYPE_LOCKING)
+		if (last_shot_succeeded && bolt_type == BOLT_TYPE_LOCKING && semi_auto)
 			bolt_locked = TRUE
 			update_appearance()
 
-/obj/item/gun/ballistic/afterattack()
+/obj/item/gun/ballistic/fire_gun(atom/target, mob/living/user, flag, params)
 	prefire_empty_checks()
 	. = ..() //The gun actually firing
 	postfire_empty_checks(.)
@@ -522,7 +522,7 @@
 				SSblackbox.record_feedback("tally", "station_mess_created", 1, CB.name)
 		if (num_unloaded)
 			balloon_alert(user, "[num_unloaded] [cartridge_wording]\s unloaded")
-			SEND_SIGNAL(src, COMSIG_UPDATE_AMMO_HUD) // SKYRAT EDIT ADDITION - this is normally handled by eject_magazine() but internal magazines are a special case
+			SEND_SIGNAL(src, COMSIG_UPDATE_AMMO_HUD) // NOVA EDIT ADDITION - this is normally handled by eject_magazine() but internal magazines are a special case
 			playsound(user, eject_sound, eject_sound_volume, eject_sound_vary)
 			update_appearance()
 		else
@@ -723,7 +723,7 @@ GLOBAL_LIST_INIT(gun_saw_types, typecacheof(list(
 
 /obj/item/suppressor
 	name = "suppressor"
-	desc = "A small-arms suppressor for maximum espionage." //SKYRAT EDIT - ORIGINAL: desc = "A syndicate small-arms suppressor for maximum espionage."
+	desc = "A syndicate small-arms suppressor for maximum espionage."
 	icon = 'icons/obj/weapons/guns/ballistic.dmi'
 	icon_state = "suppressor"
 	w_class = WEIGHT_CLASS_TINY

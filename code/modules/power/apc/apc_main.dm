@@ -71,6 +71,8 @@
 	var/malfhack = FALSE //New var for my changes to AI malf. --NeoFite
 	///Reference to our ai hacker
 	var/mob/living/silicon/ai/malfai = null //See above --NeoFite
+	///Counter for displaying the hacked overlay to mobs within view
+	var/hacked_flicker_counter = 0
 	///State of the electronics inside (missing, installed, secured)
 	var/has_electronics = APC_ELECTRONICS_MISSING
 	///used for the Blackout malf module
@@ -154,6 +156,10 @@
 			offset_old = pixel_x
 			pixel_x = -APC_PIXEL_OFFSET
 
+	hud_list = list(
+		MALF_APC_HUD = image(icon = 'icons/mob/huds/hud.dmi', icon_state = "apc_hacked", pixel_x = src.pixel_x, pixel_y = src.pixel_y)
+	)
+
 	//Assign it to its area. If mappers already assigned an area string fast load the area from it else get the current area
 	var/area/our_area = get_area(loc)
 	if(areastring)
@@ -227,7 +233,6 @@
 		QDEL_NULL(cell)
 	if(terminal)
 		disconnect_terminal()
-
 	return ..()
 
 /obj/machinery/power/apc/proc/assign_to_area(area/target_area = get_area(src))
@@ -295,7 +300,7 @@
 			. += "The cover is closed."
 
 /obj/machinery/power/apc/deconstruct(disassembled = TRUE)
-	if(flags_1 & NODECONSTRUCT_1)
+	if(obj_flags & NO_DECONSTRUCTION)
 		return
 	if(!(machine_stat & BROKEN))
 		set_broken()
@@ -482,6 +487,11 @@
 		force_update = TRUE
 		return
 
+	if(obj_flags & EMAGGED || malfai)
+		hacked_flicker_counter = hacked_flicker_counter - 1
+		if(hacked_flicker_counter <= 0)
+			flicker_hacked_icon()
+
 	//dont use any power from that channel if we shut that power channel off
 	lastused_light = APC_CHANNEL_IS_ON(lighting) ? area.power_usage[AREA_USAGE_LIGHT] + area.power_usage[AREA_USAGE_STATIC_LIGHT] : 0
 	lastused_equip = APC_CHANNEL_IS_ON(equipment) ? area.power_usage[AREA_USAGE_EQUIP] + area.power_usage[AREA_USAGE_STATIC_EQUIP] : 0
@@ -551,7 +561,7 @@
 			if(!nightshift_lights || (nightshift_lights && !low_power_nightshift_lights))
 				low_power_nightshift_lights = TRUE
 				INVOKE_ASYNC(src, PROC_REF(set_nightshift), TRUE)
-		else if(cell.percent() < 7 && long_term_power < 0) // SKYRAT EDIT CHANGE - orig: 15
+		else if(cell.percent() < 7 && long_term_power < 0) // NOVA EDIT CHANGE - orig: 15
 			equipment = autoset(equipment, AUTOSET_OFF)
 			lighting = autoset(lighting, AUTOSET_OFF)
 			environ = autoset(environ, AUTOSET_ON)
@@ -559,9 +569,9 @@
 			if(!nightshift_lights || (nightshift_lights && !low_power_nightshift_lights))
 				low_power_nightshift_lights = TRUE
 				INVOKE_ASYNC(src, PROC_REF(set_nightshift), TRUE)
-		else if(cell.percent() < 17 && long_term_power < 0) // SKYRAT EDIT CHANGE - orig: 30
-			equipment = autoset(equipment, AUTOSET_ON) // SKYRAT EDIT CHANGE - orig: AUTOSET_OFF
-			lighting = autoset(lighting, AUTOSET_OFF) // SKYRAT EDIT CHANGE - orig: AUTOSET_ON
+		else if(cell.percent() < 17 && long_term_power < 0) // NOVA EDIT CHANGE - orig: 30
+			equipment = autoset(equipment, AUTOSET_ON) // NOVA EDIT CHANGE - orig: AUTOSET_OFF
+			lighting = autoset(lighting, AUTOSET_OFF) // NOVA EDIT CHANGE - orig: AUTOSET_ON
 			environ = autoset(environ, AUTOSET_ON)
 			alarm_manager.send_alarm(ALARM_POWER)
 			if(!nightshift_lights || (nightshift_lights && !low_power_nightshift_lights))
