@@ -6,14 +6,14 @@
 	mutant_bodyparts = list("ears" = "Cat", "wings" = "None")
 	mutantbrain = /obj/item/organ/internal/brain/felinid
 	mutanttongue = /obj/item/organ/internal/tongue/cat
-	/* SKYRAT EDIT REMOVAL - CUSTOMIZATION
+	/* NOVA EDIT REMOVAL - CUSTOMIZATION
 	mutantears = /obj/item/organ/internal/ears/cat
 	external_organs = list(
 		/obj/item/organ/external/tail/cat = "Cat",
 	)
-	*/ // SKYRAT EDIT REMOVAL END
+	*/ // NOVA EDIT REMOVAL END
 	inherent_traits = list(
-		TRAIT_CAN_USE_FLIGHT_POTION,
+		TRAIT_CATLIKE_GRACE,
 		TRAIT_HATED_BY_DOGS,
 		TRAIT_USES_SKINTONES,
 	)
@@ -49,8 +49,9 @@
 	return ..()
 
 /datum/species/human/felinid/randomize_features(mob/living/carbon/human/human_mob)
-	randomize_external_organs(human_mob)
-	return ..()
+	var/list/features = ..()
+	features["ears"] = pick("None", "Cat")
+	return features
 
 /proc/mass_purrbation()
 	for(var/mob in GLOB.human_list)
@@ -135,7 +136,7 @@
 	human_for_preview.set_haircolor("#ffcccc", update = FALSE) // pink
 	human_for_preview.set_hairstyle("Hime Cut", update = TRUE)
 
-	/* SKYRAT EDIT - Making the species menu icons work better - ORIGINAL:
+	/* NOVA EDIT - Making the species menu icons work better - ORIGINAL:
 	var/obj/item/organ/internal/ears/cat/cat_ears = human_for_preview.get_organ_by_type(/obj/item/organ/internal/ears/cat)
 	if (cat_ears)
 		cat_ears.color = human_for_preview.hair_color
@@ -145,7 +146,7 @@
 	human_for_preview.dna.mutant_bodyparts["ears"] = list(MUTANT_INDEX_NAME = "Cat", MUTANT_INDEX_COLOR_LIST = list(human_for_preview.hair_color))
 	regenerate_organs(human_for_preview, src, visual_only = TRUE)
 	human_for_preview.update_body(TRUE)
-	// SKYRAT EDIT END
+	// NOVA EDIT END
 
 /datum/species/human/felinid/get_physical_attributes()
 	return "Felinids are very similar to humans in almost all respects, with their biggest differences being the ability to lick their wounds, \
@@ -181,6 +182,14 @@
 			SPECIES_PERK_ICON = "grin-tongue",
 			SPECIES_PERK_NAME = "Grooming",
 			SPECIES_PERK_DESC = "Felinids can lick wounds to reduce bleeding.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+			SPECIES_PERK_ICON = FA_ICON_PERSON_FALLING,
+			SPECIES_PERK_NAME = "Catlike Grace",
+			SPECIES_PERK_DESC = "Felinids have catlike instincts allowing them to land upright on their feet.  \
+				Instead of being knocked down from falling, you only recieve a short slowdown. \
+				However, they do not have catlike legs, and the fall will deal additional damage.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,

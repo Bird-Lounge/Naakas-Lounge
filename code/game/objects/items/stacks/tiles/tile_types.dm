@@ -81,7 +81,7 @@
 	if(!replace_plating)
 		if(!use(1))
 			return
-		target_plating = target_plating.PlaceOnTop(placed_turf_path, flags = CHANGETURF_INHERIT_AIR)
+		target_plating = target_plating.place_on_top(placed_turf_path, flags = CHANGETURF_INHERIT_AIR)
 		target_plating.setDir(turf_dir)
 		playsound(target_plating, 'sound/weapons/genhit.ogg', 50, TRUE)
 		return target_plating // Most executions should end here.
@@ -1134,7 +1134,7 @@
 	singular_name = "floor tile"
 	desc = "The ground you walk on."
 	//throwforce = 10 //ORIGINAL
-	throwforce = 6 //SKYRAT EDIT CHANGE
+	throwforce = 6 //NOVA EDIT CHANGE
 	icon_state = "material_tile"
 	turf_type = /turf/open/floor/material
 	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS

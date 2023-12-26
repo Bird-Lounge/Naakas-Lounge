@@ -270,8 +270,8 @@
 /obj/effect/temp_visual/telekinesis
 	name = "telekinetic force"
 	//icon_state = "empdisable" //Non-Skyrat version
-	icon_state = "telekinesis_throw" //Skyrat edit, was "empdisable"
-	icon = 'modular_skyrat/master_files/icons/effects/tele_effects.dmi' //Skyrat Addition
+	icon_state = "telekinesis_throw" //NOVA EDIT, was "empdisable"
+	icon = 'modular_nova/master_files/icons/effects/tele_effects.dmi' //Skyrat Addition
 	duration = 5
 
 /obj/effect/temp_visual/emp
@@ -288,6 +288,10 @@
 	name = "bluespace fissure"
 	icon_state = "bluestream_fade"
 	duration = 9
+
+/obj/effect/temp_visual/bluespace_fissure/Initialize(mapload)
+	. = ..()
+	apply_wibbly_filters(src)
 
 /obj/effect/temp_visual/gib_animation
 	icon = 'icons/mob/simple/mob.dmi'
