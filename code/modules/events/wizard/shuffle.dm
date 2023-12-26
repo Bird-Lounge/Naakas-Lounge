@@ -42,7 +42,7 @@
 
 /datum/round_event_control/wizard/shufflenames //Face/off joke
 	name = "Change Faces!"
-	weight = 0 //SKYRAT EDIT CHANGE - WIZARD CHANGE - ORIGINAL weight = 4
+	weight = 0 //NOVA EDIT CHANGE - WIZARD CHANGE - ORIGINAL weight = 4
 	typepath = /datum/round_event/wizard/shufflenames
 	max_occurrences = 5
 	earliest_start = 0 MINUTES
@@ -77,7 +77,7 @@
 
 /datum/round_event_control/wizard/shuffleminds //Basically Mass Ranged Mindswap
 	name = "Change Minds!"
-	weight = 0 //SKYRAT EDIT CHANGE - WIZARD CHANGE - ORIGINAL weight = 1
+	weight = 0 //NOVA EDIT CHANGE - WIZARD CHANGE - ORIGINAL weight = 1
 	typepath = /datum/round_event/wizard/shuffleminds
 	max_occurrences = 3
 	earliest_start = 0 MINUTES
@@ -87,7 +87,7 @@
 	var/list/mobs_to_swap = list()
 
 	for(var/mob/living/carbon/human/alive_human in GLOB.alive_mob_list)
-		if(alive_human.stat != CONSCIOUS || !alive_human.mind || IS_WIZARD(alive_human))
+		if(alive_human.stat != CONSCIOUS || isnull(alive_human.mind) || IS_WIZARD(alive_human) || HAS_TRAIT(alive_human, TRAIT_NO_MINDSWAP))
 			continue //the wizard(s) are spared on this one
 		mobs_to_swap += alive_human
 

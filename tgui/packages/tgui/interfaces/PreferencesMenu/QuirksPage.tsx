@@ -1,8 +1,11 @@
-import { StatelessComponent } from 'inferno';
-import { Box, Icon, Stack, Tooltip } from '../../components';
-import { PreferencesMenuData, Quirk } from './data';
+import { filterMap } from 'common/collections';
+
 import { useBackend, useLocalState } from '../../backend';
+import { Box, Button, Icon, Popper, Stack, Tooltip } from '../../components';
+import { PreferencesMenuData, Quirk, RandomSetting, ServerData } from './data';
+import { getRandomization, PreferenceList } from './MainPage';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
+import { useRandomToggleState } from './useRandomToggleState';
 
 const getValueClass = (value: number): string => {
   if (value > 0) {
@@ -14,69 +17,104 @@ const getValueClass = (value: number): string => {
   }
 };
 
+const getCorrespondingPreferences = (
+  customization_options: string[],
+  relevant_preferences: Record<string, string>,
+): Record<string, unknown> => {
+  return Object.fromEntries(
+    filterMap(Object.keys(relevant_preferences), (key) => {
+      if (!customization_options.includes(key)) {
+        return undefined;
+      }
+
+      return [key, relevant_preferences[key]];
+    }),
+  );
+};
+
 const QuirkList = (props: {
   quirks: [
     string,
     Quirk & {
       failTooltip?: string;
-    }
+    },
   ][];
   onClick: (quirkName: string, quirk: Quirk) => void;
+  selected: boolean;
+  serverData: ServerData;
+  randomBodyEnabled: boolean;
 }) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
+
   return (
     // Stack is not used here for a variety of IE flex bugs
     <Box className="PreferencesMenu__Quirks__QuirkList">
       {props.quirks.map(([quirkKey, quirk]) => {
+        const [customizationExpanded, setCustomizationExpanded] =
+          useLocalState<boolean>(quirk.name + ' customization', false);
+
         const className = 'PreferencesMenu__Quirks__QuirkList__quirk';
+
+        const hasExpandableCustomization =
+          quirk.customizable &&
+          props.selected &&
+          customizationExpanded &&
+          quirk.customization_options &&
+          Object.entries(quirk.customization_options).length > 0;
 
         const child = (
           <Box
             className={className}
             key={quirkKey}
-            role="button"
-            tabIndex="1"
             onClick={() => {
+              if (props.selected) {
+                setCustomizationExpanded(false);
+              }
               props.onClick(quirkKey, quirk);
-            }}>
+            }}
+          >
             <Stack fill>
               <Stack.Item
                 align="center"
                 style={{
-                  'min-width': '15%',
-                  'max-width': '15%',
-                  'text-align': 'center',
-                }}>
+                  minWidth: '15%',
+                  maxWidth: '15%',
+                  textAlign: 'center',
+                }}
+              >
                 <Icon color="#333" fontSize={3} name={quirk.icon} />
               </Stack.Item>
 
               <Stack.Item
                 align="stretch"
+                ml={0}
                 style={{
-                  'border-right': '1px solid black',
-                  'margin-left': 0,
+                  borderRight: '1px solid black',
                 }}
               />
 
               <Stack.Item
                 grow
+                ml={0}
                 style={{
-                  'margin-left': 0,
-
                   // Fixes an IE bug for text overflowing in Flex boxes
-                  'min-width': '0%',
-                }}>
+                  minWidth: '0%',
+                }}
+              >
                 <Stack vertical fill>
                   <Stack.Item
                     className={`${className}--${getValueClass(quirk.value)}`}
                     style={{
-                      'border-bottom': '1px solid black',
-                      'padding': '2px',
-                    }}>
+                      borderBottom: '1px solid black',
+                      padding: '2px',
+                    }}
+                  >
                     <Stack
                       fill
                       style={{
-                        'font-size': '1.2em',
-                      }}>
+                        fontSize: '1.2em',
+                      }}
+                    >
                       <Stack.Item grow basis="content">
                         <b>{quirk.name}</b>
                       </Stack.Item>
@@ -90,11 +128,80 @@ const QuirkList = (props: {
                   <Stack.Item
                     grow
                     basis="content"
+                    mt={0}
                     style={{
-                      'margin-top': 0,
-                      'padding': '3px',
-                    }}>
+                      padding: '3px',
+                    }}
+                  >
                     {quirk.description}
+                    {!!quirk.customizable && (
+                      <Popper
+                        options={{
+                          placement: 'bottom-end',
+                        }}
+                        popperContent={
+                          <Box>
+                            {!!quirk.customization_options &&
+                              hasExpandableCustomization && (
+                                <Box
+                                  mt="1px"
+                                  style={{
+                                    boxShadow:
+                                      '0px 4px 8px 3px rgba(0, 0, 0, 0.7)',
+                                  }}
+                                >
+                                  <Stack
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                    }}
+                                    maxWidth="400px" // NOVA EDIT - maxWidth to 600px from 300px
+                                    backgroundColor="black"
+                                    px="5px"
+                                    py="3px"
+                                  >
+                                    <Stack.Item>
+                                      <PreferenceList
+                                        act={act}
+                                        preferences={getCorrespondingPreferences(
+                                          quirk.customization_options,
+                                          data.character_preferences
+                                            .manually_rendered_features,
+                                        )}
+                                        randomizations={getRandomization(
+                                          getCorrespondingPreferences(
+                                            quirk.customization_options,
+                                            data.character_preferences
+                                              .manually_rendered_features,
+                                          ),
+                                          props.serverData,
+                                          props.randomBodyEnabled,
+                                        )}
+                                        maxHeight="100px"
+                                      />
+                                    </Stack.Item>
+                                  </Stack>
+                                </Box>
+                              )}
+                          </Box>
+                        }
+                      >
+                        {props.selected && (
+                          <Button
+                            selected={customizationExpanded}
+                            icon="cog"
+                            tooltip="Customize"
+                            onClick={(e) => {
+                              e.stopPropagation();
+
+                              setCustomizationExpanded(!customizationExpanded);
+                            }}
+                            style={{
+                              float: 'right',
+                            }}
+                          />
+                        )}
+                      </Popper>
+                    )}
                   </Stack.Item>
                 </Stack>
               </Stack.Item>
@@ -103,7 +210,11 @@ const QuirkList = (props: {
         );
 
         if (quirk.failTooltip) {
-          return <Tooltip content={quirk.failTooltip}>{child}</Tooltip>;
+          return (
+            <Tooltip key={quirkKey} content={quirk.failTooltip}>
+              {child}
+            </Tooltip>
+          );
         } else {
           return child;
         }
@@ -112,8 +223,7 @@ const QuirkList = (props: {
   );
 };
 
-export const StatDisplay: StatelessComponent<{}> = (props) => {
-  // SKYRAT EDIT
+const StatDisplay = (props) => {
   return (
     <Box
       backgroundColor="#eee"
@@ -121,27 +231,33 @@ export const StatDisplay: StatelessComponent<{}> = (props) => {
       color="black"
       fontSize="1.2em"
       px={3}
-      py={0.5}>
+      py={0.5}
+    >
       {props.children}
     </Box>
   );
 };
 
-export const QuirksPage = (props, context) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
+export const QuirksPage = (props) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
+
+  // this is mainly just here to copy from MainPage.tsx
+  const [randomToggleEnabled] = useRandomToggleState();
+  const randomBodyEnabled =
+    data.character_preferences.non_contextual.random_body !==
+      RandomSetting.Disabled || randomToggleEnabled;
 
   const [selectedQuirks, setSelectedQuirks] = useLocalState(
-    context,
     `selectedQuirks_${data.active_slot}`,
-    data.selected_quirks
+    data.selected_quirks,
   );
 
   return (
     <ServerPreferencesFetcher
-      // SKYRAT EDIT START - Quirks balance refactor
+      // NOVA EDIT START - Quirks balance refactor
       render={(quirks_data) => {
         if (!quirks_data) {
-          // SKYRAT EDIT END
+          // NOVA EDIT END
           return <Box>Loading quirks...</Box>;
         }
 
@@ -149,7 +265,7 @@ export const QuirksPage = (props, context) => {
           max_positive_quirks: maxPositiveQuirks,
           quirk_blacklist: quirkBlacklist,
           quirk_info: quirkInfo,
-        } = quirks_data.quirks; // SKYRAT EDIT - Quirks balance refactor
+        } = quirks_data.quirks; // NOVA EDIT - Quirks balance refactor
 
         const quirks = Object.entries(quirkInfo);
         quirks.sort(([_, quirkA], [__, quirkB]) => {
@@ -160,10 +276,10 @@ export const QuirksPage = (props, context) => {
           }
         });
 
-        // SKYRAT EDIT START - Better Quirk Count Code
+        // NOVA EDIT START - Better Quirk Count Code
         let balance = -data.quirks_balance;
         let positiveQuirks = data.positive_quirk_count;
-        // SKYRAT EDIT END
+        // NOVA EDIT END
 
         const getReasonToNotAdd = (quirkName: string) => {
           const quirk = quirkInfo[quirkName];
@@ -176,11 +292,11 @@ export const QuirksPage = (props, context) => {
             }
           }
 
-          // SKYRAT EDIT START - Veteran quirks
+          // NOVA EDIT START - Veteran quirks
           if (quirk.veteran_only && !data.is_veteran) {
             return 'You need to be a veteran to select this quirk, apply today!';
           }
-          // SKYRAT EDIT END
+          // NOVA EDIT END
 
           const selectedQuirkNames = selectedQuirks.map((quirkKey) => {
             return quirkInfo[quirkKey].name;
@@ -236,6 +352,7 @@ export const QuirksPage = (props, context) => {
 
                 <Stack.Item grow width="100%">
                   <QuirkList
+                    selected={false}
                     onClick={(quirkName, quirk) => {
                       if (getReasonToNotAdd(quirkName) !== undefined) {
                         return;
@@ -258,6 +375,8 @@ export const QuirksPage = (props, context) => {
                           },
                         ];
                       })}
+                    serverData={quirks_data} // NOVA EDIT CHANGE
+                    randomBodyEnabled={randomBodyEnabled}
                   />
                 </Stack.Item>
               </Stack>
@@ -285,6 +404,7 @@ export const QuirksPage = (props, context) => {
 
                 <Stack.Item grow width="100%">
                   <QuirkList
+                    selected
                     onClick={(quirkName, quirk) => {
                       if (getReasonToNotRemove(quirkName) !== undefined) {
                         return;
@@ -292,8 +412,8 @@ export const QuirksPage = (props, context) => {
 
                       setSelectedQuirks(
                         selectedQuirks.filter(
-                          (otherQuirk) => quirkName !== otherQuirk
-                        )
+                          (otherQuirk) => quirkName !== otherQuirk,
+                        ),
                       );
 
                       act('remove_quirk', { quirk: quirk.name });
@@ -311,6 +431,8 @@ export const QuirksPage = (props, context) => {
                           },
                         ];
                       })}
+                    serverData={quirks_data} // NOVA EDIT CHANGE
+                    randomBodyEnabled={randomBodyEnabled}
                   />
                 </Stack.Item>
               </Stack>
