@@ -8030,6 +8030,7 @@
 #include "modular_nova\modules\xenoarch\code\modules\research\xenoarch\xenoarch_machine.dm"
 #include "modular_nova\modules\xenoarch\code\modules\research\xenoarch\xenoarch_reward.dm"
 #include "modular_nova\modules\xenoarch\code\modules\research\xenoarch\xenoarch_tool.dm"
+#include "modular_zskyraptor\modules_lounge\bespoke_borgs\bespoke_model.dm"
 #include "modular_zskyraptor\modules_lounge\naaka_nom_sys\equippable_belly.dm"
 #include "modular_nova\modules\xenos_skyrat_redo\code\base_skyrat_xeno.dm"
 #include "modular_nova\modules\xenos_skyrat_redo\code\human_defense.dm"
