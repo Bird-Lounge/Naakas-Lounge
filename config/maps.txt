@@ -60,12 +60,12 @@ endmap
 
 ##NOVA SECTOR MAPS##
 
-map flameflakestation
+map voidraptor
 	maxplayers 100
 	votable
 endmap
 
-map voidraptor
+map flameflakestation
 	maxplayers 100
 	votable
 endmap
