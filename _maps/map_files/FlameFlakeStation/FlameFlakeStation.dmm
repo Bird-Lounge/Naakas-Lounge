@@ -534,7 +534,7 @@
 /obj/item/radio/intercom/directional/north{
 	freerange = 1;
 	listening = 0;
-	name = 'Common Channel"
+	name = "Common Channel"
 	},
 /turf/open/floor/circuit,
 /area/station/ai_monitored/turret_protected/ai)
@@ -810,7 +810,7 @@
 /area/station/commons/lounge)
 "oX" = (
 /turf/open/floor/iron,
-/area/icemoon/underground/unexplored)
+/area/icemoon/underground/unexplored/no_rivers)
 "pn" = (
 /obj/structure/table,
 /obj/item/training_toolbox{
@@ -1105,7 +1105,7 @@
 /area/station/ai_monitored/turret_protected/aisat_interior)
 "vp" = (
 /turf/closed/wall,
-/area/icemoon/underground/unexplored)
+/area/icemoon/underground/unexplored/no_rivers)
 "vq" = (
 /turf/open/floor/wood/parquet,
 /area/station/service/bar)
@@ -2368,7 +2368,7 @@
 /area/station/ai_monitored/turret_protected/aisat/service)
 "Wc" = (
 /turf/open/genturf,
-/area/icemoon/underground/unexplored)
+/area/icemoon/underground/unexplored/no_rivers)
 "Wf" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -107352,9 +107352,9 @@ Al
 Al
 Vc
 Tf
-Vc
-Vc
-Vc
+PV
+PV
+PV
 Vc
 Vc
 Lu
@@ -109396,7 +109396,7 @@ Wc
 Vc
 Vc
 Vc
-Vc
+PV
 Tf
 Vc
 pP
@@ -109653,7 +109653,7 @@ Wc
 Wc
 Wc
 Vc
-Vc
+PV
 Tf
 Vc
 Vc
@@ -109910,7 +109910,7 @@ Wc
 Wc
 Wc
 Vc
-Vc
+PV
 Tf
 Tf
 Tf
