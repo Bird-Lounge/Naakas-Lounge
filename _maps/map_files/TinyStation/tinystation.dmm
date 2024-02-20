@@ -2,6 +2,145 @@
 "a" = (
 /turf/open/space/basic,
 /area/space)
+"h" = (
+/obj/machinery/computer/security,
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/iron/dark,
+/area/space)
+"j" = (
+/obj/effect/turf_decal/plaque{
+	icon_state = "L12"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/space)
+"k" = (
+/obj/effect/turf_decal/plaque{
+	icon_state = "L13"
+	},
+/turf/open/floor/iron,
+/area/space)
+"l" = (
+/obj/machinery/computer/communications,
+/turf/open/floor/iron/dark,
+/area/space)
+"s" = (
+/obj/effect/turf_decal/plaque{
+	icon_state = "L5"
+	},
+/turf/open/floor/iron,
+/area/space)
+"v" = (
+/obj/effect/turf_decal/plaque{
+	icon_state = "L2"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/space)
+"w" = (
+/obj/effect/turf_decal/plaque{
+	icon_state = "L6"
+	},
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron,
+/area/space)
+"x" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable,
+/turf/open/floor/plating,
+/area/space)
+"y" = (
+/turf/open/floor/iron,
+/area/space)
+"A" = (
+/obj/effect/turf_decal/plaque{
+	icon_state = "L14"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/space)
+"D" = (
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/space)
+"E" = (
+/obj/machinery/computer/crew,
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/iron/dark,
+/area/space)
+"G" = (
+/obj/effect/turf_decal/plaque{
+	icon_state = "L9"
+	},
+/turf/open/floor/iron,
+/area/space)
+"I" = (
+/obj/effect/turf_decal/plaque{
+	icon_state = "L4"
+	},
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/iron,
+/area/space)
+"J" = (
+/obj/effect/turf_decal/plaque{
+	icon_state = "L3"
+	},
+/turf/open/floor/iron,
+/area/space)
+"K" = (
+/turf/closed/wall/r_wall,
+/area/space)
+"M" = (
+/obj/effect/turf_decal/plaque{
+	icon_state = "L11"
+	},
+/turf/open/floor/iron,
+/area/space)
+"O" = (
+/obj/effect/turf_decal/plaque{
+	icon_state = "L8"
+	},
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/iron,
+/area/space)
+"T" = (
+/obj/effect/turf_decal/plaque{
+	icon_state = "L7"
+	},
+/obj/effect/landmark/observer_start,
+/turf/open/floor/iron,
+/area/space)
+"U" = (
+/obj/effect/turf_decal/plaque{
+	icon_state = "L1"
+	},
+/turf/open/floor/iron,
+/area/space)
+"V" = (
+/obj/effect/turf_decal/plaque{
+	icon_state = "L10"
+	},
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/iron,
+/area/space)
+"W" = (
+/turf/open/floor/iron/dark,
+/area/space)
 
 (1,1,1) = {"
 a
@@ -31231,10 +31370,10 @@ a
 a
 a
 a
-a
-a
-a
-a
+K
+K
+K
+K
 a
 a
 a
@@ -31488,10 +31627,10 @@ a
 a
 a
 a
-a
-a
-a
-a
+x
+W
+W
+W
 a
 a
 a
@@ -31742,13 +31881,13 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
+U
+v
+y
+x
+W
+W
+W
 a
 a
 a
@@ -31999,13 +32138,13 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
+J
+I
+y
+x
+W
+W
+W
 a
 a
 a
@@ -32256,13 +32395,13 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
+s
+w
+y
+x
+E
+W
+W
 a
 a
 a
@@ -32513,13 +32652,13 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
+T
+O
+D
+x
+l
+W
+W
 a
 a
 a
@@ -32770,13 +32909,13 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
+G
+V
+y
+x
+h
+W
+W
 a
 a
 a
@@ -33027,13 +33166,13 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
+M
+j
+y
+x
+W
+W
+W
 a
 a
 a
@@ -33284,13 +33423,13 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
+k
+A
+y
+x
+W
+W
+W
 a
 a
 a
@@ -33544,10 +33683,10 @@ a
 a
 a
 a
-a
-a
-a
-a
+x
+W
+W
+W
 a
 a
 a
@@ -33801,10 +33940,10 @@ a
 a
 a
 a
-a
-a
-a
-a
+K
+K
+K
+K
 a
 a
 a
