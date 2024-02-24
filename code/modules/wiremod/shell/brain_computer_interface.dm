@@ -20,11 +20,6 @@
 		new /obj/item/circuit_component/bci_core,
 	), SHELL_CAPACITY_SMALL, starting_circuit = circuit)
 
-/obj/item/organ/internal/cyberimp/bci/on_insert(mob/living/carbon/receiver)
-	. = ..()
-	// Organs are put in nullspace, but this breaks circuit interactions
-	forceMove(receiver)
-
 /obj/item/organ/internal/cyberimp/bci/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced = null, filterproof = null, message_range = 7, datum/saymode/saymode = null)
 	if (owner)
 		// Otherwise say_dead will be called.
@@ -288,7 +283,7 @@
 	. = ..()
 	occupant_typecache = typecacheof(/mob/living/carbon)
 
-/obj/machinery/bci_implanter/on_deconstruction()
+/obj/machinery/bci_implanter/on_deconstruction(disassembled)
 	drop_stored_bci()
 
 /obj/machinery/bci_implanter/Destroy()
