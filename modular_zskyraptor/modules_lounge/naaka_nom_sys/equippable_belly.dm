@@ -252,3 +252,8 @@
 	var/removed = mm_life.remove(mm_life.total_moles() * breath_percentage)
 	//to_chat(world, "Debugging: removed [removed] from breathmix")
 	return removed
+
+// shunting this in here to avoid merge conflicts
+/obj/item/organ/internal/tongue/teshari/Initialize(mapload)
+	. = ..()
+	disliked_foodtypes = disliked_foodtypes & (!GRAIN)

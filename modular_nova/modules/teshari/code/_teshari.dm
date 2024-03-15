@@ -58,7 +58,7 @@
 
 /obj/item/organ/internal/tongue/teshari
 	liked_foodtypes = MEAT
-	disliked_foodtypes = GROSS /// NAAKAS-LOUNGE EDIT: gluten tolerant teshari real, fuck the balancejaks
+	disliked_foodtypes = GROSS | GRAIN
 
 
 /datum/species/teshari/random_name(gender, unique, lastname)
