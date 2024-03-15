@@ -1,0 +1,44 @@
+{
+	"version": 1,
+	"map_name": "Flame-Flake Station",
+	"map_path": "map_files/FlameFlakeStation",
+	"map_file": "FlameFlakeStation.dmm",
+	"space_ruin_levels": 0,
+	"space_empty_levels": 0,
+	"planetary": 1,
+	"shuttles": {
+		"cargo": "cargo_nova",
+		"ferry": "ferry_fancy",
+		"whiteship": "whiteship_box",
+		"emergency": "emergency_box"
+	},
+	"traits": [
+		{
+			"Up": true,
+			"Mining": true,
+			"Linkage": null,
+			"Gravity": true,
+			"Lava Ruins": true,
+			"Weather_Ashstorm": true,
+			"Baseturf": "/turf/open/lava/smooth/lava_land_surface",
+			"No Parallax": true
+		},
+		{
+			"Down": true,
+			"Mining": true,
+			"Linkage": null,
+			"Gravity": true,
+			"Ice Ruins": true,
+			"Weather_Snowstorm": true,
+			"Baseturf": "/turf/open/openspace/icemoon/keep_below",
+			"No Parallax": true
+		}
+	],
+	"minetype": "none",
+	"blacklist_file": "flameflakeruinblacklist.txt",
+	"job_changes": {
+		"Captain": {
+			"special_charter": "moon"
+		}
+	}
+}
