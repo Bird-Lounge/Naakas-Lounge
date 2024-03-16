@@ -189,11 +189,11 @@
 	else
 		spr_size = 0*/
 
-	if(spr_size != last_size)
-		last_size = spr_size
-		update_icon_state()
-		update_icon()
-		refresh_overlays(user, "[base_icon_state]-[spr_size]")
+	//if(spr_size != last_size)
+	last_size = spr_size
+	update_icon_state()
+	update_icon()
+	refresh_overlays(user, "[base_icon_state]-[spr_size]")
 
 	if(total_fullness >= 0.2)
 		full_cooldown = full_cooldown - (seconds_per_tick * total_fullness)
