@@ -1177,6 +1177,18 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/misc/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"JD" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/ore_container/food_trough/gutlunch_trough,
+/turf/open/misc/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Kg" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/railing/wooden_fence{
+	dir = 10
+	},
+/turf/open/misc/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Kt" = (
 /obj/structure/water_source/puddle{
 	pixel_x = -3;
