@@ -225,10 +225,10 @@
 		human_parent.buckle_lying = 90
 
 /datum/component/riding/creature/post_vehicle_mob_buckle(mob/living/ridden, mob/living/rider)
-	if(!require_minigame|| ridden.faction.Find(REF(rider)))
+	if(!require_minigame || ridden.faction.Find(REF(rider)))
 		return
 	ridden.Shake(duration = 2 SECONDS)
-	ridden.balloon_alert(rider, "tries to shake you off.")
+	ridden.balloon_alert(rider, "tries to shake you off!")
 	var/datum/riding_minigame/game = new(ridden, rider)
 	game.commence_minigame()
 
@@ -639,7 +639,6 @@
 /datum/riding_minigame/ui_act(action, params, datum/tgui/ui)
 	. = ..()
 	switch(action)
-
 		if("lose_game")
 			lose_game()
 		if("win_game")
