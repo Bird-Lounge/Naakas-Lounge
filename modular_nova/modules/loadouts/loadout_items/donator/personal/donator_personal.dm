@@ -23,6 +23,11 @@
 	item_path = /obj/item/clothing/under/syndicate/tacticool/black
 	ckeywhitelist = list("thedragmeme")
 
+/datum/loadout_item/under/jumpsuit/long_skirtleneck
+	name = "Tacticool Skirtleneck (Long)"
+	item_path = /obj/item/clothing/under/syndicate/tacticool/skirt/long
+	ckeywhitelist = list("HollandaiseSauce", "Latinfishy", "Tf4")
+
 /datum/loadout_item/suit/ryddid
 	name = "The Ryddid"
 	item_path = /obj/item/clothing/suit/jacket/ryddid
@@ -109,7 +114,7 @@
 /datum/loadout_item/mask/composite_filtration
 	name = "Composite Filtration Mask"
 	item_path = /obj/item/clothing/mask/gas/psycho_malice
-	ckeywhitelist = list("snakebittenn")
+	ckeywhitelist = list("snakebittenn", "chillylobster", "candlejax", "theooz")
 
 /datum/loadout_item/suit/jacket/cherno
 	name = "Blue-Silvered Coat"

@@ -229,6 +229,10 @@
 	uses_advanced_reskins = FALSE
 	unique_reskin = NONE
 
+/obj/item/clothing/shoes/jackboots/heel/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('modular_nova/master_files/sound/effects/heel1.ogg' = 1, 'modular_nova/master_files/sound/effects/heel2.ogg' = 1), 50)
+
 // Donation reward for Bloodrite
 /obj/item/clothing/shoes/clown_shoes/britches
 	desc = "The prankster's standard-issue clowning shoes. They look extraordinarily cute. Ctrl-click to toggle waddle dampeners."
@@ -280,14 +284,14 @@
 	visor_flags_inv = HIDEFACE | HIDESNOUT
 	w_class = WEIGHT_CLASS_SMALL
 	tint = 0
+	interaction_flags_click = NEED_DEXTERITY
 
 /obj/item/clothing/mask/gas/nightlight/attack_self(mob/user)
 	adjustmask(user)
 
-/obj/item/clothing/mask/gas/nightlight/AltClick(mob/user)
-	..()
-	if(user.can_perform_action(src, NEED_DEXTERITY))
-		adjustmask(user)
+/obj/item/clothing/mask/gas/nightlight/click_alt(mob/user)
+	adjustmask(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/mask/gas/nightlight/examine(mob/user)
 	. = ..()
@@ -855,6 +859,7 @@
 	clothing_flags = VOICEBOX_DISABLED | MASKINTERNALS | BLOCK_GAS_SMOKE_EFFECT | GAS_FILTERING
 	use_radio_beeps_tts = TRUE
 	flags_inv = NONE
+	interaction_flags_click = NEED_DEXTERITY
 
 /obj/item/clothing/mask/gas/signalis_gaiter/Initialize(mapload)
 	. = ..()
@@ -864,10 +869,9 @@
 /obj/item/clothing/mask/gas/signalis_gaiter/attack_self(mob/user)
 	adjustmask(user)
 
-/obj/item/clothing/mask/gas/signalis_gaiter/AltClick(mob/user)
-	..()
-	if(user.can_perform_action(src, NEED_DEXTERITY))
-		adjustmask(user)
+/obj/item/clothing/mask/gas/signalis_gaiter/click_alt(mob/user)
+	adjustmask(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/mask/gas/signalis_gaiter/examine(mob/user)
 	. = ..()
@@ -2031,3 +2035,12 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/korpstech, 32)
 	worn_icon = 'modular_nova/master_files/icons/donator/mob/clothing/uniform.dmi'
 	icon_state = "bwake_uniform"
 	can_adjust = FALSE
+
+// Donator reward for Latinfishy
+/obj/item/clothing/under/syndicate/tacticool/skirt/long
+	name = "long tacticool skirtleneck"
+	desc = "A sleek, navy blue turtleneck complete with an extra long black skirt. Just looking at it makes you want to watch your step in case you -trip-."
+	icon = 'modular_nova/master_files/icons/donator/obj/clothing/uniform.dmi'
+	worn_icon = 'modular_nova/master_files/icons/donator/mob/clothing/uniform.dmi'
+	icon_state = "tacticool_skirtleneck_long"
+	unique_reskin = null
