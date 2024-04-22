@@ -4193,6 +4193,10 @@
 	dir = 1
 	},
 /area/mine/storage/public)
+"xX" = (
+/obj/structure/gulag_vent,
+/turf/open/misc/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "yc" = (
 /obj/docking_port/stationary{
 	dir = 2;
@@ -4526,7 +4530,7 @@
 /turf/open/misc/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Af" = (
-/obj/machinery/mineral/processing_unit{
+/obj/machinery/mineral/processing_unit/gulag{
 	dir = 1;
 	input_dir = 8;
 	output_dir = 4
@@ -22640,7 +22644,7 @@ uU
 uU
 uU
 pU
-pU
+xX
 pU
 ff
 Gf
