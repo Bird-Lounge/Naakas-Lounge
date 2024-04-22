@@ -56,9 +56,9 @@ const BASEICONS = {
   'Station Engineer': 'gears',
   'Syndicate Operative': 'dragon',
   'Veteran Security Advisor': 'ribbon',
-  Warden: 'handcuffs',
-  // NOVA EDIT START - Nova-exclusive jobs have icons too
   Virologist: 'virus',
+  Warden: 'handcuffs',
+  // NOVA EDIT START - Skyrat-exclusive jobs have icons too
   Barber: 'scissors',
   Blueshield: 'shield-dog',
   Bouncer: 'shield-heart',

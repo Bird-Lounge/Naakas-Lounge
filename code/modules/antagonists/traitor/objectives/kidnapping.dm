@@ -48,6 +48,7 @@
 		/datum/job/chemist,
 		/datum/job/doctor,
 		/datum/job/psychologist,
+		/datum/job/virologist,
 		// Science
 		/datum/job/geneticist,
 		/datum/job/roboticist,
