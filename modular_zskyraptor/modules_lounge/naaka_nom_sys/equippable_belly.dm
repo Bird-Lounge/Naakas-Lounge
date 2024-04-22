@@ -11,11 +11,23 @@
 	medical_record_text = "Patient's midriff and stomach are unusually stretchy."
 
 /datum/quirk/item_quirk/stuffable/add_unique(client/client_source)
-	var/obj/item/the_bwelly = new /obj/item/clothing/sextoy/belly_function(get_turf(quirk_holder))
+	var/obj/item/clothing/sextoy/belly_function/the_bwelly = new /obj/item/clothing/sextoy/belly_function(get_turf(quirk_holder))
 	var/the_color = client_source.prefs.read_preference(/datum/preference/color/lounge_bellyitem_color) //this makes the (potentially dangerous) assumption this is valid
 	if(the_color == null)
 		the_color = "#FFFFFF"
 	the_bwelly.color = the_color
+	var/sizemod = client_source.prefs.read_preference(/datum/preference/numeric/lounge_bellyitem_sizemod)
+	if(sizemod == null)
+		the_bwelly.sizemod = 1
+	var/size_base = client_source.prefs.read_preference(/datum/preference/numeric/lounge_bellyitem_size_base)
+	if(size_base == null)
+		the_bwelly.base_size_cosmetic = 0
+	var/size_endo = client_source.prefs.read_preference(/datum/preference/numeric/lounge_bellyitem_size_endo)
+	if(size_endo == null)
+		the_bwelly.base_size_endo = 0
+	var/size_stuffed = client_source.prefs.read_preference(/datum/preference/numeric/lounge_bellyitem_size_stuffed)
+	if(size_stuffed == null)
+		the_bwelly.base_size_stuffed = 0
 	give_item_to_holder(the_bwelly, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS))
 
 
@@ -28,13 +40,48 @@
 /datum/preference/color/lounge_bellyitem_color/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return FALSE
 
+/datum/preference/numeric/lounge_bellyitem_sizemod
+	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
+	savefile_identifier = PREFERENCE_CHARACTER
+	savefile_key = "lounge_bellyitem_sizemod"
+	step = 0.1
+	minimum = 0
+	maximum = 10
+
+/datum/preference/numeric/lounge_bellyitem_sizemod/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+	return FALSE
+
+/datum/preference/numeric/lounge_bellyitem_size_base
+	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
+	savefile_identifier = PREFERENCE_CHARACTER
+	savefile_key = "lounge_bellyitem_size_base"
+
+/datum/preference/numeric/lounge_bellyitem_size_base/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+	return FALSE
+
+/datum/preference/numeric/lounge_bellyitem_size_endo
+	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
+	savefile_identifier = PREFERENCE_CHARACTER
+	savefile_key = "lounge_bellyitem_size_endo"
+
+/datum/preference/numeric/lounge_bellyitem_size_endo/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+	return FALSE
+
+/datum/preference/numeric/lounge_bellyitem_size_stuffed
+	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
+	savefile_identifier = PREFERENCE_CHARACTER
+	savefile_key = "lounge_bellyitem_size_stuffed"
+
+/datum/preference/numeric/lounge_bellyitem_size_stuffed/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+	return FALSE
+
 
 
 /datum/quirk_constant_data/stuffable
 	associated_typepath = /datum/quirk/item_quirk/stuffable
 
 /datum/quirk_constant_data/stuffable/New()
-	customization_options = list(/datum/preference/color/lounge_bellyitem_color)
+	customization_options = list(/datum/preference/color/lounge_bellyitem_color, /datum/preference/numeric/lounge_bellyitem_sizemod, /datum/preference/numeric/lounge_bellyitem_size_base, /datum/preference/numeric/lounge_bellyitem_size_endo, /datum/preference/numeric/lounge_bellyitem_size_stuffed)
 
 	return ..()
 
@@ -44,7 +91,7 @@
 
 /obj/item/clothing/sextoy/belly_function
 	name = "bwelly"
-	desc = "Gobble friends, stuff yourself, be big and round, get cancelled on Twitter for endosoma only.  Equip with Ctrl-Shift-Click on your Nipples slot for display of stuffedness, or click a friend with this to nom them beforehand.  Drop on the floor or unequip from the Interact menu to free a nommed friend."
+	desc = "Gobble friends, stuff yourself, be big and round, get the devs cancelled on Twitter for the item supporting endosoma only. Equip with Ctrl-Shift-Click on your Nipples slot for display of stuffedness, or click a friend with this to nom them beforehand.  Drop on the floor, use in-hand, or unequip from the Interact menu to free a nommed friend."
 	icon_state = "bwelly"
 	base_icon_state = "belly"
 	icon = 'modular_zskyraptor/modules_lounge/naaka_nom_sys/items.dmi'
@@ -60,6 +107,12 @@
 
 	/// Base-size for calculating fullness/size with one occupant.
 	var/endo_size = 1000
+	/// Size modifier applied to ALL belly size providers.  Good for making a 3ft teshi round out faster than a 12ft oversized shork.
+	var/sizemod = 1
+	/// Baseline sizes that apply purely-cosmetic bellysize (e.g, preg/egg), a baseline endosoma size (causes creaks and such), and a baseline actively-gwurgly size for being stuffed without actually being stuffed.
+	var/base_size_cosmetic = 0
+	var/base_size_endo = 0
+	var/base_size_stuffed = 0
 
 	/// Sound cooldowns.
 	var/full_cooldown = 6
@@ -79,17 +132,38 @@
 	var/stuff_minor = list("modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (25).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (26).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (28).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (29).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (31).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (33).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (34).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (37).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (48).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle1.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle2.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle3.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle9.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle10.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle11.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle12.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle13.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle15.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle16.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/stomach-burble.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (3).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (11).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (17).ogg")
 	var/stuff_major = list("modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/digest_10.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/digest_12.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/digest_17.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/Gurgle4.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/Gurgle5.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/Gurgle7.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/digest_02.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/digest_04.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/digest_05.ogg")
 
-/obj/item/clothing/sextoy/belly_function/AltClick(mob/living/user)
-	/// Alt-click to set color.
-	var/temp_col = input("Enter new color:", "Color", src.color) as color|null
-	if(temp_col != null)
-		src.color = temp_col
-
-/obj/item/clothing/sextoy/belly_function/CtrlClick(mob/living/user)
-	var/temp_size = tgui_input_number(user, "What size do you want bellyguests to be?  (0.0-2000.0, 1000 is same-sizeish)", "Endo Size")
-	if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
-		return
-	endo_size = temp_size
+/obj/item/clothing/sextoy/belly_function/click_alt(mob/living/user)
+	var/adjustment_mode = tgui_input_list(user, "Select ", "Belly Control", list("Change Color", "Set Size Modifier", "Set Baseline Quiet Size", "Set Baseline Endo Size", "Set Baseline Stuffed Size", "Set Eaten Guest Size"))
+	if(adjustment_mode)
+		if(adjustment_mode == "Change Color")
+			var/temp_col = input("Enter new color:", "Color", src.color) as color|null
+			if(temp_col != null || QDELETED(user) || QDELETED(src))
+				src.color = temp_col
+		else if(adjustment_mode == "Set Size Modifier")
+			var/temp_size = tgui_input_number(user, "Set a size divider (0.0-100.0) - all size sources are divided by this.", "Sizemod")
+			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
+				return
+			sizemod = temp_size
+		else if(adjustment_mode == "Set Baseline Quiet Size")
+			var/temp_size = tgui_input_number(user, "What purely cosmetic baseline belly size do you want?", "Base Size")
+			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
+				return
+			base_size_cosmetic = temp_size
+		else if(adjustment_mode == "Set Baseline Endo Size")
+			var/temp_size = tgui_input_number(user, "What gently-noisy, cosmetic endosoma-induced belly size do you want?", "Base Endo Size")
+			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
+				return
+			base_size_endo = temp_size
+		else if(adjustment_mode == "Set Baseline Stuffed Size")
+			var/temp_size = tgui_input_number(user, "What gurgly, cosmetic stuffing-induced belly size do you want?", "Base Stuffed Size")
+			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
+				return
+			base_size_stuffed = temp_size
+		else if(adjustment_mode == "Set Eaten Guest Size")
+			var/temp_size = tgui_input_number(user, "What size do you want your eaten bellyguests to be?  (0.0-infinity, 2000 is typically same-sizeish)", "Endo Size")
+			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
+				return
+			endo_size = temp_size
 
 /obj/item/clothing/sextoy/belly_function/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
@@ -126,7 +200,7 @@
 	worn_icon_state = "[icon_state_wew]_HORI"
 	overlay_hori = src.build_worn_icon(default_layer = BODYPARTS_LOW_LAYER, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
 	worn_icon_state = "[icon_state_wew]_FRONT"
-	overlay_south = src.build_worn_icon(default_layer = FRONT_MUTATIONS_LAYER, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
+	overlay_south = src.build_worn_icon(default_layer = BODY_ADJ_LAYER, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
 	worn_icon_state = "[icon_state_wew]_BACK"
 	overlay_north = src.build_worn_icon(default_layer = BODY_BEHIND_LAYER, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
 	worn_icon_state = oldstate
@@ -145,20 +219,24 @@
 	// TODO: calculate fullness on the fly
 	// formula should be pow(pow(food_units, 1.5) / (4/3) / PI, 1/3)
 	// endo size should PROLLY be changed to be in food_units rather than overall size to avoid complications
-	var/guest_temp = istype(nommed) ? endo_size : 0
+	var/guest_temp = istype(nommed) ? (endo_size + base_size_endo) : base_size_endo
 	var/stuffed_temp_orig = (user.get_fullness() - (user.nutrition * 0.6) - 500) //nutrition 6500 == maximum fullness
 	if(stuffed_temp_orig < 0)
 		stuffed_temp_orig = 0
+	stuffed_temp_orig += base_size_stuffed
 	var/total_fullness_orig = guest_temp + stuffed_temp_orig //maximum creaks from overfilled belly
+	var/total_size_orig = total_fullness_orig + base_size_cosmetic
+	var/total_size = total_size_orig / 10
 	var/total_fullness = total_fullness_orig / 10
 	var/stuffed_temp = stuffed_temp_orig / 10
 
+	total_size = (((total_size)**1.5) / (4/3) / PI)**(1/3)
 	total_fullness = (((total_fullness)**1.5) / (4/3) / PI)**(1/3)
 	stuffed_temp = (((stuffed_temp)**1.5) / (4/3) / PI)**(1/3)
 
-	current_size_unclamped = total_fullness
+	current_size_unclamped = total_size
 
-	var/spr_size = FLOOR(total_fullness, 1)
+	var/spr_size = FLOOR(total_size, 1)
 	if(spr_size > 9)
 		spr_size = 9
 	if(spr_size < 0)
@@ -167,27 +245,6 @@
 	// clamps these to previous scales for noise, more or less
 	total_fullness = (total_fullness/3) + (total_fullness_orig / 1000)
 	stuffed_temp = (stuffed_temp/3) + (stuffed_temp_orig / 1000)
-
-	/*if(total_fullness >= 2.46)
-		spr_size = 9
-	else if(total_fullness >= 2.067)
-		spr_size = 8
-	else if(total_fullness >= 1.708)
-		spr_size = 7
-	else if(total_fullness >= 1.384)
-		spr_size = 6
-	else if(total_fullness >= 1.093)
-		spr_size = 5
-	else if(total_fullness >= 0.837)
-		spr_size = 4
-	else if(total_fullness >= 0.615)
-		spr_size = 3
-	else if(total_fullness >= 0.427)
-		spr_size = 2
-	else if(total_fullness >= 0.273)
-		spr_size = 1
-	else
-		spr_size = 0*/
 
 	//if(spr_size != last_size)
 	last_size = spr_size

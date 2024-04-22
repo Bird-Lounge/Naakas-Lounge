@@ -1,0 +1,36 @@
+import { Feature, FeatureColorInput, FeatureNumberInput } from '../../base';
+
+export const lounge_bellyitem_color: Feature<string> = {
+  name: 'Belly Color',
+  description:
+    'Belly coloration.  Match this to your skin, Augments+ or Mutcols to make it look smooth!',
+  component: FeatureColorInput,
+};
+
+export const lounge_bellyitem_sizemod: Feature<number> = {
+  name: 'Belly Sizemod',
+  description:
+    'Size divider - all belly size sources are divided by this.  Smaller means more belly.',
+  component: FeatureNumberInput,
+};
+
+export const lounge_bellyitem_size_base: Feature<number> = {
+  name: 'Base Cosmetic Size',
+  description:
+    'Provides a baseline cosmetic belly size with no noise.  Good for Mom Critters expecting.',
+  component: FeatureNumberInput,
+};
+
+export const lounge_bellyitem_size_endo: Feature<number> = {
+  name: 'Base Endosoma Size',
+  description:
+    'Provides a baseline endo-intended belly size with gentle fullness noises.  For bellypets or snoozing/AFK guests.',
+  component: FeatureNumberInput,
+};
+
+export const lounge_bellyitem_size_stuffed: Feature<number> = {
+  name: 'Base Stuffed Size',
+  description:
+    'Provides a baseline stuffing-intended belly size with the full gwurgly suite.  Remember to stay away from the pool!',
+  component: FeatureNumberInput,
+};
