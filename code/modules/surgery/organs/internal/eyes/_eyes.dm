@@ -388,8 +388,9 @@
 	tint = INFINITY
 	var/obj/item/flashlight/eyelight/eye
 
-/obj/item/organ/internal/eyes/robotic/flashlight/emp_act(severity)
-	return
+/obj/item/organ/internal/eyes/robotic/flashlight/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/organ/internal/eyes/robotic/flashlight/on_mob_insert(mob/living/carbon/victim)
 	. = ..()
@@ -413,8 +414,9 @@
 	desc = "These reactive micro-shields will protect you from welders and flashes without obscuring your vision."
 	flash_protect = FLASH_PROTECTION_WELDER
 
-/obj/item/organ/internal/eyes/robotic/shield/emp_act(severity)
-	return
+/obj/item/organ/internal/eyes/robotic/shield/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 #define MATCH_LIGHT_COLOR 1
 #define USE_CUSTOM_COLOR 0
@@ -450,7 +452,7 @@
 	deactivate(close_ui = TRUE)
 	QDEL_NULL(eye)
 
-/obj/item/organ/internal/eyes/robotic/glow/emp_act()
+/obj/item/organ/internal/eyes/robotic/glow/emp_act(severity)
 	. = ..()
 	if(!eye.light_on || . & EMP_PROTECT_SELF)
 		return
@@ -477,7 +479,7 @@
 /obj/item/organ/internal/eyes/robotic/glow/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/item/organ/internal/eyes/robotic/glow/ui_status(mob/user)
+/obj/item/organ/internal/eyes/robotic/glow/ui_status(mob/user, datum/ui_state/state)
 	if(!QDELETED(owner))
 		if(owner == user)
 			return min(
@@ -530,7 +532,7 @@
 				set_beam_color(new_color, to_update)
 				return TRUE
 		if("enter_color")
-			var/new_color = lowertext(params["new_color"])
+			var/new_color = LOWER_TEXT(params["new_color"])
 			var/to_update = params["to_update"]
 			set_beam_color(new_color, to_update, sanitize = TRUE)
 			return TRUE

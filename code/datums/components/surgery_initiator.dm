@@ -88,6 +88,8 @@
 			continue
 		if(!is_type_in_list(target, surgery.target_mobtypes))
 			continue
+		if(user == target && !(surgery.surgery_flags & SURGERY_SELF_OPERABLE))
+			continue
 
 		if(isnull(affecting))
 			if(surgery.surgery_flags & SURGERY_REQUIRE_LIMB)
@@ -133,8 +135,11 @@
 		required_tool_type = TOOL_SCREWDRIVER
 
 	if(iscyborg(user))
-		close_tool = locate(/obj/item/cautery) in user.held_items
-		if(!close_tool)
+		var/has_cautery = FALSE
+		for(var/obj/item/borg/cyborg_omnitool/medical/omnitool in user.held_items)
+			if(omnitool.tool_behaviour == TOOL_CAUTERY)
+				has_cautery = TRUE
+		if(!has_cautery)
 			patient.balloon_alert(user, "need a cautery in an inactive slot to stop the surgery!")
 			return
 	else if(!close_tool || close_tool.tool_behaviour != required_tool_type)
@@ -308,12 +313,11 @@
 		if(surgery.targetable_wound && !affecting_limb.get_wound_type(surgery.targetable_wound))
 			target.balloon_alert(user, "no wound to operate on!")
 			return
-
-	// NOVA EDIT START - Limbs that can't be surgically removed
+	// NOVA EDIT ADDITION START - Limbs that can't be surgically removed
 	if (surgery.removes_target_bodypart && !isnull(affecting_limb) && !affecting_limb.can_be_surgically_removed)
 		target.balloon_alert(user, "limb can't be surgically removed!")
 		return
-	// NOVA EDIT END
+	// NOVA EDIT ADDITION END
 
 	if (IS_IN_INVALID_SURGICAL_POSITION(target, surgery))
 		target.balloon_alert(user, "patient is not lying down!")
@@ -332,15 +336,16 @@
 	var/datum/surgery/procedure = new surgery.type(target, selected_zone, affecting_limb)
 	ADD_TRAIT(target, TRAIT_ALLOWED_HONORBOUND_ATTACK, type)
 
-	target.balloon_alert(user, "starting \"[lowertext(procedure.name)]\"")
+	target.balloon_alert(user, "starting \"[LOWER_TEXT(procedure.name)]\"")
 
 	user.visible_message(
 		span_notice("[user] drapes [parent] over [target]'s [parse_zone(selected_zone)] to prepare for surgery."),
 		span_notice("You drape [parent] over [target]'s [parse_zone(selected_zone)] to prepare for \an [procedure.name]."),
 	)
-
-	if(!(HAS_TRAIT(target, TRAIT_NUMBED) || target.stat >= UNCONSCIOUS)) ///skyrat add start - warning for unanesthetized surgery
-		target.balloon_alert(user, "not numbed!") ///skyrat add end
+	// NOVA EDIT ADDITION START - warning for unanesthetized surgery
+	if(!(HAS_TRAIT(target, TRAIT_ANALGESIA) || target.stat >= UNCONSCIOUS))
+		target.balloon_alert(user, "not numbed!")
+	// NOVA EDIT ADDITION END
 
 	log_combat(user, target, "operated on", null, "(OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
 

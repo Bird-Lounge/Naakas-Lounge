@@ -27,7 +27,6 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/wings_open, GLOB.wings_open_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/frills, GLOB.frills_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/spines, GLOB.spines_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/spines_animated, GLOB.animated_spines_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tail_spines, GLOB.tail_spines_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/legs, GLOB.legs_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/caps, GLOB.caps_list)
@@ -90,7 +89,8 @@
 
 	GLOB.emote_list = init_emote_list() // WHY DOES THIS NEED TO GO HERE? IT JUST INITS DATUMS
 
-	make_skyrat_datum_references() //NOVA EDIT ADDITION - CUSTOMIZATION
+	make_nova_datum_references() //NOVA EDIT ADDITION - CUSTOMIZATION
+	init_nova_stack_recipes() //NOVA EDIT ADDITION - More sheet recipes
 	init_crafting_recipes()
 	init_crafting_recipes_atoms()
 
@@ -100,7 +100,7 @@
 		if(ispath(path, /datum/crafting_recipe/stack))
 			continue
 		var/datum/crafting_recipe/recipe = new path()
-		var/is_cooking = ((recipe.category in GLOB.crafting_category_food) || (recipe.category in GLOB.crafting_category_food_skyrat)) // NOVA EDIT - Add skyrat food crafting category
+		var/is_cooking = ((recipe.category in GLOB.crafting_category_food) || (recipe.category in GLOB.crafting_category_food_nova)) // NOVA EDIT - Add nova food crafting category
 		recipe.reqs = sort_list(recipe.reqs, GLOBAL_PROC_REF(cmp_crafting_req_priority))
 		if(recipe.name != "" && recipe.result)
 			if(is_cooking)
@@ -121,7 +121,6 @@
 		/obj/item/stack/sheet/sinew = GLOB.sinew_recipes,
 		/obj/item/stack/sheet/animalhide/carp = GLOB.carp_recipes,
 		/obj/item/stack/sheet/mineral/sandstone = GLOB.sandstone_recipes,
-		/obj/item/stack/sheet/mineral/clay = GLOB.clay_recipes, // NOVA EDIT ADDITION
 		/obj/item/stack/sheet/mineral/sandbags = GLOB.sandbag_recipes,
 		/obj/item/stack/sheet/mineral/diamond = GLOB.diamond_recipes,
 		/obj/item/stack/sheet/mineral/uranium = GLOB.uranium_recipes,
@@ -166,8 +165,8 @@
 					GLOB.crafting_recipes += recipe
 
 	var/list/material_stack_recipes = list(
-		SSmaterials.base_stack_recipes,
-		SSmaterials.rigid_stack_recipes,
+		DSmaterials.base_stack_recipes,
+		DSmaterials.rigid_stack_recipes,
 	)
 
 	for(var/list/recipe_list in material_stack_recipes)
@@ -263,7 +262,8 @@ GLOBAL_LIST_INIT(WALLITEMS_INTERIOR, typecacheof(list(
 	/obj/machinery/status_display,
 	/obj/machinery/ticket_machine,
 	/obj/machinery/turretid,
-	/obj/machinery/time_clock, //NOVA EDIT TIME CLOCK
+	/obj/machinery/time_clock, // NOVA EDIT ADDITION - TIME CLOCK
+	/obj/structure/wall_torch, // NOVA EDIT ADDITION - Wall-mounted torches
 	/obj/machinery/barsign,
 	/obj/structure/extinguisher_cabinet,
 	/obj/structure/fireaxecabinet,
@@ -283,6 +283,12 @@ GLOBAL_LIST_INIT(WALLITEMS_INTERIOR, typecacheof(list(
 GLOBAL_LIST_INIT(WALLITEMS_EXTERIOR, typecacheof(list(
 	/obj/machinery/camera,
 	/obj/machinery/light,
-	/obj/structure/camera_assembly,
 	/obj/structure/light_construct,
+)))
+
+/// A static typecache of all the money-based items that can be actively used as currency.
+GLOBAL_LIST_INIT(allowed_money, typecacheof(list(
+	/obj/item/coin,
+	/obj/item/holochip,
+	/obj/item/stack/spacecash,
 )))
