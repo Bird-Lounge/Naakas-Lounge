@@ -155,7 +155,7 @@ const CrewTableEntry = (props) => {
         ) : life_status !== STAT_DEAD ? (
           <Icon name="heart" color="#aaff00" size={1} />
         ) : (
-          <Icon name="skull" color="#6600ff" size={1} />
+          <Icon name="skull" color="#ff6600" size={1} />
         )}
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">

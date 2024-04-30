@@ -8,12 +8,12 @@ import { COLORS } from '../constants';
 import { Window } from '../layouts';
 
 const HEALTH_COLOR_BY_LEVEL = [
-  '#17d568',
-  '#c4cf2d',
-  '#e67e22',
-  '#ed5100',
-  '#e74c3c',
-  '#801308',
+  '#aaff00',
+  '#ffff00',
+  '#ffaa00',
+  '#ff6600',
+  '#ff0000',
+  '#6600ff',
 ];
 
 const SORT_NAMES = {
@@ -259,9 +259,9 @@ const CrewTableEntry = (props: CrewTableEntryProps) => {
             size={1}
           />
         ) : life_status !== STAT_DEAD ? (
-          <Icon name="heart" color="#17d568" size={1} />
+          <Icon name="heart" color="#aaff00" size={1} />
         ) : (
-          <Icon name="skull" color="#801308" size={1} />
+          <Icon name="skull" color="#ff6600" size={1} />
         )}
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
