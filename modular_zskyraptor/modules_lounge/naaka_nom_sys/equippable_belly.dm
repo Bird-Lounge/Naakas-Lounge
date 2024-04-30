@@ -18,16 +18,20 @@
 	the_bwelly.color = the_color
 	var/sizemod = client_source.prefs.read_preference(/datum/preference/numeric/lounge_bellyitem_sizemod)
 	if(sizemod == null)
-		the_bwelly.sizemod = 1
+		sizemod = 1
+	the_bwelly.sizemod = sizemod
 	var/size_base = client_source.prefs.read_preference(/datum/preference/numeric/lounge_bellyitem_size_base)
 	if(size_base == null)
-		the_bwelly.base_size_cosmetic = 0
+		size_base = 0
+	the_bwelly.base_size_cosmetic = size_base
 	var/size_endo = client_source.prefs.read_preference(/datum/preference/numeric/lounge_bellyitem_size_endo)
 	if(size_endo == null)
-		the_bwelly.base_size_endo = 0
+		size_endo = 0
+	the_bwelly.base_size_endo = size_endo;
 	var/size_stuffed = client_source.prefs.read_preference(/datum/preference/numeric/lounge_bellyitem_size_stuffed)
 	if(size_stuffed == null)
-		the_bwelly.base_size_stuffed = 0
+		size_stuffed = 0
+	the_bwelly.base_size_stuffed = size_stuffed
 	give_item_to_holder(the_bwelly, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS))
 
 
@@ -51,29 +55,50 @@
 /datum/preference/numeric/lounge_bellyitem_sizemod/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return FALSE
 
+/datum/preference/numeric/lounge_bellyitem_sizemod/create_default_value()
+	return 1
+
 /datum/preference/numeric/lounge_bellyitem_size_base
 	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "lounge_bellyitem_size_base"
+	step = 1
+	minimum = 0
+	maximum = 10000
 
 /datum/preference/numeric/lounge_bellyitem_size_base/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return FALSE
+
+/datum/preference/numeric/lounge_bellyitem_size_base/create_default_value()
+	return 0
 
 /datum/preference/numeric/lounge_bellyitem_size_endo
 	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "lounge_bellyitem_size_endo"
+	step = 1
+	minimum = 0
+	maximum = 10000
 
 /datum/preference/numeric/lounge_bellyitem_size_endo/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return FALSE
+
+/datum/preference/numeric/lounge_bellyitem_size_endo/create_default_value()
+	return 0
 
 /datum/preference/numeric/lounge_bellyitem_size_stuffed
 	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "lounge_bellyitem_size_stuffed"
+	step = 1
+	minimum = 0
+	maximum = 10000
 
 /datum/preference/numeric/lounge_bellyitem_size_stuffed/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return FALSE
+
+/datum/preference/numeric/lounge_bellyitem_size_stuffed/create_default_value()
+	return 0
 
 
 
@@ -131,6 +156,11 @@
 	var/full_sounds = list("modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/digest (36).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/digest (47).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/Gurgle6.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/Gurgle8.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/Gurgle14.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/digest (8).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/digest (9).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/digest (13).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/digest (15).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Fullness/digest (18).ogg")
 	var/stuff_minor = list("modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (25).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (26).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (28).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (29).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (31).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (33).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (34).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (37).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (48).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle1.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle2.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle3.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle9.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle10.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle11.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle12.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle13.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle15.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/Gurgle16.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/stomach-burble.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (3).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (11).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMinor/digest (17).ogg")
 	var/stuff_major = list("modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/digest_10.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/digest_12.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/digest_17.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/Gurgle4.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/Gurgle5.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/Gurgle7.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/digest_02.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/digest_04.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/StuffMajor/digest_05.ogg")
+
+	/// Live editable layers in case things go scrungy.
+	var/hori_layer = UNIFORM_LAYER
+	var/south_layer = UNIFORM_LAYER
+	var/north_layer = BODY_BEHIND_LAYER
 
 /obj/item/clothing/sextoy/belly_function/click_alt(mob/living/user)
 	var/adjustment_mode = tgui_input_list(user, "Select ", "Belly Control", list("Change Color", "Set Size Modifier", "Set Baseline Quiet Size", "Set Baseline Endo Size", "Set Baseline Stuffed Size", "Set Eaten Guest Size"))
@@ -198,11 +228,11 @@
 
 	// generate the appearances
 	worn_icon_state = "[icon_state_wew]_HORI"
-	overlay_hori = src.build_worn_icon(default_layer = BODYPARTS_LOW_LAYER, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
+	overlay_hori = src.build_worn_icon(default_layer = hori_layer, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
 	worn_icon_state = "[icon_state_wew]_FRONT"
-	overlay_south = src.build_worn_icon(default_layer = BODY_ADJ_LAYER, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
+	overlay_south = src.build_worn_icon(default_layer = south_layer, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
 	worn_icon_state = "[icon_state_wew]_BACK"
-	overlay_north = src.build_worn_icon(default_layer = BODY_BEHIND_LAYER, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
+	overlay_north = src.build_worn_icon(default_layer = north_layer, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
 	worn_icon_state = oldstate
 
 	// add the overlays
