@@ -163,7 +163,7 @@
 	var/north_layer = BODY_BEHIND_LAYER
 
 /obj/item/clothing/sextoy/belly_function/click_alt(mob/living/user)
-	var/adjustment_mode = tgui_input_list(user, "Select ", "Belly Control", list("Change Color", "Set Size Modifier", "Set Baseline Quiet Size", "Set Baseline Endo Size", "Set Baseline Stuffed Size", "Set Eaten Guest Size"))
+	var/adjustment_mode = tgui_input_list(user, "Select ", "Belly Control", list("Change Color", "Set Size Modifier", "Set Baseline Cosmetic Size", "Set Baseline Endo Size", "Set Baseline Stuffed Size", "Set Eaten Guest Size"))
 	if(adjustment_mode)
 		if(adjustment_mode == "Change Color")
 			var/temp_col = input("Enter new color:", "Color", src.color) as color|null
@@ -174,7 +174,7 @@
 			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
 				return
 			sizemod = temp_size
-		else if(adjustment_mode == "Set Baseline Quiet Size")
+		else if(adjustment_mode == "Set Baseline Cosmetic Size")
 			var/temp_size = tgui_input_number(user, "What purely cosmetic baseline belly size do you want?", "Base Size")
 			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
 				return
@@ -256,9 +256,9 @@
 	stuffed_temp_orig += base_size_stuffed
 	var/total_fullness_orig = guest_temp + stuffed_temp_orig //maximum creaks from overfilled belly
 	var/total_size_orig = total_fullness_orig + base_size_cosmetic
-	var/total_size = total_size_orig / 10
-	var/total_fullness = total_fullness_orig / 10
-	var/stuffed_temp = stuffed_temp_orig / 10
+	var/total_size = total_size_orig / 10 / sizemod
+	var/total_fullness = total_fullness_orig / 10 / sizemod
+	var/stuffed_temp = stuffed_temp_orig / 10 / sizemod
 
 	total_size = (((total_size)**1.5) / (4/3) / PI)**(1/3)
 	total_fullness = (((total_fullness)**1.5) / (4/3) / PI)**(1/3)
