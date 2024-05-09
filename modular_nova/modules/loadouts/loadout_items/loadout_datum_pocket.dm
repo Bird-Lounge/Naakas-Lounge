@@ -38,8 +38,7 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 		id_card.forceMove(wallet)
 
 		if(equipper.back)
-			var/list/backpack_stuff = list()
-			equipper.back.atom_storage?.return_inv(backpack_stuff, FALSE)
+			var/list/backpack_stuff = equipper.back.atom_storage?.return_inv(FALSE)
 			for(var/obj/item/thing in backpack_stuff)
 				if(wallet.contents.len >= 3)
 					break
@@ -68,6 +67,18 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 /*
 *	LIPSTICK
 */
+
+/datum/loadout_item/pocket_items/lipstick_green
+	name = "Green Lipstick"
+	item_path = /obj/item/lipstick/green
+
+/datum/loadout_item/pocket_items/lipstick_white
+	name = "White Lipstick"
+	item_path = /obj/item/lipstick/white
+
+/datum/loadout_item/pocket_items/lipstick_blue
+	name = "Blue Lipstick"
+	item_path = /obj/item/lipstick/blue
 
 /datum/loadout_item/pocket_items/lipstick_black
 	name = "Black Lipstick"

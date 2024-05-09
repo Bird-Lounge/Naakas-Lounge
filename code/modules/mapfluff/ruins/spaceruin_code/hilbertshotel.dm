@@ -12,7 +12,8 @@ GLOBAL_VAR_INIT(hhMysteryRoomNumber, rand(1, 999999))
 	var/list/static/hotel_maps = list("Generic", "Apartment", "Beach Condo")
 	//standart - hilber's hotel room
 	//apartment - see /datum/map_template/ghost_cafe_rooms
-	var/datum/map_template/ghost_cafe_rooms/ghost_cafe_rooms_apartment
+	var/datum/map_template/ghost_cafe_rooms/apartment/ghost_cafe_rooms_apartment
+	var/datum/map_template/ghost_cafe_rooms/beach_condo/ghost_cafe_rooms_beach_condo
 	//NOVA EDIT END
 	var/datum/map_template/hilbertshotel/hotelRoomTemp
 	var/datum/map_template/hilbertshotel/empty/hotelRoomTempEmpty
@@ -34,6 +35,7 @@ GLOBAL_VAR_INIT(hhMysteryRoomNumber, rand(1, 999999))
 	hotelRoomTempLore = new()
 	//NOVA EDIT ADDITION - GHOST HOTEL UPDATE
 	ghost_cafe_rooms_apartment = new()
+	ghost_cafe_rooms_beach_condo = new()
 	//NOVA EDIT END
 	var/area/currentArea = get_area(src)
 	if(currentArea.type == /area/ruin/space/has_grav/powered/hilbertresearchfacility/secretroom)
@@ -179,7 +181,7 @@ GLOBAL_VAR_INIT(hhMysteryRoomNumber, rand(1, 999999))
 	else if(chosen_room == "Apartment")
 		load_from = ghost_cafe_rooms_apartment
 	else if(chosen_room == "Beach Condo")
-		load_from = ghost_cafe_rooms_apartment
+		load_from = ghost_cafe_rooms_beach_condo
 	//NOVA EDIT ADDITION END
 
 	load_from.load(bottom_left)
@@ -365,20 +367,21 @@ GLOBAL_VAR_INIT(hhMysteryRoomNumber, rand(1, 999999))
 	if(get_dist(get_turf(src), get_turf(user)) <= 1)
 		promptExit(user)
 
-/turf/closed/indestructible/hoteldoor/AltClick(mob/user)
-	. = ..()
-	if(get_dist(get_turf(src), get_turf(user)) <= 1)
-		to_chat(user, span_notice("You peak through the door's bluespace peephole..."))
-		user.reset_perspective(parentSphere)
-		var/datum/action/peephole_cancel/PHC = new
-		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
-		PHC.Grant(user)
-		RegisterSignal(user, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/atom/, check_eye), user)
+/turf/closed/indestructible/hoteldoor/click_alt(mob/user)
+	to_chat(user, span_notice("You peak through the door's bluespace peephole..."))
+	user.reset_perspective(parentSphere)
+	var/datum/action/peephole_cancel/PHC = new
+	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
+	PHC.Grant(user)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_eye))
+	return CLICK_ACTION_SUCCESS
 
-/turf/closed/indestructible/hoteldoor/check_eye(mob/user)
-	if(get_dist(get_turf(src), get_turf(user)) >= 2)
-		for(var/datum/action/peephole_cancel/PHC in user.actions)
-			INVOKE_ASYNC(PHC, TYPE_PROC_REF(/datum/action/peephole_cancel, Trigger))
+/turf/closed/indestructible/hoteldoor/proc/check_eye(mob/user, atom/oldloc, direction)
+	SIGNAL_HANDLER
+	if(get_dist(get_turf(src), get_turf(user)) < 2)
+		return
+	for(var/datum/action/peephole_cancel/PHC in user.actions)
+		INVOKE_ASYNC(PHC, TYPE_PROC_REF(/datum/action/peephole_cancel, Trigger))
 
 /datum/action/peephole_cancel
 	name = "Cancel View"
