@@ -277,7 +277,7 @@
 
 			if(mode == SCANNER_VERBOSE)
 				for(var/obj/item/bodypart/limb as anything in damaged)
-					if(limb.bodytype & BODYTYPE_ROBOTIC)
+					if(limb.bodytype & BODYTYPE_ROBOTIC || limb.bodytype & BODYTYPE_TAUR) // NOVA EDIT ADDITION - Taur limbs show their full name - ORIGINAL: if(limb.bodytype & BODYTYPE_ROBOTIC)
 						dmgreport += "<tr><td><font color='#ff0000'>[capitalize(limb.name)]:</font></td>" /// NAAKAS-LOUNGE EDIT
 					else
 						dmgreport += "<tr><td><font color='#ff0000'>[capitalize(limb.plaintext_zone)]:</font></td>" /// NAAKAS-LOUNGE EDIT
