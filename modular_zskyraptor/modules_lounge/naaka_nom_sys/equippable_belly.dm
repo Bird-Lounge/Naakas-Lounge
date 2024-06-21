@@ -9,6 +9,7 @@
 	gain_text = span_notice("You feel like you could eat a horse!")
 	lose_text = span_danger("Food suddenly feels a lot less appealing.")
 	medical_record_text = "Patient's midriff and stomach are unusually stretchy."
+	erp_quirk = TRUE
 
 /datum/quirk/item_quirk/stuffable/add_unique(client/client_source)
 	var/obj/item/clothing/sextoy/belly_function/the_bwelly = new /obj/item/clothing/sextoy/belly_function(get_turf(quirk_holder))
