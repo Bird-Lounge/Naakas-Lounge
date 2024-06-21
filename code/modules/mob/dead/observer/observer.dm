@@ -98,11 +98,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 
 		mind = body.mind //we don't transfer the mind but we keep a reference to it.
-		set_ghost_appearance(body) /// NAAKAS-LOUNGE ADDITION BEGIN
-		appearance = body
-		if(ishuman(body))
-			var/mob/living/carbon/human/H = body
-			add_overlay(H.overlays_standing) /// NAAKAS-LOUNGE ADDITION END
+		set_ghost_appearance(body) /// NAAKAS-LOUNGE ADDITION
 
 		if(HAS_TRAIT_FROM_ONLY(body, TRAIT_SUICIDED, REF(body))) // transfer if the body was killed due to suicide
 			ADD_TRAIT(src, TRAIT_SUICIDED, REF(body))
@@ -214,7 +210,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 
 	if(new_form)
-		icon_state = new_form
+		if(icon == initial(icon))
+			icon_state = new_form
 		if(icon_state in GLOB.ghost_forms_with_directions_list)
 			ghostimage_default.icon_state = new_form + "_nodir" //if this icon has dirs, the default ghostimage must use its nodir version or clients with the preference set to default sprites only will see the dirs
 		else
@@ -226,7 +223,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		updatedir = 0 //stop updating the dir in case we want to show accessories with dirs on a ghost sprite without dirs
 		setDir(2 )//reset the dir to its default so the sprites all properly align up
 
-	if(ghost_accs == GHOST_ACCS_FULL && (icon_state in GLOB.ghost_forms_with_accessories_list)) //check if this form supports accessories and if the client wants to show them
+	if(ghost_accs == GHOST_ACCS_FULL && (icon_state in GLOB.ghost_forms_with_accessories_list || icon != initial(icon))) //check if this form supports accessories and if the client wants to show them
 		/// NAAKAS-LOUNGE REMOVAL BEGIN
 		/*if(facial_hairstyle)
 			var/datum/sprite_accessory/S = SSaccessories.facial_hairstyles_list[facial_hairstyle]
@@ -877,8 +874,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_appearance()*/
 /// NAAKAS-LOUNGE REMOVAL END
 
-/mob/dead/observer/proc/set_ghost_appearance(mob/living/to_copy)
-	if(!to_copy || !to_copy.icon)
+/mob/dead/observer/proc/set_ghost_appearance(mob/to_copy)
+	if(!istype(to_copy))
 		icon = initial(icon)
 		icon_state = "ghost"
 		alpha = 255
@@ -887,6 +884,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		icon = to_copy.icon
 		icon_state = to_copy.icon_state
 		overlays = to_copy.overlays
+		if(ishuman(to_copy))
+			var/mob/living/carbon/human/H = to_copy
+			add_overlay(H.overlays_standing)
 		alpha = 127
 
 /mob/dead/observer/can_perform_action(atom/movable/target, action_bitflags)
