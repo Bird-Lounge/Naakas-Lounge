@@ -98,7 +98,11 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 
 		mind = body.mind //we don't transfer the mind but we keep a reference to it.
-		set_ghost_appearance(body) /// NAAKAS-LOUNGE ADDITION
+		set_ghost_appearance(body) /// NAAKAS-LOUNGE ADDITION BEGIN
+		appearance = body
+		if(ishuman(body))
+			var/mob/living/carbon/human/H = body
+			add_overlay(H.overlays_standing) /// NAAKAS-LOUNGE ADDITION END
 
 		if(HAS_TRAIT_FROM_ONLY(body, TRAIT_SUICIDED, REF(body))) // transfer if the body was killed due to suicide
 			ADD_TRAIT(src, TRAIT_SUICIDED, REF(body))
@@ -114,6 +118,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 				facial_hairstyle = body_human.facial_hairstyle
 				facial_hair_color = ghostify_color(body_human.facial_hair_color)*/
 		/// NAAKAS-LOUNGE REMOVAL END
+	else
+		restore_ghost_appearance()
 
 	update_appearance()
 
@@ -881,7 +887,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		icon = to_copy.icon
 		icon_state = to_copy.icon_state
 		overlays = to_copy.overlays
-		appearance = to_copy.appearance
 		alpha = 127
 
 /mob/dead/observer/can_perform_action(atom/movable/target, action_bitflags)
