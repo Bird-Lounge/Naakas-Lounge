@@ -31272,6 +31272,7 @@
 	name = "Medbay Lockdown Shutters"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/lobby)
 "ihQ" = (
@@ -50590,7 +50591,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 9
 	},
-/obj/machinery/disposal/bin/tagger,
+/obj/machinery/disposal/bin,
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/central)
 "mZT" = (
@@ -52943,7 +52944,19 @@
 /obj/effect/turf_decal/trimline/yellow/corner{
 	dir = 4
 	},
-/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 8;
+	pixel_y = -4
+	},
+/obj/item/flatpack{
+	board = /obj/item/circuitboard/machine/flatpacker;
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/obj/item/multitool{
+	pixel_x = 7;
+	pixel_y = 10
+	},
 /turf/open/floor/iron/corner{
 	dir = 4
 	},
@@ -57598,7 +57611,7 @@
 /area/station/science/lower)
 "oOW" = (
 /obj/structure/rack,
-/obj/item/gun/energy/e_gun/dragnet,
+/obj/effect/spawner/random/armory/dragnet,
 /turf/open/floor/iron/dark,
 /area/station/ai_monitored/security/armory)
 "oOY" = (
@@ -65673,7 +65686,7 @@
 /turf/open/floor/iron/white,
 /area/station/science/lobby)
 "qSD" = (
-/obj/item/kirbyplants/organic/plant21,
+/obj/structure/aquarium/lawyer,
 /turf/open/floor/wood/parquet,
 /area/station/service/lawoffice)
 "qSJ" = (

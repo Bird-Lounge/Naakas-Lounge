@@ -803,3 +803,25 @@
     name = "Drop Pouch"
     item_path = /obj/item/storage/backpack/satchel/drop_pouch
     ckeywhitelist = list("alvcyktor", "snakebittenn")
+
+/datum/loadout_item/inhand/melonseva
+	name = "Sundowner SEVA"
+	item_path = /obj/item/clothing/suit/hooded/seva/melon
+	ckeywhitelist = list("deadmonwonderland")
+	restricted_roles = list(JOB_SHAFT_MINER)
+
+
+/datum/loadout_item/suit/desminus
+	name = "Jómsvíking Coat"
+	item_path = /obj/item/clothing/suit/toggle/desminus
+	ckeywhitelist = list("desminus", "junglerat", "deadmonwonderland")
+
+/datum/loadout_item/suit/desminus2
+	name = "Elderwood Garment"
+	item_path = /obj/item/clothing/suit/toggle/desminus2
+	ckeywhitelist = list("desminus", "junglerat", "deadmonwonderland")
+
+/datum/loadout_item/pocket_items/akarimod
+	name = "Akari's MOD Refitter"
+	item_path = /obj/item/mod/skin_applier/akari
+	ckeywhitelist = list("samman166", "cainedclxvi")
