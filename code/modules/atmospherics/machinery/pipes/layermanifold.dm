@@ -2,6 +2,7 @@
 	name = "layer adaptor"
 	icon = 'icons/obj/pipes_n_cables/manifold.dmi'
 	icon_state = "manifoldlayer"
+	var/underlay_icon = 'icons/obj/pipes_n_cables/layer_manifold_underlays.dmi' /// NAAKAS-LOUNGE ADDITION
 	desc = "A special pipe to bridge pipe layers with."
 	dir = SOUTH
 	initialize_directions = NORTH|SOUTH
@@ -68,7 +69,7 @@
 	. += get_attached_image(get_dir(src, machine_check), machine_check.piping_layer, machine_check.pipe_color)
 
 /obj/machinery/atmospherics/pipe/layer_manifold/proc/get_attached_image(p_dir, p_layer, p_color)
-	var/mutable_appearance/muta = mutable_appearance('icons/obj/pipes_n_cables/layer_manifold_underlays.dmi', "intact_[p_dir]_[p_layer]", layer = layer - 0.01, appearance_flags = RESET_COLOR)
+	var/mutable_appearance/muta = mutable_appearance(underlay_icon, "intact_[p_dir]_[p_layer]", layer = layer - 0.01, appearance_flags = RESET_COLOR) /// NAAKAS-LOUNGE EDIT
 	muta.color = p_color
 	return muta
 
