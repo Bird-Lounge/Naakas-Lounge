@@ -196,9 +196,7 @@
 /area/ruin/space/has_grav/travelers_rest)
 "xk" = (
 /obj/structure/cable,
-/obj/machinery/door/window/brigdoor{
-	dir = 1
-	},
+/obj/machinery/door/window/brigdoor/left/directional/north,
 /obj/effect/turf_decal/trimline/yellow,
 /obj/machinery/light/floor,
 /turf/open/floor/iron/textured,
@@ -439,7 +437,7 @@
 /obj/item/storage/box/lights/tubes,
 /obj/item/clothing/glasses/night,
 /obj/item/stock_parts/capacitor/super,
-/obj/item/stock_parts/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 6
 	},

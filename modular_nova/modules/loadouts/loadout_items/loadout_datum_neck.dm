@@ -121,7 +121,6 @@ GLOBAL_LIST_INIT(loadout_necks, generate_loadout_items(/datum/loadout_item/neck)
 /datum/loadout_item/neck/discoproper
 	name = "Horrible Necktie"
 	item_path = /obj/item/clothing/neck/tie/disco
-	restricted_roles = list(JOB_DETECTIVE)
 
 /*
 *	COLLARS
@@ -272,6 +271,16 @@ GLOBAL_LIST_INIT(loadout_necks, generate_loadout_items(/datum/loadout_item/neck)
 	item_path = /obj/item/clothing/neck/mantle/capmantle
 	restricted_roles = list(JOB_CAPTAIN)
 
+/datum/loadout_item/neck/mantle_chap
+	name = "Bishop's Cloak"
+	item_path = /obj/item/clothing/neck/chaplain
+	restricted_roles = list(JOB_CHAPLAIN)
+
+/datum/loadout_item/neck/mantle_bchap
+	name = "Bishop's Cloak (Black)"
+	item_path = /obj/item/clothing/neck/chaplain/black
+	restricted_roles = list(JOB_CHAPLAIN)
+
 /*
 *	MISC
 */
@@ -279,7 +288,6 @@ GLOBAL_LIST_INIT(loadout_necks, generate_loadout_items(/datum/loadout_item/neck)
 /datum/loadout_item/neck/stethoscope
 	name = "Stethoscope"
 	item_path = /obj/item/clothing/neck/stethoscope
-	restricted_roles = list(JOB_MEDICAL_DOCTOR, JOB_CHIEF_MEDICAL_OFFICER)
 
 /datum/loadout_item/neck/maid
 	name = "Maid Neck Cover"
@@ -289,15 +297,14 @@ GLOBAL_LIST_INIT(loadout_necks, generate_loadout_items(/datum/loadout_item/neck)
 	name = "MODlink Scryer"
 	item_path = /obj/item/clothing/neck/link_scryer/loaded
 
-/datum/loadout_item/neck/holobadge
-	name = "Holobadge"
-	item_path = /obj/item/clothing/accessory/badge/holo
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_WARDEN, JOB_HEAD_OF_SECURITY)
+/datum/loadout_item/neck/imperial_police_cloak
+	name = "Imperial Police Cloak"
+	item_path = /obj/item/clothing/neck/cloak/colonial/nri_police
 
-/datum/loadout_item/neck/holobadge_cord
-	name = "Holobadge with Lanyard"
-	item_path = /obj/item/clothing/accessory/badge/holo/cord
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_WARDEN, JOB_HEAD_OF_SECURITY)
+/datum/loadout_item/neck/tarkon_gauntlet
+	name = "Tarkon Confidante Gauntlet"
+	item_path = /obj/item/clothing/neck/security_cape/tarkon
+	blacklisted_roles = list(JOB_CAPTAIN, JOB_HEAD_OF_PERSONNEL, JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_RESEARCH_DIRECTOR, JOB_QUARTERMASTER, JOB_CHIEF_MEDICAL_OFFICER, JOB_CHIEF_ENGINEER, JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_WARDEN, JOB_BLUESHIELD, JOB_CORRECTIONS_OFFICER)
 
 /*
 *	DONATOR

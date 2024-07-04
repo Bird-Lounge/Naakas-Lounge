@@ -8,8 +8,8 @@
 	suffix = "nova"
 	name = "Prison Transporter NSS-74"
 
-/area/shuttle/blackmarket_chevvy
-	name = "Blackmarket Chevvy"
+/area/shuttle/blackmarket_burst
+	name = "Blackmarket Burst"
 
 /area/shuttle/interdyne_cargo
 	name = "Interdyne Cargo Shuttle"
@@ -20,6 +20,7 @@
 
 /area/shuttle/tarkon_driver
 	name = "Tarkon Driver"
+	requires_power = TRUE
 
 /area/shuttle/trader/bridge
 	name = "Trader Ship Bridge"

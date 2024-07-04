@@ -76,7 +76,7 @@
 	head.flash2 = new(head)
 	chest = new(src)
 	chest.wired = TRUE
-	chest.cell = new /obj/item/stock_parts/cell/high(chest)
+	chest.cell = new /obj/item/stock_parts/power_store/cell/high(chest)
 	update_appearance()
 
 /obj/item/robot_suit/update_overlays()
@@ -145,7 +145,7 @@
 		to_chat(user, span_warning("[src] has no attached torso!"))
 		return
 
-	var/obj/item/stock_parts/cell/temp_cell = user.is_holding_item_of_type(/obj/item/stock_parts/cell)
+	var/obj/item/stock_parts/power_store/cell/temp_cell = user.is_holding_item_of_type(/obj/item/stock_parts/power_store/cell)
 	var/swap_failed = FALSE
 	if(!temp_cell) //if we're not holding a cell
 		swap_failed = TRUE
@@ -339,6 +339,8 @@
 				O.set_lockcharge(TRUE)
 				to_chat(O, span_warning("Error: Servo motors unresponsive."))
 
+			O.equip_outfit_and_loadout(equipping_job = SSjob.GetJobType(/datum/job/cyborg)) // NOVA EDIT ADDITION - Cyborg loadout hats
+
 		else
 			to_chat(user, span_warning("The MMI must go in after everything else!"))
 
@@ -376,12 +378,12 @@
 			if(!locomotion)
 				O.set_lockcharge(TRUE)
 
-	else if(istype(W, /obj/item/pen))
+	else if(IS_WRITING_UTENSIL(W))
 		to_chat(user, span_warning("You need to use a multitool to name [src]!"))
 	else
 		return ..()
 
-/obj/item/robot_suit/ui_status(mob/user)
+/obj/item/robot_suit/ui_status(mob/user, datum/ui_state/state)
 	if(isobserver(user))
 		return ..()
 	var/obj/item/held_item = user.get_active_held_item()

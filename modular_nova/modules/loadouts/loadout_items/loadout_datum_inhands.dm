@@ -43,6 +43,18 @@ GLOBAL_LIST_INIT(loadout_inhand_items, generate_loadout_items(/datum/loadout_ite
 	name = "Secure Briefcase"
 	item_path = /obj/item/storage/briefcase/secure
 
+/datum/loadout_item/inhand/guncase_large
+	name = "Black Empty Gun Case (Large)"
+	item_path = /obj/item/storage/toolbox/guncase/nova/empty
+
+/datum/loadout_item/inhand/guncase_large/yellow
+	name = "Yellow Empty Gun Case (Large)"
+	item_path = /obj/item/storage/toolbox/guncase/nova/carwo_large_case/empty
+
+/datum/loadout_item/inhand/guncase_small
+	name = "Black Empty Gun Case (Small)"
+	item_path = /obj/item/storage/toolbox/guncase/nova/pistol/empty
+
 /datum/loadout_item/inhand/skub
 	name = "Skub"
 	item_path = /obj/item/skub
@@ -74,7 +86,7 @@ GLOBAL_LIST_INIT(loadout_inhand_items, generate_loadout_items(/datum/loadout_ite
 
 /datum/loadout_item/inhand/smokingpipe
 	name = "Smoking Pipe"
-	item_path = /obj/item/clothing/mask/cigarette/pipe
+	item_path = /obj/item/cigarette/pipe
 
 /datum/loadout_item/inhand/flag_nt
 	name = "Folded Nanotrasen Flag"
@@ -107,3 +119,21 @@ GLOBAL_LIST_INIT(loadout_inhand_items, generate_loadout_items(/datum/loadout_ite
 /datum/loadout_item/inhand/flag_azulea
 	name = "Folded Azulea Flag"
 	item_path = /obj/item/sign/flag/azulea
+
+/datum/loadout_item/inhand/saddlebags
+	name = "saddlebags"
+	item_path = /obj/item/storage/backpack/saddlebags
+
+/datum/loadout_item/inhand/saddle // these should be in the other category but apparantly those are "pocket" loadout items so idk?
+	name = "riding saddle (leather)"
+	item_path = /obj/item/riding_saddle/leather
+
+/datum/loadout_item/inhand/saddle_peacekeeper
+	name = "riding saddle (peacekeeper)"
+	item_path = /obj/item/riding_saddle/leather/peacekeeper
+
+	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_DETECTIVE, JOB_CORRECTIONS_OFFICER, JOB_HEAD_OF_SECURITY)
+
+/datum/loadout_item/inhand/pet/post_equip_item(datum/preferences/preference_source, mob/living/carbon/human/equipper)
+	var/obj/item/clothing/head/mob_holder/pet/equipped_pet = locate(item_path) in equipper.get_all_gear()
+	equipped_pet.held_mob.befriend(equipper)

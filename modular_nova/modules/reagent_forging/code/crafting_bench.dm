@@ -27,7 +27,6 @@
 		/datum/crafting_bench_recipe/plate_vest,
 		/datum/crafting_bench_recipe/plate_gloves,
 		/datum/crafting_bench_recipe/plate_boots,
-		/datum/crafting_bench_recipe/horse_shoes,
 		/datum/crafting_bench_recipe/ring,
 		/datum/crafting_bench_recipe/collar,
 		/datum/crafting_bench_recipe/handcuffs,
@@ -37,6 +36,7 @@
 		/datum/crafting_bench_recipe/coil,
 		/datum/crafting_bench_recipe/seed_mesh,
 		/datum/crafting_bench_recipe/centrifuge,
+		/datum/crafting_bench_recipe/soup_pot,
 		/datum/crafting_bench_recipe/bokken,
 		/datum/crafting_bench_recipe/bow,
 	)
@@ -154,9 +154,15 @@
 	return ..()
 
 /obj/structure/reagent_crafting_bench/wrench_act(mob/living/user, obj/item/tool)
-	tool.play_tool_sound(src)
+	user.balloon_alert_to_viewers("disassembling...")
+	if(!tool.use_tool(src, user, 2 SECONDS, volume = 100))
+		return
+
 	deconstruct(disassembled = TRUE)
 	return ITEM_INTERACT_SUCCESS
+
+/obj/structure/reagent_crafting_bench/atom_deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/mineral/wood(drop_location(), 5)
 
 /obj/structure/reagent_crafting_bench/hammer_act(mob/living/user, obj/item/tool)
 	playsound(src, 'modular_nova/modules/reagent_forging/sound/forge.ogg', 50, TRUE)

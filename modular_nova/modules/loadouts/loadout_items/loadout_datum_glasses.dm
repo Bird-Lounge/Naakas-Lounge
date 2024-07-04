@@ -64,6 +64,10 @@ GLOBAL_LIST_INIT(loadout_glasses, generate_loadout_items(/datum/loadout_item/gla
 	name = "Modern Glasses"
 	item_path = /obj/item/clothing/glasses/regular/betterunshit
 
+/datum/loadout_item/glasses/prescription_glasses/kim
+	name = "Binoclard Lenses"
+	item_path = /obj/item/clothing/glasses/regular/kim
+
 /*
 *	COSMETIC GLASSES
 */
@@ -111,6 +115,10 @@ GLOBAL_LIST_INIT(loadout_glasses, generate_loadout_items(/datum/loadout_item/gla
 /datum/loadout_item/glasses/blindfold
 	name = "Blindfold"
 	item_path = /obj/item/clothing/glasses/blindfold
+
+/datum/loadout_item/glasses/blindfold/color
+	name = "Blind Personnel Blindfold"
+	item_path = /obj/item/clothing/glasses/blindfold/color
 
 /datum/loadout_item/glasses/fakeblindfold
 	name = "Fake Blindfold"

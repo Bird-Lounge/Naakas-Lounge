@@ -9,7 +9,7 @@
 	min_wizard_trigger_potency = 6
 	max_wizard_trigger_potency = 7
 	admin_setup = list(/datum/event_admin_setup/minimum_candidate_requirement/heart_attack, /datum/event_admin_setup/input_number/heart_attack)
-	///Candidates for recieving a healthy dose of heart disease
+	///Candidates for receiving a healthy dose of heart disease
 	var/list/heart_attack_candidates = list()
 
 /datum/round_event_control/heart_attack/can_spawn_event(players_amt, allow_magic = FALSE)
@@ -35,7 +35,7 @@
 		if(!(candidate.mind.assigned_role.job_flags & JOB_CREW_MEMBER))//only crewmembers can get one, a bit unfair for some ghost roles and it wastes the event
 			continue
 		// NOVA EDIT ADD START - Station/area event candidate filtering
-		if(engaged_role_play_check(candidate, station = TRUE, dorms = TRUE))
+		if(!engaged_role_play_check(candidate, station = TRUE, dorms = TRUE))
 			continue
 		// NOVA EDIT ADD END
 		if(candidate.satiety <= -60 && !candidate.has_status_effect(/datum/status_effect/exercised)) //Multiple junk food items recently //No foodmaxxing for the achievement

@@ -111,8 +111,6 @@
 
 /obj/item/gun/ballistic/automatic/m90
 	icon = 'modular_nova/modules/aesthetics/guns/icons/guns.dmi'
-/obj/item/gun/ballistic/revolver/c38/detective
-	icon = 'modular_nova/modules/aesthetics/guns/icons/guns.dmi'
 
 /obj/item/gun/ballistic/automatic/pistol/aps
 	icon = 'modular_nova/modules/aesthetics/guns/icons/guns.dmi'
@@ -123,6 +121,8 @@
 /obj/item/gun/ballistic/automatic/pistol/deagle/regal
 	icon = 'icons/obj/weapons/guns/ballistic.dmi'
 
+/obj/item/gun/ballistic/automatic/pistol/clandestine/fisher
+	icon = 'icons/obj/weapons/guns/ballistic.dmi'
 /obj/item/gun/energy/e_gun/nuclear
 	icon = 'modular_nova/modules/aesthetics/guns/icons/nucgun.dmi'
 	ammo_x_offset = 2

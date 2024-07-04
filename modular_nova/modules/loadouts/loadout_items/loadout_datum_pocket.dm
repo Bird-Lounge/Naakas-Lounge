@@ -38,8 +38,7 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 		id_card.forceMove(wallet)
 
 		if(equipper.back)
-			var/list/backpack_stuff = list()
-			equipper.back.atom_storage?.return_inv(backpack_stuff, FALSE)
+			var/list/backpack_stuff = equipper.back.atom_storage?.return_inv(FALSE)
 			for(var/obj/item/thing in backpack_stuff)
 				if(wallet.contents.len >= 3)
 					break
@@ -68,6 +67,18 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 /*
 *	LIPSTICK
 */
+
+/datum/loadout_item/pocket_items/lipstick_green
+	name = "Green Lipstick"
+	item_path = /obj/item/lipstick/green
+
+/datum/loadout_item/pocket_items/lipstick_white
+	name = "White Lipstick"
+	item_path = /obj/item/lipstick/white
+
+/datum/loadout_item/pocket_items/lipstick_blue
+	name = "Blue Lipstick"
+	item_path = /obj/item/lipstick/blue
 
 /datum/loadout_item/pocket_items/lipstick_black
 	name = "Black Lipstick"
@@ -117,13 +128,17 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 	name = "Personal AI Device"
 	item_path = /obj/item/pai_card
 
+/datum/loadout_item/pocket_items/link_scryer
+	name = "MODlink Scryer"
+	item_path = /obj/item/clothing/neck/link_scryer/loaded
+
 /datum/loadout_item/pocket_items/cigarettes
 	name = "Cigarette Pack"
 	item_path = /obj/item/storage/fancy/cigarettes
 
 /datum/loadout_item/pocket_items/cigar //smoking is bad mkay
 	name = "Cigar"
-	item_path = /obj/item/clothing/mask/cigarette/cigar
+	item_path = /obj/item/cigarette/cigar
 
 /datum/loadout_item/pocket_items/flask
 	name = "Flask"
@@ -185,6 +200,14 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 *	UTILITY
 */
 
+/datum/loadout_item/pocket_items/hairbrush
+	name = "Hairbrush"
+	item_path = /obj/item/hairbrush
+
+/datum/loadout_item/pocket_items/comb
+	name = "Comb"
+	item_path = /obj/item/hairbrush/comb
+
 /datum/loadout_item/pocket_items/moth_mre
 	name = "Mothic Rations Pack"
 	item_path = /obj/item/storage/box/mothic_rations
@@ -201,6 +224,18 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 	name = "First-Aid Kit"
 	item_path = /obj/item/storage/medkit/regular
 
+/datum/loadout_item/pocket_items/deforest_cheesekit
+	name = "Civil Defense Medical Kit"
+	item_path = /obj/item/storage/medkit/civil_defense/stocked
+
+/datum/loadout_item/pocket_items/deforest_frontiermedkit
+	name = "Frontier Medical Kit"
+	item_path = /obj/item/storage/medkit/frontier/stocked
+
+/datum/loadout_item/pocket_items/synthetic_medkit
+	name = "Robotic Repair Equipment Kit"
+	item_path = /obj/item/storage/medkit/robotic_repair/stocked
+
 /datum/loadout_item/pocket_items/ingredients
 	name = "Wildcard Ingredient Box"
 	item_path = /obj/item/storage/box/ingredients/wildcard
@@ -215,7 +250,7 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 
 /datum/loadout_item/pocket_items/power_cell
 	name = "Standard Power Cell"
-	item_path = /obj/item/stock_parts/cell
+	item_path = /obj/item/stock_parts/power_store/cell
 
 /datum/loadout_item/pocket_items/soap
 	name = "Bar of Soap"
@@ -311,4 +346,4 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 
 /datum/loadout_item/pocket_items/donator/vape
 	name = "E-Cigarette"
-	item_path = /obj/item/clothing/mask/vape
+	item_path = /obj/item/vape

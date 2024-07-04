@@ -5,12 +5,23 @@
 	var/atom/movable/screen/map_view/examine_panel_screen/examine_panel_screen
 
 
+/datum/examine_panel/New(mob/holder_mob)
+	holder = holder_mob
+
+
+/datum/examine_panel/Destroy(force)
+	SStgui.close_uis(src)
+	holder = null
+	qdel(examine_panel_screen)
+	return ..()
+
+
 /datum/examine_panel/ui_state(mob/user)
 	return GLOB.always_state
 
 
 /datum/examine_panel/ui_close(mob/user)
-	user.client.clear_map(examine_panel_screen.assigned_map)
+	user.client?.clear_map(examine_panel_screen.assigned_map)
 
 
 /atom/movable/screen/map_view/examine_panel_screen
@@ -54,19 +65,32 @@
 	var/custom_species_lore
 	var/obscured
 	var/ooc_notes = ""
+	var/ideal_antag_optin_status
+	var/current_antag_optin_status
 	var/headshot = ""
 
 	//  Handle OOC notes first
-	if(preferences && preferences.read_preference(/datum/preference/toggle/master_erp_preferences))
-		var/e_prefs = preferences.read_preference(/datum/preference/choiced/erp_status)
-		var/e_prefs_nc = preferences.read_preference(/datum/preference/choiced/erp_status_nc)
-		var/e_prefs_v = preferences.read_preference(/datum/preference/choiced/erp_status_v)
-		var/e_prefs_mechanical = preferences.read_preference(/datum/preference/choiced/erp_status_mechanics)
-		ooc_notes += "ERP: [e_prefs]\n"
-		ooc_notes += "Non-Con: [e_prefs_nc]\n"
-		ooc_notes += "Vore: [e_prefs_v]\n"
-		ooc_notes += "ERP Mechanics: [e_prefs_mechanical]\n"
-		ooc_notes += "\n"
+	if(preferences)
+		if(preferences.read_preference(/datum/preference/toggle/master_erp_preferences))
+			var/e_prefs = preferences.read_preference(/datum/preference/choiced/erp_status)
+			var/e_prefs_hypno = preferences.read_preference(/datum/preference/choiced/erp_status_hypno)
+			var/e_prefs_v = preferences.read_preference(/datum/preference/choiced/erp_status_v)
+			var/e_prefs_nc = preferences.read_preference(/datum/preference/choiced/erp_status_nc)
+			var/e_prefs_mechanical = preferences.read_preference(/datum/preference/choiced/erp_status_mechanics)
+			ooc_notes += "ERP: [e_prefs]\n"
+			ooc_notes += "Hypnosis: [e_prefs_hypno]\n"
+			ooc_notes += "Vore: [e_prefs_v]\n"
+			ooc_notes += "Non-Con: [e_prefs_nc]\n"
+			ooc_notes += "ERP Mechanics: [e_prefs_mechanical]\n"
+			ooc_notes += "\n"
+
+		if(!CONFIG_GET(flag/disable_antag_opt_in_preferences))
+			var/antag_prefs = holder.mind?.ideal_opt_in_level
+			var/effective_opt_in_level = holder.mind?.get_effective_opt_in_level()
+			if(isnull(antag_prefs))
+				antag_prefs = preferences.read_preference(/datum/preference/choiced/antag_opt_in_status)
+			current_antag_optin_status = GLOB.antag_opt_in_strings[num2text(effective_opt_in_level)]
+			ideal_antag_optin_status = GLOB.antag_opt_in_strings[num2text(antag_prefs)]
 
 	// Now we handle silicon and/or human, order doesn't really matter
 	// If other variants of mob/living need to be handled at some point, put them here
@@ -97,4 +121,14 @@
 	data["custom_species"] = custom_species
 	data["custom_species_lore"] = custom_species_lore
 	data["headshot"] = headshot
+
+	data["ideal_antag_optin_status"] = ideal_antag_optin_status
+	data["current_antag_optin_status"] = current_antag_optin_status
+	return data
+
+/datum/examine_panel/ui_static_data(mob/user)
+	var/list/data = list()
+
+	data["opt_in_colors"] = GLOB.antag_opt_in_colors
+
 	return data

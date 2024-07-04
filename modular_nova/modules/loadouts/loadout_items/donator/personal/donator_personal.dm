@@ -23,6 +23,11 @@
 	item_path = /obj/item/clothing/under/syndicate/tacticool/black
 	ckeywhitelist = list("thedragmeme")
 
+/datum/loadout_item/under/jumpsuit/long_skirtleneck
+	name = "Tacticool Skirtleneck (Long)"
+	item_path = /obj/item/clothing/under/syndicate/tacticool/skirt/long
+	ckeywhitelist = list("HollandaiseSauce", "Latinfishy", "Tf4")
+
 /datum/loadout_item/suit/ryddid
 	name = "The Ryddid"
 	item_path = /obj/item/clothing/suit/jacket/ryddid
@@ -76,9 +81,9 @@
 	ckeywhitelist = list("candlejax")
 	restricted_roles = list(JOB_RESEARCH_DIRECTOR, JOB_SCIENTIST, JOB_SCIENCE_GUARD, JOB_VIROLOGIST, JOB_GENETICIST)
 
-/datum/loadout_item/head/emissionhelm
-	name = "Emission's Helmet"
-	item_path = /obj/item/clothing/head/helmet/space/plasmaman/candlejax
+/datum/loadout_item/mask/cmcp_mask
+	name = "CMCP Mask"
+	item_path = /obj/item/clothing/mask/gas/CMCP_mask
 	ckeywhitelist = list("candlejax")
 
 /datum/loadout_item/head/anahelm
@@ -91,10 +96,25 @@
 	item_path = /obj/item/clothing/under/plasmaman/candlejax
 	ckeywhitelist = list("candlejax")
 
+/datum/loadout_item/mask/divemask_koru
+	name = "S.O.K.O. Gaiter"
+	item_path = /obj/item/clothing/mask/gas/signalis_gaiter
+	ckeywhitelist = list("koruu", "foxyandiknowit", "candlejax", "shyelf", "opportunerover22")
+
+/datum/loadout_item/under/jumpsuit/divesuit_koru
+	name = "S.O.K.O. Bodysuit"
+	item_path = /obj/item/clothing/under/bodysuit_koruu
+	ckeywhitelist = list("koruu", "foxyandiknowit", "candlejax", "shyelf", "opportunerover22")
+
 /datum/loadout_item/under/jumpsuit/anasuit
 	name = "Azulean's Enviro-Suit"
 	item_path = /obj/item/clothing/under/plasmaman/candlejax2
 	ckeywhitelist = list("candlejax")
+
+/datum/loadout_item/mask/composite_filtration
+	name = "Composite Filtration Mask"
+	item_path = /obj/item/clothing/mask/gas/psycho_malice
+	ckeywhitelist = list("snakebittenn", "chillylobster", "candlejax", "theooz", "alvcyktor")
 
 /datum/loadout_item/suit/jacket/cherno
 	name = "Blue-Silvered Coat"
@@ -129,32 +149,31 @@
 /datum/loadout_item/mask/nightlight_mask
 	name = "FIR-36 Rebreather"
 	item_path = /obj/item/clothing/mask/gas/nightlight
-	ckeywhitelist = list("farsightednightlight", "raxraus", "1ceres", "marcoalbaredaa", "itzshift_yt", "drifter7371", "AvianAviator", "Katty Kat", "Investigator77", "Dalao Azure", "Socialistion", "ChillyLobster", "Sylvara", "AmZee", "Tf4", "rb303", "Kay_Nite", "whataboutism", "taac", "Halkyon", "Lupo_di_rosa", "Merek2", "lowpowermia", "RyeanBread", "Jesterz7", "Saund_Minah", "Ruediger4")
 
 /datum/loadout_item/mask/fir22
 	name = "FIR-22 Full-Face Rebreather"
 	item_path = /obj/item/clothing/mask/gas/nightlight/fir22
-	ckeywhitelist = list("farsightednightlight", "raxraus", "1ceres", "marcoalbaredaa", "itzshift_yt", "drifter7371", "AvianAviator", "Katty Kat", "Investigator77", "Dalao Azure", "Socialistion", "ChillyLobster", "Sylvara", "AmZee", "Tf4", "rb303", "Kay_Nite", "whataboutism", "taac", "Halkyon", "Lupo_di_rosa", "Merek2", "lowpowermia", "RyeanBread", "Jesterz7", "Saund_Minah", "Ruediger4")
+
+/datum/loadout_item/mask/caligram_visage_mask
+	name = "Caligram Visage Mask"
+	item_path = /obj/item/clothing/mask/gas/caligram_visage_mask
+	ckeywhitelist = list("farsightednightlight")
 
 /datum/loadout_item/head/caligram_cap_tan
 	name = "Caligram Tan Softcap"
-	item_path = /obj/item/clothing/head/caligram_cap_tan
-	ckeywhitelist = list("farsightednightlight", "raxraus", "1ceres", "marcoalbaredaa", "itzshift_yt", "drifter7371", "AvianAviator", "Katty Kat", "Investigator77", "Dalao Azure", "Socialistion", "ChillyLobster", "Sylvara", "AmZee", "Tf4", "rb303", "Kay_Nite", "whataboutism", "taac", "Halkyon", "Lupo_di_rosa", "Merek2", "lowpowermia", "RyeanBread", "Jesterz7", "Saund_Minah", "Ruediger4")
+	item_path = /obj/item/clothing/head/caligram_cap
 
 /datum/loadout_item/under/jumpsuit/caligram_fatigues_tan
 	name = "Caligram Tan Fatigues"
-	item_path = /obj/item/clothing/under/jumpsuit/caligram_fatigues_tan
-	ckeywhitelist = list("farsightednightlight", "raxraus", "1ceres", "marcoalbaredaa", "itzshift_yt", "drifter7371", "AvianAviator", "Katty Kat", "Investigator77", "Dalao Azure", "Socialistion", "ChillyLobster", "Sylvara", "AmZee", "Tf4", "rb303", "Kay_Nite", "whataboutism", "taac", "Halkyon", "Lupo_di_rosa", "Merek2", "lowpowermia", "RyeanBread", "Jesterz7", "Saund_Minah", "Ruediger4")
+	item_path = /obj/item/clothing/under/jumpsuit/caligram_fatigues
 
 /datum/loadout_item/suit/caligram_parka_tan
 	name = "Caligram Tan Parka"
-	item_path = /obj/item/clothing/suit/jacket/caligram_parka_tan
-	ckeywhitelist = list("farsightednightlight", "raxraus", "1ceres", "marcoalbaredaa", "itzshift_yt", "drifter7371", "AvianAviator", "Katty Kat", "Investigator77", "Dalao Azure", "Socialistion", "ChillyLobster", "Sylvara", "AmZee", "Tf4", "rb303", "Kay_Nite", "whataboutism", "taac", "Halkyon", "Lupo_di_rosa", "Merek2", "lowpowermia", "RyeanBread", "Jesterz7", "Saund_Minah", "Ruediger4")
+	item_path = /obj/item/clothing/suit/jacket/caligram_parka
 
 /datum/loadout_item/suit/caligram_parka_vest_tan
 	name = "Caligram Armored Tan Parka"
-	item_path = /obj/item/clothing/suit/armor/vest/caligram_parka_vest_tan
-	ckeywhitelist = list("farsightednightlight", "raxraus", "1ceres", "marcoalbaredaa", "itzshift_yt", "drifter7371", "AvianAviator", "Katty Kat", "Investigator77", "Dalao Azure", "Socialistion", "ChillyLobster", "Sylvara", "AmZee", "Tf4", "rb303", "Kay_Nite", "whataboutism", "taac", "Halkyon", "Lupo_di_rosa", "Merek2", "lowpowermia", "RyeanBread", "Jesterz7", "Saund_Minah", "Ruediger4")
+	item_path = /obj/item/clothing/suit/armor/vest/caligram_parka_vest
 	restricted_roles = list(JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_DETECTIVE, JOB_CORRECTIONS_OFFICER)
 
 /datum/loadout_item/suit/brasspriest
@@ -261,7 +280,7 @@
 
 /datum/loadout_item/pocket_items/brightcosmos
 	name = "Bright Cosmos cigar"
-	item_path = /obj/item/clothing/mask/holocigarette/cigar
+	item_path = /obj/item/holocigarette/cigar
 	ckeywhitelist = list("lyricalpaws")
 
 /datum/loadout_item/under/jumpsuit/lannese
@@ -651,7 +670,7 @@
 
 /datum/loadout_item/head/somerandomowl
 	name = "Starry Witch Hat"
-	item_path = /obj/item/clothing/head/costume/strigihat
+	item_path = /obj/item/clothing/head/costume/owlhat
 	ckeywhitelist = list("somerandomowl")
 
 /datum/loadout_item/head/razurathhat
@@ -666,7 +685,7 @@
 
 /datum/loadout_item/pocket_items/masvedishcigar
 	name = "Holocigar"
-	item_path = /obj/item/clothing/mask/holocigarette/masvedishcigar
+	item_path = /obj/item/holocigarette/masvedishcigar
 	// Asked it to be public, and as such has no whitelist.
 
 /datum/loadout_item/suit/lt3_armor
@@ -754,3 +773,55 @@
 	name = "Toaster Implant"
 	item_path = /obj/item/implanter/toaster
 	ckeywhitelist = list("jasohavents")
+
+/datum/loadout_item/under/miscellaneous/rem
+	name = "M.I.A. Limiter"
+	item_path = /obj/item/clothing/under/rem
+	ckeywhitelist = list("ignari")
+
+/datum/loadout_item/shoes/rem
+	name = "M.I.A. Heels"
+	item_path = /obj/item/clothing/shoes/rem_shoes
+	ckeywhitelist = list("ignari")
+
+/datum/loadout_item/under/miscellaneous/bwake
+	name = "Compression Bodysuit"
+	item_path = /obj/item/clothing/under/bwake
+	ckeywhitelist = list("ignari")
+
+/datum/loadout_item/inhand/pet/mrfluff_mothroach
+	name = "Mr. Fluff"
+	item_path = /obj/item/clothing/head/mob_holder/pet/donator/centralsmith
+	ckeywhitelist = list("centralsmith")
+
+/datum/loadout_item/under/jumpsuit/techpants
+    name = "Techwear Pants"
+    item_path = /obj/item/clothing/under/techpants
+    ckeywhitelist = list("alvcyktor", "snakebittenn")
+
+/datum/loadout_item/inhand/drop_pouch
+    name = "Drop Pouch"
+    item_path = /obj/item/storage/backpack/satchel/drop_pouch
+    ckeywhitelist = list("alvcyktor", "snakebittenn")
+
+/datum/loadout_item/inhand/melonseva
+	name = "Sundowner SEVA"
+	item_path = /obj/item/clothing/suit/hooded/seva/melon
+	ckeywhitelist = list("deadmonwonderland")
+	restricted_roles = list(JOB_SHAFT_MINER)
+
+
+/datum/loadout_item/suit/desminus
+	name = "Jómsvíking Coat"
+	item_path = /obj/item/clothing/suit/toggle/desminus
+	ckeywhitelist = list("desminus", "junglerat", "deadmonwonderland")
+
+/datum/loadout_item/suit/desminus2
+	name = "Elderwood Garment"
+	item_path = /obj/item/clothing/suit/toggle/desminus2
+	ckeywhitelist = list("desminus", "junglerat", "deadmonwonderland")
+
+/datum/loadout_item/pocket_items/akarimod
+	name = "Akari's MOD Refitter"
+	item_path = /obj/item/mod/skin_applier/akari
+	ckeywhitelist = list("samman166", "cainedclxvi")

@@ -58,7 +58,7 @@
 	return ..()
 
 
-/obj/structure/destructible/clockwork/gear_base/technologists_lectern/deconstruct(disassembled)
+/obj/structure/destructible/clockwork/gear_base/technologists_lectern/atom_deconstruct(disassembled)
 	if(primary_researcher)
 		deltimer(research_timer_id)
 		researching = FALSE
@@ -428,10 +428,11 @@
 			apc_loop:
 				for(var/obj/machinery/power/apc/controller as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/power/apc))
 					var/area/apc_area = get_area(controller) // make sure that no "critical" APCs lose their power (SM, namely)
-					for(var/turf/turf as anything in apc_area.get_contained_turfs())
-						for(var/obj/machinery/depowered_machinery in turf)
-							if(depowered_machinery.critical_machine)
-								continue apc_loop
+					for(var/list/zlevel_turfs as anything in apc_area.get_zlevel_turf_lists())
+						for(var/turf/turf as anything in zlevel_turfs)
+							for(var/obj/machinery/depowered_machinery in turf)
+								if(depowered_machinery.critical_machine)
+									continue apc_loop
 
 					controller.cell?.charge = 0
 

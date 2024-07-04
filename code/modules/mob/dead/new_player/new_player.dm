@@ -80,7 +80,7 @@
 		show_title_screen() // NOVA EDIT ADDITION
 		return FALSE
 
-	hide_title_screen() // NOVA EDIT ADDITION - Skyrat Titlescreen
+	hide_title_screen() // NOVA EDIT ADDITION - Nova Titlescreen
 	var/mob/dead/observer/observer = new()
 	spawning = TRUE
 
@@ -228,7 +228,7 @@
 		is_captain = IS_FULL_CAPTAIN
 		captain_sound = ANNOUNCER_DEPARTMENTAL // NOVA EDIT CHANGE - Announcer Sounds
 	// If we don't have an assigned cap yet, check if this person qualifies for some from of captaincy.
-	else if(!SSjob.assigned_captain && ishuman(character) && SSjob.chain_of_command[rank] && !is_banned_from(ckey, list(JOB_CAPTAIN)))
+	else if(!SSjob.assigned_captain && ishuman(character) && SSjob.chain_of_command[rank] && !is_banned_from(character.ckey, list(JOB_CAPTAIN)))
 		is_captain = IS_ACTING_CAPTAIN
 	if(is_captain != IS_NOT_CAPTAIN)
 		minor_announce(job.get_captaincy_announcement(character), sound_override = captain_sound)
@@ -244,13 +244,11 @@
 		humanc = character //Let's retypecast the var to be human,
 
 	if(humanc) //These procs all expect humans
-		// BEGIN NOVA EDIT CHANGE - ALTERNATIVE_JOB_TITLES
-		var/chosen_rank = humanc.client?.prefs.alt_job_titles?[rank] || rank
-		GLOB.manifest.inject(humanc, humanc.client)
+		var/chosen_rank = humanc.client?.prefs.alt_job_titles?[rank] || rank // NOVA EDIT ADDITION - ALTERNATIVE_JOB_TITLES
 		if(SSshuttle.arrivals)
-			SSshuttle.arrivals.QueueAnnounce(humanc, chosen_rank)
+			SSshuttle.arrivals.QueueAnnounce(humanc, chosen_rank) // NOVA EDIT CHANGE - ALTERNATIVE_JOB_TITLES - ORIGINAL: SSshuttle.arrivals.QueueAnnounce(humanc, rank)
 		else
-			announce_arrival(humanc, chosen_rank)
+			announce_arrival(humanc, chosen_rank) // NOVA EDIT CHANGE - ALTERNATIVE_JOB_TITLES -  ORIGINAL: announce_arrival(humanc, rank)
 		// END NOVA EDIT CHANGE - customization
 		AddEmploymentContract(humanc)
 
@@ -275,7 +273,13 @@
 	if((job.job_flags & JOB_ASSIGN_QUIRKS) && humanc && CONFIG_GET(flag/roundstart_traits))
 		SSquirks.AssignQuirks(humanc, humanc.client)
 
-	log_manifest(character.mind.key,character.mind,character,latejoin = TRUE)
+	if(humanc) // Quirks may change manifest datapoints, so inject only after assigning quirks
+		GLOB.manifest.inject(humanc, humanc.client) // NOVA EDIT - RP Records - ORIGINAL: GLOB.manifest.inject(humanc)
+
+	var/area/station/arrivals = GLOB.areas_by_type[/area/station/hallway/secondary/entry]
+	if(humanc && arrivals && !arrivals.power_environ) //arrivals depowered
+		humanc.put_in_hands(new /obj/item/crowbar/large/emergency(get_turf(humanc))) //if hands full then just drops on the floor
+	log_manifest(character.mind.key, character.mind, character, latejoin = TRUE)
 
 	// NOVA EDIT ADDITION START
 	if(humanc)
@@ -338,11 +342,7 @@
 		return
 	client.crew_manifest_delay = world.time + (1 SECONDS)
 
-	if(!GLOB.crew_manifest_tgui)
-		GLOB.crew_manifest_tgui = new /datum/crew_manifest(src)
-
-
-	GLOB.crew_manifest_tgui.ui_interact(src)
+	GLOB.manifest.ui_interact(src)
 
 /mob/dead/new_player/Move()
 	return 0

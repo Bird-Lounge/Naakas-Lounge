@@ -1,7 +1,8 @@
 import { exhaustiveCheck } from 'common/exhaustive';
+import { useState } from 'react';
 
-import { useBackend, useLocalState } from '../../backend';
-import { Dropdown, Flex, Stack } from '../../components'; // NOVA EDIT CHANGE - ORIGINAL: import { Button, Stack } from '../../components';
+import { useBackend } from '../../backend';
+import { Dropdown, Flex, Stack } from '../../components'; // NOVA EDIT CHANGE - ORIGINAL: import { Stack } from '../../components';
 import { Window } from '../../layouts';
 import { AntagsPage } from './AntagsPage';
 import { PreferencesMenuData } from './data';
@@ -35,14 +36,14 @@ const CharacterProfiles = (props: {
   const { profiles, activeSlot, onClick } = props; // NOVA EDIT CHANGE
 
   return (
-    <Flex /* NOVA EDIT CHANGE START - Skyrat uses a dropdown instead of buttons */
+    <Flex /* NOVA EDIT CHANGE START - Nova uses a dropdown instead of buttons */
       align="center"
       justify="center"
     >
       <Flex.Item width="25%">
         <Dropdown
           width="100%"
-          selected={activeSlot}
+          selected={activeSlot as unknown as string}
           displayText={profiles[activeSlot]}
           options={profiles.map((profile, slot) => ({
             value: slot,
@@ -60,7 +61,7 @@ const CharacterProfiles = (props: {
 export const CharacterPreferenceWindow = (props) => {
   const { act, data } = useBackend<PreferencesMenuData>();
 
-  const [currentPage, setCurrentPage] = useLocalState('currentPage', Page.Main);
+  const [currentPage, setCurrentPage] = useState(Page.Main);
 
   let pageContents;
 
@@ -113,7 +114,6 @@ export const CharacterPreferenceWindow = (props) => {
               profiles={data.character_profiles}
             />
           </Stack.Item>
-
           {!data.content_unlocked && (
             <Stack.Item align="center">
               Buy BYOND premium for more slots!

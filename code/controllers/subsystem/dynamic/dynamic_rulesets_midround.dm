@@ -36,6 +36,8 @@
 	var/makeBody = TRUE
 	/// The rule needs this many applicants to be properly executed.
 	var/required_applicants = 1
+	///Path of an item to show up in ghost polls for applicants to sign up.
+	var/signup_item_path = /obj/structure/sign/poster/contraband/syndicate_recruitment
 
 /datum/dynamic_ruleset/midround/from_ghosts/check_candidates()
 	var/dead_count = dead_players.len + list_observers.len
@@ -78,11 +80,9 @@
 		if (is_banned_from(creature.ckey, list(antag_flag_override || antag_flag, ROLE_SYNDICATE)))
 			trimmed_list.Remove(creature)
 			continue
-
 		if (isnull(creature.mind))
 			continue
-
-		if (restrict_ghost_roles && (creature.mind.assigned_role.title in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])) // Are they playing a ghost role?
+		if (restrict_ghost_roles && !(creature.mind.assigned_role.job_flags & JOB_CREW_MEMBER)) // Are they not playing a station role?
 			trimmed_list.Remove(creature)
 			continue
 		if (creature.mind.assigned_role.title in restricted_roles) // Does their job allow it?
@@ -141,7 +141,14 @@
 		return
 
 	SSdynamic.log_dynamic_and_announce("Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
-	candidates = SSpolling.poll_ghost_candidates("Looking for volunteers to become [antag_flag] for [name]", check_jobban = antag_flag_override, role = antag_flag || antag_flag_override, poll_time = 30 SECONDS, pic_source = /obj/structure/sign/poster/contraband/syndicate_recruitment, role_name_text = antag_flag)
+	candidates = SSpolling.poll_ghost_candidates(
+		question = "Looking for volunteers to become [span_notice(antag_flag)] for [span_danger(name)]",
+		check_jobban = antag_flag_override,
+		role = antag_flag || antag_flag_override,
+		poll_time = 30 SECONDS,
+		alert_pic = signup_item_path,
+		role_name_text = antag_flag,
+	)
 
 	if(!candidates || candidates.len <= 0)
 		SSdynamic.log_dynamic_and_announce("The ruleset [name] received no applications.")
@@ -184,6 +191,7 @@
 		var/mob/new_character = applicant
 		if(makeBody)
 			new_character = generate_ruleset_body(applicant)
+			SEND_GLOBAL_SIGNAL(COMSIG_RULESET_BODY_GENERATED_FROM_GHOSTS, applicant)
 		finish_setup(new_character, i)
 		notify_ghosts(
 			"[applicant.name] has been picked for the ruleset [name]!",
@@ -263,9 +271,15 @@
 			candidates -= player // We don't autotator people in CentCom
 		else if(player.mind && (player.mind.special_role || player.mind.antag_datums?.len > 0))
 			candidates -= player // We don't autotator people with roles already
+		//NOVA EDIT ADDITION
+		else if(player in rejected_traitor)
+			candidates -= player
+		else if(player in sleeper_current_polling)
+			candidates -= player
+		//NOVA EDIT END
 
 /datum/dynamic_ruleset/midround/from_living/autotraitor/execute()
-	var/mob/M = pick(candidates)
+	var/mob/M = pick(poll_candidates_for_one(candidates)) // NOVA EDIT CHANGE - ORIGINAL: var/mob/M = pick(candidates)
 	assigned += M
 	candidates -= M
 	var/datum/antagonist/traitor/infiltrator/sleeper_agent/newTraitor = new
@@ -304,25 +318,29 @@
 	cost = 10
 	required_type = /mob/living/silicon/ai
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/malf_ai)
+	// AIs are technically considered "Ghost roles" as far as candidate selection are concerned
+	// So we need to allow it here. We filter of actual ghost role AIs (charlie) via trim_candidates ourselves
+	restrict_ghost_roles = FALSE
 
 /datum/dynamic_ruleset/midround/malf/trim_candidates()
 	..()
-	candidates = living_players
-	for(var/mob/living/player in candidates)
-		if(!isAI(player))
-			candidates -= player
+	candidates = list()
+	for(var/mob/living/silicon/ai/player in living_players)
+		if(!is_station_level(player.z))
 			continue
-
-		if(is_centcom_level(player.z))
-			candidates -= player
+		if(isnull(player.mind))
 			continue
+		if(player.mind.special_role || length(player.mind.antag_datums))
+			continue
+		candidates += player
 
-		if(player.mind && (player.mind.special_role || player.mind.antag_datums?.len > 0))
-			candidates -= player
+/datum/dynamic_ruleset/midround/malf/ready(forced)
+	if(!check_candidates())
+		log_dynamic("FAIL: No valid AI found for the Malfunctioning AI ruleset.")
+		return FALSE
+	return ..()
 
 /datum/dynamic_ruleset/midround/malf/execute()
-	if(!candidates || !candidates.len)
-		return FALSE
 	var/mob/living/silicon/ai/new_malf_ai = pick_n_take(candidates)
 	assigned += new_malf_ai.mind
 	var/datum/antagonist/malf_ai/malf_antag_datum = new
@@ -343,6 +361,7 @@
 	antag_datum = /datum/antagonist/wizard
 	antag_flag = ROLE_WIZARD_MIDROUND
 	antag_flag_override = ROLE_WIZARD
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 1
@@ -371,6 +390,7 @@
 	antag_flag = ROLE_OPERATIVE_MIDROUND
 	antag_flag_override = ROLE_OPERATIVE
 	antag_datum = /datum/antagonist/nukeop
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	enemy_roles = list(
 		JOB_AI,
 		JOB_CYBORG,
@@ -425,6 +445,7 @@
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/blob
 	antag_flag = ROLE_BLOB
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	minimum_round_time = 35 MINUTES
@@ -444,6 +465,7 @@
 	antag_datum = /datum/antagonist/blob/infection
 	antag_flag = ROLE_BLOB_INFECTION
 	antag_flag_override = ROLE_BLOB
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	protected_roles = list(
 		JOB_CAPTAIN,
 		JOB_DETECTIVE,
@@ -483,6 +505,11 @@
 	var/mob/living/carbon/human/blob_antag = pick_n_take(candidates)
 	assigned += blob_antag.mind
 	blob_antag.mind.special_role = antag_flag
+	notify_ghosts(
+		"[blob_antag] has become a blob host!",
+		source = blob_antag,
+		header = "So Bulbous...",
+	)
 	return ..()
 
 /// Midround Xenomorph Ruleset (From Ghosts)
@@ -491,6 +518,7 @@
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/xeno
 	antag_flag = ROLE_ALIEN
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	minimum_round_time = 40 MINUTES
@@ -539,6 +567,7 @@
 	antag_datum = /datum/antagonist/nightmare
 	antag_flag = ROLE_NIGHTMARE
 	antag_flag_override = ROLE_ALIEN
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 3
@@ -574,7 +603,7 @@
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/space_dragon
 	antag_flag = ROLE_SPACE_DRAGON
-	antag_flag_override = ROLE_SPACE_DRAGON
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 4
@@ -614,6 +643,7 @@
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
 	antag_datum = /datum/antagonist/abductor
 	antag_flag = ROLE_ABDUCTOR
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 2
 	required_applicants = 2
@@ -651,6 +681,7 @@
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/ninja
 	antag_flag = ROLE_NINJA
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 4
@@ -690,6 +721,7 @@
 	name = "Spiders"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_flag = ROLE_SPIDER
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	required_type = /mob/dead/observer
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 0
@@ -707,6 +739,7 @@
 /datum/dynamic_ruleset/midround/from_ghosts/revenant
 	name = "Revenant"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	antag_datum = /datum/antagonist/revenant
 	antag_flag = ROLE_REVENANT
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
@@ -753,30 +786,11 @@
 	log_game("[key_name(revenant)] was spawned as a revenant by the midround ruleset.")
 	return revenant
 
-/// Midround Sentient Disease Ruleset (From Ghosts)
-/datum/dynamic_ruleset/midround/from_ghosts/sentient_disease
-	name = "Sentient Disease"
-	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
-	antag_datum = /datum/antagonist/disease
-	antag_flag = ROLE_SENTIENT_DISEASE
-	required_candidates = 1
-	minimum_players = 25
-	weight = 4
-	cost = 8
-	repeatable = TRUE
-
-/datum/dynamic_ruleset/midround/from_ghosts/sentient_disease/generate_ruleset_body(mob/applicant)
-	var/mob/camera/disease/virus = new /mob/camera/disease(SSmapping.get_station_center())
-	virus.key = applicant.key
-	INVOKE_ASYNC(virus, TYPE_PROC_REF(/mob/camera/disease, pick_name))
-	message_admins("[ADMIN_LOOKUPFLW(virus)] has been made into a sentient disease by the midround ruleset.")
-	log_game("[key_name(virus)] was spawned as a sentient disease by the midround ruleset.")
-	return virus
-
 /// Midround Space Pirates Ruleset (From Ghosts)
 /datum/dynamic_ruleset/midround/pirates
 	name = "Space Pirates"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	antag_flag = "Space Pirates"
 	required_type = /mob/dead/observer
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
@@ -799,6 +813,7 @@
 /datum/dynamic_ruleset/midround/dangerous_pirates
 	name = "Dangerous Space Pirates"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	antag_flag = "Space Pirates"
 	required_type = /mob/dead/observer
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
@@ -823,6 +838,7 @@
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
 	antag_datum = /datum/antagonist/obsessed
 	antag_flag = ROLE_OBSESSED
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	restricted_roles = list(
 		JOB_AI,
 		JOB_CYBORG,
@@ -852,6 +868,11 @@
 	obsessed.gain_trauma(/datum/brain_trauma/special/obsessed)
 	message_admins("[ADMIN_LOOKUPFLW(obsessed)] has been made Obsessed by the midround ruleset.")
 	log_game("[key_name(obsessed)] was made Obsessed by the midround ruleset.")
+	notify_ghosts(
+		"[obsessed] has developed an obsession with someone!",
+		source = obsessed,
+		header = "Love Can Bloom",
+	)
 	return TRUE
 
 /// Midround Space Changeling Ruleset (From Ghosts)
@@ -861,6 +882,7 @@
 	antag_datum = /datum/antagonist/changeling/space
 	antag_flag = ROLE_CHANGELING_MIDROUND
 	antag_flag_override = ROLE_CHANGELING
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	required_type = /mob/dead/observer
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
@@ -881,6 +903,7 @@
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
 	antag_datum = /datum/antagonist/paradox_clone
 	antag_flag = ROLE_PARADOX_CLONE
+	ruleset_category = parent_type::ruleset_category |  RULESET_CATEGORY_NO_WITTING_CREW_ANTAGONISTS
 	enemy_roles = list(
 		JOB_CAPTAIN,
 		JOB_DETECTIVE,
@@ -893,6 +916,7 @@
 	weight = 4
 	cost = 3
 	repeatable = TRUE
+	signup_item_path = /obj/effect/bluespace_stream
 	var/list/possible_spawns = list() ///places the antag can spawn
 
 /datum/dynamic_ruleset/midround/from_ghosts/paradox_clone/forget_startup()
@@ -932,12 +956,16 @@
 /datum/dynamic_ruleset/midround/from_ghosts/paradox_clone/proc/find_original()
 	var/list/possible_targets = list()
 
+	var/opt_in_disabled = CONFIG_GET(flag/disable_antag_opt_in_preferences) // NOVA EDIT ADDITION - ANTAG OPT-IN
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(!player.client || !player.mind || player.stat)
 			continue
 		if(!(player.mind.assigned_role.job_flags & JOB_CREW_MEMBER))
 			continue
-		possible_targets += player
+		// NOVA EDIT ADDITION START - Players in the interlink can't be obsession targets + Antag Optin
+		if (!opt_in_disabled && player.mind?.get_effective_opt_in_level() < OPT_IN_YES_ROUND_REMOVE)
+			continue
+		// NOVA EDIT ADDITION END
 
 	if(possible_targets.len)
 		return pick(possible_targets)

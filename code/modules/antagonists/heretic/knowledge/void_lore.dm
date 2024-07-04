@@ -1,5 +1,7 @@
 /**
  * # The path of VOID.
+ * Spell names are in this language: PALI
+ * Both are related: Pali-Buddhism-Nothingness-Void
  *
  * Goes as follows:
  *
@@ -202,8 +204,8 @@
 	priority_announce(
 		text = "[generate_heretic_text()] The nobleman of void [user.real_name] has arrived, stepping along the Waltz that ends worlds! [generate_heretic_text()]",
 		title = "[generate_heretic_text()]",
-		sound = ANNOUNCER_SPANOMALIES,
-		color_override = "pink",
+		sound = 'sound/ambience/antag/heretic/ascend_void.ogg',
+		color_override = "blue",
 	)
 	user.client?.give_award(/datum/award/achievement/misc/void_ascension, user)
 	ADD_TRAIT(user, TRAIT_RESISTLOWPRESSURE, MAGIC_TRAIT)

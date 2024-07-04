@@ -7,17 +7,29 @@
 /datum/armament_entry/company_import/deforest/first_aid_kit
 	subcategory = "First-Aid Kits"
 
+/datum/armament_entry/deforest/first_aid_kit/civil_defense/comfort
+	item_type = /obj/item/storage/medkit/civil_defense/comfort/stocked
+	cost = PAYCHECK_COMMAND * 2
+
 /datum/armament_entry/company_import/deforest/first_aid_kit/civil_defense
 	item_type = /obj/item/storage/medkit/civil_defense/stocked
-	cost = PAYCHECK_COMMAND * 4
+	cost = PAYCHECK_COMMAND * 2.5
 
 /datum/armament_entry/company_import/deforest/first_aid_kit/frontier
 	item_type = /obj/item/storage/medkit/frontier/stocked
-	cost = PAYCHECK_COMMAND * 5
+	cost = PAYCHECK_COMMAND * 3.5
 
 /datum/armament_entry/company_import/deforest/first_aid_kit/combat_surgeon
 	item_type = /obj/item/storage/medkit/combat_surgeon/stocked
-	cost = PAYCHECK_COMMAND * 6
+	cost = PAYCHECK_COMMAND * 3.5
+
+/datum/armament_entry/company_import/deforest/first_aid_kit/robo_repair
+	item_type = /obj/item/storage/medkit/robotic_repair/stocked
+	cost = PAYCHECK_COMMAND * 3.5
+
+/datum/armament_entry/company_import/deforest/first_aid_kit/robo_repair_super
+	item_type = /obj/item/storage/medkit/robotic_repair/preemo/stocked
+	cost = PAYCHECK_COMMAND * 8
 
 /datum/armament_entry/company_import/deforest/first_aid_kit/first_responder
 	item_type = /obj/item/storage/backpack/duffelbag/deforest_surgical/stocked
@@ -25,7 +37,11 @@
 
 /datum/armament_entry/company_import/deforest/first_aid_kit/orange_satchel
 	item_type = /obj/item/storage/backpack/duffelbag/deforest_medkit/stocked
-	cost = PAYCHECK_COMMAND * 15
+	cost = PAYCHECK_COMMAND * 10
+
+/datum/armament_entry/company_import/deforest/first_aid_kit/technician_satchel
+	item_type = /obj/item/storage/backpack/duffelbag/deforest_paramedic/stocked
+	cost = PAYCHECK_COMMAND * 7
 
 // Basic first aid supplies like gauze, sutures, mesh, so on
 
@@ -36,8 +52,20 @@
 	item_type = /obj/item/stack/medical/suture/coagulant
 	cost = PAYCHECK_LOWER
 
+/datum/armament_entry/company_import/deforest/first_aid/suture
+	item_type = /obj/item/stack/medical/suture
+	cost = PAYCHECK_LOWER
+
 /datum/armament_entry/company_import/deforest/first_aid/red_sun
 	item_type = /obj/item/stack/medical/ointment/red_sun
+	cost = PAYCHECK_LOWER
+
+/datum/armament_entry/company_import/deforest/first_aid/ointment
+	item_type = /obj/item/stack/medical/ointment
+	cost = PAYCHECK_LOWER
+
+/datum/armament_entry/company_import/deforest/first_aid/mesh
+	item_type = /obj/item/stack/medical/mesh
 	cost = PAYCHECK_LOWER
 
 /datum/armament_entry/company_import/deforest/first_aid/sterile_gauze
@@ -48,6 +76,14 @@
 	item_type = /obj/item/storage/pill_bottle/painkiller
 	cost = PAYCHECK_CREW
 
+/datum/armament_entry/company_import/deforest/first_aid/robo_patch
+	item_type = /obj/item/reagent_containers/pill/robotic_patch/synth_repair
+	cost = PAYCHECK_CREW
+
+/datum/armament_entry/company_import/deforest/first_aid/bandaid
+	item_type = /obj/item/storage/box/bandages
+	cost = PAYCHECK_CREW * 1.5
+
 /datum/armament_entry/company_import/deforest/first_aid/subdermal_splint
 	item_type = /obj/item/stack/medical/wound_recovery
 	cost = PAYCHECK_COMMAND * 2
@@ -56,11 +92,19 @@
 	item_type = /obj/item/stack/medical/wound_recovery/rapid_coagulant
 	cost = PAYCHECK_COMMAND * 2
 
+/datum/armament_entry/company_import/deforest/first_aid/robofoam
+	item_type = /obj/item/stack/medical/wound_recovery/robofoam
+	cost = PAYCHECK_COMMAND * 2
+
+/datum/armament_entry/company_import/deforest/first_aid/super_robofoam
+	item_type = /obj/item/stack/medical/wound_recovery/robofoam_super
+	cost = PAYCHECK_COMMAND * 4
+
 // Autoinjectors for healing
 
 /datum/armament_entry/company_import/deforest/medpens
 	subcategory = "Medical Autoinjectors"
-	cost = PAYCHECK_COMMAND * 1.5
+	cost = PAYCHECK_LOWER * 3
 
 /datum/armament_entry/company_import/deforest/medpens/occuisate
 	item_type = /obj/item/reagent_containers/hypospray/medipen/deforest/occuisate
@@ -88,6 +132,12 @@
 
 /datum/armament_entry/company_import/deforest/medpens/halobinin
 	item_type = /obj/item/reagent_containers/hypospray/medipen/deforest/halobinin
+
+/datum/armament_entry/company_import/deforest/medpens/robo_solder
+	item_type = /obj/item/reagent_containers/hypospray/medipen/deforest/robot_liquid_solder
+
+/datum/armament_entry/company_import/deforest/medpens/robo_cleaner
+	item_type = /obj/item/reagent_containers/hypospray/medipen/deforest/robot_system_cleaner
 
 /datum/armament_entry/company_import/deforest/medpens/pentibinin
 	item_type = /obj/item/reagent_containers/hypospray/medipen/deforest/pentibinin
@@ -131,6 +181,10 @@
 /datum/armament_entry/company_import/deforest/equipment
 	subcategory = "Medical Equipment"
 
+/datum/armament_entry/company_import/deforest/equipment/treatment_zone_projector
+	item_type = /obj/item/holosign_creator/medical/treatment_zone
+	cost = PAYCHECK_LOWER
+
 /datum/armament_entry/company_import/deforest/equipment/health_analyzer
 	item_type = /obj/item/healthanalyzer
 	cost = PAYCHECK_LOWER
@@ -167,9 +221,41 @@
 	item_type = /obj/item/device/custom_kit/medigun_fastcharge
 	cost = PAYCHECK_COMMAND * 2
 
+/datum/armament_entry/company_import/deforest/equipment/hypospray_upgrade
+	item_type = /obj/item/device/custom_kit/deluxe_hypo2
+	cost = PAYCHECK_COMMAND * 2
+
 /datum/armament_entry/company_import/deforest/equipment/afad
 	item_type = /obj/item/gun/medbeam/afad
 	cost = PAYCHECK_COMMAND * 5
+
+/datum/armament_entry/company_import/deforest/equipment/medstation
+	item_type = /obj/item/wallframe/frontier_medstation
+	cost = PAYCHECK_COMMAND * 5
+
+// Advanced implants, some of these can be printed but this is a way to get them before tech if you REALLY wanted
+
+/datum/armament_entry/company_import/deforest/cyber_implants
+	subcategory = "Cybernetic Implants"
+	cost = PAYCHECK_COMMAND * 3
+
+/datum/armament_entry/company_import/deforest/cyber_implants/razorwire
+	name = "Razorwire Spool Implant"
+	item_type = /obj/item/organ/internal/cyberimp/arm/razorwire
+
+/datum/armament_entry/company_import/deforest/cyber_implants/shell_launcher
+	name = "Shell Launch System Implant"
+	item_type = /obj/item/organ/internal/cyberimp/arm/shell_launcher
+
+/datum/armament_entry/company_import/deforest/cyber_implants/sandy
+	name = "Qani-Laaca Sensory Computer Implant"
+	item_type = /obj/item/organ/internal/cyberimp/sensory_enhancer
+	cost = PAYCHECK_COMMAND * 5
+
+/datum/armament_entry/company_import/deforest/cyber_implants/hackerman
+	name = "Binyat Wireless Hacking System Implant"
+	item_type = /obj/item/organ/internal/cyberimp/hackerman_deck
+	cost = PAYCHECK_COMMAND * 10
 
 // Modsuit Modules from the medical category, here instead of in Nakamura because nobody buys from this company
 

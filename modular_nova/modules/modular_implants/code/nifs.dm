@@ -20,6 +20,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	slot = ORGAN_SLOT_BRAIN_NIF
 	actions_types = list(/datum/action/item_action/nif/open_menu)
+	cannot_confiscate = TRUE
 
 	//User Variables
 	///What user is currently linked with the NIF?
@@ -126,7 +127,7 @@
 	QDEL_LIST(loaded_nifsofts)
 	return ..()
 
-/obj/item/organ/internal/cyberimp/brain/nif/Insert(mob/living/carbon/human/insertee, special = FALSE, drop_if_replaced = TRUE)
+/obj/item/organ/internal/cyberimp/brain/nif/Insert(mob/living/carbon/human/insertee, special = FALSE, movement_flags = DELETE_IF_REPLACED)
 	. = ..()
 
 	if(linked_mob && stored_ckey != insertee.ckey && theft_protection)
@@ -403,6 +404,12 @@
 	return FALSE
 
 /obj/item/organ/internal/cyberimp/brain/nif/emp_act(severity)
+	. = ..()
+	if(!owner || . & EMP_PROTECT_SELF)
+		return
+	var/added_stun_duration = 200/severity // the previous stun duration added by the parent call
+	owner.AdjustStun(-added_stun_duration) // we want to negate that stun here
+	to_chat(owner, span_warning("You feel a stinging pain in your head!"))
 	if(!durability_loss_vulnerable)
 		return FALSE
 
@@ -464,7 +471,7 @@
 /datum/component/nif_examine/proc/add_examine(mob/nif_user, mob/looker, list/examine_texts)
 	SIGNAL_HANDLER
 
-	examine_texts += span_purple("<b>[nif_examine_text]</b>")
+	examine_texts += span_purple("[EXAMINE_SECTION_BREAK][EXAMINE_HINT(nif_examine_text)]")
 
 ///Checks to see if a human with a NIF has the nifsoft_to_find type of NIFSoft installed?
 /mob/living/carbon/human/proc/find_nifsoft(datum/nifsoft/nifsoft_to_find)

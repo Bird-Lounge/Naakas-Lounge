@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(common_loot, list( //common: basic items
 		/obj/item/stack/rods/twentyfive = 1,
 		/obj/item/stack/sheet/iron/twenty = 1,
 		/obj/item/stack/sheet/mineral/plasma = 1,
-		/obj/item/stock_parts/cell = 1,
+		/obj/item/stock_parts/power_store/cell = 1,
 
 		//assemblies
 		/obj/item/assembly/health = 1,
@@ -133,7 +133,7 @@ GLOBAL_LIST_INIT(common_loot, list( //common: basic items
 		/obj/item/reagent_containers/cup/rag = 1,
 		/obj/item/reagent_containers/hypospray/medipen/pumpup = 2,
 		/obj/item/reagent_containers/syringe = 1,
-		/obj/item/stock_parts/cell/lead = 1,
+		/obj/item/stock_parts/power_store/cell/lead = 1,
 		/obj/item/storage/box/matches = 1,
 		/obj/item/storage/fancy/cigarettes/dromedaryco = 1,
 		) = 1,
@@ -205,7 +205,7 @@ GLOBAL_LIST_INIT(uncommon_loot, list(//uncommon: useful items
 		/obj/item/seeds/kronkus = 1,
 		/obj/item/seeds/odious_puffball = 1,
 		/obj/item/stack/sheet/mineral/wood/fifty = 1,
-		/obj/item/stock_parts/cell/high = 1,
+		/obj/item/stock_parts/power_store/cell/high = 1,
 		/obj/item/storage/box/clown = 1,
 		/obj/item/weaponcrafting/receiver = 1,
 		/obj/item/book/granter/crafting_recipe/death_sandwich = 1,
@@ -258,6 +258,8 @@ GLOBAL_LIST_INIT(uncommon_loot, list(//uncommon: useful items
 		/obj/item/computer_disk/maintenance/scanner = 1,
 		///obj/item/computer_disk/maintenance/camera = 1, //NOVA EDIT REMOVAL - Available To Crew Now
 		/obj/item/computer_disk/maintenance/modsuit_control = 1,
+		/obj/item/computer_disk/maintenance/spectre_meter = 1,
+		/obj/item/computer_disk/maintenance/arcade = 1,
 		/obj/item/computer_disk/maintenance/theme = 3,
 	) = 3, //NOVA EDIT CHANGE - Original : 4
 
@@ -300,6 +302,7 @@ GLOBAL_LIST_INIT(rarity_loot, list(//rare: really good items
 		/obj/item/pen/survival = 1,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/shield/buckler = 1,
+		/obj/item/shield/improvised = 1,
 		/obj/item/throwing_star = 1,
 		/obj/item/weldingtool/hugetank = 1,
 		/obj/item/fishing_rod/telescopic/master = 1,

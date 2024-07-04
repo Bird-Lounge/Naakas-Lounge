@@ -35,8 +35,8 @@ GLOBAL_LIST_INIT(tech_reward, list(
 	/obj/item/construction/plumbing = 1,
 	/obj/item/mmi/posibrain = 1,
 	/obj/item/storage/portable_chem_mixer = 1,
-	/obj/item/stock_parts/cell/crank = 1,
-	/obj/item/stock_parts/cell/self_charge = 1,
+	/obj/item/stock_parts/power_store/cell/crank = 1,
+	/obj/item/stock_parts/power_store/cell/self_charge = 1,
 ))
 
 GLOBAL_LIST_INIT(weapon_reward, list(
@@ -67,7 +67,8 @@ GLOBAL_LIST_INIT(clothing_reward, list(
 	/obj/item/clothing/under/costume/gladiator/ash_walker/robe = 1,
 	/obj/item/clothing/under/costume/gladiator/ash_walker/tribal = 1,
 	/obj/item/clothing/under/costume/gladiator/ash_walker/white = 1,
-	/obj/item/clothing/neck/necklace/ashwalker = 1,
+	/obj/item/clothing/neck/necklace/translator = 1,
+	/obj/item/clothing/neck/necklace/translator/hearthkin = 1,
 	/obj/item/clothing/head/helmet/gladiator = 1,
 	/obj/item/clothing/under/costume/gladiator/ash_walker = 1,
 ))

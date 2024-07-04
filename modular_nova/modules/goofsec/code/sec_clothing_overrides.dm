@@ -133,26 +133,34 @@
 			RESKIN_ICON_STATE = "belt_white",
 			RESKIN_WORN_ICON_STATE = "belt_white"
 		),
-		"Slim Variant" = list(
-			RESKIN_ICON_STATE = "belt_slim",
-			RESKIN_WORN_ICON_STATE = "belt_slim"
+		"Basic Variant" = list(
+			RESKIN_ICON = 'icons/obj/clothing/belts.dmi',
+			RESKIN_ICON_STATE = "security",
+			RESKIN_WORN_ICON = 'icons/mob/clothing/belt.dmi',
+			RESKIN_WORN_ICON_STATE = "security"
 		),
 	)
 
 /obj/item/storage/belt/security/webbing
+	icon = 'icons/obj/clothing/belts.dmi'
+	worn_icon = 'icons/mob/clothing/belt.dmi'
 	uses_advanced_reskins = FALSE
 	unique_reskin = NONE
 	current_skin = "securitywebbing" //Prevents reskinning
 
-/obj/item/storage/belt/security/webbing/peacekeeper //did I mention this codebase is fucking awful
+/obj/item/storage/belt/security/webbing/peacekeeper
+	icon = 'modular_nova/master_files/icons/obj/clothing/belts.dmi'
+	worn_icon = 'modular_nova/master_files/icons/mob/clothing/belt.dmi'
 	current_skin = "peacekeeper_webbing"
 
-/obj/item/storage/belt/security/webbing/peacekeeper/armadyne
+/obj/item/storage/belt/security/webbing/armadyne
+	icon = 'modular_nova/master_files/icons/obj/clothing/belts.dmi'
+	worn_icon = 'modular_nova/master_files/icons/mob/clothing/belt.dmi'
 	current_skin = "armadyne_webbing"
 
 ///Enables you to quickdraw weapons from security holsters
 /datum/storage/security/open_storage(datum/source, mob/user)
-	var/atom/resolve_parent = parent?.resolve()
+	var/atom/resolve_parent = parent
 	if(!resolve_parent)
 		return
 	if(isobserver(user))
@@ -166,7 +174,7 @@
 	if(!isliving(user) || user.incapacitated())
 		return FALSE
 
-	var/obj/item/gun/gun_to_draw = locate() in real_location?.resolve()
+	var/obj/item/gun/gun_to_draw = locate() in real_location
 	if(!gun_to_draw)
 		return ..()
 	resolve_parent.add_fingerprint(user)
@@ -256,7 +264,7 @@
 	user.update_worn_head()
 	if(iscarbon(user))
 		var/mob/living/carbon/carbon_user = user
-		carbon_user.head_update(src, forced = TRUE)
+		carbon_user.update_worn_head()
 
 
 //Beret replacement
@@ -392,11 +400,11 @@
 		),
 	)
 
-/obj/item/clothing/neck/security_cape/AltClick(mob/user)
-	. = ..()
+/obj/item/clothing/neck/security_cape/click_alt(mob/user)
 	swapped = !swapped
 	to_chat(user, span_notice("You swap which arm [src] will lay over."))
 	update_appearance()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/neck/security_cape/update_appearance(updates)
 	. = ..()
@@ -571,13 +579,24 @@
 	unique_reskin = null // prevents you from losing the unique sprite
 
 /obj/item/clothing/under/rank/security/officer/skirt
-	name = "security battle dress"
-	desc = "An asymmetrical, unisex uniform with the legs replaced by a utility skirt."
-	worn_icon_state = "security_skirt"
-	icon_state = "security_skirt"
-	uses_advanced_reskins = FALSE
-	unique_reskin = null
-	alt_covers_chest = FALSE
+	name = "security jumpskirt"
+	desc = "Turtleneck sweater commonly worn by Peacekeepers, attached with a skirt."
+	icon = 'modular_nova/master_files/icons/obj/clothing/under/security.dmi'
+	worn_icon = 'modular_nova/master_files/icons/mob/clothing/under/security.dmi'
+	icon_state = "jumpskirt_blue"
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
+	gets_cropped_on_taurs = FALSE
+	uses_advanced_reskins = TRUE
+	unique_reskin = list(
+		"Blue Variant" = list(
+			RESKIN_ICON_STATE = "jumpskirt_blue",
+			RESKIN_WORN_ICON_STATE = "jumpskirt_blue"
+        ),
+		"Black Variant" = list(
+			RESKIN_ICON_STATE = "jumpskirt_black",
+			RESKIN_WORN_ICON_STATE = "jumpskirt_black"
+		),
+	)
 
 //Warden
 /obj/item/clothing/under/rank/security/warden

@@ -97,7 +97,6 @@
 /obj/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
 	damage = 6
-	weak_against_armour = TRUE
 
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubber shot"
@@ -109,7 +108,6 @@
 	harmful = FALSE
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
-	weak_against_armour = TRUE
 	stamina = 10
 
 /obj/item/ammo_casing/shotgun/magnum
@@ -247,6 +245,25 @@
 /obj/projectile/bullet/shotgun_slug/hunter
 	name = "12g hunter slug"
 	damage = 20
+	range = 12
+	/// How much the damage is multiplied by when we hit a mob with the correct biotype
+	var/biotype_damage_multiplier = 5
+	/// What biotype we look for
+	var/biotype_we_look_for = MOB_BEAST
+
+/obj/projectile/bullet/shotgun_slug/hunter/on_hit(atom/target, blocked, pierce_hit)
+	if(ismineralturf(target))
+		var/turf/closed/mineral/mineral_turf = target
+		mineral_turf.gets_drilled(firer, FALSE)
+		if(range > 0)
+			return BULLET_ACT_FORCE_PIERCE
+		return ..()
+	if(!isliving(target) || (damage > initial(damage)))
+		return ..()
+	var/mob/living/target_mob = target
+	if(target_mob.mob_biotypes & biotype_we_look_for || istype(target_mob, /mob/living/simple_animal/hostile/megafauna))
+		damage *= biotype_damage_multiplier
+	return ..()
 
 /obj/projectile/bullet/shotgun_slug/hunter/Initialize(mapload)
 	. = ..()

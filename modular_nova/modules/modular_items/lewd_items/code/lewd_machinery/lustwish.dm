@@ -43,6 +43,7 @@
 				/obj/item/bdsm_candle = 4,
 				/obj/item/spanking_pad = 4,
 				/obj/item/tickle_feather = 8,
+				/obj/item/borg/upgrade/dominatrixmodule = 5,
 			),
 		),
 		list(
@@ -100,6 +101,7 @@
 
 				//neck
 				/obj/item/key/collar = 48,
+				/obj/item/clothing/erp_leash = 8,
 				/obj/item/clothing/neck/kink_collar = 8,
 				/obj/item/clothing/neck/human_petcollar = 8,
 				/obj/item/clothing/neck/human_petcollar/choker = 8,

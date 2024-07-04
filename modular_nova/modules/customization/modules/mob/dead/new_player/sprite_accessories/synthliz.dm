@@ -79,6 +79,7 @@
 	icon_state = "synthliz"
 	flags_for_organ = SPRITE_ACCESSORY_WAG_ABLE
 	genetic = FALSE
+	spine_key = SPINE_KEY_LIZARD
 
 //Synth Antennae
 /datum/sprite_accessory/antenna/synthliz
@@ -145,7 +146,7 @@
 	taur_mode = STYLE_TAUR_PAW
 	recommended_species = list()
 	genetic = FALSE
-	organ_type = /obj/item/organ/external/taur_body/synth
+	organ_type = /obj/item/organ/external/taur_body/horselike/synth
 
 /datum/sprite_accessory/taur/synthliz/inv
 	name = "Cybernetic Lizard (Inverted)"
@@ -181,3 +182,4 @@
 	name = "Cybernetic Naga"
 	icon_state = "synthnaga"
 	taur_mode = STYLE_TAUR_SNAKE
+	organ_type = /obj/item/organ/external/taur_body/serpentine/synth

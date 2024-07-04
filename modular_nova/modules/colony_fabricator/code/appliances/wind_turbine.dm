@@ -68,7 +68,7 @@
 		if(!(weather_we_track.stage == END_STAGE))
 			storming_out = TRUE
 
-	add_avail((storming_out ? storm_power_production : regular_power_production))
+	add_avail(power_to_energy(storming_out ? storm_power_production : regular_power_production))
 
 	var/new_icon_state = (storming_out ? "turbine_storm" : "turbine_normal")
 	icon_state = new_icon_state
@@ -80,6 +80,7 @@
 	icon = 'modular_nova/modules/colony_fabricator/icons/wind_turbine.dmi'
 	icon_state = "turbine_packed"
 	type_to_deploy = /obj/machinery/power/colony_wind_turbine
+	w_class = WEIGHT_CLASS_NORMAL
 	custom_materials = list(
 		/datum/material/iron = SHEET_MATERIAL_AMOUNT * 5,
 		/datum/material/glass = SHEET_MATERIAL_AMOUNT * 2,

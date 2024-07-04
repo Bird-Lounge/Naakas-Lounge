@@ -42,6 +42,15 @@
 	for(var/i in 1 to 3)
 		new /mob/living/basic/pet/chinchilla(.)
 
+/datum/supply_pack/critter/fennec
+	name = "Fennec Crate"
+	desc = "For when you need someone that can really listen to you. \
+		Contains two fennecs. \
+		Warning, does not mean the fennecs will actually listen to you."
+	cost = CARGO_CRATE_VALUE * 7
+	contains = list(/mob/living/basic/pet/cat/fennec = 2)
+	crate_name = "fennec crate"
+
 /*
 *	MEDICAL
 */
@@ -333,32 +342,6 @@
 	)
 	crate_name = "candle crate"
 
-/datum/supply_pack/misc/vanguard_surplus
-	name = "Expeditionary Corps Surplus"
-	desc = "Contains an assortment of surplus equipment from the now-defunct Vanguard Expeditionary Corps."
-	cost = CARGO_CRATE_VALUE * 19
-	contains = list(
-		/obj/item/storage/box/expeditionary_survival,
-		/obj/item/melee/tomahawk,
-		/obj/item/storage/backpack/duffelbag/expeditionary_corps,
-		/obj/item/clothing/gloves/color/black/expeditionary_corps,
-		/obj/item/clothing/head/helmet/expeditionary_corps,
-		/obj/item/clothing/suit/armor/vest/expeditionary_corps,
-		/obj/item/storage/belt/military/expeditionary_corps,
-		/obj/item/clothing/under/rank/expeditionary_corps,
-		/obj/item/clothing/shoes/combat/expeditionary_corps,
-		/obj/item/modular_computer/pda/expeditionary_corps,
-		/obj/item/knife/combat/marksman,
-	)
-	/// How many of the contains to put in the crate
-	var/num_contained = 3
-
-/datum/supply_pack/misc/vanguard_surplus/fill(obj/structure/closet/crate/filled_crate)
-	var/list/contain_copy = contains.Copy()
-	for(var/i in 1 to num_contained)
-		var/item = pick_n_take(contain_copy)
-		new item(filled_crate)
-
 /datum/supply_pack/misc/gravity_harness
 	name = "Gravity Suspension Harness"
 	desc = "A back-mounted suspensor harness powered by cells, designed by Deep Spacer tribes to either nullify or amplify gravity. \
@@ -553,8 +536,8 @@
 		/obj/item/storage/part_replacer/cargo,
 		/obj/item/stack/sheet/iron/ten,
 		/obj/item/stack/sheet/iron/five,
-		/obj/item/stock_parts/cell/high,
-		/obj/item/stock_parts/cell/high,
+		/obj/item/stock_parts/power_store/cell/high,
+		/obj/item/stock_parts/power_store/cell/high,
 		/obj/item/stack/cable_coil,
 		/obj/item/book/manual/wiki/barman_recipes,
 		/obj/item/reagent_containers/cup/glass/shaker,
@@ -710,34 +693,6 @@
 	. = ..()
 	for(var/i in 1 to 19)
 		new /obj/item/grown/log(.)
-
-/datum/supply_pack/imports/cin_surplus
-	name = "CIN Military Surplus Crate"
-	desc = "A collection of surplus equipment sourced from the Coalition of Independent Nations' military stockpiles. Likely to contain old and outdated equipment, as is the nature of surplus."
-	contraband = TRUE
-	cost = CARGO_CRATE_VALUE * 9
-	contains = list(
-		/obj/item/storage/box/colonial_rations = 1,
-		/obj/item/storage/toolbox/ammobox/strilka310 = 1,
-		/obj/item/storage/toolbox/ammobox/strilka310/surplus = 1,
-		/obj/item/storage/toolbox/maint_kit = 1,
-		/obj/item/storage/toolbox/guncase/soviet/sakhno = 2,
-		/obj/item/ammo_box/strilka310 = 1,
-		/obj/item/clothing/suit/armor/vest/cin_surplus_vest = 1,
-		/obj/item/clothing/head/helmet/cin_surplus_helmet/random_color = 1,
-		/obj/item/storage/backpack/industrial/cin_surplus/random_color = 1,
-		/obj/item/storage/belt/military/cin_surplus/random_color = 1,
-		/obj/item/clothing/gloves/tackler/combat = 1,
-		/obj/item/clothing/under/syndicate/rus_army/cin_surplus/random_color = 1,
-		/obj/item/clothing/shoes/jackboots = 1,
-		/obj/item/clothing/mask/gas/hecu2 = 1,
-		/obj/item/clothing/mask/balaclavaadjust = 1,
-	)
-
-/datum/supply_pack/imports/cin_surplus/fill(obj/structure/closet/crate/we_are_filling_this_crate)
-	for(var/i in 1 to 10)
-		var/item = pick_weight(contains)
-		new item(we_are_filling_this_crate)
 
 /*
 * VENDING RESTOCKS
