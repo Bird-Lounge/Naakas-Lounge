@@ -249,6 +249,41 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 	item_path = /obj/item/clothing/under/rank/captain/nova/utility
 	restricted_roles = list(JOB_CAPTAIN, JOB_HEAD_OF_PERSONNEL, JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_RESEARCH_DIRECTOR, JOB_QUARTERMASTER, JOB_CHIEF_MEDICAL_OFFICER, JOB_CHIEF_ENGINEER)
 
+/datum/loadout_item/under/jumpsuit/tarkon
+	name = "Tarkon Deck Jumpsuit"
+	item_path = /obj/item/clothing/under/tarkon
+	blacklisted_roles = list(JOB_CAPTAIN, JOB_HEAD_OF_PERSONNEL, JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_RESEARCH_DIRECTOR, JOB_QUARTERMASTER, JOB_CHIEF_MEDICAL_OFFICER, JOB_CHIEF_ENGINEER, JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_WARDEN, JOB_BLUESHIELD, JOB_CORRECTIONS_OFFICER)
+
+/datum/loadout_item/under/jumpsuit/tarkon/sci
+	name = "Tarkon Science Jumpsuit"
+	item_path = /obj/item/clothing/under/tarkon/sci
+	blacklisted_roles = list(JOB_CAPTAIN, JOB_HEAD_OF_PERSONNEL, JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_RESEARCH_DIRECTOR, JOB_QUARTERMASTER, JOB_CHIEF_MEDICAL_OFFICER, JOB_CHIEF_ENGINEER, JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_WARDEN, JOB_BLUESHIELD, JOB_CORRECTIONS_OFFICER)
+
+/datum/loadout_item/under/jumpsuit/tarkon/eng
+	name = "Tarkon Engineer Jumpsuit"
+	item_path = /obj/item/clothing/under/tarkon/eng
+	blacklisted_roles = list(JOB_CAPTAIN, JOB_HEAD_OF_PERSONNEL, JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_RESEARCH_DIRECTOR, JOB_QUARTERMASTER, JOB_CHIEF_MEDICAL_OFFICER, JOB_CHIEF_ENGINEER, JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_WARDEN, JOB_BLUESHIELD, JOB_CORRECTIONS_OFFICER)
+
+/datum/loadout_item/under/jumpsuit/tarkon/med
+	name = "Tarkon Medical Jumpsuit"
+	item_path = /obj/item/clothing/under/tarkon/med
+	blacklisted_roles = list(JOB_CAPTAIN, JOB_HEAD_OF_PERSONNEL, JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_RESEARCH_DIRECTOR, JOB_QUARTERMASTER, JOB_CHIEF_MEDICAL_OFFICER, JOB_CHIEF_ENGINEER, JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_WARDEN, JOB_BLUESHIELD, JOB_CORRECTIONS_OFFICER)
+
+/datum/loadout_item/under/jumpsuit/tarkon/cargo
+	name = "Tarkon Cargo Jumpsuit"
+	item_path = /obj/item/clothing/under/tarkon/cargo
+	blacklisted_roles = list(JOB_CAPTAIN, JOB_HEAD_OF_PERSONNEL, JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_RESEARCH_DIRECTOR, JOB_QUARTERMASTER, JOB_CHIEF_MEDICAL_OFFICER, JOB_CHIEF_ENGINEER, JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_WARDEN, JOB_BLUESHIELD, JOB_CORRECTIONS_OFFICER)
+
+/datum/loadout_item/under/jumpsuit/tarkon/sec
+	name = "Tarkon Guard Jumpsuit"
+	item_path = /obj/item/clothing/under/tarkon/sec
+	blacklisted_roles = list(JOB_CAPTAIN, JOB_HEAD_OF_PERSONNEL, JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_RESEARCH_DIRECTOR, JOB_QUARTERMASTER, JOB_CHIEF_MEDICAL_OFFICER, JOB_CHIEF_ENGINEER, JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_WARDEN, JOB_BLUESHIELD, JOB_CORRECTIONS_OFFICER)
+
+/datum/loadout_item/under/jumpsuit/tarkon/com
+	name = "Tarkon Command Jumpsuit"
+	item_path = /obj/item/clothing/under/tarkon/com
+	blacklisted_roles = list(JOB_CAPTAIN, JOB_HEAD_OF_PERSONNEL, JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_RESEARCH_DIRECTOR, JOB_QUARTERMASTER, JOB_CHIEF_MEDICAL_OFFICER, JOB_CHIEF_ENGINEER, JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_WARDEN, JOB_BLUESHIELD, JOB_CORRECTIONS_OFFICER)
+
 /*
  *	MISC UNDERSUITS
  */
@@ -298,6 +333,10 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 /datum/loadout_item/under/miscellaneous/jeansripped
 	name = "Recolorable Ripped Jeans"
 	item_path = /obj/item/clothing/under/pants/nova/jeans_ripped
+
+/datum/loadout_item/under/miscellaneous/big_pants
+	name = "'JUNCO' Megacargo Pants"
+	item_path = /obj/item/clothing/under/pants/nova/big_pants
 
 /datum/loadout_item/under/miscellaneous/yoga
 	name = "Recolorable Yoga Pants"
@@ -425,6 +464,14 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 	name = "Long Colourable Skirt"
 	item_path = /obj/item/clothing/under/dress/skirt/nova/long
 
+/datum/loadout_item/under/miscellaneous/loincloth
+	name = "Loincloth"
+	item_path = /obj/item/clothing/under/dress/skirt/nova/loincloth
+
+/datum/loadout_item/under/miscellaneous/loincloth_alt
+	name = "Shorter Loincloth"
+	item_path = /obj/item/clothing/under/dress/skirt/nova/loincloth/loincloth_alt
+
 /datum/loadout_item/under/miscellaneous/denim_skirt
 	name = "Jean Skirt"
 	item_path = /obj/item/clothing/under/dress/skirt/nova/jean
@@ -533,6 +580,10 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 	name = "Fancy Kimono"
 	item_path =  /obj/item/clothing/under/costume/nova/kimono
 
+/datum/loadout_item/under/miscellaneous/shihakusho
+	name = "Shihakusho"
+	item_path = /obj/item/clothing/under/costume/nova/shihakusho
+
 /datum/loadout_item/under/miscellaneous/chaps
 	name = "Black Chaps"
 	item_path = /obj/item/clothing/under/pants/nova/chaps
@@ -588,6 +639,10 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 /datum/loadout_item/under/miscellaneous/syndicate_nova_overalls_unarmoured_skirt
 	name = "Suspicious Utility Overalls Skirtleneck"
 	item_path = /obj/item/clothing/under/syndicate/nova/overalls/unarmoured/skirt
+
+/datum/loadout_item/under/miscellaneous/expeditionary_corps
+	name = "Expeditionary Corps Uniform"
+	item_path = /obj/item/clothing/under/rank/expeditionary_corps
 
 /datum/loadout_item/under/miscellaneous/tactical_pants
 	name = "Tactical Pants"

@@ -90,7 +90,7 @@
 
 /obj/item/mod/control/pre_equipped/entombed
 	theme = /datum/mod_theme/entombed
-	applied_cell = /obj/item/stock_parts/cell/high
+	applied_cell = /obj/item/stock_parts/power_store/cell/high
 
 // CUSTOM BEHAVIOR
 
@@ -137,7 +137,7 @@
 /obj/item/mod/control/pre_equipped/entombed/Initialize(mapload, new_theme, new_skin, new_core)
 	. = ..()
 	// Apply the entombed mod piece component to our applicable clothing pieces, so that they *always* return to the unit or self-delete if they can't.
-	for (var/obj/item/part as anything in mod_parts)
+	for (var/obj/item/part as anything in get_parts())
 		part.AddComponent(/datum/component/entombed_mod_piece, host_suit = src)
 
 	ADD_TRAIT(src, TRAIT_NODROP, QUIRK_TRAIT)
