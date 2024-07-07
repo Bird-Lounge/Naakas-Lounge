@@ -1,16 +1,10 @@
 /datum/controller/global_vars/Initialize()
 	. = ..()
-	world.log << "Hihi this is pure debug info.  setup_lists has been called and we're hoovering bloopers"
 	for(var/blooper_path in subtypesof(/datum/blooper))
-		world.log << "Hihi a blooper has been hoovered: [blooper_path]"
 		var/datum/blooper/bloop = new blooper_path()
-		world.log << "Hihi the blooper exists, it is blooper type [bloop.name] (id [bloop.id]) and it's going in GLOB now"
 		GLOB.blooper_list[bloop.id] = bloop
-		world.log << "Hihi the blooper is now in GLOB"
 		if(bloop.allow_random)
-			world.log << "Hihi the blooper allows random use, so it's going in GLOB"
 			GLOB.blooper_random_list[bloop.id] = bloop
-			world.log << "Hihi the blooper is now in random GLOB"
 
 /datum/blooper/mutedc2
 	name = "Muted String (Low)"

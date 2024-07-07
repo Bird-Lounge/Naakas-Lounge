@@ -16,15 +16,11 @@
 	var/datum/blooper/bloop = GLOB.blooper_list[id]
 	if(!bloop)
 		return FALSE
-	to_chat(world, span_info("Setting up blooper type [bloop.id]."))
 	blooper = sound(bloop.soundpath)
 	var/list/blooplist = bloop.soundpath_list
-	to_chat(world, span_danger("blooplist is as follows: [blooplist]"))
 	if(blooplist)
-		to_chat(world, span_danger("List is valid, trying to fill!"))
 		blooper_list = list()
 		for(var/a_blooper in blooplist)
-			to_chat(world, span_danger("found a blooper in the list: [a_blooper]"))
 			blooper_list += sound(a_blooper)
 	blooper_id = id
 	return blooper
