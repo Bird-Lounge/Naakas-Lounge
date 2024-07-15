@@ -1,4 +1,4 @@
-import { Box, Button, NoticeBox, Section, Table } from 'tgui-core/components';
+import { Box, Button, NoticeBox, Section, Table } from 'tgui/components';
 
 import { useBackend, useLocalState } from '../backend';
 import { formatTime } from '../format';

@@ -1,4 +1,4 @@
-import { Box, Button, Icon, LabeledList, Section } from 'tgui-core/components';
+import { Box, Button, Icon, LabeledList, Section } from 'tgui/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';

@@ -9,7 +9,7 @@ import {
   RoundGauge,
   Section,
   Table,
-} from 'tgui-core/components';
+} from 'tgui/components';
 
 import { round, toFixed } from '../../common/math';
 import { BooleanLike } from '../../common/react';

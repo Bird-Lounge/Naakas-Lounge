@@ -10,7 +10,7 @@ import {
   Stack,
   Table,
   Tabs,
-} from 'tgui-core/components';
+} from 'tgui/components';
 
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';

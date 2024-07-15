@@ -10,7 +10,7 @@ import {
   Modal,
   Section,
   TextArea,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { capitalize } from 'tgui-core/string';
 
 import { useBackend, useLocalState } from '../backend';

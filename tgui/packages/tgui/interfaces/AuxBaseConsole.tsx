@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, NoticeBox, Section, Table, Tabs } from 'tgui-core/components';
+import { Button, NoticeBox, Section, Table, Tabs } from 'tgui/components';
 import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';

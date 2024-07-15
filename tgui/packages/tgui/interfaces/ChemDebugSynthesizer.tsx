@@ -1,4 +1,4 @@
-import { Button, NumberInput, Section } from 'tgui-core/components';
+import { Button, NumberInput, Section } from 'tgui/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';

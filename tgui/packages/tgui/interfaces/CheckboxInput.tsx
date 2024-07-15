@@ -8,7 +8,7 @@ import {
   Stack,
   Table,
   Tooltip,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { createSearch, decodeHtmlEntities } from 'tgui-core/string';
 
 import { useBackend } from '../backend';

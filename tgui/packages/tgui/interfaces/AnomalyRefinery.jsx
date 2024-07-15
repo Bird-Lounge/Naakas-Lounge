@@ -6,7 +6,7 @@ import {
   Modal,
   Section,
   Stack,
-} from 'tgui-core/components';
+} from 'tgui/components';
 
 import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
