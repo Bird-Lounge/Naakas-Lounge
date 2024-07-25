@@ -12,7 +12,7 @@
 /obj/machinery/power/apc/proc/malfhack(mob/living/silicon/ai/malf)
 	if(!istype(malf))
 		return
-	if(get_malf_status(malf) != APC_AI_HACK_NO_SHUNT || get_malf_status(malf) != APC_AI_NO_HACK)
+	if(get_malf_status(malf) != APC_AI_NO_HACK)
 		return
 	if(malf.malfhacking)
 		to_chat(malf, span_warning("You are already hacking an APC!"))
@@ -35,6 +35,12 @@
 		to_chat(malf, span_warning("You cannot shunt!"))
 		return
 	if(!is_station_level(z))
+		return
+	INVOKE_ASYNC(src, PROC_REF(malfshunt), malf)
+
+/obj/machinery/power/apc/proc/malfshunt(mob/living/silicon/ai/malf)
+	var/confirm = tgui_alert(malf, "Are you sure that you want to shunt? This will take you out of your core!", "Shunt to [name]?", list("Yes", "No"))
+	if(confirm != "Yes")
 		return
 	malf.ShutOffDoomsdayDevice()
 	occupier = malf

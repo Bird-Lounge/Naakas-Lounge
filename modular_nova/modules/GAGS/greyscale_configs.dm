@@ -322,6 +322,21 @@
 	icon_file = 'modular_nova/modules/GAGS/icons/mask/masquerade_mask_worn_vox.dmi'
 
 /*
+*	EYES
+*/
+
+// BLINDFOLD
+
+/datum/greyscale_config/blindfold
+	name = "Blind Personnel Blindfold"
+	icon_file = 'modular_nova/modules/GAGS/icons/eyes.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/blindfold_eyes/blindfoldcolor.json'
+
+/datum/greyscale_config/blindfold/worn
+	name = "Blind Personnel Blindfold (Worn)"
+	icon_file = 'modular_nova/modules/GAGS/icons/eyes_worn.dmi'
+
+/*
 *	NECK
 */
 
@@ -934,6 +949,58 @@
 	name = "Tailored Jacket (Worn)"
 	icon_file = 'modular_nova/modules/GAGS/icons/crop_jacket_worn.dmi'
 
+// SLEEVELESS CROPPED JACKET
+
+/datum/greyscale_config/sleeveless_crop_jacket
+	name = "Tailored Jacket"
+	icon_file = 'modular_nova/modules/GAGS/icons/sleeveless_crop_jacket.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/sleeveless_crop_jacket/sleeveless_crop_jacket.json'
+
+/datum/greyscale_config/sleeveless_crop_jacket/worn
+	name = "Tailored Jacket (Worn)"
+	icon_file = 'modular_nova/modules/GAGS/icons/sleeveless_crop_jacket_worn.dmi'
+
+
+// PARADE JACKET
+/datum/greyscale_config/replica_parade_jacket
+	name = "Replica Parade Jacket"
+	icon_file = 'modular_nova/modules/GAGS/icons/suit/suit.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/suits/r_parade_jacket/r_parade_jacket.json'
+
+/datum/greyscale_config/replica_parade_jacket/worn
+	name = "Replica Parade Jacket (Worn)"
+	json_config = 'modular_nova/modules/GAGS/json_configs/suits/r_parade_jacket/r_parade_jacket_worn.json'
+
+
+// ISEURIAN CHOKHA
+/datum/greyscale_config/chokha
+	name = "Chokha"
+	icon_file = 'modular_nova/modules/GAGS/icons/chokha.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/chokha/chokha.json'
+
+/datum/greyscale_config/chokha/worn
+	name = "Chokha (Worn)"
+	icon_file = 'modular_nova/modules/GAGS/icons/chokha_worn.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/chokha/chokha_worn.json'
+
+//BIG JACKET
+/datum/greyscale_config/big_jacket
+	name = "Alpha Atelier pilot jacket"
+	icon_file = 'modular_nova/modules/GAGS/icons/suit/suit.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/big_jacket/big_jacket.json'
+
+/datum/greyscale_config/big_jacket/worn
+	name = "Alpha Atelier pilot jacket (worn)"
+	json_config = 'modular_nova/modules/GAGS/json_configs/big_jacket/big_jacket_worn.json'
+
+/datum/greyscale_config/dagger_mantle
+	name = "'dagger' designer mantle"
+	icon_file = 'modular_nova/modules/GAGS/icons/suit/suit.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/dagger_mantle/dagger_mantle.json'
+
+/datum/greyscale_config/dagger_mantle/worn
+	name = "'dagger' designer mantle (worn)"
+	json_config = 'modular_nova/modules/GAGS/json_configs/dagger_mantle/dagger_mantle_worn.json'
 
 /*
 *	UNDER
@@ -949,16 +1016,6 @@
 /datum/greyscale_config/jumpsuit/prison/worn/digi
 	name = "Prison Jumpsuit (Worn, Digi)"
 	icon_file = 'modular_nova/master_files/icons/mob/clothing/under/color_digi.dmi'
-
-/datum/greyscale_config/jumpsuit/worn/monkey
-	name = "Jumpsuit (Worn) - Monkey"
-	icon_file = MONKEY_UNIFORM_FILE
-	json_config = 'modular_nova/modules/GAGS/json_configs/jumpsuit/jumpsuit_worn_monkey.json'
-
-/datum/greyscale_config/jumpsuit/prison/worn/monkey
-	name = "Prison Jumpsuit (Worn) - Monkey"
-	icon_file = MONKEY_UNIFORM_FILE
-	json_config = 'modular_nova/modules/GAGS/json_configs/jumpsuit/jumpsuit_prison_worn_monkey.json'
 
 /datum/greyscale_config/jumpsuit/worn/vox
 	name = "Jumpsuit (Worn, Vox)"
@@ -1079,6 +1136,19 @@
 
 /datum/greyscale_config/camo_pants/worn/digi
 	name = "Camo Pants (Worn, Digi)"
+	icon_file = SHORTS_PANTS_SHIRTS_DIGIFILE
+
+/datum/greyscale_config/big_pants
+	name = "'JUNCO' megacargo pants"
+	icon_file = 'modular_nova/modules/GAGS/icons/big_pants.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/big_pants/big_pants.json'
+
+/datum/greyscale_config/big_pants/worn
+	name = "'JUNCO' megacargo pants (Worn)"
+	json_config = 'modular_nova/modules/GAGS/json_configs/big_pants/big_pants_worn.json'
+
+/datum/greyscale_config/big_pants/worn/digi
+	name = "'JUNCO' megacargo pants (Worn, Digi)"
 	icon_file = SHORTS_PANTS_SHIRTS_DIGIFILE
 
 // DRESSES / SKIRTS
@@ -1787,3 +1857,34 @@ TREK
 /datum/greyscale_config/primitive_catgirl_tunic/worn
 	name = "Handmade Tunic (Worn)"
 	json_config = 'modular_nova/modules/GAGS/json_configs/primitive_catgirl_clothing/tunic_worn.json'
+
+/datum/greyscale_config/loincloth
+	name = "Loincloth"
+	icon_file = 'modular_nova/modules/GAGS/icons/loincloth.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/primitive_catgirl_clothing/loincloth.json'
+
+/datum/greyscale_config/loincloth/worn
+	name = "Loincloth (Worn)"
+	json_config = 'modular_nova/modules/GAGS/json_configs/primitive_catgirl_clothing/loincloth_worn.json'
+
+/datum/greyscale_config/loincloth_alt
+	name = "Shorter Loincloth"
+	icon_file = 'modular_nova/modules/GAGS/icons/loincloth.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/primitive_catgirl_clothing/loincloth_alt.json'
+
+/datum/greyscale_config/loincloth_alt/worn
+	name = "Shorter Loincloth (Worn)"
+	json_config = 'modular_nova/modules/GAGS/json_configs/primitive_catgirl_clothing/loincloth_alt_worn.json'
+
+/*
+*	DONKSOFT TURRET
+*/
+
+/datum/greyscale_config/turret
+	name = "Donksoft Turret (Deployed)"
+	icon_file = 'modular_nova/modules/magfed_turret/icons/turrets/cargo.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/turret/turret.json'
+
+/datum/greyscale_config/turret/toolbox
+	name = "Donksoft Turret"
+	json_config = 'modular_nova/modules/GAGS/json_configs/turret/turret_toolbox.json'

@@ -68,7 +68,7 @@
 /obj/machinery/ammo_workbench/Initialize(mapload)
 	AddComponent( \
 		/datum/component/material_container, \
-		DSmaterials.materials_by_category[MAT_CATEGORY_ITEM_MATERIAL], \
+		SSmaterials.materials_by_category[MAT_CATEGORY_ITEM_MATERIAL], \
 		200000, \
 		MATCONTAINER_EXAMINE, \
 		allowed_items = /obj/item/stack, \
@@ -113,7 +113,7 @@
 				continue // go home
 			if(initial(our_casing.harmful) && (!allowed_harmful && !hacked)) // if you hack it that's on you.
 				continue
-			if(initial(our_casing.advanced_print_req) && !allowed_advanced) // if it's got a funny function (hello, AP!) and we're not good for it yet,
+			if(initial(our_casing.advanced_print_req) && !allowed_advanced) // if its got a funny function (hello, AP!) and we're not good for it yet,
 				continue // no
 		if(initial(our_casing.projectile_type) == null) // spent casing subtypes >:(
 			continue
@@ -467,7 +467,6 @@
 		. += "ammobench_loaded"
 
 /obj/machinery/ammo_workbench/Destroy()
-	QDEL_NULL(wires)
 	if(timer_id)
 		deltimer(timer_id)
 		timer_id = null

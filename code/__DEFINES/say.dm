@@ -30,9 +30,9 @@
 #define MODE_WHISPER "whisper"
 #define MODE_WHISPER_CRIT "whispercrit"
 
-//SKYRAT custom verb
+//NOVA custom verb
 #define MODE_CUSTOM_SAY "custom_say"
-//SKYRAT custom sayverb end.
+//NOVA custom sayverb end.
 
 #define MODE_DEPARTMENT "department"
 #define MODE_KEY_DEPARTMENT "h"
@@ -80,7 +80,7 @@
 #define SPAN_SINGING "singing"
 #define SPAN_TAPE_RECORDER "tape_recorder"
 #define SPAN_SMALL_VOICE "small"
-
+#define SPAN_SOAPBOX "soapbox"
 //bitflag #defines for return value of the radio() proc.
 /// Makes the message use italics
 #define ITALICS (1<<0)
