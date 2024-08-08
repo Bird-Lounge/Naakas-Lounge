@@ -25,7 +25,7 @@
 
 /obj/machinery/atmospherics/pipe/bridge_pipe/update_overlays()
 	. = ..()
-	var/mutable_appearance/center = mutable_appearance('icons/obj/pipes_n_cables/bridge_pipe.dmi', "bridge_center")
+	var/mutable_appearance/center = mutable_appearance(initial(icon), "bridge_center") /// NAAKAS-LOUNGE EDIT: this should've been using base icon to begin with
 	PIPING_LAYER_DOUBLE_SHIFT(center, piping_layer)
 	. += center
 
