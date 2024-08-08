@@ -1,4 +1,4 @@
-import { Divider, Section, Stack } from 'tgui-core/components';
+import { Divider, Section, Stack } from 'tgui/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';

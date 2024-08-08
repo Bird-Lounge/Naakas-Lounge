@@ -11,7 +11,7 @@ import {
   Stack,
   Table,
   Tabs,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { BooleanLike } from 'tgui-core/react';
 import { classes } from 'tgui-core/react';
 

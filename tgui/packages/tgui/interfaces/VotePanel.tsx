@@ -9,7 +9,7 @@ import {
   NoticeBox,
   Section,
   Stack,
-} from 'tgui-core/components';
+} from 'tgui/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';

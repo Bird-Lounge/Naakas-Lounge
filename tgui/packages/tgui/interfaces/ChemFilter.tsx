@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Button, Section, Stack } from 'tgui-core/components';
+import { Button, Section, Stack } from 'tgui/components';
 
 import { useBackend } from '../backend';
 import { CssColor } from '../constants';
