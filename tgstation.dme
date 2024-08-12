@@ -8628,6 +8628,7 @@
 #include "modular_zskyraptor\modules\loungemaps\code\lounge_lights.dm"
 #include "modular_zskyraptor\modules\loungemaps\code\lounge_machines.dm"
 #include "modular_zskyraptor\modules\loungemaps\code\lounge_shuttles.dm"
+#include "modular_zskyraptor\modules\mtandi_wallening\code\icon_overrides.dm"
 #include "modular_zskyraptor\modules\neoncards\code\neoncards.dm"
 #include "modular_zskyraptor\modules\newemotes\newemotes_memes.dm"
 #include "modular_zskyraptor\modules\newemotes\newemotes_other.dm"
