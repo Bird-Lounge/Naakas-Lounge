@@ -151,6 +151,9 @@
 	/// Used for papers and photos pinned to the airlock
 	var/note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi'//OVERRIDDEN IN NOVA AESTHETICS - SEE MODULE
 
+	/// Airlock pump that overrides airlock controlls when set up for cycling
+	var/obj/machinery/atmospherics/components/unary/airlock_pump/cycle_pump
+
 	var/cyclelinkeddir = 0
 	var/obj/machinery/door/airlock/cyclelinkedairlock
 	var/shuttledocked = 0
@@ -298,7 +301,6 @@
 	qdel(src)
 
 /obj/machinery/door/airlock/Destroy()
-	QDEL_NULL(wires)
 	QDEL_NULL(electronics)
 	if (cyclelinkedairlock)
 		if (cyclelinkedairlock.cyclelinkedairlock == src)
@@ -1237,6 +1239,10 @@
 		INVOKE_ASYNC(src, density ? PROC_REF(open) : PROC_REF(close), BYPASS_DOOR_CHECKS)
 
 /obj/machinery/door/airlock/open(forced = DEFAULT_DOOR_CHECKS)
+	if(cycle_pump && !operating && !welded && !seal && locked && density)
+		cycle_pump.airlock_act(src)
+		return FALSE // The rest will be handled by the pump
+
 	if( operating || welded || locked || seal )
 		return FALSE
 
@@ -1472,9 +1478,9 @@
 		return
 	if(!density) //Already open
 		return ..()
+	if(user.combat_mode)
+		return ..()
 	if(locked || welded || seal) //Extremely generic, as aliens only understand the basics of how airlocks work.
-		if(user.combat_mode)
-			return ..()
 		to_chat(user, span_warning("[src] refuses to budge!"))
 		return
 	add_fingerprint(user)
@@ -1837,6 +1843,17 @@
 
 /obj/structure/fluff/airlock_filler/singularity_pull(S, current_size)
 	return
+
+/obj/machinery/door/airlock/proc/set_cycle_pump(obj/machinery/atmospherics/components/unary/airlock_pump/pump)
+	RegisterSignal(pump, COMSIG_QDELETING, PROC_REF(unset_cycle_pump))
+	cycle_pump = pump
+
+/obj/machinery/door/airlock/proc/unset_cycle_pump()
+	SIGNAL_HANDLER
+	if(locked)
+		unbolt()
+		say("Link broken, unbolting.")
+	cycle_pump = null
 
 // Station Airlocks Regular
 
