@@ -179,7 +179,7 @@
 	return FALSE
 
 /datum/bodypart_overlay/mutant/genital/bitflag_to_layer(layer)
-	if(EXTERNAL_FRONT_UNDER_CLOTHES)
+	if(layer == EXTERNAL_FRONT_UNDER_CLOTHES)
 		if(layer_mode_check() == TRUE)
 			return layer_above_all
 		else if(underwear_check() == FALSE)
