@@ -158,14 +158,24 @@
 
 /// Return TRUE if this should overlay below underwear, otherwise it'll layer above it and the uniform.
 /datum/bodypart_overlay/mutant/genital/proc/underwear_check()
-	return TRUE
+	return FALSE
 
 /// Helper function - if the organ this overlay is tied to has been set to layer above clothing, return TRUE
 /datum/bodypart_overlay/mutant/genital/proc/layer_mode_check()
+	to_chat(world, "[src] DEBUG - Trying layer mode check")
 	if(istype(owner))
+		to_chat(world, "[src] DEBUG - Owner is valid")
 		var/obj/item/organ/external/genital/owning_organ = owner.get_organ_slot(organ_slot)
+		to_chat(world, "[src] DEBUG - The organ is [owning_organ]")
+		if(istype(owning_organ))
+			to_chat(world, "[src] DEBUG - Its layermode is [owning_organ.layer_mode]")
+		else
+			to_chat(world, "[src] DEBUG - Istype failed to pass, is it null?")
 		if(owning_organ?.layer_mode == GENITAL_LAYER_HIGH)
+			to_chat(world, "[src] DEBUG - Layertype is valid, telling it to force layer to max")
 			return TRUE
+	else
+		to_chat(world, "[src] DEBUG - WARNING: Owner is invalid!!")
 	return FALSE
 
 /datum/bodypart_overlay/mutant/genital/bitflag_to_layer(layer)
@@ -205,7 +215,8 @@
 
 /datum/bodypart_overlay/mutant/genital/penis/underwear_check()
 	if(!istype(owner))
-		return TRUE
+		to_chat(world, "[src] DEBUG - WARNING: The [src] had an underwear check, but its owner was null?")
+		return FALSE
 	else
 		if(owner.underwear_visibility & UNDERWEAR_HIDE_UNDIES)
 			return FALSE
@@ -325,7 +336,8 @@
 
 /datum/bodypart_overlay/mutant/genital/testicles/underwear_check()
 	if(!istype(owner))
-		return TRUE
+		to_chat(world, "[src] DEBUG - WARNING: The [src] had an underwear check, but its owner was null?")
+		return FALSE
 	else
 		if(owner.underwear_visibility & UNDERWEAR_HIDE_UNDIES)
 			return FALSE
@@ -405,7 +417,8 @@
 
 /datum/bodypart_overlay/mutant/genital/vagina/underwear_check()
 	if(!istype(owner))
-		return TRUE
+		to_chat(world, "[src] DEBUG - WARNING: The [src] had an underwear check, but its owner was null?")
+		return FALSE
 	else
 		if(owner.underwear_visibility & UNDERWEAR_HIDE_UNDIES)
 			return FALSE
@@ -517,7 +530,8 @@
 
 /datum/bodypart_overlay/mutant/genital/breasts/underwear_check()
 	if(!istype(owner))
-		return TRUE
+		to_chat(world, "[src] DEBUG - WARNING: The [src] had an underwear check, but its owner was null?")
+		return FALSE
 	else
 		if((owner.underwear_visibility & UNDERWEAR_HIDE_SHIRT) && (owner.underwear_visibility & UNDERWEAR_HIDE_BRA))
 			return FALSE
