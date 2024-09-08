@@ -537,7 +537,7 @@
 	n2o_euphoria = EUPHORIA_INACTIVE
 	breather.clear_alert(ALERT_TOO_MUCH_N2O)
 
-// Breath in nitrium. It's helpful, but has nasty side effects
+// Breathe in nitrium. It's helpful, but has nasty side effects
 /obj/item/organ/internal/lungs/proc/too_much_nitrium(mob/living/carbon/breather, datum/gas_mixture/breath, nitrium_pp, old_nitrium_pp)
 	breathe_gas_volume(breath, /datum/gas/nitrium)
 
@@ -606,6 +606,12 @@
 		var/static/datum/gas_mixture/immutable/empty_breath = new(BREATH_VOLUME)
 		breath = empty_breath
 
+	// NOVA EDIT ADDITION - Akula breathing trait
+	if(is_species(breather, /datum/species/akula))
+		if(!breather.has_status_effect(/datum/status_effect/fire_handler/wet_stacks))
+			for(var/datum/gas/gas as anything in breath.gases)
+				breath.gases[gas][MOLES] = 0 //cant filter gas out of the air unless wet
+	// NOVA EDIT ADDITION END
 	// Indicates if there are moles of gas in the breath.
 	var/has_moles = breath.total_moles() != 0
 

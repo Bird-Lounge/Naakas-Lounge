@@ -17,6 +17,8 @@
 	base_icon_state = "mask"
 	slot_flags = ITEM_SLOT_MASK
 	starting_filter_type = null
+	w_class = WEIGHT_CLASS_SMALL
+	flags_cover = MASKCOVERSMOUTH
 	var/mask_on = FALSE
 	var/current_mask_color = "pink"
 	var/breath_status = TRUE
@@ -37,9 +39,7 @@
 	var/temp_check = TRUE //Used to check if user unconsious to prevent choking him until he wakes up
 	/// Does the gasmask impede the user's ability to talk?
 	var/speech_disabled
-	w_class = WEIGHT_CLASS_SMALL
-	modifies_speech = TRUE
-	flags_cover = MASKCOVERSMOUTH
+	var/modifies_speech = TRUE
 
 /obj/item/clothing/mask/gas/bdsm_mask/Initialize(mapload)
 	. = ..()
@@ -70,12 +70,25 @@
 			button.button_icon = 'modular_nova/modules/modular_items/lewd_items/icons/obj/lewd_items/lewd_icons.dmi'
 	update_icon()
 
-/obj/item/clothing/mask/gas/bdsm_mask/handle_speech(datum/source, list/speech_args)
+/obj/item/clothing/mask/gas/bdsm_mask/equipped(mob/equipper, slot)
+	. = ..()
+	if ((slot & ITEM_SLOT_MASK) && modifies_speech)
+		RegisterSignal(equipper, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+	else
+		UnregisterSignal(equipper, COMSIG_MOB_SAY)
+
+/obj/item/clothing/mask/gas/bdsm_mask/dropped(mob/dropper)
+	. = ..()
+	UnregisterSignal(dropper, COMSIG_MOB_SAY)
+
+/obj/item/clothing/mask/gas/bdsm_mask/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+
 	if(speech_disabled)
 		return
 
 	speech_args[SPEECH_MESSAGE] = pick((prob(moans_alt_probability) && LAZYLEN(moans_alt)) ? moans_alt : moans)
-	play_lewd_sound(loc, pick('modular_nova/modules/modular_items/lewd_items/sounds/under_moan_f1.ogg',
+	playsound_if_pref(loc, pick('modular_nova/modules/modular_items/lewd_items/sounds/under_moan_f1.ogg',
 						'modular_nova/modules/modular_items/lewd_items/sounds/under_moan_f2.ogg',
 						'modular_nova/modules/modular_items/lewd_items/sounds/under_moan_f3.ogg',
 						'modular_nova/modules/modular_items/lewd_items/sounds/under_moan_f4.ogg'), 70, 1, -1)
@@ -104,7 +117,7 @@
 /obj/item/clothing/mask/gas/bdsm_mask/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	return TRUE
 
@@ -135,12 +148,12 @@
 // To make in unremovable without helping when mask is on (for MouseDrop)
 /datum/storage/pockets/small/bdsm_mask/on_mousedrop_onto(datum/source, atom/over_object, mob/user)
 	var/obj/item/clothing/mask/gas/bdsm_mask/mask = source
-	if(!istype(mask) || ismecha(user.loc) || user.incapacitated() || !mask.is_locked(user))
+	if(!istype(mask) || ismecha(user.loc) || user.incapacitated || !mask.is_locked(user))
 		return ..()
 	return NONE //handled in mask mousedrop, don't allow content dumping
 
 /obj/item/clothing/mask/gas/bdsm_mask/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(ismecha(user.loc) || user.incapacitated() || !is_locked(user))
+	if(ismecha(user.loc) || user.incapacitated || !is_locked(user))
 		return
 	if(!istype(over_object, /atom/movable/screen/inventory/hand))
 		return
@@ -248,7 +261,7 @@
 /obj/item/clothing/mask/gas/bdsm_mask/proc/toggle(mob/living/carbon/user)
 	mask_on = !mask_on
 	to_chat(user, span_notice("You turn the air filter [mask_on ? "on. Use with caution!" : "off. Now it's safe to wear."]"))
-	play_lewd_sound(user, mask_on ? 'sound/weapons/magin.ogg' : 'sound/weapons/magout.ogg', 40, TRUE)
+	playsound_if_pref(user, mask_on ? 'sound/weapons/magin.ogg' : 'sound/weapons/magout.ogg', 40, TRUE)
 	update_icon_state()
 	update_mob_action_buttonss()
 	update_icon()

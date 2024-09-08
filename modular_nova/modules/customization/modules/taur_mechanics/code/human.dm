@@ -60,7 +60,7 @@
  */
 /mob/living/carbon/human/proc/can_be_ridden_by(mob/living/to_buckle, mob/living/user, silent = FALSE)
 	if (!HAS_TRAIT(src, TRAIT_SADDLED))
-		return FALSE // no feedback as its very very common
+		return FALSE // no feedback as it's very very common
 
 	if (user == src) // would open the inventory screen otherwise
 		return FALSE // no feedback as you get your answer via the inventory screen
@@ -71,11 +71,11 @@
 		cant_buckle_message = "can't ride self!"
 	else if (body_position == LYING_DOWN)
 		cant_buckle_message = "can't ride resting!"
-	else if (incapacitated())
+	else if (incapacitated)
 		cant_buckle_message = "can't mount incapacitated mobs!"
-	else if (user.incapacitated())
+	else if (user.incapacitated)
 		cant_buckle_message = "you are incapacitated!"
-	else if (to_buckle.incapacitated())
+	else if (to_buckle.incapacitated)
 		cant_buckle_message = "rider incapacitated!"
 	else if (length(buckled_mobs))
 		cant_buckle_message = "already being ridden!"
