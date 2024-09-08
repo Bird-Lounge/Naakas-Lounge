@@ -193,6 +193,91 @@
 	button_icon = 'modular_nova/master_files/icons/donator/obj/custom.dmi'
 	button_icon_state = "drawingtablet"
 
+// Donation reward for Thedragmeme
+/obj/item/clothing/neck/padded
+	name = "feathered serenity cloak"
+	desc = "A meticulously handcrafted cloak that is lined with subtle pockets filled with feathers and down. Its design matches common styles from the followers of Univitarium."
+	worn_icon = 'modular_nova/master_files/icons/donator/mob/clothing/neck.dmi'
+	icon = 'modular_nova/master_files/icons/donator/obj/clothing/cloaks.dmi'
+	lefthand_file = 'modular_nova/master_files/icons/donator/mob/inhands/donator_left.dmi'
+	righthand_file = 'modular_nova/master_files/icons/donator/mob/inhands/donator_right.dmi'
+	icon_state = "paddedscarf"
+	inhand_icon_state = "paddedscarf"
+
+/obj/item/clothing/neck/padded/Initialize(mapload)
+	. = ..()
+	AddComponent(\
+		/datum/component/toggle_attached_clothing,\
+		deployable_type = /obj/item/clothing/head/hooded/padded,\
+		equipped_slot = ITEM_SLOT_HEAD,\
+		action_name = "Toggle Hood",\
+		on_deployed = CALLBACK(src, PROC_REF(on_deployed)),\
+	)
+
+//Bandaid fix because obscurity is broken D:
+/obj/item/clothing/neck/padded/proc/on_deployed()
+	var/mob/wearer = loc
+	wearer.update_body()
+
+/obj/item/clothing/head/hooded/padded
+	name = "feathered serenity hood"
+	icon_state = "paddedhood"
+	worn_icon = 'modular_nova/master_files/icons/donator/mob/clothing/neck.dmi'
+	icon = 'modular_nova/master_files/icons/donator/obj/clothing/cloaks.dmi'
+	clothing_flags = SNUG_FIT
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+
+// Donation reward for Thedragmeme
+/obj/item/clothing/under/padded
+	name = "feathered serenity suit"
+	desc = "A meticulously handcrafted suit that is lined on the inside with feathers and down."
+	worn_icon = 'modular_nova/master_files/icons/donator/mob/clothing/suit.dmi'
+	icon = 'modular_nova/master_files/icons/donator/obj/clothing/suits.dmi'
+	lefthand_file = 'modular_nova/master_files/icons/donator/mob/inhands/donator_left.dmi'
+	righthand_file = 'modular_nova/master_files/icons/donator/mob/inhands/donator_right.dmi'
+	icon_state = "paddedunder"
+	inhand_icon_state = "paddedunder"
+
+// Donation reward for Thedragmeme
+/obj/item/clothing/shoes/jackboots/padded
+	name = "serenity jackboots"
+	desc = "Thick boots that is lined with feathers and down. Good footwear almost anticipating harsh weather."
+	worn_icon = 'modular_nova/master_files/icons/donator/mob/clothing/feet.dmi'
+	icon = 'modular_nova/master_files/icons/donator/obj/clothing/shoes.dmi'
+	lefthand_file = 'modular_nova/master_files/icons/donator/mob/inhands/donator_left.dmi'
+	righthand_file = 'modular_nova/master_files/icons/donator/mob/inhands/donator_right.dmi'
+	icon_state = "paddedboots"
+	inhand_icon_state = "paddedboots"
+
+// Donation reward for Thedragmeme and snailomi
+/obj/item/clothing/gloves/padded
+	name = "serenity gloves"
+	desc = "A pair of gloves lined with soft to the touch fur."
+	worn_icon = 'modular_nova/master_files/icons/donator/mob/clothing/hands.dmi'
+	icon = 'modular_nova/master_files/icons/donator/obj/clothing/gloves.dmi'
+	icon_state = "paddedgloves"
+	lefthand_file = 'modular_nova/master_files/icons/donator/mob/inhands/donator_left.dmi'
+	righthand_file = 'modular_nova/master_files/icons/donator/mob/inhands/donator_right.dmi'
+	inhand_icon_state = "paddedgloves"
+
+// Donation reward for snailomi
+/obj/item/clothing/under/padded/alt
+	name = "feathered serenity dress"
+	desc = "A meticulously handcrafted dress that is lined on the inside with feathers and down. Twirling in this dress provides a satisfying result!"
+	icon_state = "paddeddress"
+	inhand_icon_state = "paddeddress"
+
+// Donation reward for snailomi
+/obj/item/clothing/neck/padded/alt
+	name = "feathered serenity cloak"
+	desc = "A meticulously handcrafted cloak that is lined with subtle pockets filled with feathers and down. Its design matches common styles from the followers of Univitarium."
+	icon_state = "paddedscarfalt"
+	inhand_icon_state = "paddedscarfalt"
+
+/obj/item/clothing/head/hooded/padded/alt
+	name = "feathered serenity hood"
+	icon_state = "paddedhoodalt"
+
 /datum/armor/clothing_under/none
 
 /obj/item/clothing/shoes/jackboots/heel
@@ -489,7 +574,7 @@
 	var/goggles = FALSE
 
 /obj/item/clothing/head/avipilot/proc/adjust_goggles(mob/living/carbon/user)
-	if(user?.incapacitated())
+	if(user?.incapacitated)
 		return
 	if(goggles)
 		icon_state = "avipilotup"
@@ -577,7 +662,8 @@
 
 /obj/item/clothing/neck/inferno_collar/Initialize(mapload)
 	. = ..()
-	create_storage(storage_type = /datum/storage/pockets/small/collar)
+	create_storage(storage_type = /datum/storage/pockets/small)
+	atom_storage.set_holdable(/obj/item/food/cookie)
 	if(treat_path)
 		new treat_path(src)
 
@@ -952,7 +1038,7 @@
 /obj/item/clothing/mask/gas/psycho_malice/proc/adjust_mask(mob/living/carbon/human/user)
 	if(!istype(user))
 		return
-	if(!user.incapacitated())
+	if(!user.incapacitated)
 		var/is_worn = user.wear_mask == src
 		wear_hair_over = !wear_hair_over
 		if(wear_hair_over)
@@ -1511,7 +1597,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/korpstech, 32)
 	worn_icon = 'modular_nova/master_files/icons/donator/mob/clothing/uniform.dmi'
 	icon_state = "tactichill"
 
-// Donation reward for thedragmeme
+// Donation reward for thedragmeme and snailom
 /obj/item/clothing/shoes/fancy_heels/drag
 	desc = "A fancy pair of high heels. Clack clack clack... definitely turning a lot of heads."
 
@@ -1886,22 +1972,22 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/korpstech, 32)
 //  Donator reward Smol42
 
 /obj/item/clothing/neck/trenchcoat
-	name = "Graceful Trenchcoat"
+	name = "Secure Trenchcoat"
 	icon = 'modular_nova/master_files/icons/donator/obj/clothing/cloaks.dmi'
 	icon_state = "trenchcoat"
 	worn_icon = 'modular_nova/master_files/icons/donator/mob/clothing/neck.dmi'
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	uses_advanced_reskins = TRUE
 	unique_reskin = list(
-		"White" = list(
+		"Snow" = list(
 			RESKIN_ICON_STATE = "trenchcoat_white",
 			RESKIN_WORN_ICON_STATE = "trenchcoat_white"
 		),
-		"Tin variant" = list(
+		"Tin" = list(
 			RESKIN_ICON_STATE = "trenchcoat_tin",
 			RESKIN_WORN_ICON_STATE = "trenchcoat_tin"
 		),
-		"Blue variant" = list(
+		"Blue" = list(
 			RESKIN_ICON_STATE = "trenchcoat_blue",
 			RESKIN_WORN_ICON_STATE = "trenchcoat_blue"
 		)
@@ -2073,3 +2159,41 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/korpstech, 32)
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
 	slot_flags = ITEM_SLOT_OCLOTHING|ITEM_SLOT_NECK
 	icon_state = "eldercoat"
+
+//donator reward for cosmiclaer
+/obj/item/clothing/under/pants/half_leotard_cosmiclaer
+	name = "one-sleeved leotard"
+	desc = "A fancy, top-of-the-line leotard that some barbarian lopped one of the arms off of."
+	icon_state = "half_leotard"
+	greyscale_config = /datum/greyscale_config/half_leotard
+	greyscale_config_worn = /datum/greyscale_config/half_leotard/worn
+	greyscale_colors = "#80C7D0"
+	flags_1 = IS_PLAYER_COLORABLE_1
+	supports_variations_flags = NONE
+	body_parts_covered = CHEST|ARM_RIGHT|HAND_RIGHT|GROIN
+
+/obj/item/clothing/under/costume/shendyt
+	name = "shendyt"
+	desc = "Traditional clothing straight from Iaret's home planet. Made from a cotton that's quite effective at insulating against outside temperatures, they have the only disadvantage of being fairly poorly covering.\
+	<br> Inspired by an ancient culture of old Earth, it's obvious that some modifications were made to the original model. Nevertheless, their bearer wears them with pride. "
+	icon = 'modular_nova/master_files/icons/donator/obj/clothing/uniform.dmi'
+	worn_icon = 'modular_nova/master_files/icons/donator/mob/clothing/uniform.dmi'
+	icon_state = "shendyt"
+	inhand_icon_state = "labcoat"
+	can_adjust = FALSE
+	supports_variations_flags = NONE
+	body_parts_covered = CHEST|GROIN
+
+/obj/item/clothing/under/costume/shendyt/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/accessory/bracelets/costume_accessory = new(src)
+	attach_accessory(costume_accessory)
+
+/obj/item/clothing/accessory/bracelets
+	name = "golden bracelets"
+	desc = "An assortment of bracelets, necklaces and other small gold (if not precious metal) jewels. Most often worn as a complement to a shendyt, \
+	it is possible to come across their owner ringing like a chime if they should happen to lose this garment."
+	icon_state = "bracelets"
+	attachment_slot = NONE
+	icon = 'modular_nova/master_files/icons/donator/obj/custom.dmi'
+	worn_icon = 'modular_nova/master_files/icons/donator/mob/clothing/custom_w.dmi'

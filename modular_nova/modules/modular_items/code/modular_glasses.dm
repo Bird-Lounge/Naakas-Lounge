@@ -44,7 +44,7 @@
 
 /obj/item/clothing/glasses/hud/ar/proc/toggle_mode(mob/user, voluntary)
 
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user) || user.incapacitated)
 		return
 
 	if(mode == modes[mode])
@@ -95,6 +95,8 @@
 	if(!ishuman(user) || human.glasses != src) // Make sure they're a human wearing the glasses first
 		return
 	for(var/trait in clothing_traits)
+		if(trait == TRAIT_NEARSIGHTED_CORRECTED) // this isn't a HUD!
+			continue
 		ADD_CLOTHING_TRAIT(human, trait)
 
 /obj/item/clothing/glasses/hud/ar/proc/remove_hud(mob/user)
@@ -102,6 +104,8 @@
 	if(!ishuman(user) || human.glasses != src) // Make sure they're a human wearing the glasses first
 		return
 	for(var/trait in clothing_traits)
+		if(trait == TRAIT_NEARSIGHTED_CORRECTED) // this isn't a HUD!
+			continue
 		REMOVE_CLOTHING_TRAIT(human, trait)
 
 /obj/item/clothing/glasses/hud/ar/proc/reset_vars()
@@ -211,12 +215,12 @@
 /obj/item/clothing/glasses/hud/ar/aviator/security/prescription
 	name = "prescription security HUD aviators"
 	desc = "A heads-up display that scans the humanoids in view and provides accurate data about their ID status and security records. This HUD has been fitted inside of a pair of sunglasses with toggleable electrochromatic tinting which. Has lenses that help correct eye sight."
-	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
+	clothing_traits = list(TRAIT_SECURITY_HUD, TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/hud/ar/aviator/health/prescription
 	name = "prescription medical HUD aviators"
 	desc = "A heads-up display that scans the humanoids in view and provides accurate data about their health status. This HUD has been fitted inside of a pair of sunglasses which has lenses that help correct eye sight."
-	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
+	clothing_traits = list(TRAIT_MEDICAL_HUD, TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/hud/ar/aviator/meson/prescription
 	name = "prescription meson HUD aviators"
@@ -226,7 +230,7 @@
 /obj/item/clothing/glasses/hud/ar/aviator/diagnostic/prescription
 	name = "prescription diagnostic HUD aviators"
 	desc = "A heads-up display capable of analyzing the integrity and status of robotics and exosuits. This HUD has been fitted inside of a pair of sunglasses which has lenses that help correct eye sight."
-	clothing_traits = list(TRAIT_NEARSIGHTED_CORRECTED)
+	clothing_traits = list(TRAIT_DIAGNOSTIC_HUD, TRAIT_NEARSIGHTED_CORRECTED)
 
 /obj/item/clothing/glasses/hud/ar/aviator/science/prescription
 	name = "prescription science aviators"
