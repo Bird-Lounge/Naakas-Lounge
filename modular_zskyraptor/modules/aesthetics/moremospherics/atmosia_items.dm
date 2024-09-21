@@ -455,7 +455,7 @@
 			SStgui.close_uis(src)
 
 /obj/item/repainting_kit/proc/check_menu(obj/item/goodie, mob/user)
-	if(user.incapacitated() || !user.is_holding(src) || !goodie)
+	if(user.incapacitated || !user.is_holding(src) || !goodie)
 		repainting_item = null
 		return FALSE
 	return TRUE
