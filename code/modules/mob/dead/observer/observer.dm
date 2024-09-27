@@ -104,11 +104,13 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 
 		mind = body.mind //we don't transfer the mind but we keep a reference to it.
+		set_ghost_appearance(body) /// NAAKAS-LOUNGE ADDITION
 
 		if(HAS_TRAIT_FROM_ONLY(body, TRAIT_SUICIDED, REF(body))) // transfer if the body was killed due to suicide
 			ADD_TRAIT(src, TRAIT_SUICIDED, REF(body))
 
-		if(ishuman(body))
+		/// NAAKAS-LOUNGE REMOVAL BEGIN
+		/*if(ishuman(body))
 			var/mob/living/carbon/human/body_human = body
 			var/datum/species/human_species = body_human.dna.species
 			if(human_species.check_head_flags(HEAD_HAIR))
@@ -116,7 +118,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 				hair_color = ghostify_color(body_human.hair_color)
 			if(human_species.check_head_flags(HEAD_FACIAL_HAIR))
 				facial_hairstyle = body_human.facial_hairstyle
-				facial_hair_color = ghostify_color(body_human.facial_hair_color)
+				facial_hair_color = ghostify_color(body_human.facial_hair_color)*/
+		/// NAAKAS-LOUNGE REMOVAL END
+	else
+		restore_ghost_appearance()
 
 	update_appearance()
 
@@ -208,7 +213,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 
 	if(new_form)
-		icon_state = new_form
+		if(icon == initial(icon))
+			icon_state = new_form
 		if(icon_state in GLOB.ghost_forms_with_directions_list)
 			ghostimage_default.icon_state = new_form + "_nodir" //if this icon has dirs, the default ghostimage must use its nodir version or clients with the preference set to default sprites only will see the dirs
 		else
@@ -220,8 +226,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		updatedir = 0 //stop updating the dir in case we want to show accessories with dirs on a ghost sprite without dirs
 		setDir(2 )//reset the dir to its default so the sprites all properly align up
 
-	if(ghost_accs == GHOST_ACCS_FULL && (icon_state in GLOB.ghost_forms_with_accessories_list)) //check if this form supports accessories and if the client wants to show them
-		if(facial_hairstyle)
+	if(ghost_accs == GHOST_ACCS_FULL && (icon_state in GLOB.ghost_forms_with_accessories_list || icon != initial(icon))) //check if this form supports accessories and if the client wants to show them
+		/// NAAKAS-LOUNGE REMOVAL BEGIN
+		/*if(facial_hairstyle)
 			var/datum/sprite_accessory/S = SSaccessories.facial_hairstyles_list[facial_hairstyle]
 			if(S)
 				facial_hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", -HAIR_LAYER)
@@ -237,7 +244,11 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 					hair_overlay.color = hair_color
 				hair_overlay.alpha = 200
 				hair_overlay.pixel_y = S.y_offset
-				add_overlay(hair_overlay)
+				add_overlay(hair_overlay)*/
+		/// NAAKAS-LOUNGE REMOVAL END
+		if(mind)
+			if(mind.current)
+				set_ghost_appearance(mind.current)
 
 /*
  * Increase the brightness of a color and desaturates it slightly to make it suitable for ghosts
@@ -838,15 +849,20 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		roundstart character."
 	set category = "Ghost"
 
-	set_ghost_appearance()
+	//set_ghost_appearance() /// NAAKAS-LOUNGE REMOVAL
+	var/mob/living/carbon/human/dummy/consistent/template = new /// NAAKAS-LOUNGE ADDITION
 	if(client?.prefs)
 		var/real_name = client.prefs.read_preference(/datum/preference/name/real_name)
 		deadchat_name = real_name
 		if(mind)
 			mind.ghostname = real_name
 		name = real_name
+		client.prefs.apply_prefs_to(template)
+	set_ghost_appearance(template)
+	qdel(template)
 
-/mob/dead/observer/proc/set_ghost_appearance()
+/// NAAKAS-LOUNGE REMOVAL BEGIN
+/*/mob/dead/observer/proc/set_ghost_appearance()
 	if(!client?.prefs)
 		return
 
@@ -862,7 +878,23 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		facial_hairstyle = client.prefs.read_preference(/datum/preference/choiced/facial_hairstyle)
 		facial_hair_color = ghostify_color(client.prefs.read_preference(/datum/preference/color/facial_hair_color))
 
-	update_appearance()
+	update_appearance()*/
+/// NAAKAS-LOUNGE REMOVAL END
+
+/mob/dead/observer/proc/set_ghost_appearance(mob/to_copy)
+	if(!istype(to_copy))
+		icon = initial(icon)
+		icon_state = "ghost"
+		alpha = 255
+		overlays.Cut()
+	else
+		icon = to_copy.icon
+		icon_state = to_copy.icon_state
+		overlays = to_copy.overlays
+		if(ishuman(to_copy))
+			var/mob/living/carbon/human/H = to_copy
+			add_overlay(H.overlays_standing)
+		alpha = 127
 
 /mob/dead/observer/can_perform_action(atom/movable/target, action_bitflags)
 	return isAdminGhostAI(usr)
