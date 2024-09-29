@@ -221,22 +221,56 @@
 							<td style='width:5em;'><font color='#aa00ff'><b>Brute</b></font></td>\
 							<td style='width:4em;'><font color='#ffaa00'><b>Burn</b></font></td>\
 							<td style='width:4em;'><font color='#aaff00'><b>Toxin</b></font></td>\
-							<td style='width:8em;'><font color='#00aaff'><b>Suffocation</b></font></td></tr>\
-							<tr><td><font color='#ff0000'><b>Overall:</b></font></td>\
-							<td><font color='#aa00ff'><b>[CEILING(brute_loss,1)]</b></font></td>\
-							<td><font color='#ffaa00'><b>[CEILING(fire_loss,1)]</b></font></td>\
-							<td><font color='#aaff00'><b>[CEILING(tox_loss,1)]</b></font></td>\
-							<td><font color='#00aaff'><b>[CEILING(oxy_loss,1)]</b></font></td></tr>"
+							<td style='width:8em;'><font color='#00aaff'><b>Suffocation</b></font></td>\
+							</tr>\
+							<tr>\
+							<td><font color='#ff0000'><b>Overall:</b></font></td>\
+							<td><font color='#aa00ff'><b>[ceil(brute_loss)]</b></font></td>\
+							<td><font color='#ffaa00'><b>[ceil(fire_loss)]</b></font></td>\
+							<td><font color='#aaff00'><b>[ceil(tox_loss)]</b></font></td>\
+							<td><font color='#00aaff'><b>[ceil(oxy_loss)]</b></font></td>\
+							</tr>"
 
 			if(mode == SCANNER_VERBOSE)
-				for(var/obj/item/bodypart/limb as anything in damaged)
-					if(limb.bodytype & BODYTYPE_ROBOTIC)
-						dmgreport += "<tr><td><font color='#aaff00'>[capitalize(limb.name)]:</font></td>"
-					else
-						dmgreport += "<tr><td><font color='#00aaff'>[capitalize(limb.plaintext_zone)]:</font></td>"
-					dmgreport += "<td><font color='#aa00ff'>[(limb.brute_dam > 0) ? "[CEILING(limb.brute_dam,1)]" : "0"]</font></td>"
-					dmgreport += "<td><font color='#ffaa00'>[(limb.burn_dam > 0) ? "[CEILING(limb.burn_dam,1)]" : "0"]</font></td></tr>"
-			dmgreport += "</font></table>"
+				// Follow same body zone list every time so it's consistent across all humans
+				for(var/zone in GLOB.all_body_zones)
+					var/obj/item/bodypart/limb = carbontarget.get_bodypart(zone)
+					if(isnull(limb))
+						dmgreport += "<tr>"
+						dmgreport += "<td><font color='#ff0000'>[capitalize(parse_zone(zone))]:</font></td>"
+						dmgreport += "<td><font color='#aa00ff'>-</font></td>"
+						dmgreport += "<td><font color='#ffaa00'>-</font></td>"
+						dmgreport += "</tr>"
+						dmgreport += "<tr><td colspan=6><span class='alert ml-2'>&rdsh; Physical trauma: [conditional_tooltip("Dismembered", "Reattach or replace surgically.", tochat)]</span></td></tr>"
+						continue
+					var/has_any_embeds = length(limb.embedded_objects) >= 1
+					var/has_any_wounds = length(limb.wounds) >= 1
+					var/is_damaged = limb.burn_dam > 0 || limb.brute_dam > 0
+					if(!is_damaged && (zone != BODY_ZONE_CHEST || (tox_loss <= 0 && oxy_loss <= 0)) && !has_any_embeds && !has_any_wounds)
+						continue
+					dmgreport += "<tr>"
+					dmgreport += "<td><font color='#aaff00'>[capitalize((limb.bodytype & BODYTYPE_ROBOTIC) ? limb.name : limb.plaintext_zone)]:</font></td>"
+					dmgreport += "<td><font color='#aa00ff'>[limb.brute_dam > 0 ? ceil(limb.brute_dam) : "0"]</font></td>"
+					dmgreport += "<td><font color='#ffaa00'>[limb.burn_dam > 0 ? ceil(limb.burn_dam) : "0"]</font></td>"
+					if(zone == BODY_ZONE_CHEST) // tox/oxy is stored in the chest
+						dmgreport += "<td><font color='#aaff00'>[tox_loss > 0 ? ceil(tox_loss) : "0"]</font></td>"
+						dmgreport += "<td><font color='#00aaff'>[oxy_loss > 0 ? ceil(oxy_loss) : "0"]</font></td>"
+					dmgreport += "</tr>"
+					if(has_any_embeds)
+						var/list/embedded_names = list()
+						for(var/obj/item/embed as anything in limb.embedded_objects)
+							embedded_names[capitalize(embed.name)] += 1
+						for(var/embedded_name in embedded_names)
+							var/displayed = embedded_name
+							var/embedded_amt = embedded_names[embedded_name]
+							if(embedded_amt > 1)
+								displayed = "[embedded_amt]x [embedded_name]"
+							dmgreport += "<tr><td colspan=6><span class='alert ml-2'>&rdsh; Foreign object(s): [conditional_tooltip(displayed, "Use a hemostat to remove.", tochat)]</span></td></tr>"
+					if(has_any_wounds)
+						for(var/datum/wound/wound as anything in limb.wounds)
+							dmgreport += "<tr><td colspan=6><span class='alert ml-2'>&rdsh; Physical trauma: [conditional_tooltip("[wound.name] ([wound.severity_text()])", wound.treat_text_short, tochat)]</span></td></tr>"
+
+			dmgreport += "</table></font>"
 			render_list += dmgreport // tables do not need extra linebreak
 
 	if(ishuman(target))
@@ -277,34 +311,24 @@
 			if(isnull(organ))
 				if(missing_organs[sorted_slot])
 					render = TRUE
-					toReport += "<tr><td><font color='#cc3333'>[organ.name]:</font></td>\
-						[advanced ? "<td><font color='#ff3333'>[CEILING(organ.damage,1)]</font></td>" : ""]\
-						<td>[status]</td></tr>"
-
-			var/missing_organs = list()
-			if(!humantarget.get_organ_slot(ORGAN_SLOT_BRAIN))
-				missing_organs += "brain"
-			if(!HAS_TRAIT_FROM(humantarget, TRAIT_NOBLOOD, SPECIES_TRAIT) && !humantarget.get_organ_slot(ORGAN_SLOT_HEART))
-				missing_organs += "heart"
-			if(!HAS_TRAIT_FROM(humantarget, TRAIT_NOBREATH, SPECIES_TRAIT) && !humantarget.get_organ_slot(ORGAN_SLOT_LUNGS))
-				missing_organs += "lungs"
-			if(!HAS_TRAIT_FROM(humantarget, TRAIT_LIVERLESS_METABOLISM, SPECIES_TRAIT) && !humantarget.get_organ_slot(ORGAN_SLOT_LIVER))
-				missing_organs += "liver"
-			if(!HAS_TRAIT_FROM(humantarget, TRAIT_NOHUNGER, SPECIES_TRAIT) && !humantarget.get_organ_slot(ORGAN_SLOT_STOMACH))
-				missing_organs += "stomach"
-			if(!humantarget.get_organ_slot(ORGAN_SLOT_TONGUE))
-				missing_organs += "tongue"
-			if(!humantarget.get_organ_slot(ORGAN_SLOT_EARS))
-				missing_organs += "ears"
-			if(!humantarget.get_organ_slot(ORGAN_SLOT_EYES))
-				missing_organs += "eyes"
-
-			if(length(missing_organs))
+					toReport += "<tr><td><font color='#cc3333'>[missing_organs[sorted_slot]]:</font></td>\
+						[advanced ? "<td><font color='#ff3333'>-</font></td>" : ""]\
+						<td><font color='#cc3333'>Missing</font></td></tr>"
+				continue
+			if(mode != SCANNER_VERBOSE && !organ.show_on_condensed_scans())
+				continue
+			var/status = organ.get_status_text(advanced, tochat)
+			var/appendix = organ.get_status_appendix(advanced, tochat)
+			if(status || appendix)
+				status ||= "<font color='#ffcc33'>OK</font>" // otherwise flawless organs have no status reported by default
 				render = TRUE
-				for(var/organ in missing_organs)
-					toReport += "<tr><td><font color='#cc3333'>[organ]:</font></td>\
-						[advanced ? "<td><font color='#ff3333'>["-"]</font></td>" : ""]\
-						<td><font color='#cc3333'>["Missing"]</font></td></tr>"
+				toReport += "<tr>\
+					<td><font color='#cc3333'>[capitalize(organ.name)]:</font></td>\
+					[advanced ? "<td><font color='#ff3333'>[organ.damage > 0 ? ceil(organ.damage) : "0"]</font></td>" : ""]\
+					<td>[status]</td>\
+					</tr>"
+				if(appendix)
+					toReport += "<tr><td colspan=4><span class='alert ml-2'>&rdsh; [appendix]</span></td></tr>"
 
 		if(render)
 			render_list += "<hr>"
