@@ -168,7 +168,7 @@
 	desc = "An old Terran fireaxe, worn but well maintained, with a faint smell of copper and ozone about it.  It feels strangely reassuring in your hands, as if it could solve any problem you faced."
 	tool_behaviour = TOOL_CROWBAR
 	toolspeed = 1
-	usesound = 'sound/items/crowbar.ogg'
+	usesound = 'sound/items/tools/crowbar.ogg'
 
 
 

@@ -21,7 +21,7 @@
 	name = "Talon IV-a"
 	sound_environment = SOUND_AREA_LAVALAND
 	ambience_index = AMBIENCE_ICEMOON
-	ambient_buzz = 'sound/ambience/magma.ogg'
+	ambient_buzz = 'sound/ambience/lavaland/magma.ogg'
 
 /area/centcom/biodome/arrivals
 	icon_state = "biodome_arrivals"
@@ -139,7 +139,7 @@
 	icon_state = "biodome_townhall"
 	name = "Biodome Town Hall"
 	ambientsounds = list(
-		'sound/ambience/signal.ogg',
+		'sound/ambience/misc/signal.ogg',
 		)
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
@@ -581,5 +581,5 @@
 	icon_state = "biohome_evership_bridge"
 	name = "The Evership: Bridge"
 	ambientsounds = list(
-		'sound/ambience/signal.ogg',
+		'sound/ambience/misc/signal.ogg',
 		)

@@ -27,7 +27,7 @@
 	message = "lets out an agonized scream!"
 
 /datum/emote/living/snake_scream/oldspess/get_sound(mob/living/user)
-	return pick('sound/voice/human/malescream_2.ogg')
+	return pick('sound/mobs/humanoids/human/scream/malescream_2.ogg')
 
 /datum/emote/living/snake_scream/jc
 	key = "jcagony"
