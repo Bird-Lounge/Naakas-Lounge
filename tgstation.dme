@@ -8613,6 +8613,8 @@
 #include "modular_nova\modules\verbs\code\subtle.dm"
 #include "modular_nova\modules\veteran_only\code\job_types.dm"
 #include "modular_nova\modules\veteran_only\code\species_types.dm"
+#include "modular_nova\modules\vore-b-gone\ooze_delete.dm"
+#include "modular_nova\modules\vore-b-gone\xenovore_begone.dm"
 #include "modular_nova\modules\vox_sprites\code\color.dm"
 #include "modular_nova\modules\vox_sprites\code\head.dm"
 #include "modular_nova\modules\vox_sprites\code\security.dm"

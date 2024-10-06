@@ -181,11 +181,12 @@
 	name = "alien stomach"
 	icon_state = "stomach-x"
 	w_class = WEIGHT_CLASS_BULKY
-	actions_types = list(/datum/action/cooldown/alien/regurgitate)
+	/// NOVA SECTOR REMOVAL BEGIN
+/*	actions_types = list(/datum/action/cooldown/alien/regurgitate)
 	var/list/atom/movable/stomach_contents = list()
 
 /obj/item/organ/internal/stomach/alien/Destroy()
-	QDEL_LIST(stomach_contents)
+	//QDEL_LIST(stomach_contents)
 	return ..()
 
 /obj/item/organ/internal/stomach/alien/on_life(seconds_per_tick, times_fired)
@@ -345,4 +346,5 @@
 		acid.reagents = acid_reagents
 		acid_reagents.my_atom = acid
 		acid_reagents.add_reagent(/datum/reagent/toxin/acid, 30)
-		acid.move_at(my_target, particle_delay, spit_range)
+		acid.move_at(my_target, particle_delay, spit_range)*/
+/// NOVA SECTOR REMOVAL END
