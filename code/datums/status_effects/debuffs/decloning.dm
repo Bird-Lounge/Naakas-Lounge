@@ -61,8 +61,10 @@
 		owner.set_jitter_if_lower(30 SECONDS)
 
 	if(strikes_left == 0)
-		owner.visible_message(span_danger("[owner]'s skin turns to dust!"), span_boldwarning("Your skin turns to dust!"))
-		owner.dust()
+		/*owner.visible_message(span_danger("[owner]'s skin turns to dust!"), span_boldwarning("Your skin turns to dust!")) /// SKYRAT REMOVAL BEGIN
+		owner.dust()*/ /// SKYRAT REMOVAL END
+		owner.visible_message(span_danger("[owner]'s flesh sloughs off, body falling to pieces!"), span_boldwarning("Your flesh sloughs off, body falling to pieces!"))
+		owner.gib(DROP_ALL_REMAINS) /// SKYRAT REPLACEMENT: dust is bad, exploding into a shower of gore is better
 		return
 
 /datum/status_effect/decloning/get_examine_text()
