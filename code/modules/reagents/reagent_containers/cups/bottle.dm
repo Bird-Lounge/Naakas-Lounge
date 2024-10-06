@@ -485,13 +485,14 @@
 	amount_per_transfer_from_this = 5
 	spillable = FALSE
 	///variable to tell if the bottle can be refilled
-	var/cap_on = TRUE
+	//var/cap_on = TRUE /// NAAKAS-LOUNGE REMOVAL: we already have caps
 
-/obj/item/reagent_containers/cup/bottle/syrup_bottle/examine(mob/user)
+/// NAAKAS-LOUNGE REMOVAL: ditto
+/*/obj/item/reagent_containers/cup/bottle/syrup_bottle/examine(mob/user)
 	. = ..()
 	. += span_notice("Alt-click to toggle the pump cap.")
 	. += span_notice("Use a pen on it to rename it.")
-	return
+	return*/
 
 //when you attack the syrup bottle with a container it refills it
 /obj/item/reagent_containers/cup/bottle/syrup_bottle/attackby(obj/item/attacking_item, mob/user, params)
@@ -523,7 +524,8 @@
 
 	return TRUE
 
-/obj/item/reagent_containers/cup/bottle/syrup_bottle/click_alt(mob/user)
+/// NAAKAS-LOUNGE REMOVAL: ditto
+/*/obj/item/reagent_containers/cup/bottle/syrup_bottle/click_alt(mob/user)
 	cap_on = !cap_on
 	if(!cap_on)
 		icon_state = "syrup_open"
@@ -532,7 +534,7 @@
 		icon_state = "syrup"
 		balloon_alert(user, "put pump cap on")
 	update_icon_state()
-	return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_SUCCESS*/
 
 /obj/item/reagent_containers/cup/bottle/syrup_bottle/proc/rename(mob/user, obj/item/writing_instrument)
 	if(!user.can_write(writing_instrument))

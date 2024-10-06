@@ -551,7 +551,8 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 					balloon_alert(user, "target is blocked!")
 					return
 				playsound(get_turf(src), SFX_TOOL_SWITCH, 20, TRUE)
-				if(do_after(user, disposal_build_speed, target = attack_target))
+				if(TRUE) /// NAAKAS-LOUNGE EDIT: trying to get these instant
+				//if(do_after(user, disposal_build_speed, target = attack_target))
 					var/obj/structure/disposalconstruct/new_disposals_segment = new (attack_target, queued_pipe_type, queued_pipe_dir, queued_pipe_flipped)
 
 					if(!new_disposals_segment.can_place())
@@ -581,7 +582,8 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 					return
 
 				playsound(get_turf(src), SFX_TOOL_SWITCH, 20, TRUE)
-				if(do_after(user, transit_build_speed, target = attack_target))
+				if(TRUE)
+				//if(do_after(user, transit_build_speed, target = attack_target))
 					playsound(get_turf(src), RPD_USE_SOUND, 50, TRUE)
 					if(queued_pipe_type == /obj/structure/c_transit_tube_pod)
 						var/obj/structure/c_transit_tube_pod/pod = new /obj/structure/c_transit_tube_pod(attack_target)
@@ -618,18 +620,18 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 
 	var/can_make_pipe = check_can_make_pipe(atom_to_target)
 	var/list/pipe_layer_numbers = get_active_pipe_layers()
-	var/continued_build = FALSE
+	//var/continued_build = FALSE
 	for(var/pipe_layer_num in 1 to length(pipe_layer_numbers))
 		var/layer_to_build = pipe_layer_numbers[pipe_layer_num]
-		if(layer_to_build != pipe_layer_numbers[1])
-			continued_build = TRUE
+		/*if(layer_to_build != pipe_layer_numbers[1])
+			continued_build = TRUE*/
 		if(!layer_to_build)
 			return FALSE
 		if(!can_make_pipe)
 			return FALSE
 		playsound(get_turf(src), SFX_TOOL_SWITCH, 20, vary = TRUE)
-		if(!continued_build && !do_after(user, atmos_build_speed, target = atom_to_target))
-			return FALSE
+		/*if(!continued_build && !do_after(user, atmos_build_speed, target = atom_to_target))
+			return FALSE*/  /// NAAKAS-LOUNGE REMOVAL: continued_build is effectively always true, removing the do_after makes this always return false
 		if(!recipe.all_layers && (layer_to_build == 1 || layer_to_build == 5))
 			balloon_alert(user, "can't build on layer [layer_to_build]!")
 			if(multi_layer)
