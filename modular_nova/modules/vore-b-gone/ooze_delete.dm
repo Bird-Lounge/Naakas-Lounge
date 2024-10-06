@@ -6,7 +6,5 @@
 
 /datum/action/consume/New(target)
 	. = ..()
-	// Allow necessary functions to avoid erroring before dying.
+	// Prevents this from being added manually.
 	Remove(target)
-	QDELL_NULL(src)
-	// Did you think you could add this manually?  Wrong.

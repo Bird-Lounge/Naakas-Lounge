@@ -181,12 +181,11 @@
 	name = "alien stomach"
 	icon_state = "stomach-x"
 	w_class = WEIGHT_CLASS_BULKY
-	/// NOVA SECTOR REMOVAL BEGIN
-/*	actions_types = list(/datum/action/cooldown/alien/regurgitate)
+	actions_types = list(/datum/action/cooldown/alien/regurgitate)
 	var/list/atom/movable/stomach_contents = list()
 
 /obj/item/organ/internal/stomach/alien/Destroy()
-	//QDEL_LIST(stomach_contents)
+	QDEL_LIST(stomach_contents)
 	return ..()
 
 /obj/item/organ/internal/stomach/alien/on_life(seconds_per_tick, times_fired)
@@ -196,9 +195,21 @@
 	// Digest the stuff in our stomach, just a bit
 	var/static/list/digestable_cache = typecacheof(list(/mob/living, /obj/item/food, /obj/item/reagent_containers))
 	for(var/atom/movable/thing as anything in stomach_contents)
-		if(!digestable_cache[thing.type])
+		/// NOVA SECTOR ADDITION BEGIN
+		var/atom/play_from = owner || src
+		playsound(get_turf(play_from), 'sound/mobs/non-humanoids/alien/alien_explode.ogg', 100, extrarange = 4)
+		eject_stomach(border_diamond_range_turfs(play_from, 6), 5, 1.5, 1, 8)
+		if(owner)
+			shake_camera(owner, 2, 5)
+			owner.investigate_log("has been gibbed by having something inside [owner.p_their()] stomach.", INVESTIGATE_DEATHS)
+			owner.gib(DROP_ALL_REMAINS)
+		qdel(src)
+		/// NOVA SECTOR ADDITION END
+		/// NOVA SECTOR REMOVAL BEGIN
+		/*if(!digestable_cache[thing.type])
 			continue
-		thing.acid_act(75, 10)
+		thing.acid_act(75, 10)*/
+		/// NOVA SECTOR REMOVAL END
 
 /obj/item/organ/internal/stomach/alien/proc/consume_thing(atom/movable/thing)
 	RegisterSignal(thing, COMSIG_MOVABLE_MOVED, PROC_REF(content_moved))
@@ -346,5 +357,4 @@
 		acid.reagents = acid_reagents
 		acid_reagents.my_atom = acid
 		acid_reagents.add_reagent(/datum/reagent/toxin/acid, 30)
-		acid.move_at(my_target, particle_delay, spit_range)*/
-/// NOVA SECTOR REMOVAL END
+		acid.move_at(my_target, particle_delay, spit_range)
