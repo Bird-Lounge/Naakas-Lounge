@@ -12,7 +12,6 @@
 
 /obj/item/bonesetter
 	icon = 'modular_zskyraptor/modules/aesthetics/oldnewsurgery/oldnewsurgery.dmi'
-	icon_state = "bonesetter" //idk why we need to do this, they just HAD to rename it
 
 /obj/item/blood_filter
 	icon = 'modular_zskyraptor/modules/aesthetics/oldnewsurgery/oldnewsurgery.dmi'
@@ -34,7 +33,7 @@
 	. = ..()
 	if(active)
 		set_light_range(2)
-		set_light_color("#FF6600")
+		set_light_color("#FFAA00")
 	else
 		set_light_range(2)
 		set_light_color("#AAFF00")
@@ -54,7 +53,7 @@
 	. = ..()
 	if(active)
 		//set_light_range(1)
-		set_light_color("#FF6600")
+		set_light_color("#FFAA00")
 	else
 		//set_light_range(1)
 		set_light_color("#AAFF00")
@@ -84,6 +83,13 @@
 	empty = TRUE
 /obj/item/storage/medkit/advanced/empty
 	empty = TRUE
+
+/obj/item/storage/medkit/ancient
+	icon = 'modular_zskyraptor/modules/aesthetics/oldnewsurgery/oldnewsurgery.dmi'
+	lefthand_file = 'modular_zskyraptor/modules/aesthetics/oldnewsurgery/oldnewsurgery_inhand_l.dmi'
+	righthand_file = 'modular_zskyraptor/modules/aesthetics/oldnewsurgery/oldnewsurgery_inhand_r.dmi'
+	icon_state = "medkit_old"
+	inhand_icon_state = "oldkit"
 
 /obj/item/storage/medkit/buffs
 	name = "support medkit"
@@ -133,7 +139,7 @@
 	id = "medkit_buffs"
 	build_path = /obj/item/storage/medkit/buffs
 
-/datum/techweb_node/biotech/New()
+/datum/techweb_node/medbay_equip/New()
 	design_ids += list(
 		"medkit",
 		"medkit_brute",
@@ -165,7 +171,7 @@
 	id = "medkit_surgery"
 	build_path = /obj/item/storage/medkit/surgery/empty
 
-/datum/techweb_node/adv_biotech/New()
+/datum/techweb_node/medbay_equip_adv/New()
 	design_ids += list(
 		"medkit_advanced",
 		"medkit_surgery",
