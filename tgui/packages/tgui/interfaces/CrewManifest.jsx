@@ -1,6 +1,6 @@
-import { Icon, Section, Table, Tooltip } from 'tgui-core/components';
-import { classes } from '../../common/react';
+import { Icon, Section, Table, Tooltip } from 'tgui/components';
 
+import { classes } from '../../common/react';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 

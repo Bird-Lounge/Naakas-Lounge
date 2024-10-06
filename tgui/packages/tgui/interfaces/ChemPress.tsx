@@ -6,7 +6,7 @@ import {
   LabeledList,
   NumberInput,
   Section,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { capitalizeAll } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
