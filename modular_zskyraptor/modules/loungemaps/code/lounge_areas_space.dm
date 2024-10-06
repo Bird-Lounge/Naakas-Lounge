@@ -36,7 +36,7 @@
 	icon_state = "tinystation_bridge"
 	name = "T-IV-a Orbital Bridge"
 	ambientsounds = list(
-		'sound/ambience/signal.ogg',
+		'sound/ambience/misc/signal.ogg',
 		)
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_wires = /datum/wires/airlock/command
@@ -84,7 +84,7 @@
 	name = "T-IV-a Orbital CMO's Office"
 	airlock_wires = /datum/wires/airlock/command
 	ambientsounds = list(
-		'sound/ambience/signal.ogg',
+		'sound/ambience/misc/signal.ogg',
 		)
 
 //engineering
@@ -115,7 +115,7 @@
 	name = "T-IV-a Orbital CE's Office"
 	airlock_wires = /datum/wires/airlock/command
 	ambientsounds = list(
-		'sound/ambience/signal.ogg',
+		'sound/ambience/misc/signal.ogg',
 		)
 
 //cargo
@@ -134,7 +134,7 @@
 	name = "T-IV-a Orbital QM's Office"
 	airlock_wires = /datum/wires/airlock/command
 	ambientsounds = list(
-		'sound/ambience/signal.ogg',
+		'sound/ambience/misc/signal.ogg',
 		)
 
 //service
@@ -173,7 +173,7 @@
 	name = "T-IV-a Orbital HOP's Office"
 	airlock_wires = /datum/wires/airlock/command
 	ambientsounds = list(
-		'sound/ambience/signal.ogg',
+		'sound/ambience/misc/signal.ogg',
 		)
 
 //science
@@ -199,7 +199,7 @@
 	name = "T-IV-a Orbital RD's Office"
 	airlock_wires = /datum/wires/airlock/command
 	ambientsounds = list(
-		'sound/ambience/signal.ogg',
+		'sound/ambience/misc/signal.ogg',
 		)
 
 //security
@@ -230,5 +230,5 @@
 	name = "T-IV-a Orbital HOS' Office"
 	airlock_wires = /datum/wires/airlock/command
 	ambientsounds = list(
-		'sound/ambience/signal.ogg',
+		'sound/ambience/misc/signal.ogg',
 		)
