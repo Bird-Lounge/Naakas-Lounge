@@ -170,6 +170,14 @@
 	var/south_layer = UNIFORM_LAYER
 	var/north_layer = BODY_BEHIND_LAYER
 
+/obj/item/clothing/sextoy/belly_function/examine(mob/user)
+	. = ..()
+	. += "Current size: [current_size_unclamped]"
+	if(istype(nommed))
+		. += "Current nommed guest: [nommed]"
+	else
+		. += "No nommed guest."
+
 /obj/item/clothing/sextoy/belly_function/click_alt(mob/living/user)
 	var/adjustment_mode = tgui_input_list(user, "Select ", "Belly Control", list("Change Color", "Set Size Modifier", "Set Baseline Cosmetic Size", "Set Baseline Endo Size", "Set Baseline Stuffed Size", "Set Eaten Guest Size"))
 	if(adjustment_mode)
