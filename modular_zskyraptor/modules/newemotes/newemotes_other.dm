@@ -6,7 +6,6 @@
 	muzzle_ignore = FALSE
 	hands_use_check = FALSE
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
-	audio_cooldown = 2 SECONDS
 
 /datum/emote/living/dook/get_sound(mob/living/user)
 	return pick('modular_zskyraptor/modules/newemotes/sounds/tannhauser_dook.ogg')
@@ -18,7 +17,6 @@
 	muzzle_ignore = FALSE
 	hands_use_check = FALSE
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
-	audio_cooldown = 2 SECONDS
 
 /datum/emote/living/raow/get_sound(mob/living/user)
 	return pick('modular_zskyraptor/modules/newemotes/sounds/tannhauser_raow.ogg')

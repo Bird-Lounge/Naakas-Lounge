@@ -155,7 +155,6 @@ GLOBAL_LIST_INIT(urglass_recipes, list ( \
 	name = "uraniumglass"
 	desc = "Uranium-infused silicate. It is much more durable and heat resistant than either of its component materials, and something about the silica interplays with the uranium to make fantastic rad-capture."
 	color = "#d5ff80"
-	greyscale_colors = "#d5ff8096"
 	alpha = 150
 	starlight_color = "#AAFF00FF"
 	init_flags = MATERIAL_INIT_MAPLOAD

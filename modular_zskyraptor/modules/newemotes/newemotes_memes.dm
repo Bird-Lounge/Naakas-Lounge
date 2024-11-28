@@ -5,7 +5,6 @@
 	muzzle_ignore = FALSE
 	hands_use_check = FALSE
 	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
-	audio_cooldown = 1 SECONDS
 	vary = FALSE
 
 /datum/emote/living/snake_scream/run_emote(mob/user, params, type_override, intentional)
