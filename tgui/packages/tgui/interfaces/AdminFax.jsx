@@ -10,7 +10,7 @@ import {
   Section,
   TextArea,
   Tooltip,
-} from 'tgui-core/components';
+} from 'tgui/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';

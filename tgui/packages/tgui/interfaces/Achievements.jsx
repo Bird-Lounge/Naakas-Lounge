@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Flex, Icon, Table, Tabs, Tooltip } from 'tgui-core/components';
+import { Box, Flex, Icon, Table, Tabs, Tooltip } from 'tgui/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';

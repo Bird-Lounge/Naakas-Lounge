@@ -9,7 +9,7 @@ import {
   Section,
   Stack,
   Table,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { classes } from 'tgui-core/react';
 
 import { resolveAsset } from '../assets';

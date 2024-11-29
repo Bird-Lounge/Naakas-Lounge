@@ -1,4 +1,4 @@
-import { Box, Dropdown, Input, Section, TextArea } from 'tgui-core/components';
+import { Box, Dropdown, Input, Section, TextArea } from 'tgui/components';
 
 import { useBackend, useLocalState } from '../backend';
 import { Button } from '../components/Button';

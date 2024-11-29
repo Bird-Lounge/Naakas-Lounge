@@ -7,7 +7,7 @@ import {
   Section,
   Stack,
   Tabs,
-} from 'tgui-core/components';
+} from 'tgui/components';
 
 import { useBackend } from '../backend';
 import { formatMoney } from '../format';

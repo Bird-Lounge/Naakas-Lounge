@@ -10,7 +10,7 @@ import {
   Section,
   Stack,
   Table,
-} from 'tgui-core/components';
+} from 'tgui/components';
 
 import { createSearch } from '../../common/string';
 import { useBackend } from '../backend';

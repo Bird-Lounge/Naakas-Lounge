@@ -14,7 +14,7 @@ import {
   Stack,
   Table,
   Tooltip,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { BooleanLike } from 'tgui-core/react';
 import { capitalize } from 'tgui-core/string';
 
