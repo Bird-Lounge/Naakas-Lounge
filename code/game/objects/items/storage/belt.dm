@@ -295,6 +295,7 @@
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/weaponcell/medical, //NOVA EDIT MEDIGUNS
 		/obj/item/handheld_soulcatcher, // NOVA EDIT SOULCATCHERS
+		/obj/item/storage/hypospraykit, //NOVA EDIT ADDITION - HYPOSPRAYS
 		/obj/item/wrench/medical,
 		/obj/item/knife/ritual,
 	))
