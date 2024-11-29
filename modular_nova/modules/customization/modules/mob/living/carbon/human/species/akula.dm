@@ -7,6 +7,7 @@
 
 /datum/species/akula
 	name = "Akula"
+	plural_form = "Akulae"
 	id = SPECIES_AKULA
 	lore_protected = TRUE
 	offset_features = list(
@@ -16,9 +17,11 @@
 		OFFSET_HEAD = list(0, 2),
 		OFFSET_HAIR = list(0, 1),
 	)
-	eyes_icon = 'modular_nova/modules/organs/icons/akula_eyes.dmi'
+	mutantbrain = /obj/item/organ/internal/brain/carp/akula
+	mutantheart = /obj/item/organ/internal/heart/carp/akula
+	mutantlungs = /obj/item/organ/internal/lungs/carp/akula
+	mutanttongue = /obj/item/organ/internal/tongue/carp/akula
 	mutanteyes = /obj/item/organ/internal/eyes/akula
-	mutanttongue = /obj/item/organ/internal/tongue/akula
 	inherent_traits = list(
 		TRAIT_ADVANCEDTOOLUSER,
 		TRAIT_CAN_STRIP,
@@ -29,7 +32,6 @@
 	)
 	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mutant_bodyparts = list()
-	outfit_important_for_life = /datum/outfit/akula
 	payday_modifier = 1.0
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	bodypart_overrides = list(
@@ -61,6 +63,52 @@
 	"These generations split apart by distance are known for their animosity towards the other. To those in the New Principalities, their coreward cousins have lost the 'Azulean spirit;' rotting apart in their palaces, sitting in waters choked with ennui. Their forever expansion into the frontier colonies, their use of every useful material and lifeform is what they believe their Kingdom is fueled by. But to those in the Old Principalities, their edgeward descendants have lost their minds. They believe the spiritual and societal importance of their Homeworld has fallen on deaf ears, and the lackadaisical attitude about the core mechanisms and noble structures holding the Kingdom together has become nothing short of infuriating. It is the belief of many high-ranking members of the Monarchy that the ongoing terraforming processes in the frontiers are proof of the arrogance of the 'border princes' controlling them; each and every world made in the image of a planet the King himself is meant to protect.",
 	"Yet, despite their differences, all Agurkrral citizens swim freely in their kingdom's waters. Even the most controlling border princes, even those in the Old Principalities working the slave trade, know better than to openly erode a citizen's right to life, property, and speech. Any alien species can become an Agurkrral citizen, and even non-citizens enjoy the right to life, with executions outright banned. The aristocracy remains well-educated, even the edgerunner warlords of the New Principalities, and the Kingdom as a whole enjoys its status as a nation that's now a true rival to Sol. Larger, more populated, and better developed; though, having to 'integrate' Solarian technologies, goods, and peoples to fully succeed. The Azuleans are even known as an environmentally-focused people; although they hold no care for lands they cannot make use of, modern nobles are still in charge of maintaining the biosphere of lands they control, to allow their strangely engineered flora and fauna to thrive, and for the people to have healthy and clean waters to live in.",
 	)
+
+/datum/species/akula/create_pref_unique_perks()
+	var/list/perks = list()
+	perks += list(list(
+		SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+		SPECIES_PERK_ICON = FA_ICON_TOOTH,
+		SPECIES_PERK_NAME = "Big Bites",
+		SPECIES_PERK_DESC = "Instead of throwing punches, you use your sharp teeth to bite for more damage."
+	))
+	perks += list(list(
+		SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+		SPECIES_PERK_ICON = FA_ICON_PERSON_WALKING,
+		SPECIES_PERK_NAME = "Space Walking",
+		SPECIES_PERK_DESC = "You can move around in zero-gravity environments, just like your ancestors."
+	))
+	perks += list(list(
+		SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+		SPECIES_PERK_ICON = FA_ICON_HAND,
+		SPECIES_PERK_NAME = "Slippery Skin",
+		SPECIES_PERK_DESC = "When sufficiently wet, you have a bonus chance to escape from grabs."
+	))
+	perks += list(list(
+		SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+		SPECIES_PERK_ICON = FA_ICON_SHIRT,
+		SPECIES_PERK_NAME = "Wetsuits",
+		SPECIES_PERK_DESC = "You spawn with clothing that will keep you perpetually wet if not removed."
+	))
+	perks += list(list(
+		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+		SPECIES_PERK_ICON = FA_ICON_LUNGS,
+		SPECIES_PERK_NAME = "Gills",
+		SPECIES_PERK_DESC = "If you are not wet, you will not be able to breathe oxygen!",
+	))
+	perks += list(list(
+		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+		SPECIES_PERK_ICON = FA_ICON_ARROW_DOWN,
+		SPECIES_PERK_NAME = "Nomadic DNA",
+		SPECIES_PERK_DESC = "You never want to stay in one place."
+	))
+	perks += list(list(
+		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+		SPECIES_PERK_ICON = FA_ICON_PERSON_FALLING,
+		SPECIES_PERK_NAME = "Slippery Soles",
+		SPECIES_PERK_DESC = "When sufficiently wet, all slips will send you flying, even just a wet floor.",
+	))
+	return perks
 
 /datum/species/akula/randomize_features()
 	var/list/features = ..()
@@ -102,17 +150,6 @@
 	regenerate_organs(akula, src, visual_only = TRUE)
 	akula.update_body(TRUE)
 
-/obj/item/organ/internal/eyes/akula
-	// Eyes over hair as bandaid for the low amounts of head matching hair
-	eyes_layer = HAIR_LAYER-0.1
-
-
-/obj/item/organ/internal/tongue/akula
-	liked_foodtypes = SEAFOOD | RAW
-	disliked_foodtypes = CLOTH | DAIRY
-	toxic_foodtypes = TOXIC
-
-
 /datum/species/akula/get_random_body_markings(list/passed_features)
 	var/datum/body_marking_set/body_marking_set = GLOB.body_marking_sets["Akula"]
 	var/list/markings = list()
@@ -121,10 +158,75 @@
 	return markings
 
 /datum/species/akula/pre_equip_species_outfit(datum/job/job, mob/living/carbon/human/equipping, visuals_only = FALSE)
+	//should not call parent
 	if(job?.akula_outfit)
 		equipping.equipOutfit(job.akula_outfit, visuals_only)
-	else
-		give_important_for_life(equipping)
+
+///Organ overwrites
+
+// set bonus
+/datum/status_effect/organ_set_bonus/carp/akula
+	id = "organ_set_bonus_carp_akula"
+	limb_overlay = null // no carpskin
+
+//Eyes
+/obj/item/organ/internal/eyes/akula
+	// Eyes over hair as bandaid for the low amounts of head matching hair
+	eyes_layer = HAIR_LAYER-0.1
+
+//Brain
+/obj/item/organ/internal/brain/carp/akula
+	name = "azulean brain"
+
+/obj/item/organ/internal/brain/carp/akula/Initialize(mapload)
+	. = ..()
+	RemoveElement(/datum/element/organ_set_bonus, /datum/status_effect/organ_set_bonus/carp)
+	AddElement(/datum/element/organ_set_bonus, /datum/status_effect/organ_set_bonus/carp/akula)
+
+//Heart
+/obj/item/organ/internal/heart/carp/akula
+	name = "azulean heart"
+	organ_traits = list()
+
+/obj/item/organ/internal/heart/carp/akula/Initialize(mapload)
+	. = ..()
+	RemoveElement(/datum/element/organ_set_bonus, /datum/status_effect/organ_set_bonus/carp)
+	AddElement(/datum/element/organ_set_bonus, /datum/status_effect/organ_set_bonus/carp/akula)
+
+//Tongue
+/obj/item/organ/internal/tongue/carp/akula
+	name = "azulean jaws"
+	liked_foodtypes = SEAFOOD | RAW
+	disliked_foodtypes = CLOTH | DAIRY
+	toxic_foodtypes = TOXIC
+
+/obj/item/organ/internal/tongue/carp/akula/Initialize(mapload)
+	. = ..()
+	RemoveElement(/datum/element/organ_set_bonus, /datum/status_effect/organ_set_bonus/carp)
+	AddElement(/datum/element/organ_set_bonus, /datum/status_effect/organ_set_bonus/carp/akula)
+
+/obj/item/organ/internal/tongue/carp/akula/on_mob_insert(mob/living/carbon/tongue_owner, special, movement_flags)
+	. = ..()
+	if(!ishuman(tongue_owner))
+		return
+	var/mob/living/carbon/human/human_receiver = tongue_owner
+	if(!human_receiver.can_mutate())
+		return
+	var/datum/species/rec_species = human_receiver.dna.species
+	rec_species.update_no_equip_flags(tongue_owner, initial(rec_species.no_equip_flags))
+
+//Lungs
+/obj/item/organ/internal/lungs/carp/akula
+	name = "azulean lungs"
+	safe_oxygen_min = /obj/item/organ/internal/lungs::safe_oxygen_min
+	safe_oxygen_max = /obj/item/organ/internal/lungs::safe_oxygen_max
+
+/obj/item/organ/internal/lungs/carp/akula/Initialize(mapload)
+	. = ..()
+	REMOVE_TRAIT(src, TRAIT_SPACEBREATHING, REF(src))
+	RemoveElement(/datum/element/organ_set_bonus, /datum/status_effect/organ_set_bonus/carp)
+	AddElement(/datum/element/organ_set_bonus, /datum/status_effect/organ_set_bonus/carp/akula)
+
 
 // Wet_stacks handling
 // more about grab_resists in `code\modules\mob\living\living.dm` at li 1119
@@ -144,7 +246,7 @@
 /// This proc is called when a mob with TRAIT_SLICK_SKIN gains over 10 wet_stacks
 /datum/species/akula/proc/wetted(mob/living/carbon/akula)
 	SIGNAL_HANDLER
-	// Apply the slippery trait if its not there yet
+	// Apply the slippery trait if it's not there yet
 	if(!HAS_TRAIT(akula, TRAIT_SLIPPERY))
 		ADD_TRAIT(akula, TRAIT_SLIPPERY, SPECIES_TRAIT)
 

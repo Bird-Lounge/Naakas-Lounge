@@ -21,15 +21,14 @@
 	add_atom_colour(ethereal_color, FIXED_COLOUR_PRIORITY)
 	update_appearance()
 
-/obj/item/organ/internal/heart/ethereal/Insert(mob/living/carbon/heart_owner, special = FALSE, drop_if_replaced = TRUE)
+/obj/item/organ/internal/heart/ethereal/mob_insert(mob/living/carbon/heart_owner, special = FALSE, movement_flags)
 	. = ..()
-	if(!.)
-		return
+
 	RegisterSignal(heart_owner, COMSIG_MOB_STATCHANGE, PROC_REF(on_stat_change))
 	RegisterSignal(heart_owner, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(on_owner_fully_heal))
 	RegisterSignal(heart_owner, COMSIG_QDELETING, PROC_REF(owner_deleted))
 
-/obj/item/organ/internal/heart/ethereal/Remove(mob/living/carbon/heart_owner, special = FALSE)
+/obj/item/organ/internal/heart/ethereal/mob_remove(mob/living/carbon/heart_owner, special, movement_flags)
 	UnregisterSignal(heart_owner, list(COMSIG_MOB_STATCHANGE, COMSIG_LIVING_POST_FULLY_HEAL, COMSIG_QDELETING))
 	REMOVE_TRAIT(heart_owner, TRAIT_CORPSELOCKED, SPECIES_TRAIT)
 	stop_crystalization_process(heart_owner)
@@ -88,12 +87,12 @@
 
 	crystalize_timer_id = addtimer(CALLBACK(src, PROC_REF(crystalize), victim), CRYSTALIZE_PRE_WAIT_TIME, TIMER_STOPPABLE)
 
-	RegisterSignal(victim, COMSIG_HUMAN_DISARM_HIT, PROC_REF(reset_crystalizing))
+	RegisterSignal(victim, COMSIG_LIVING_DISARM_HIT, PROC_REF(reset_crystalizing))
 	RegisterSignal(victim, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine), override = TRUE)
 	RegisterSignal(victim, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_take_damage))
 
 ///Ran when disarmed, prevents the ethereal from reviving
-/obj/item/organ/internal/heart/ethereal/proc/reset_crystalizing(mob/living/defender, mob/living/attacker, zone)
+/obj/item/organ/internal/heart/ethereal/proc/reset_crystalizing(mob/living/defender, mob/living/attacker, zone, obj/item/weapon)
 	SIGNAL_HANDLER
 	defender.visible_message(
 		span_notice("The crystals on [defender] are gently broken off."),
@@ -120,7 +119,7 @@
 
 ///Stop the crystalization process, unregistering any signals and resetting any variables.
 /obj/item/organ/internal/heart/ethereal/proc/stop_crystalization_process(mob/living/ethereal, succesful = FALSE)
-	UnregisterSignal(ethereal, COMSIG_HUMAN_DISARM_HIT)
+	UnregisterSignal(ethereal, COMSIG_LIVING_DISARM_HIT)
 	UnregisterSignal(ethereal, COMSIG_ATOM_EXAMINE)
 	UnregisterSignal(ethereal, COMSIG_MOB_APPLY_DAMAGE)
 
@@ -188,7 +187,7 @@
 	src.ethereal_heart = ethereal_heart
 	ethereal_heart.owner.visible_message(span_notice("The crystals fully encase [ethereal_heart.owner]!"))
 	to_chat(ethereal_heart.owner, span_notice("You are encased in a huge crystal!"))
-	playsound(get_turf(src), 'sound/effects/ethereal_crystalization.ogg', 50)
+	playsound(get_turf(src), 'sound/mobs/humanoids/ethereal/ethereal_crystalization.ogg', 50)
 	var/atom/movable/possible_chair = ethereal_heart.owner.buckled
 	possible_chair?.unbuckle_mob(ethereal_heart.owner, force = TRUE)
 	ethereal_heart.owner.forceMove(src) //put that ethereal in
@@ -204,7 +203,7 @@
 	update_appearance(UPDATE_OVERLAYS)
 
 /obj/structure/ethereal_crystal/atom_destruction(damage_flag)
-	playsound(get_turf(ethereal_heart.owner), 'sound/effects/ethereal_revive_fail.ogg', 100)
+	playsound(get_turf(ethereal_heart.owner), 'sound/mobs/humanoids/ethereal/ethereal_revive_fail.ogg', 100)
 	return ..()
 
 /obj/structure/ethereal_crystal/Destroy()
@@ -217,7 +216,7 @@
 	ethereal_heart.owner.forceMove(get_turf(src))
 	REMOVE_TRAIT(ethereal_heart.owner, TRAIT_CORPSELOCKED, SPECIES_TRAIT)
 	deltimer(crystal_heal_timer)
-	visible_message(span_notice("The crystals shatters, causing [ethereal_heart.owner] to fall out."))
+	visible_message(span_notice("The crystalline mass shatters, retreating into [ethereal_heart.owner]'s newly formed body.")) //NOVA EDIT CHANGE - Ethereal Rework 2024 - This reads cooler, okay? - ORIGINAL: visible_message(span_notice("The crystals shatters, causing [ethereal_heart.owner] to fall out."))
 	return ..()
 
 /obj/structure/ethereal_crystal/update_overlays()
@@ -237,10 +236,11 @@
 	// revive will regenerate organs, so our heart refence is going to be null'd. Unreliable
 	var/mob/living/carbon/regenerating = ethereal_heart.owner
 
-	playsound(get_turf(regenerating), 'sound/effects/ethereal_revive.ogg', 100)
-	to_chat(regenerating, span_notice("You burst out of the crystal with vigour... </span><span class='userdanger'>But at a cost."))
-	regenerating.gain_trauma(picked_trauma, TRAUMA_RESILIENCE_ABSOLUTE)
-	regenerating.revive(HEAL_ALL & ~HEAL_REFRESH_ORGANS)
+	playsound(get_turf(regenerating), 'sound/mobs/humanoids/ethereal/ethereal_revive.ogg', 100)
+	to_chat(regenerating, span_purple("You burst out of the crystal with vigour... but you feel as if you should keep safe for a little while.")) //NOVA EDIT CHANGE - Ethereal Rework 2024 - ORIGINAL: to_chat(regenerating, span_notice("You burst out of the crystal with vigour... </span><span class='userdanger'>But at a cost."))
+	regenerating.revive(HEAL_ALL & ~HEAL_REFRESH_ORGANS) //NOVA EDIT CHANGE - Ethereal Rework 2024 - Original: regenerating.gain_trauma(picked_trauma, TRAUMA_RESILIENCE_SURGERY)
+	regenerating.gain_trauma(picked_trauma, TRAUMA_RESILIENCE_SURGERY) //NOVA EDIT CHANGE - Ethereal Rework 2024 - Original: regenerating.revive(HEAL_ALL & ~HEAL_REFRESH_ORGANS)
+	regenerating.apply_status_effect(/datum/status_effect/vulnerable_to_damage) //NOVA EDIT ADDITION - This lasts for five minutes, the full duration of the cooldown.
 	// revive calls fully heal -> deletes the crystal.
 	// this qdeleted check is just for sanity.
 	if(!QDELETED(src))

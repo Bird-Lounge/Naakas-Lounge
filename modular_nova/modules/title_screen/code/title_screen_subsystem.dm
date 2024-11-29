@@ -26,11 +26,11 @@ SUBSYSTEM_DEF(title)
 
 /datum/controller/subsystem/title/Initialize()
 	var/dat
-	if(!fexists("[global.config.directory]/skyrat/title_html.txt"))
+	if(!fexists("[global.config.directory]/nova/title_html.txt"))
 		to_chat(world, span_boldwarning("CRITICAL ERROR: Unable to read title_html.txt, reverting to backup title html, please check your server config and ensure this file exists."))
 		dat = DEFAULT_TITLE_HTML
 	else
-		dat = file2text("[global.config.directory]/skyrat/title_html.txt")
+		dat = file2text("[global.config.directory]/nova/title_html.txt")
 
 	title_html = dat
 
@@ -42,7 +42,7 @@ SUBSYSTEM_DEF(title)
 		if((LAZYLEN(formatted_list) == 1 && (formatted_list[1] != "exclude" && formatted_list[1] != "blank.png" && formatted_list[1] != "startup_splash")))
 			local_title_screens += screen
 
-		if(LAZYLEN(formatted_list) > 1 && lowertext(formatted_list[1]) == "startup_splash")
+		if(LAZYLEN(formatted_list) > 1 && LOWER_TEXT(formatted_list[1]) == "startup_splash")
 			var/file_path = "[global.config.directory]/title_screens/images/[screen]"
 			ASSERT(fexists(file_path))
 			startup_splash = new(fcopy_rsc(file_path))
@@ -97,7 +97,7 @@ SUBSYSTEM_DEF(title)
 		return
 
 	// If there's no info about the current map, use the defaults.
-	var/list/map_info = progress_json[SSmapping.config.map_name]
+	var/list/map_info = progress_json[SSmapping.current_map.map_name]
 	if(!islist(map_info))
 		return
 
@@ -111,14 +111,14 @@ SUBSYSTEM_DEF(title)
 
 	progress_json["_version"] = TITLE_PROGRESS_CACHE_VERSION
 
-	if(progress_json[SSmapping.config.map_name])
+	if(progress_json[SSmapping.current_map.map_name])
 		// Save total time and updated message timings. Latest time is worth 1/4 the "average"
 		map_info["total"] = 0.75 * average_completion_time + 0.25 * (world.timeofday - progress_reference_time)
 	else
 		// New. Just save the time it took.
 		map_info["total"] = world.timeofday - progress_reference_time
 	map_info["messages"] = startup_message_timings
-	progress_json[SSmapping.config.map_name] = map_info
+	progress_json[SSmapping.current_map.map_name] = map_info
 
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(progress_json))

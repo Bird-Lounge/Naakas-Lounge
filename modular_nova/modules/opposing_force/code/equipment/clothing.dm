@@ -80,7 +80,7 @@
 	new /obj/item/clothing/suit/armor/bulletproof(src)
 	new /obj/item/clothing/shoes/combat(src)
 	new /obj/item/clothing/gloves/combat(src)
-	new /obj/item/clothing/mask/gas/sechailer/syndicate(src)
+	new /obj/item/clothing/mask/neck_gaiter(src)
 	new /obj/item/clothing/glasses/meson/night(src)
 	new /obj/item/storage/belt/military/assault(src)
 	new /obj/item/radio/headset/syndicate/alt(src)
@@ -97,7 +97,7 @@
 	new /obj/item/clothing/shoes/combat(src)
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/clothing/mask/gas/ninja(src)
-	new /obj/item/clothing/glasses/hud/health/night/meson(src) //damn its sexy
+	new /obj/item/clothing/glasses/hud/health/night/meson(src) //damn it's sexy
 	new /obj/item/storage/belt/military/assault(src)
 	new /obj/item/radio/headset/syndicate/alt(src)
 	new /obj/item/card/id/advanced/chameleon(src)
@@ -122,15 +122,14 @@
 
 /datum/opposing_force_equipment/clothing_sol/sol_militant
 	name = "Sol Militant"
-	description = "There is a war being fought, and its taking place right here."
-	admin_note = "Uniquely strong power armour."
+	description = "There is a war being fought, and it's taking place right here."
 	item_type = /obj/item/storage/backpack/ert/odst/hecu/sol_militant
 
 /obj/item/storage/backpack/ert/odst/hecu/sol_militant/PopulateContents()
-	new /obj/item/clothing/under/rank/security/officer/hecu(src)
-	new /obj/item/clothing/suit/space/hev_suit/pcv(src)
-	new /obj/item/clothing/head/helmet/space/hev_suit/pcv(src)
-	new /obj/item/storage/belt/military/assault/hecu(src)
+	new /obj/item/clothing/under/sol_peacekeeper(src)
+	new /obj/item/clothing/suit/armor/sf_peacekeeper(src)
+	new /obj/item/clothing/head/helmet/sf_peacekeeper(src)
+	new /obj/item/storage/belt/military/assault(src)
 	new /obj/item/clothing/mask/gas/hecu2(src)
 	new /obj/item/clothing/shoes/combat(src)
 	new /obj/item/clothing/gloves/combat(src)

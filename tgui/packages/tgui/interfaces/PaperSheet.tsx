@@ -390,7 +390,7 @@ export class PrimaryView extends Component {
                   bold={useBold}
                   height="100%"
                   backgroundColor={paper_color}
-                  onChange={(e, text) => {
+                  onInput={(e, text) => {
                     setTextAreaText(text);
 
                     if (this.scrollableRef.current) {
@@ -673,9 +673,9 @@ export class PreviewView extends Component<PreviewViewProps> {
     color: string,
     bold: boolean = false,
   ): string => {
-    return `<span style={{color:${color};font-family:${font};${
+    return `<span style="color:${color};font-family:${font};${
       bold ? 'font-weight: bold;' : ''
-    }}}>${text}</span>`;
+    }">${text}</span>`;
   };
 
   // Parses the given raw text through marked for applying markdown.

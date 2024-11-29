@@ -7,11 +7,11 @@
 
 
 /datum/preference/choiced/digitigrade_legs/create_default_value()
-	return "Normal Legs"
+	return NORMAL_LEGS
 
 
 /datum/preference/choiced/digitigrade_legs/init_possible_values()
-	return assoc_to_keys_features(GLOB.sprite_accessories["legs"])
+	return list(NORMAL_LEGS, DIGITIGRADE_LEGS)
 
 /datum/preference/choiced/digitigrade_legs/is_accessible(datum/preferences/preferences)
 	return ..() && is_usable(preferences)
@@ -41,5 +41,6 @@
 
 	target.dna.features["legs"] = value
 
+	target.update_body()
 	target.dna.species.replace_body(target, target.dna.species) // TODO: Replace this with something less stupidly expensive.
 	return TRUE

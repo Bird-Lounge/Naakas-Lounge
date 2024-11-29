@@ -6,7 +6,7 @@
 	examine_desc = "appears to be loosely secured"
 	occur_text = "jostles awkwardly and seems to slightly unfasten"
 	severity = WOUND_SEVERITY_MODERATE
-	simple_treat_text = "<b>Bandaging</b> the wound will reduce the impact until it's <b>screws are secured</b> - which is <b>faster</b> if done by \
+	simple_treat_text = "<b>Bandaging</b> the wound will reduce the impact until its <b>screws are secured</b> - which is <b>faster</b> if done by \
 	<b>someone else</b>, a <b>roboticist</b>, an <b>engineer</b>, or with a <b>diagnostic HUD</b>."
 	homemade_treat_text = "In a pinch, <b>percussive maintenance</b> can reset the screws - the chance of which is increased if done by <b>someone else</b> or \
 	with a <b>diagnostic HUD</b>!"
@@ -43,7 +43,7 @@
 	var/delay_mult = 1
 
 	if (user == victim)
-		delay_mult *= 3
+		delay_mult *= 2
 
 	if (HAS_TRAIT(user, TRAIT_DIAGNOSTIC_HUD))
 		delay_mult *= 0.5
@@ -56,7 +56,7 @@
 	victim.visible_message(span_notice("[user] begins fastening the screws of [their_or_other] [limb.plaintext_zone]..."), \
 		span_notice("You begin fastening the screws of [your_or_other] [limb.plaintext_zone]..."))
 
-	if (!screwdriver_tool.use_tool(target = victim, user = user, delay = (10 SECONDS * delay_mult), volume = 50, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
+	if (!screwdriver_tool.use_tool(target = victim, user = user, delay = (6 SECONDS * delay_mult), volume = 50, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
 		return
 
 	victim.visible_message(span_green("[user] finishes fastening [their_or_other] [limb.plaintext_zone]!"), \

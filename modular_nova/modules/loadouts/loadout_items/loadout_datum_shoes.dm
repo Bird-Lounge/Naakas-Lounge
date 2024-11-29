@@ -1,12 +1,14 @@
+/datum/loadout_category/feet
+	category_name = "Feet"
+	category_ui_icon = FA_ICON_SHOE_PRINTS
+	type_to_generate = /datum/loadout_item/shoes
+	tab_order = /datum/loadout_category/hands::tab_order + 1
+
 /*
 *	LOADOUT ITEM DATUMS FOR THE SHOE SLOT
 */
-
-/// Shoe Slot Items (Deletes overrided items)
-GLOBAL_LIST_INIT(loadout_shoes, generate_loadout_items(/datum/loadout_item/shoes))
-
 /datum/loadout_item/shoes
-	category = LOADOUT_ITEM_SHOES
+	abstract_type = /datum/loadout_item/shoes
 
 /datum/loadout_item/shoes/pre_equip_item(datum/outfit/outfit, datum/outfit/outfit_important_for_life, mob/living/carbon/human/equipper, visuals_only = FALSE)
 	if(initial(outfit_important_for_life.shoes))
@@ -42,6 +44,14 @@ GLOBAL_LIST_INIT(loadout_shoes, generate_loadout_items(/datum/loadout_item/shoes
 	name = "Recolorable Jackboots"
 	item_path = /obj/item/clothing/shoes/jackboots/recolorable
 
+/datum/loadout_item/shoes/colonial_boots
+	name = "Colonial Half-Boots"
+	item_path = /obj/item/clothing/shoes/jackboots/colonial
+
+/datum/loadout_item/shoes/jackboots/frontier
+	name = "Heavy Frontier Boots"
+	item_path = /obj/item/clothing/shoes/jackboots/frontier_colonist
+
 /*
 *	MISC BOOTS
 */
@@ -73,6 +83,10 @@ GLOBAL_LIST_INIT(loadout_shoes, generate_loadout_items(/datum/loadout_item/shoes
 /datum/loadout_item/shoes/russian_boots
 	name = "Russian Boots"
 	item_path = /obj/item/clothing/shoes/russian
+
+/datum/loadout_item/shoes/duck_boots
+	name = "Northeastern Duck Boots"
+	item_path = /obj/item/clothing/shoes/jackboots/duckboots
 
 /*
 *	COWBOY
@@ -109,34 +123,42 @@ GLOBAL_LIST_INIT(loadout_shoes, generate_loadout_items(/datum/loadout_item/shoes
 /datum/loadout_item/shoes/black_sneakers
 	name = "Black Sneakers"
 	item_path = /obj/item/clothing/shoes/sneakers/black
+	can_be_greyscale = DONT_GREYSCALE
 
 /datum/loadout_item/shoes/blue_sneakers
 	name = "Blue Sneakers"
 	item_path = /obj/item/clothing/shoes/sneakers/blue
+	can_be_greyscale = DONT_GREYSCALE
 
 /datum/loadout_item/shoes/brown_sneakers
 	name = "Brown Sneakers"
 	item_path = /obj/item/clothing/shoes/sneakers/brown
+	can_be_greyscale = DONT_GREYSCALE
 
 /datum/loadout_item/shoes/green_sneakers
 	name = "Green Sneakers"
 	item_path = /obj/item/clothing/shoes/sneakers/green
+	can_be_greyscale = DONT_GREYSCALE
 
 /datum/loadout_item/shoes/purple_sneakers
 	name = "Purple Sneakers"
 	item_path = /obj/item/clothing/shoes/sneakers/purple
+	can_be_greyscale = DONT_GREYSCALE
 
 /datum/loadout_item/shoes/orange_sneakers
 	name = "Orange Sneakers"
 	item_path = /obj/item/clothing/shoes/sneakers/orange
+	can_be_greyscale = DONT_GREYSCALE
 
 /datum/loadout_item/shoes/yellow_sneakers
 	name = "Yellow Sneakers"
 	item_path = /obj/item/clothing/shoes/sneakers/yellow
+	can_be_greyscale = DONT_GREYSCALE
 
 /datum/loadout_item/shoes/white_sneakers
 	name = "White Sneakers"
 	item_path = /obj/item/clothing/shoes/sneakers/white
+	can_be_greyscale = DONT_GREYSCALE
 
 /*
 *	LEG WRAPS
@@ -157,6 +179,9 @@ GLOBAL_LIST_INIT(loadout_shoes, generate_loadout_items(/datum/loadout_item/shoes
 /datum/loadout_item/shoes/bluecuffs
 	name = "Blue Leg Wraps"
 	item_path = /obj/item/clothing/shoes/wraps/blue
+
+/datum/loadout_item/shoes/cuffs
+	abstract_type = /datum/loadout_item/shoes/cuffs
 
 /datum/loadout_item/shoes/cuffs/colourable
 	name = "Colourable Leg Wraps"
@@ -194,9 +219,23 @@ GLOBAL_LIST_INIT(loadout_shoes, generate_loadout_items(/datum/loadout_item/shoes
 	name = "Green Snakeskin Shoes"
 	item_path = /obj/item/clothing/shoes/discoshoes
 
+/datum/loadout_item/shoes/kim
+	name = "Aerostatic Shoes"
+	item_path = /obj/item/clothing/shoes/kim
+
 /datum/loadout_item/shoes/dominaheels
 	name = "Dominant Heels"
 	item_path = /obj/item/clothing/shoes/latex_heels/domina_heels
+	erp_item = TRUE
+
+/datum/loadout_item/shoes/latex_socks
+	name = "Latex Socks"
+	item_path = /obj/item/clothing/shoes/latex_socks
+	erp_item = TRUE
+
+/datum/loadout_item/shoes/latex_heels
+	name = "Latex Heels"
+	item_path = /obj/item/clothing/shoes/latex_heels
 	erp_item = TRUE
 
 /datum/loadout_item/shoes/griffin
@@ -214,6 +253,18 @@ GLOBAL_LIST_INIT(loadout_shoes, generate_loadout_items(/datum/loadout_item/shoes
 /datum/loadout_item/shoes/rollerskates
 	name = "Roller Skates"
 	item_path = /obj/item/clothing/shoes/wheelys/rollerskates
+
+/datum/loadout_item/shoes/wheelys
+	name = "Wheely-Heels"
+	item_path = /obj/item/clothing/shoes/wheelys
+
+/datum/loadout_item/shoes/jingleshoes
+	name = "Jester Shoes"
+	item_path = /obj/item/clothing/shoes/jester_shoes
+
+/datum/loadout_item/shoes/sandals_black
+	name = "Black Sandals"
+	item_path = /obj/item/clothing/shoes/sandal/alt
 
 /*
 *	SEASONAL
@@ -233,9 +284,12 @@ GLOBAL_LIST_INIT(loadout_shoes, generate_loadout_items(/datum/loadout_item/shoes
 */
 
 /datum/loadout_item/shoes/jester
-	name = "Jester Shoes"
+	name = "Clown's Jester Shoes"
 	item_path = /obj/item/clothing/shoes/clown_shoes/jester
 	restricted_roles = list(JOB_CLOWN)
+
+/datum/loadout_item/shoes/clown_shoes
+	abstract_type = /datum/loadout_item/shoes/clown_shoes
 
 /datum/loadout_item/shoes/clown_shoes/pink
 	name = "Pink Clown Shoes"
@@ -247,6 +301,7 @@ GLOBAL_LIST_INIT(loadout_shoes, generate_loadout_items(/datum/loadout_item/shoes
 */
 
 /datum/loadout_item/shoes/donator
+	abstract_type = /datum/loadout_item/shoes/donator
 	donator_only = TRUE
 
 /datum/loadout_item/shoes/donator/blackjackboots

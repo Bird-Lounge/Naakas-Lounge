@@ -4,9 +4,8 @@
 	desc = "A box with the essentials of your operation. This one is labelled to contain an extended-capacity tank."
 	icon_state = "syndiebox"
 	illustration = "extendedtank"
-	mask_type = /obj/item/clothing/mask/gas/sechailer/syndicate // neck gaiter
+	mask_type = /obj/item/clothing/mask/neck_gaiter
 	internal_type = /obj/item/tank/internals/emergency_oxygen/engi
-	medipen_type =  /obj/item/reagent_containers/hypospray/medipen/atropine
 
 /obj/item/storage/box/survival/interdyne/PopulateContents()
 	..()

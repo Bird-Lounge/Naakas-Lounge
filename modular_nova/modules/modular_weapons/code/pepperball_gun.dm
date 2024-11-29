@@ -7,9 +7,9 @@
 	accepted_magazine_type = /obj/item/ammo_box/magazine/pepperball
 	can_suppress = FALSE
 	fire_sound = 'sound/effects/pop_expl.ogg'
-	rack_sound = 'sound/weapons/gun/pistol/rack.ogg'
-	lock_back_sound = 'sound/weapons/gun/pistol/slide_lock.ogg'
-	bolt_drop_sound = 'sound/weapons/gun/pistol/slide_drop.ogg'
+	rack_sound = 'sound/items/weapons/gun/pistol/rack.ogg'
+	lock_back_sound = 'sound/items/weapons/gun/pistol/slide_lock.ogg'
+	bolt_drop_sound = 'sound/items/weapons/gun/pistol/slide_drop.ogg'
 	fire_sound_volume = 50
 
 /obj/item/gun/ballistic/automatic/pistol/pepperball/give_manufacturer_examine()
@@ -43,7 +43,7 @@
 	stamina = 5
 	shrapnel_type = null
 	sharpness = NONE
-	embedding = null
+	embed_data = null
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 	var/contained_reagent = /datum/reagent/consumable/condensedcapsaicin
 	var/reagent_volume = 5
@@ -79,11 +79,3 @@
 		/datum/material/iron = SHEET_MATERIAL_AMOUNT * 3,
 	)
 	max_ammo = 15
-
-// Gunset for the pepperball pistol
-
-/obj/item/storage/toolbox/guncase/nova/pistol/pepperball
-	name = "Pepperball AHG gunset"
-
-	weapon_to_spawn = /obj/item/gun/ballistic/automatic/pistol/pepperball
-	extra_to_spawn = /obj/item/ammo_box/magazine/pepperball

@@ -8,8 +8,8 @@
 		return
 	if(slot & ITEM_SLOT_HEAD)
 		if(user.ears && (flags_inv & HIDEEARS))
-			user.update_inv_ears()
-		if(!(user.bodytype & BODYTYPE_ALT_FACEWEAR_LAYER))
+			user.update_worn_ears()
+		if(!(user.bodyshape & BODYSHAPE_ALT_FACEWEAR_LAYER))
 			return
 		if(!isnull(alternate_worn_layer) && alternate_worn_layer < BODY_FRONT_LAYER) // if the alternate worn layer was already lower than snouts then leave it be
 			return
@@ -27,7 +27,7 @@
 /obj/item/clothing/head/proc/update_on_removed(mob/living/carbon/user, obj/item/hat)
 	SIGNAL_HANDLER
 	if(istype(user) && user.ears)
-		user.update_inv_ears()
+		user.update_worn_ears()
 	UnregisterSignal(user, COMSIG_CARBON_UNEQUIP_HAT)
 
 /obj/item/clothing/head/bio_hood
@@ -45,6 +45,24 @@
 
 /obj/item/clothing/head/helmet/chaplain
 	worn_icon_muzzled = 'modular_nova/master_files/icons/mob/clothing/head/chaplain_muzzled.dmi'
+
+/obj/item/clothing/head/hooded/monkhabit
+	greyscale_config = /datum/greyscale_config/monk_habit_hood
+	greyscale_config_worn = /datum/greyscale_config/monk_habit_hood/worn
+	greyscale_colors = "#8C531A#9C7132"
+	flags_1 = IS_PLAYER_COLORABLE_1
+
+/obj/item/clothing/head/chaplain/nun_hood
+	greyscale_config = /datum/greyscale_config/nun_hood
+	greyscale_config_worn = /datum/greyscale_config/nun_hood/worn
+	greyscale_colors = "#373548#FFFFFF"
+	flags_1 = IS_PLAYER_COLORABLE_1
+
+/obj/item/clothing/head/chaplain/habit_veil
+	greyscale_config = /datum/greyscale_config/nun_veil
+	greyscale_config_worn = /datum/greyscale_config/nun_veil/worn
+	greyscale_colors = "#373548#FFFFFF"
+	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/clothing/head/collectable/welding
 	worn_icon_muzzled = 'modular_nova/master_files/icons/mob/clothing/head_muzzled.dmi'

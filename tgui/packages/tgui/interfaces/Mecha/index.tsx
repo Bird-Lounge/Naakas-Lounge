@@ -1,4 +1,6 @@
-import { useBackend, useLocalState } from '../../backend';
+import { useState } from 'react';
+
+import { useBackend } from '../../backend';
 import {
   Button,
   ByondUi,
@@ -27,7 +29,7 @@ export const Mecha = (props) => {
 
 export const Content = (props) => {
   const { act, data } = useBackend<MainData>();
-  const [edit_access, editAccess] = useLocalState('edit_access', false);
+  const [edit_access, editAccess] = useState(false);
   const {
     name,
     mecha_flags,
@@ -163,8 +165,8 @@ const PowerBar = (props) => {
           ? 'Power cell missing'
           : power_level === 1e31
             ? 'Infinite'
-            : `${formatSiUnit(power_level * 1000, 0, 'J')} of ${formatSiUnit(
-                power_max * 1000,
+            : `${formatSiUnit(power_level, 0, 'J')} of ${formatSiUnit(
+                power_max,
                 0,
                 'J',
               )}`}

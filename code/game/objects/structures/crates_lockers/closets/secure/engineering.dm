@@ -18,6 +18,7 @@
 	new /obj/item/extinguisher/advanced(src)
 	new /obj/item/storage/photo_album/ce(src)
 	new /obj/item/storage/box/skillchips/engineering(src)
+	new /obj/item/storage/box/stickers/chief_engineer(src)
 	new /obj/item/storage/box/gas_miner_beacons(src) // NOVA EDIT ADDITION
 	new /obj/item/construction/plumbing/engineering(src) //NOVA EDIT ADDITION
 	new /obj/item/circuitboard/machine/rodstopper(src) //NOVA EDIT ADDITION
@@ -27,7 +28,7 @@
 	. = ..()
 
 	// Traitor steal objective
-	new /obj/item/areaeditor/blueprints(src)
+	new /obj/item/blueprints(src)
 	new /obj/item/pipe_dispenser/bluespace(src) // NOVA EDIT -- BLUESPACE RPD -- ORIGINAL: new /obj/item/pipe_dispenser(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical

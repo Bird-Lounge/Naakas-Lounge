@@ -1,7 +1,7 @@
 #define MODE_GRAVOFF "Off"
 #define MODE_ANTIGRAVITY "Anti-Gravity Field"
 #define MODE_EXTRAGRAVITY "Extra-Gravity Field"
-#define GRAVITY_FIELD_COST 20
+#define GRAVITY_FIELD_COST STANDARD_CELL_CHARGE * 0.05
 #define OFF_STATE "gravityharness-off"
 #define ANTIGRAVITY_STATE "gravityharness-anti"
 #define EXTRAGRAVITY_STATE "gravityharness-extra"
@@ -21,7 +21,7 @@
 	/// The current operating mode
 	var/mode = MODE_GRAVOFF
 	/// The cell that the harness is currently using
-	var/obj/item/stock_parts/cell/current_cell
+	var/obj/item/stock_parts/power_store/cell/current_cell
 	/// If the cell cover is open or not
 	var/cell_cover_open = FALSE
 	/// If it's manipulating gravity at all.
@@ -61,7 +61,7 @@
 /// This cycles the harness's current mode to the next one, likely using the action button. Goes from Off to Anti to Extra, always.
 /obj/item/gravity_harness/proc/toggle_mode(mob/user, voluntary)
 
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user) || user.incapacitated)
 		return FALSE
 
 	if(!gravity_on && (!current_cell || current_cell.charge < GRAVITY_FIELD_COST))
@@ -101,6 +101,7 @@
 	user.RemoveElement(/datum/element/forced_gravity, 0)
 	REMOVE_TRAIT(user, TRAIT_NEGATES_GRAVITY, CLOTHING_TRAIT)
 
+	var/datum/quirk/spacer_born/spacer = user.get_quirk(/datum/quirk/spacer_born)
 	switch(target_mode)
 		if(MODE_ANTIGRAVITY)
 			mode = MODE_ANTIGRAVITY
@@ -115,6 +116,10 @@
 			icon_state = ANTIGRAVITY_STATE
 			worn_icon_state = ANTIGRAVITY_STATE
 
+			//are we a spacer? if so, let the quirk know we're back in low gravity conditions
+			if (!isnull(spacer))
+				spacer.in_space(user)
+
 		if(MODE_EXTRAGRAVITY)
 			mode = MODE_EXTRAGRAVITY
 
@@ -127,6 +132,10 @@
 			gravity_on = TRUE
 			icon_state = EXTRAGRAVITY_STATE
 			worn_icon_state = EXTRAGRAVITY_STATE
+
+			//are we a spacer? if so, let the quirk know we're in extremely uncomfortable extragrav
+			if (!isnull(spacer))
+				spacer.on_planet(user)
 
 		if(MODE_GRAVOFF)
 			if(!user.has_gravity() && mode != MODE_GRAVOFF)
@@ -145,6 +154,10 @@
 			icon_state = OFF_STATE
 			worn_icon_state = OFF_STATE
 
+			//are we a spacer? if so, make the quirk assert the correct condition based on where we are
+			if (!isnull(spacer))
+				spacer.check_z(user)
+
 		else
 			return FALSE
 
@@ -152,7 +165,6 @@
 	update_appearance()
 
 	return TRUE
-
 
 /obj/item/gravity_harness/dropped(mob/user)
 	. = ..()
@@ -164,6 +176,7 @@
 
 /obj/item/gravity_harness/attack_self(mob/user)
 	toggle_mode(user, TRUE)
+
 /// This outputs the harness's current mode and cell charge to your status tab, so you don't need to examine it every time.
 /obj/item/gravity_harness/proc/get_status_tab_item(mob/living/source, list/items)
 	SIGNAL_HANDLER
@@ -185,6 +198,7 @@
 	// If we got here, the gravity field is on. If there's no cell, turn that shit off
 	if(!current_cell)
 		change_mode(MODE_GRAVOFF)
+		return
 
 	// cell.use will return FALSE if charge is lower than GRAVITY_FIELD_COST
 	if(!current_cell.use(GRAVITY_FIELD_COST))
@@ -194,14 +208,6 @@
 /obj/item/gravity_harness/get_cell()
 	if(cell_cover_open)
 		return current_cell
-
-/obj/item/gravity_harness/Exited(atom/movable/gone, direction)
-	. = ..()
-	if(gone == current_cell)
-		change_mode(MODE_GRAVOFF)
-		current_cell = null
-
-	return ..()
 
 // Show the status of the harness and cell
 /obj/item/gravity_harness/examine(mob/user)
@@ -232,8 +238,8 @@
 	cell_cover_open = !cell_cover_open
 	return TRUE
 
-/obj/item/gravity_harness/attack_hand(mob/user)
-	if(!cell_cover_open)
+/obj/item/gravity_harness/attack_hand(mob/user, list/modifiers)
+	if(!cell_cover_open || loc != user)
 		return ..()
 
 	if(!current_cell)
@@ -245,6 +251,7 @@
 		balloon_alert(user, "interrupted!")
 		return
 
+	change_mode(MODE_GRAVOFF)
 	balloon_alert(user, "cell removed")
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 	if(!user.put_in_hands(current_cell))
@@ -259,26 +266,26 @@
 		current_cell.emp_act(severity)
 		change_mode(MODE_GRAVOFF)
 
-/obj/item/gravity_harness/attackby(obj/item/attacking_item, mob/living/user, params)
-	if(!istype(attacking_item, /obj/item/stock_parts/cell))
+/obj/item/gravity_harness/tool_act(mob/living/user, obj/item/tool, list/modifiers)
+	if(!istype(tool, /obj/item/stock_parts/power_store/cell))
 		return ..()
 
 	if(!cell_cover_open)
 		balloon_alert(user, "open the cell cover first!")
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return FALSE
+		playsound(src, 'sound/machines/buzz/buzz-sigh.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return ITEM_INTERACT_BLOCKING
 
 	if(current_cell)
 		balloon_alert(user, "cell already installed!")
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return FALSE
+		playsound(src, 'sound/machines/buzz/buzz-sigh.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return ITEM_INTERACT_BLOCKING
 
 	/// Shadow realm? I'm sending you to Lake City, FL!
-	attacking_item.moveToNullspace()
-	current_cell = attacking_item
+	tool.moveToNullspace()
+	current_cell = tool
 	balloon_alert(user, "cell installed")
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
-	return TRUE
+	return ITEM_INTERACT_SUCCESS
 
 #undef MODE_GRAVOFF
 #undef MODE_ANTIGRAVITY

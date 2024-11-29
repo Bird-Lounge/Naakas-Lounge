@@ -26,15 +26,26 @@
 #define ORGAN_HIDDEN (1<<9)
 /// Has the organ already been inserted inside someone
 #define ORGAN_VIRGIN (1<<10)
-// NOVA EDIT START - Customization
+/// ALWAYS show this when scanned by advanced scanners, even if it is totally healthy
+#define ORGAN_PROMINENT (1<<11)
+/// An organ that is ostensibly dangerous when inside a body
+#define ORGAN_HAZARDOUS (1<<12)
+// NOVA EDIT ADDITION START - Customization
 /// Synthetic organ granted by a species (for use for organ replacements between species)
-#define ORGAN_SYNTHETIC_FROM_SPECIES (1<<11)
-// NOVA EDIT END
+#define ORGAN_SYNTHETIC_FROM_SPECIES (1<<13)
+// NOVA EDIT ADDITION END
+
+/// Scarring on the right eye
+#define RIGHT_EYE_SCAR (1<<0)
+/// Scarring on the left eye
+#define LEFT_EYE_SCAR (1<<1)
 
 /// Helper to figure out if a limb is organic
 #define IS_ORGANIC_LIMB(limb) (limb.bodytype & BODYTYPE_ORGANIC)
 /// Helper to figure out if a limb is robotic
 #define IS_ROBOTIC_LIMB(limb) (limb.bodytype & BODYTYPE_ROBOTIC)
+/// Helper to figure out if a limb is a peg limb
+#define IS_PEG_LIMB(limb) (limb.bodytype & BODYTYPE_PEG)
 
 // Flags for the bodypart_flags var on /obj/item/bodypart
 /// Bodypart cannot be dismembered or amputated

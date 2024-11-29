@@ -54,15 +54,20 @@
 	name =".60 Strela bullet"
 	icon_state = "gaussphase"
 	speed = 0.4
-	damage = 50
+	damage = 70
 	armour_penetration = 50
-	wound_bonus = 20
-	bare_wound_bonus = 30
+	wound_bonus = 15 // Toned back down, as it's getting alot more damage.
+	bare_wound_bonus = 15
 	demolition_mod = 1.8
 	/// How much damage we add to things that are weak to this bullet
 	var/anti_materiel_damage_addition = 30
+	/// What biotype we look for
+	var/biotype_we_look_for = MOB_ROBOTIC
 
-/obj/projectile/bullet/p60strela/Initialize(mapload)
-	. = ..()
-	// We do 80 total damage to anything robotic, namely borgs, and robotic simplemobs
-	AddElement(/datum/element/bane, target_type = /mob/living, mob_biotypes = MOB_ROBOTIC, damage_multiplier = 0, added_damage = anti_materiel_damage_addition)
+/obj/projectile/bullet/p60strela/on_hit(atom/target, blocked, pierce_hit)
+	if(!isliving(target) || (damage > initial(damage)))
+		return ..()
+	var/mob/living/target_mob = target
+	if(target_mob.mob_biotypes & biotype_we_look_for)
+		damage += anti_materiel_damage_addition
+	return ..()

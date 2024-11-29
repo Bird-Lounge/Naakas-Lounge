@@ -8,12 +8,13 @@
 	subcategory = "Hand-Held Equipment"
 	cost = PAYCHECK_COMMAND
 
+/datum/armament_entry/company_import/akh_frontier/basic/fock
+	item_type = /obj/item/multitool/fock
+	cost = PAYCHECK_COMMAND * 4
+	contraband = TRUE
+
 /datum/armament_entry/company_import/akh_frontier/basic/omni_drill
 	item_type = /obj/item/screwdriver/omni_drill
-
-/datum/armament_entry/company_import/akh_frontier/basic/prybar
-	item_type = /obj/item/crowbar/large/doorforcer
-	restricted = TRUE
 
 /datum/armament_entry/company_import/akh_frontier/basic/arc_welder
 	item_type = /obj/item/weldingtool/electric/arc_welder
@@ -29,7 +30,6 @@
 /datum/armament_entry/company_import/akh_frontier/deployables_fab/rapid_construction_fabricator
 	item_type = /obj/item/flatpacked_machine
 	cost = CARGO_CRATE_VALUE * 6
-	restricted = TRUE
 
 /datum/armament_entry/company_import/akh_frontier/deployables_fab/foodricator
 	item_type = /obj/item/flatpacked_machine/organics_ration_printer
@@ -43,6 +43,10 @@
 
 /datum/armament_entry/company_import/akh_frontier/appliances/charger
 	item_type = /obj/item/wallframe/cell_charger_multi
+	cost = PAYCHECK_CREW
+
+/datum/armament_entry/company_import/akh_frontier/appliances/wall_heater
+	item_type = /obj/item/wallframe/wall_heater
 	cost = PAYCHECK_CREW
 
 /datum/armament_entry/company_import/akh_frontier/appliances/water_synth
@@ -64,9 +68,6 @@
 /datum/armament_entry/company_import/akh_frontier/deployables_misc/arc_furnace
 	item_type = /obj/item/flatpacked_machine/arc_furnace
 
-/datum/armament_entry/company_import/akh_frontier/deployables_misc/thermomachine
-	item_type = /obj/item/flatpacked_machine/thermomachine
-
 /datum/armament_entry/company_import/akh_frontier/deployables_misc/co2_cracker
 	item_type = /obj/item/flatpacked_machine/co2_cracker
 
@@ -79,23 +80,18 @@
 	subcategory = "Deployable Power Equipment"
 	cost = PAYCHECK_COMMAND
 
-/datum/armament_entry/company_import/akh_frontier/deployables/solar
-	item_type = /obj/item/flatpacked_machine/solar
+/datum/armament_entry/company_import/akh_frontier/deployables/turbine
+	item_type = /obj/item/flatpacked_machine/wind_turbine
 	cost = PAYCHECK_CREW
-
-/datum/armament_entry/company_import/akh_frontier/deployables/solar_tracker
-	item_type = /obj/item/flatpacked_machine/solar_tracker
-	cost = PAYCHECK_CREW
-
-/datum/armament_entry/company_import/akh_frontier/deployables/station_battery
-	item_type = /obj/item/flatpacked_machine/station_battery
-
-/datum/armament_entry/company_import/akh_frontier/deployables/big_station_battery
-	item_type = /obj/item/flatpacked_machine/large_station_battery
 
 /datum/armament_entry/company_import/akh_frontier/deployables/solids_generator
 	item_type = /obj/item/flatpacked_machine/fuel_generator
 
+/datum/armament_entry/company_import/akh_frontier/deployables/stirling_generator
+	item_type = /obj/item/flatpacked_machine/stirling_generator
+	cost = PAYCHECK_COMMAND * 3
+
 /datum/armament_entry/company_import/akh_frontier/deployables/rtg
 	item_type = /obj/item/flatpacked_machine/rtg
+	cost = PAYCHECK_COMMAND * 2
 	restricted = TRUE

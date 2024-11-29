@@ -38,7 +38,7 @@
 	status_effect_type = /datum/status_effect/wound/blunt/robotic/critical
 	treatable_tools = list(TOOL_WELDER, TOOL_CROWBAR)
 
-	base_movement_stagger_score = 55
+	base_movement_stagger_score = 50
 
 	base_aftershock_camera_shake_duration = 1.75 SECONDS
 	base_aftershock_camera_shake_strength = 1
@@ -46,7 +46,7 @@
 	chest_attacked_stagger_chance_ratio = 6.5
 	chest_attacked_stagger_mult = 4
 
-	chest_movement_stagger_chance = 14
+	chest_movement_stagger_chance = 8
 
 	aftershock_stopped_moving_score_mult = 0.3
 
@@ -105,7 +105,7 @@
 		return FALSE
 
 	if(user.grab_state < GRAB_AGGRESSIVE)
-		to_chat(user, span_warning("You must have [victim] in an aggressive grab to manipulate [victim.p_their()] [lowertext(name)]!"))
+		to_chat(user, span_warning("You must have [victim] in an aggressive grab to manipulate [victim.p_their()] [LOWER_TEXT(name)]!"))
 		return TRUE
 
 	user.visible_message(span_danger("[user] begins softly pressing against [victim]'s collapsed [limb.plaintext_zone]..."), \
@@ -117,7 +117,7 @@
 	if (HAS_TRAIT(src, TRAIT_WOUND_SCANNED))
 		delay_mult *= 0.75
 
-	if(!do_after(user, 8 SECONDS, target = victim, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
+	if(!do_after(user, 4 SECONDS, target = victim, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
 		return
 	mold_metal(user)
 	return TRUE
@@ -135,7 +135,7 @@
  * High chance to work, very high with robo/engi wires and diag hud.
  * Can be sabotaged by switching to combat mode.
  * Deals brute to the limb on failure.
- * Burns the hand of the user if its not insulated.
+ * Burns the hand of the user if it's not insulated.
  */
 /datum/wound/blunt/robotic/secures_internals/critical/proc/mold_metal(mob/living/carbon/human/user)
 	var/chance = 60
@@ -213,10 +213,10 @@
 	if (HAS_TRAIT(src, TRAIT_WOUND_SCANNED))
 		delay_mult *= 0.75
 
-	if (!welder.use_tool(target = victim, user = user, delay = 10 SECONDS * delay_mult, volume = 50, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
+	if (!welder.use_tool(target = victim, user = user, delay = 3 SECONDS * delay_mult, volume = 50, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
 		return TRUE
 
-	var/wound_path = /datum/wound/burn/robotic/overheat/severe
+	var/wound_path = /datum/wound/burn/robotic/overheat/moderate
 	if (user != victim && user.combat_mode)
 		wound_path = /datum/wound/burn/robotic/overheat/critical // it really isnt that bad, overheat wounds are a bit funky
 		user.visible_message(span_danger("[user] heats [victim]'s [limb.plaintext_zone] aggressively, overheating it far beyond the necessary point!"), \
@@ -249,11 +249,11 @@
 	var/their_or_other = (user == victim ? "[user.p_their()]" : "[victim]'s")
 	var/your_or_other = (user == victim ? "your" : "[victim]'s")
 
-	var/base_time = 10 SECONDS
+	var/base_time = 7 SECONDS
 	var/delay_mult = 1
 	var/knows_wires = FALSE
 	if (victim == user)
-		delay_mult *= 3 // real slow
+		delay_mult *= 2
 	if (HAS_TRAIT(src, TRAIT_WOUND_SCANNED))
 		delay_mult *= 0.75
 	if (HAS_TRAIT(user, TRAIT_KNOW_ROBO_WIRES))
@@ -335,7 +335,7 @@
 
 	delay_mult /= treating_plunger.plunge_mod
 
-	if (!treating_plunger.use_tool(target = victim, user = user, delay = 8 SECONDS * delay_mult, volume = 50, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
+	if (!treating_plunger.use_tool(target = victim, user = user, delay = 6 SECONDS * delay_mult, volume = 50, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
 		return TRUE
 
 	var/success_chance = 80
@@ -347,14 +347,14 @@
 	else if (HAS_TRAIT(user, TRAIT_KNOW_ENGI_WIRES))
 		success_chance *= 1.1
 	if (HAS_TRAIT(user, TRAIT_DIAGNOSTIC_HUD))
-		success_chance *= 1.25 // its kinda alien to do this, so even people with the wires get the full bonus of diag huds
+		success_chance *= 1.25 // it's kinda alien to do this, so even people with the wires get the full bonus of diag huds
 	if (HAS_TRAIT(src, TRAIT_WOUND_SCANNED))
 		success_chance *= 1.5
 
 	if (prob(success_chance))
 		user?.visible_message(span_green("[victim]'s [limb.plaintext_zone] lets out a sharp POP as [treating_plunger] forces it into its normal position!"), \
 			span_green("[victim]'s [limb.plaintext_zone] lets out a sharp POP as your [treating_plunger] forces it into its normal position!"))
-		to_chat(user, span_green("[capitalize(your_or_other)] [limb.plaintext_zone]'s structure has been reset to it's proper position! Your next step is to secure it with a screwdriver/wrench, though bone gel would also work."))
+		to_chat(user, span_green("[capitalize(your_or_other)] [limb.plaintext_zone]'s structure has been reset to its proper position! Your next step is to secure it with a screwdriver/wrench, though bone gel would also work."))
 		set_superstructure_status(TRUE)
 	else
 		user?.visible_message(span_danger("[victim]'s [limb.plaintext_zone] splinters from [treating_plunger]'s plunging!"), \

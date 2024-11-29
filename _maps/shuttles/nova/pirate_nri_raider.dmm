@@ -174,7 +174,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/light/small/red/directional/south,
 /obj/structure/showcase/machinery/microwave,
-/obj/structure/sign/poster/contraband/nri_rations/directional/east,
 /turf/open/floor/pod/dark,
 /area/shuttle/pirate/nri)
 "hn" = (
@@ -207,7 +206,6 @@
 /turf/open/floor/catwalk_floor,
 /area/shuttle/pirate/nri)
 "hP" = (
-/obj/structure/sign/poster/contraband/nri_radar/directional/west,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/carpet/green,
 /area/shuttle/pirate/nri)
@@ -405,9 +403,6 @@
 /turf/open/floor/plating,
 /area/shuttle/pirate/nri)
 "qp" = (
-/obj/machinery/base_alarm/nri_raider{
-	pixel_x = 32
-	},
 /turf/open/floor/pod/light,
 /area/shuttle/pirate/nri)
 "qz" = (
@@ -452,9 +447,9 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger_multi,
-/obj/item/stock_parts/cell/super/empty,
-/obj/item/stock_parts/cell/super/empty,
-/obj/item/stock_parts/cell/super/empty,
+/obj/item/stock_parts/power_store/cell/super/empty,
+/obj/item/stock_parts/power_store/cell/super/empty,
+/obj/item/stock_parts/power_store/cell/super/empty,
 /turf/open/floor/pod/dark,
 /area/shuttle/pirate/nri)
 "rg" = (
@@ -488,7 +483,7 @@
 /area/shuttle/pirate/nri)
 "tl" = (
 /obj/machinery/power/apc/auto_name/directional/east{
-	cell_type = /obj/item/stock_parts/cell/super
+	cell_type = /obj/item/stock_parts/power_store/battery/super
 	},
 /obj/effect/mapping_helpers/apc/syndicate_access,
 /obj/structure/cable,
@@ -602,13 +597,7 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/pirate/nri)
-"wb" = (
-/turf/open/floor/pod/light,
-/area/shuttle/pirate/nri)
 "wh" = (
-/obj/machinery/base_alarm/nri_raider{
-	pixel_x = 32
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -684,6 +673,17 @@
 	},
 /turf/closed/wall/mineral/titanium/spaceship/nodiagonal,
 /area/shuttle/pirate/nri)
+"yP" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/item/ammo_box/advanced/s12gauge/magnum,
+/obj/item/ammo_box/advanced/s12gauge/magnum,
+/obj/item/ammo_box/advanced/s12gauge/magnum,
+/obj/item/ammo_box/advanced/s12gauge/beehive,
+/obj/item/ammo_box/advanced/s12gauge/beehive,
+/obj/item/ammo_box/advanced/s12gauge/beehive,
+/obj/structure/rack/shelf,
+/turf/open/floor/pod/light,
+/area/shuttle/pirate/nri)
 "zb" = (
 /obj/structure/deployable_barricade/guardrail,
 /obj/structure/lattice/catwalk,
@@ -723,9 +723,6 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
-	},
-/obj/machinery/base_alarm/nri_raider{
-	pixel_y = 32
 	},
 /obj/item/storage/medkit/surgery,
 /turf/open/floor/pod/dark,
@@ -814,9 +811,6 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/pirate/nri)
 "CP" = (
-/obj/machinery/base_alarm/nri_raider{
-	pixel_x = -32
-	},
 /obj/machinery/newscaster/directional/north,
 /obj/structure/frame/computer,
 /obj/item/circuitboard/computer/advanced_camera,
@@ -899,14 +893,6 @@
 	dir = 8
 	},
 /turf/open/floor/engine/hull/reinforced,
-/area/shuttle/pirate/nri)
-"Gh" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/item/storage/box/ammo_box/shotgun_12g,
-/obj/item/storage/box/ammo_box/shotgun_12g,
-/obj/item/storage/box/ammo_box/shotgun_12g,
-/obj/structure/rack/shelf,
-/turf/open/floor/pod/light,
 /area/shuttle/pirate/nri)
 "GO" = (
 /turf/open/floor/engine/hull,
@@ -1064,9 +1050,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/pirate/nri)
 "Lp" = (
-/obj/machinery/door/window/survival_pod{
-	dir = 4
-	},
+/obj/machinery/door/window/survival_pod/left/directional/east,
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/shuttle/pirate/nri)
@@ -1270,15 +1254,6 @@
 	dir = 8
 	},
 /turf/closed/wall/mineral/titanium/spaceship/nodiagonal,
-/area/shuttle/pirate/nri)
-"Ui" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/base_alarm/nri_raider{
-	pixel_y = 32
-	},
-/turf/open/floor/pod/dark,
 /area/shuttle/pirate/nri)
 "UO" = (
 /obj/structure/closet/crate/freezer/blood{
@@ -1561,7 +1536,7 @@ iC
 iC
 IY
 Hz
-Ui
+HV
 kQ
 rp
 sK
@@ -1625,9 +1600,9 @@ Hz
 "}
 (12,1,1) = {"
 Hz
-Gh
-wb
-wb
+yP
+qp
+qp
 wM
 kb
 wQ
@@ -1636,14 +1611,14 @@ Nu
 IT
 HO
 IT
-wb
-wb
+qp
+qp
 Hz
 "}
 (13,1,1) = {"
 Hz
 fB
-wb
+qp
 JB
 Hz
 rd
@@ -1653,14 +1628,14 @@ wT
 be
 Hz
 Bw
-wb
+qp
 DL
 Hz
 "}
 (14,1,1) = {"
 Hz
 Hh
-wb
+qp
 Ci
 Hz
 tk
@@ -1670,7 +1645,7 @@ od
 tk
 Hz
 bE
-wb
+qp
 pg
 Hz
 "}
@@ -1750,7 +1725,7 @@ xp
 Hz
 zJ
 xX
-wb
+qp
 qz
 Qg
 Hz
@@ -1767,7 +1742,7 @@ IT
 Hz
 LA
 ui
-wb
+qp
 VN
 mJ
 Hz

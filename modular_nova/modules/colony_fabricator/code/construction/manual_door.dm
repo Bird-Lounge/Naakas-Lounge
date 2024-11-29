@@ -10,10 +10,9 @@
 	/// How long it takes to open/close the door
 	var/manual_actuation_delay = 1 SECONDS
 
-/obj/structure/mineral_door/manual_colony_door/deconstruct(disassembled = TRUE)
+/obj/structure/mineral_door/manual_colony_door/atom_deconstruct(disassembled = TRUE)
 	if(disassembled)
 		new disassembled_type(get_turf(src))
-	qdel(src)
 
 // Pickaxes won't dig these apart
 /obj/structure/mineral_door/manual_colony_door/pickaxe_door(mob/living/user, obj/item/item_in_question)
@@ -71,6 +70,7 @@
 // Parts kit for putting the door together
 /obj/item/flatpacked_machine/airlock_kit_manual
 	name = "prefab manual airlock parts kit"
+	desc = /obj/structure/mineral_door/manual_colony_door::desc
 	icon = 'modular_nova/modules/colony_fabricator/icons/doors/packed.dmi'
 	icon_state = "airlock_parts_manual"
 	type_to_deploy = /obj/structure/mineral_door/manual_colony_door

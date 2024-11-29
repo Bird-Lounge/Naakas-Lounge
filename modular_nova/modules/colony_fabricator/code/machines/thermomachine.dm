@@ -21,6 +21,10 @@
 	AddElement(/datum/element/manufacturer_examine, COMPANY_FRONTIER)
 	flick("thermo_deploy", src)
 
+	// Makes for certain that we are visually facing the correct way
+	setDir(dir)
+	update_appearance()
+
 /obj/machinery/atmospherics/components/unary/thermomachine/deployable/RefreshParts()
 	. = ..()
 	heat_capacity = 10000
@@ -41,6 +45,7 @@
 
 /obj/item/flatpacked_machine/thermomachine
 	name = "flat-packed atmospheric temperature regulator"
+	desc = /obj/machinery/atmospherics/components/unary/thermomachine/deployable::desc
 	icon_state = "thermomachine_packed"
 	type_to_deploy = /obj/machinery/atmospherics/components/unary/thermomachine/deployable
 	custom_materials = list(

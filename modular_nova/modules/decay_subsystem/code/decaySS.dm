@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(decay)
 		log_world("SSDecay was disabled in config.")
 		return SS_INIT_NO_NEED
 
-	if(SSmapping.config.map_name in station_filter)
+	if(SSmapping.current_map.map_name in station_filter)
 		message_admins("SSDecay was disabled due to map filter.")
 		log_world("SSDecay was disabled due to map filter.")
 		return SS_INIT_NO_NEED
@@ -56,10 +56,11 @@ SUBSYSTEM_DEF(decay)
 		possible_areas += iterating_area
 
 		// Now add the turfs
-		for(var/turf/iterating_turf as anything in iterating_area.get_contained_turfs())
-			if(!(iterating_turf.flags_1 & CAN_BE_DIRTY_1))
-				continue
-			possible_turfs += iterating_turf
+		for(var/list/zlevel_turfs as anything in iterating_area.get_zlevel_turf_lists())
+			for(var/turf/iterating_turf as anything in zlevel_turfs)
+				if(!(iterating_turf.flags_1 & CAN_BE_DIRTY_1))
+					continue
+				possible_turfs += iterating_turf
 
 	if(!possible_turfs)
 		CRASH("SSDecay had no possible turfs to use!")

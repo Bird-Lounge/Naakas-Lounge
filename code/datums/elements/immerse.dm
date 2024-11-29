@@ -32,7 +32,7 @@
 	if(!isturf(target) || !icon || !icon_state || !mask_icon)
 		return ELEMENT_INCOMPATIBLE
 
-	if(!movables_to_ignore)
+	if(isnull(movables_to_ignore))
 		movables_to_ignore = typecacheof(list(
 			/obj/effect,
 			/mob/dead,
@@ -96,8 +96,8 @@
 /datum/element/immerse/proc/stop_immersion(turf/source)
 	SIGNAL_HANDLER
 	UnregisterSignal(source, list(COMSIG_ATOM_ABSTRACT_ENTERED, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, COMSIG_ATOM_ABSTRACT_EXITED))
-	for(var/datum/weakref/movable as anything in attached_turfs_and_movables[source])
-		remove_from_element(source, movable.resolve())
+	for(var/atom/movable/movable as anything in attached_turfs_and_movables[source])
+		remove_from_element(source, movable)
 	attached_turfs_and_movables -= source
 
 /**
@@ -107,6 +107,8 @@
  */
 /datum/element/immerse/proc/on_init_or_entered(turf/source, atom/movable/movable)
 	SIGNAL_HANDLER
+	if(QDELETED(movable))
+		return
 	if(HAS_TRAIT(movable, TRAIT_IMMERSED))
 		return
 	if(movable.layer >= ABOVE_ALL_MOB_LAYER || !ISINRANGE(movable.plane, MUTATE_PLANE(FLOOR_PLANE, source), MUTATE_PLANE(GAME_PLANE, source)))
@@ -122,7 +124,7 @@
 
 	try_immerse(movable, buckled)
 	RegisterSignal(movable, COMSIG_QDELETING, PROC_REF(on_movable_qdel))
-	LAZYADD(attached_turfs_and_movables[source], WEAKREF(movable))
+	LAZYADD(attached_turfs_and_movables[source], movable)
 	ADD_TRAIT(movable, TRAIT_IMMERSED, ELEMENT_TRAIT(src))
 
 /datum/element/immerse/proc/on_movable_qdel(atom/movable/source)
@@ -140,8 +142,8 @@
  */
 /datum/element/immerse/proc/add_immerse_overlay(atom/movable/movable)
 	var/list/icon_dimensions = get_icon_dimensions(movable.icon)
-	var/width = icon_dimensions["width"] || world.icon_size
-	var/height = icon_dimensions["height"] || world.icon_size
+	var/width = icon_dimensions["width"] || ICON_SIZE_X
+	var/height = icon_dimensions["height"] || ICON_SIZE_Y
 
 	var/is_below_water = movable.layer < WATER_LEVEL_LAYER ? "underwater-" : ""
 
@@ -170,7 +172,7 @@
 
 	movable.vis_contents |= vis_overlay
 
-	LAZYSET(immersed_movables, WEAKREF(movable), vis_overlay)
+	LAZYSET(immersed_movables, movable, vis_overlay)
 
 ///Initializes and caches a new visual overlay given parameters such as width, height and whether it should appear fully underwater.
 /datum/element/immerse/proc/generate_vis_overlay(width, height, is_below_water)
@@ -182,19 +184,19 @@
 	 * but since we want the appearance to stay where it should be,
 	 * we have to counteract this one.
 	 */
-	var/extra_width = (width - world.icon_size) * 0.5
-	var/extra_height = (height - world.icon_size) * 0.5
+	var/extra_width = (width - ICON_SIZE_X) * 0.5
+	var/extra_height = (height - ICON_SIZE_Y) * 0.5
 	var/mutable_appearance/overlay_appearance = new()
 	var/icon/immerse_icon = generated_immerse_icons["[icon]-[icon_state]-[mask_icon]"]
-	var/last_i = width/world.icon_size
+	var/last_i = width/ICON_SIZE_X
 	for(var/i in -1 to last_i)
 		var/mutable_appearance/underwater = mutable_appearance(icon, icon_state)
-		underwater.pixel_x = world.icon_size * i - extra_width
-		underwater.pixel_y = -world.icon_size - extra_height
+		underwater.pixel_x = ICON_SIZE_X * i - extra_width
+		underwater.pixel_y = -ICON_SIZE_Y - extra_height
 		overlay_appearance.overlays += underwater
 
 		var/mutable_appearance/water_level = is_below_water ? underwater : mutable_appearance(immerse_icon)
-		water_level.pixel_x = world.icon_size * i - extra_width
+		water_level.pixel_x = ICON_SIZE_X * i - extra_width
 		water_level.pixel_y = -extra_height
 		overlay_appearance.overlays += water_level
 
@@ -212,16 +214,14 @@
 
 ///This proc removes the vis_overlay, the keep together trait and some signals from the movable.
 /datum/element/immerse/proc/remove_immerse_overlay(atom/movable/movable)
-	var/atom/movable/immerse_overlay/vis_overlay = LAZYACCESS(immersed_movables, WEAKREF(movable))
-	if(!vis_overlay)
-		return
-	movable.vis_contents -= vis_overlay
-	LAZYREMOVE(immersed_movables, WEAKREF(movable))
-	if(HAS_TRAIT(movable, TRAIT_UNIQUE_IMMERSE))
-		UnregisterSignal(movable, list(COMSIG_ATOM_SPIN_ANIMATION, COMSIG_LIVING_POST_UPDATE_TRANSFORM))
-		qdel(vis_overlay)
+	var/atom/movable/immerse_overlay/vis_overlay = LAZYACCESS(immersed_movables, movable)
+	LAZYREMOVE(immersed_movables, movable)
 	REMOVE_KEEP_TOGETHER(movable, ELEMENT_TRAIT(src))
-
+	movable.vis_contents -= vis_overlay
+	if(HAS_TRAIT(movable, TRAIT_UNIQUE_IMMERSE))
+		UnregisterSignal(movable, list(COMSIG_ATOM_SPIN_ANIMATION, COMSIG_LIVING_POST_UPDATE_TRANSFORM, COMSIG_QDELETING))
+		if(!QDELETED(vis_overlay))
+			qdel(vis_overlay)
 /**
  * Called by init_or_entered() and on_set_buckled().
  * This applies the overlay if neither the movable or whatever is buckled to (exclusive to living mobs) are flying
@@ -298,8 +298,8 @@
 	if(!(exited.loc in attached_turfs_and_movables))
 		remove_from_element(source, exited)
 	else
-		LAZYREMOVE(attached_turfs_and_movables[source], WEAKREF(exited))
-		LAZYADD(attached_turfs_and_movables[exited.loc], WEAKREF(exited))
+		LAZYREMOVE(attached_turfs_and_movables[source], exited)
+		LAZYADD(attached_turfs_and_movables[exited.loc], exited)
 
 ///Remove any signal, overlay, trait given to the movable and reference to it within the element.
 /datum/element/immerse/proc/remove_from_element(turf/source, atom/movable/movable)
@@ -309,9 +309,9 @@
 		buckled = living_mob.buckled
 	try_unimmerse(movable, buckled)
 
+	LAZYREMOVE(attached_turfs_and_movables[source], movable)
 	UnregisterSignal(movable, list(COMSIG_LIVING_SET_BUCKLED, COMSIG_QDELETING))
 	REMOVE_TRAIT(movable, TRAIT_IMMERSED, ELEMENT_TRAIT(src))
-	LAZYREMOVE(attached_turfs_and_movables[source], WEAKREF(movable))
 
 /// A band-aid to keep the (unique) visual overlay from scaling and rotating along with its owner. I'm sorry.
 /datum/element/immerse/proc/on_update_transform(mob/living/source, resize, new_lying_angle, is_opposite_angle)
@@ -320,7 +320,7 @@
 	new_transform.Scale(1/source.current_size)
 	new_transform.Turn(-new_lying_angle)
 
-	var/atom/movable/immerse_overlay/vis_overlay = immersed_movables[WEAKREF(source)]
+	var/atom/movable/immerse_overlay/vis_overlay = immersed_movables[source]
 	if(is_opposite_angle)
 		vis_overlay.transform = new_transform
 		vis_overlay.adjust_living_overlay_offset(source)
@@ -361,7 +361,7 @@
 ///Spin the overlay in the opposite direction so it doesn't look like it's spinning at all.
 /datum/element/immerse/proc/on_spin_animation(atom/source, speed, loops, segments, segment)
 	SIGNAL_HANDLER
-	var/atom/movable/immerse_overlay/vis_overlay = immersed_movables[WEAKREF(source)]
+	var/atom/movable/immerse_overlay/vis_overlay = immersed_movables[source]
 	vis_overlay.do_spin_animation(speed, loops, segments, -segment)
 
 ///We need to make sure to remove hard refs from the element when deleted.

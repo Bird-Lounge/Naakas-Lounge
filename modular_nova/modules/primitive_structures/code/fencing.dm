@@ -5,9 +5,8 @@
 	desc = "A basic wooden fence meant to prevent people like you either in or out of somewhere."
 	icon = 'modular_nova/modules/primitive_structures/icons/wooden_fence.dmi'
 	icon_state = "fence"
-	layer = BELOW_OBJ_LAYER // I think this is the default but lets be safe?
 	resistance_flags = FLAMMABLE
-	flags_1 = NO_DECONSTRUCTION | ON_BORDER_1
+	flags_1 = ON_BORDER_1
 	/// If we randomize our icon on spawning
 	var/random_icons = TRUE
 
@@ -21,6 +20,21 @@
 		"fence_3",
 	)
 	update_appearance()
+
+/obj/structure/railing/wooden_fencing/atom_deconstruct(disassembled)
+	var/obj/plank = new /obj/item/stack/sheet/mineral/wood(drop_location(), 5)
+	transfer_fingerprints_to(plank)
+
+// formerly NO_DECONSTRUCTION
+/obj/structure/railing/wooden_fencing/wirecutter_act(mob/living/user, obj/item/tool)
+	return NONE
+
+/obj/structure/railing/wooden_fencing/crowbar_act(mob/living/user, obj/item/tool)
+	. = ..()
+	to_chat(user, span_warning("You pry apart the railing."))
+	tool.play_tool_sound(src, 100)
+	deconstruct()
+	return TRUE
 
 // Fence gates for the above mentioned fences
 
@@ -46,7 +60,7 @@
 	opened = !opened
 	set_density(!opened)
 	icon_state = "[opened ? "gate_open" : "gate"]"
-	playsound(src, (opened ? 'sound/machines/wooden_closet_open.ogg' : 'sound/machines/wooden_closet_close.ogg'), 100, TRUE)
+	playsound(src, (opened ? 'sound/machines/closet/wooden_closet_open.ogg' : 'sound/machines/closet/wooden_closet_close.ogg'), 100, TRUE)
 	update_appearance()
 
 /obj/structure/railing/wooden_fencing/gate/update_icon()
@@ -60,8 +74,8 @@
 	name = "large wooden gate"
 	icon = 'modular_nova/modules/primitive_structures/icons/wooden_gate.dmi'
 	icon_state = "gate"
-	openSound = 'sound/machines/wooden_closet_open.ogg'
-	closeSound = 'sound/machines/wooden_closet_close.ogg'
+	openSound = 'sound/machines/closet/wooden_closet_open.ogg'
+	closeSound = 'sound/machines/closet/wooden_closet_close.ogg'
 
 /obj/structure/mineral_door/wood/large_gate/Open()
 	playsound(src, openSound, 100, TRUE)

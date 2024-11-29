@@ -4,34 +4,40 @@
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/virtual_domain/safehouse)
 "b" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/structure/closet/crate/secure/weapon,
+/obj/item/storage/medkit/combat_surgeon/stocked,
+/obj/item/storage/medkit/civil_defense/stocked,
+/obj/item/storage/box/survival/syndie,
+/obj/item/clothing/head/helmet/sf_peacekeeper,
+/obj/item/clothing/suit/armor/sf_peacekeeper,
+/obj/item/knife/combat/survival,
+/obj/item/ammo_box/magazine/c35sol_pistol,
+/obj/item/ammo_box/magazine/c35sol_pistol,
+/obj/item/ammo_box/magazine/c35sol_pistol,
+/obj/item/ammo_box/magazine/c35sol_pistol,
+/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
+/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
+/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
+/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
+/obj/item/gun/ballistic/automatic/sol_smg,
+/obj/item/gun/ballistic/automatic/pistol/sol,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/closet/crate/secure/weapon,
-/obj/item/storage/pouch/medical/firstaid/stabilizer,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/sand/volcanic,
+/obj/item/clothing/gloves/frontier_colonist,
+/obj/item/radio/headset/headset_faction/bowman,
 /obj/item/storage/pouch/ammo,
-/obj/item/clothing/head/helmet/hecu,
-/obj/item/clothing/suit/armor/vest/hecu,
-/obj/item/storage/box/survival/syndie,
-/obj/item/gun/ballistic/automatic/sol_smg,
-/obj/item/knife/combat,
-/obj/item/gun/ballistic/automatic/pistol/sol,
-/obj/item/ammo_box/magazine/c35sol_pistol,
-/obj/item/ammo_box/magazine/c35sol_pistol,
-/obj/item/ammo_box/magazine/c35sol_pistol,
-/obj/item/storage/belt/military/assault/hecu,
-/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
-/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
-/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
-/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
-/obj/item/stack/medical/mesh/bloody,
-/obj/item/stack/medical/suture/bloody,
-/obj/item/clothing/gloves/military,
-/obj/item/clothing/glasses/hud/health/night,
+/obj/item/storage/belt/security/webbing/peacekeeper,
+/obj/item/clothing/glasses/night,
 /turf/open/floor/iron,
+/area/virtual_domain/safehouse)
+"d" = (
+/obj/machinery/porta_turret/syndicate/nri_raider/ancient_milsim,
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/virtual_domain/safehouse)
 "e" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners,
@@ -53,7 +59,7 @@
 "j" = (
 /obj/effect/landmark/bitrunning/cache_goal_turf,
 /obj/effect/turf_decal/loading_area,
-/turf/open/floor/bitrunning_transport,
+/turf/open/indestructible/bitrunning_transport,
 /area/virtual_domain/safehouse)
 "m" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners,
@@ -121,7 +127,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/iv_drip/health_station/directional/east,
+/obj/machinery/health_station/directional/east,
 /turf/open/floor/iron,
 /area/virtual_domain/safehouse)
 "D" = (
@@ -131,29 +137,30 @@
 /turf/open/floor/iron,
 /area/virtual_domain/safehouse)
 "G" = (
-/obj/effect/turf_decal/stripes/end,
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/weapon,
-/obj/item/storage/pouch/medical/firstaid/stabilizer,
-/obj/item/storage/pouch/ammo,
-/obj/item/clothing/head/helmet/hecu,
-/obj/item/clothing/suit/armor/vest/hecu,
+/obj/item/storage/medkit/combat_surgeon/stocked,
+/obj/item/storage/medkit/civil_defense/stocked,
 /obj/item/storage/box/survival/syndie,
+/obj/item/clothing/head/helmet/sf_peacekeeper,
+/obj/item/clothing/suit/armor/sf_peacekeeper,
+/obj/item/knife/combat/survival,
+/obj/item/ammo_box/magazine/c35sol_pistol,
+/obj/item/ammo_box/magazine/c35sol_pistol,
+/obj/item/ammo_box/magazine/c35sol_pistol,
+/obj/item/ammo_box/magazine/c35sol_pistol,
+/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
+/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
+/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
+/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
 /obj/item/gun/ballistic/automatic/sol_smg,
-/obj/item/knife/combat,
 /obj/item/gun/ballistic/automatic/pistol/sol,
-/obj/item/ammo_box/magazine/c35sol_pistol,
-/obj/item/ammo_box/magazine/c35sol_pistol,
-/obj/item/ammo_box/magazine/c35sol_pistol,
-/obj/item/storage/belt/military/assault/hecu,
-/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
-/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
-/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
-/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
-/obj/item/stack/medical/mesh/bloody,
-/obj/item/stack/medical/suture/bloody,
-/obj/item/clothing/gloves/military,
-/obj/item/clothing/glasses/hud/health/night,
+/obj/effect/turf_decal/stripes/end,
+/obj/effect/turf_decal/sand/volcanic,
+/obj/item/clothing/gloves/frontier_colonist,
+/obj/item/radio/headset/headset_faction/bowman,
+/obj/item/storage/pouch/ammo,
+/obj/item/storage/belt/security/webbing/peacekeeper,
+/obj/item/clothing/glasses/night,
 /turf/open/floor/iron,
 /area/virtual_domain/safehouse)
 "H" = (
@@ -161,7 +168,7 @@
 /obj/effect/landmark/bitrunning/cache_goal_turf,
 /obj/effect/turf_decal/loading_area,
 /obj/machinery/light/small/directional/south,
-/turf/open/floor/bitrunning_transport,
+/turf/open/indestructible/bitrunning_transport,
 /area/virtual_domain/safehouse)
 "I" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -170,7 +177,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer{
-	dir = 2;
 	name = "hovercraft console";
 	icon_screen = "shuttle";
 	desc = "An armored hovercraft control computer. Doesn't work anymore... who would've thought."
@@ -223,31 +229,32 @@
 	},
 /obj/effect/turf_decal/sand/volcanic,
 /obj/structure/closet/crate/secure/weapon,
-/obj/item/storage/pouch/medical/firstaid/loaded,
-/obj/item/storage/pouch/medical/loaded,
-/obj/item/clothing/head/helmet/hecu,
-/obj/item/clothing/suit/armor/vest/hecu,
+/obj/item/storage/medkit/combat_surgeon/stocked,
+/obj/item/storage/medkit/civil_defense/stocked,
 /obj/item/storage/box/survival/syndie,
+/obj/item/clothing/head/helmet/sf_peacekeeper,
+/obj/item/clothing/suit/armor/sf_peacekeeper,
+/obj/item/knife/combat/survival,
+/obj/item/ammo_box/magazine/c35sol_pistol,
+/obj/item/ammo_box/magazine/c35sol_pistol,
+/obj/item/ammo_box/magazine/c35sol_pistol,
+/obj/item/ammo_box/magazine/c35sol_pistol,
+/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
+/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
+/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
+/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
 /obj/item/gun/ballistic/automatic/sol_smg,
-/obj/item/knife/combat,
 /obj/item/gun/ballistic/automatic/pistol/sol,
-/obj/item/ammo_box/magazine/c35sol_pistol,
-/obj/item/ammo_box/magazine/c35sol_pistol,
-/obj/item/ammo_box/magazine/c35sol_pistol,
-/obj/item/storage/belt/military/assault/hecu,
-/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
-/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
-/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
-/obj/item/ammo_box/magazine/c35sol_pistol/stendo,
-/obj/item/stack/medical/mesh/bloody,
-/obj/item/stack/medical/suture/bloody,
-/obj/item/clothing/gloves/military,
-/obj/item/clothing/glasses/hud/health/night,
+/obj/item/clothing/gloves/frontier_colonist,
+/obj/item/radio/headset/headset_faction/bowman,
+/obj/item/storage/pouch/ammo,
+/obj/item/storage/belt/security/webbing/peacekeeper,
+/obj/item/clothing/glasses/night,
 /turf/open/floor/iron,
 /area/virtual_domain/safehouse)
 
 (1,1,1) = {"
-r
+d
 J
 r
 r
@@ -295,7 +302,7 @@ x
 g
 "}
 (7,1,1) = {"
-r
+d
 i
 r
 r

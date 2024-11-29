@@ -7,6 +7,8 @@
 	density = TRUE
 	layer = ABOVE_MOB_LAYER
 	opacity = FALSE
+	interaction_flags_click = NEED_DEXTERITY
+	/// type of table that this becomes when unflipped
 	var/table_type = /obj/structure/table
 
 /obj/structure/flippedtable/Initialize(mapload)
@@ -46,25 +48,31 @@
 	if(direction == dir)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
-/obj/structure/flippedtable/CtrlShiftClick(mob/user)
-	. = ..()
-	if(!istype(user) || !user.can_interact_with(src) || iscorticalborer(user))
+/obj/structure/flippedtable/click_ctrl_shift(mob/user)
+	if(!istype(user) || iscorticalborer(user))
 		return FALSE
 	user.balloon_alert_to_viewers("flipping table upright...")
 	if(do_after(user, max_integrity * 0.25))
-		var/obj/structure/table/new_table = new table_type(src.loc)
-		new_table.update_integrity(src.get_integrity())
+		var/obj/structure/table/unflipped_table = new table_type(src.loc)
+		unflipped_table.update_integrity(src.get_integrity())
+		if(flags_1 & HOLOGRAM_1) // no unflipping holographic tables into reality
+			var/area/station/holodeck/holo_area = get_area(unflipped_table)
+			if(!istype(holo_area))
+				qdel(unflipped_table)
+				return
+			holo_area.linked.add_to_spawned(unflipped_table)
 		if(custom_materials)
-			new_table.set_custom_materials(custom_materials)
+			unflipped_table.set_custom_materials(custom_materials)
 		user.balloon_alert_to_viewers("table flipped upright")
-		playsound(src, 'sound/items/trayhit2.ogg', 100)
+		playsound(src, 'sound/items/trayhit/trayhit2.ogg', 100)
 		qdel(src)
 
 //TABLES
+/obj/structure/table/
+	interaction_flags_click = NEED_DEXTERITY
 
-/obj/structure/table/CtrlShiftClick(mob/living/user)
-	. = ..()
-	if(!istype(user) || !user.can_interact_with(src) || isobserver(user) || iscorticalborer(user))
+/obj/structure/table/click_ctrl_shift(mob/user)
+	if(!istype(user) || iscorticalborer(user))
 		return
 	if(!can_flip)
 		return
@@ -85,6 +93,12 @@
 	flipped_table.table_type = src.type
 	if(istype(src, /obj/structure/table/greyscale)) //Greyscale tables need greyscale flags!
 		flipped_table.material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
+	if(flags_1 & HOLOGRAM_1) // no flipping holographic tables into reality
+		var/area/station/holodeck/holo_area = get_area(flipped_table)
+		if(!istype(holo_area))
+			qdel(flipped_table)
+			return
+		holo_area.linked.add_to_spawned(flipped_table)
 	//Finally, add the custom materials, so the flags still apply to it
 	flipped_table.set_custom_materials(custom_materials)
 
@@ -97,7 +111,7 @@
 		sound_volume = 40
 
 	user.balloon_alert_to_viewers(balloon_message)
-	playsound(src, 'sound/items/trayhit2.ogg', sound_volume)
+	playsound(src, 'sound/items/trayhit/trayhit2.ogg', sound_volume)
 	qdel(src)
 
 	var/turf/throw_target = get_step(flipped_table, flipped_table.dir)

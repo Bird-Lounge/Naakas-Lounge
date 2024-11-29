@@ -38,8 +38,8 @@
 
 /obj/item/storage/toolbox/guncase/nova/opfor/kiboko/PopulateContents()
 	new /obj/item/gun/ballistic/automatic/sol_grenade_launcher/evil(src)
-	new /obj/item/ammo_box/magazine/c980_grenade/drum(src)
-	new /obj/item/ammo_box/magazine/c980_grenade/drum(src)
+	new /obj/item/ammo_box/magazine/c980_grenade/drum/thunderdome_shrapnel(src)
+	new /obj/item/ammo_box/magazine/c980_grenade/drum/thunderdome_shrapnel(src)
 
 /datum/opposing_force_equipment/ranged/amr
 	name = "'Wyłom' AMR"
@@ -214,7 +214,7 @@
 	item_type = /obj/item/storage/toolbox/guncase/nova/pistol/opfor/syndie_revolver
 
 /obj/item/storage/toolbox/guncase/nova/pistol/opfor/syndie_revolver/PopulateContents()
-	new /obj/item/gun/ballistic/revolver/syndicate(src)
+	new /obj/item/gun/ballistic/revolver/badass(src)
 	new /obj/item/ammo_box/a357(src)
 	new /obj/item/ammo_box/a357(src)
 
@@ -246,13 +246,13 @@
 	item_type = /obj/item/storage/toolbox/guncase/nova/pistol/opfor/foamforce_smg_basic
 
 /obj/item/storage/toolbox/guncase/nova/pistol/opfor/foamforce_smg_basic/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/toy/unrestricted(src)
+	new /obj/item/gun/ballistic/automatic/toy(src)
 	new /obj/item/ammo_box/magazine/toy/smg/riot(src)
 	new /obj/item/ammo_box/magazine/toy/smg/riot(src)
 
 //laser
 /datum/opposing_force_equipment/ranged_stealth/fisher
-	item_type = /obj/item/gun/energy/recharge/fisher
+	item_type = /obj/item/gun/ballistic/automatic/pistol/clandestine/fisher
 
 /datum/opposing_force_equipment/ranged_stealth/ebow
 	item_type = /obj/item/gun/energy/recharge/ebow

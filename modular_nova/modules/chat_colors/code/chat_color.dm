@@ -12,7 +12,7 @@
 	return process_chat_color(sanitize_hexcolor(input))
 
 /datum/preference/color/chat_color/create_default_value()
-	return process_chat_color(random_color())
+	return process_chat_color("#[random_color()]")
 
 /datum/preference/color/chat_color/serialize(input)
 	return process_chat_color(sanitize_hexcolor(input))
@@ -41,14 +41,24 @@
 
 #undef CHAT_COLOR_NORMAL
 #undef CHAT_COLOR_DARKENED
-#define CM_COLOR_SAT_MIN 0
-#define CM_COLOR_SAT_MAX 1
-#define CM_COLOR_LUM_MIN 0.35
-#define CM_COLOR_LUM_MAX 1
+
+// NCM for Nova chatmessage
+#define NCM_COLOR_HUE 1
+#define NCM_COLOR_SATURATION 2
+#define NCM_COLOR_LUMINANCE 3
+
+#define NCM_COLOR_SAT_MAX 90 // 90% saturation is the default ceiling
+#define NCM_COLOR_LUM_MIN 40 // 40% luminosity is the default floor
+#define NCM_COLOR_LUM_MIN_GREY 35 // 35% luminosity for greys
+#define NCM_COLOR_LUM_MAX_DARK_RANGE 45 // 45% luminosity for dark blues/reds/violets
+
+#define NCM_COLOR_HUE_RANGE_LOWER 180
+#define NCM_COLOR_HUE_RANGE_UPPER 350
+#define NCM_COLOR_HUE_GREY 0
 
 /**
  * Converts a given color to comply within a smaller subset of colors to be used in runechat.
- * If a color is outside the min/max saturation or value/lum, it will be set at the nearest
+ * If a color is outside the min/max saturation or lum, it will be set at the nearest
  * value that passes validation.
  *
  * Arguments:
@@ -58,24 +68,42 @@
  */
 /proc/process_chat_color(color, sat_shift = 1, lum_shift = 1)
 	if(isnull(color))
-		return
+		return "#FFFFFF"
 
-	var/input_hsv = RGBtoHSV(color)
-	var/list/split_hsv = ReadHSV(input_hsv)
-	var/split_h = split_hsv[1]
-	var/split_s = split_hsv[2]
-	var/split_v = split_hsv[3]
-	var/processed_s = clamp(split_s, CM_COLOR_SAT_MIN * 255, CM_COLOR_SAT_MAX * 255)
-	var/processed_v = clamp(split_v, CM_COLOR_LUM_MIN * 255, CM_COLOR_LUM_MAX * 255)
-	// adjust for shifts
-	processed_s *= clamp(sat_shift, 0, 1)
-	processed_v *= clamp(lum_shift, 0, 1)
-	var/processed_hsv = hsv(split_h, processed_s, processed_v)
-	var/processed_rgb = HSVtoRGB(processed_hsv)
+	// Convert color hex to HSL
+	var/hsl_color = rgb2num(color, COLORSPACE_HSL)
 
-	return processed_rgb
+	// Hue / saturation / luminance
+	var/hue = hsl_color[NCM_COLOR_HUE]
+	var/saturation = hsl_color[NCM_COLOR_SATURATION]
+	var/luminance = hsl_color[NCM_COLOR_LUMINANCE]
 
-#undef CM_COLOR_LUM_MAX
-#undef CM_COLOR_LUM_MIN
-#undef CM_COLOR_SAT_MAX
-#undef CM_COLOR_SAT_MIN
+	// Cap the saturation at 90%
+	saturation = min(saturation, NCM_COLOR_SAT_MAX)
+
+	// Now clamp the luminance according to the hue
+	var/processed_luminance
+
+	// There are special cases for greyscale and the red/blue/violet range
+	if(hue == NCM_COLOR_HUE_GREY)
+		processed_luminance = max(luminance, NCM_COLOR_LUM_MIN_GREY) // greys have a lower floor on the allowed luminance value than the default
+	else if(NCM_COLOR_HUE_RANGE_UPPER > hue > NCM_COLOR_HUE_RANGE_LOWER)
+		processed_luminance = min(luminance, NCM_COLOR_LUM_MAX_DARK_RANGE) // colors in the deep reds/blues/violets range will have a slightly higher luminance floor than the default
+	else
+		processed_luminance = max(luminance, NCM_COLOR_LUM_MIN) // everything else gets the default floor
+
+	// Convert it back to a hex
+	return rgb(hue, saturation*sat_shift, processed_luminance*lum_shift, space = COLORSPACE_HSL)
+
+#undef NCM_COLOR_HUE
+#undef NCM_COLOR_SATURATION
+#undef NCM_COLOR_LUMINANCE
+
+#undef NCM_COLOR_SAT_MAX
+#undef NCM_COLOR_LUM_MIN
+#undef NCM_COLOR_LUM_MIN_GREY
+#undef NCM_COLOR_LUM_MAX_DARK_RANGE
+
+#undef NCM_COLOR_HUE_RANGE_LOWER
+#undef NCM_COLOR_HUE_RANGE_UPPER
+#undef NCM_COLOR_HUE_GREY

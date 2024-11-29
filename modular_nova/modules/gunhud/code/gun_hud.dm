@@ -4,7 +4,7 @@
 
 /*
 *	This hud is controlled namely by the ammo_hud component. Generally speaking this is inactive much like all other hud components until it's needed.
-*	It does not do any calculations of it's own, you must do this externally.
+*	It does not do any calculations of its own, you must do this externally.
 *	If you wish to use this hud, use the ammo_hud component or create another one which interacts with it via the below procs.
 *	proc/turn_off
 *	proc/turn_on
@@ -33,6 +33,8 @@
 	var/oth_h
 	///This is the custom indicator sprite that will appear in the box at the bottom of the ammo hud, use this for something like semi/auto toggle on a gun.
 	var/indicator
+	// is the ui on or off?
+	var/on
 
 ///This proc simply resets the hud to standard and removes it from the players visible hud.
 /atom/movable/screen/ammo_counter/proc/turn_off()
@@ -45,10 +47,12 @@
 	oth_h = ""
 	indicator = ""
 	update_appearance()
+	on = FALSE
 
 ///This proc turns the hud on, but does not set it to anything other than the currently set values
 /atom/movable/screen/ammo_counter/proc/turn_on()
 	invisibility = 0
+	on = TRUE
 
 ///This is the main proc for altering the hud's appeareance, it controls the setting of the overlays. Use the OTH and below variables to set it accordingly.
 /atom/movable/screen/ammo_counter/proc/set_hud(_backing_color, _oth_o, _oth_t, _oth_h, _indicator, _oth_backing = "oth_light")

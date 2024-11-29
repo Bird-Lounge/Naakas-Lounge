@@ -17,7 +17,7 @@
 /obj/item/organ/external/snout
 	mutantpart_key = "snout"
 	mutantpart_info = list(MUTANT_INDEX_NAME = "None", MUTANT_INDEX_COLOR_LIST = list("#FFFFFF", "#FFFFFF", "#FFFFFF"))
-	external_bodytypes = NONE // We don't actually want this to have BODYTYPE_SNOUTED by default, since some of them don't apply that.
+	external_bodyshapes = NONE // We don't actually want this to have  by default, since some of them don't apply that.
 	preference = "feature_snout"
 
 /datum/bodypart_overlay/mutant/snout
@@ -30,11 +30,11 @@
 	return !sprite_datum.is_hidden(human)
 
 
-/obj/item/organ/external/snout/Insert(mob/living/carbon/reciever, special, drop_if_replaced)
+/obj/item/organ/external/snout/mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	if(sprite_accessory_flags & SPRITE_ACCESSORY_USE_MUZZLED_SPRITE)
-		external_bodytypes |= BODYTYPE_SNOUTED
+		external_bodyshapes |= BODYSHAPE_SNOUTED
 	if(sprite_accessory_flags & SPRITE_ACCESSORY_USE_ALT_FACEWEAR_LAYER)
-		external_bodytypes |= BODYTYPE_ALT_FACEWEAR_LAYER
+		external_bodyshapes |= BODYSHAPE_ALT_FACEWEAR_LAYER
 
 	return ..()
 
@@ -53,7 +53,7 @@
 
 
 /datum/sprite_accessory/snouts/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 	flags_for_organ = NONE
 	factual = FALSE
@@ -119,11 +119,36 @@
 	color_src = USE_MATRIXED_COLORS
 	organ_type = /obj/item/organ/external/snout/top_adj
 
+/datum/sprite_accessory/snouts/mammal/bug_low_eyes
+	name = "Bug (Eyes Below Hair)"
+	icon_state = "bug_low_eyes"
+	flags_for_organ = NONE
+	color_src = USE_MATRIXED_COLORS
+	organ_type = /obj/item/organ/external/snout/top_adj
+
+/datum/sprite_accessory/snouts/mammal/bug_no_ant
+	name = "Bug (No Antennae, Below Hair)"
+	icon_state = "bug_no_ant"
+	flags_for_organ = NONE
+	color_src = USE_MATRIXED_COLORS
+	organ_type = /obj/item/organ/external/snout/top_adj
+
+/datum/sprite_accessory/snouts/mammal/bug_no_ant_low_eyes
+	name = "Bug (No Antennae, Below Hair, Eyes Below Hair)"
+	icon_state = "bug_no_ant_low_eyes"
+	flags_for_organ = NONE
+	color_src = USE_MATRIXED_COLORS
+	organ_type = /obj/item/organ/external/snout/top_adj
+
 /datum/sprite_accessory/snouts/mammal/bug_no_eyes
 	name = "Bug (No eyes)"
 	icon_state = "bug_no_eyes"
 	flags_for_organ = NONE
 	color_src = USE_ONE_COLOR
+
+/datum/sprite_accessory/snouts/mammal/top/fmandibles
+	name = "Mandibles (Top)"
+	icon_state = "fmandibles1"
 
 /datum/sprite_accessory/snouts/mammal/elephant
 	name = "Elephant"
@@ -207,6 +232,14 @@
 	name = "Scolipede"
 	icon_state = "pede"
 
+/datum/sprite_accessory/snouts/mammal/pig
+	name = "Porcine"
+	icon_state = "pig"
+
+/datum/sprite_accessory/snouts/mammal/pig/boar
+	name = "Porcine + Tusks"
+	icon_state = "boar"
+
 /datum/sprite_accessory/snouts/mammal/sergal
 	name = "Sergal"
 	icon_state = "sergal"
@@ -245,6 +278,10 @@
 	name = "WahCoon ALT"
 	icon_state = "wahalt"
 
+/datum/sprite_accessory/snouts/mammal/canine_alt
+	name = "Canine (Alt)"
+	icon_state = "caninealt"
+
 /******************************************
 **************** Snouts *******************
 *************but higher up*****************/
@@ -265,6 +302,22 @@
 /datum/sprite_accessory/snouts/mammal/top/fbug
 	name = "Bug (Top)"
 	icon_state = "fbug"
+	flags_for_organ = NONE
+	color_src = USE_MATRIXED_COLORS
+	organ_type = /obj/item/organ/external/snout/top_adj
+	relevent_layers = list(BODY_ADJ_LAYER, BODY_FRONT_LAYER)
+
+/datum/sprite_accessory/snouts/mammal/top/bug_no_ant
+	name = "Bug (No Antennae)"
+	icon_state = "fbug_no_ant"
+	flags_for_organ = NONE
+	color_src = USE_MATRIXED_COLORS
+	organ_type = /obj/item/organ/external/snout/top_adj
+	relevent_layers = list(BODY_ADJ_LAYER, BODY_FRONT_LAYER)
+
+/datum/sprite_accessory/snouts/mammal/top/fdragonfly
+	name = "Dragonfly (Top)"
+	icon_state = "fdragonfly"
 	flags_for_organ = NONE
 	color_src = USE_MATRIXED_COLORS
 	organ_type = /obj/item/organ/external/snout/top_adj
@@ -374,9 +427,21 @@
 	name = "WahCoon (Top)"
 	icon_state = "fwah"
 
+/datum/sprite_accessory/snouts/mammal/top/fskulldog
+	name = "Skulldog (Top)"
+	icon_state = "fskulldog"
+
+/datum/sprite_accessory/snouts/mammal/top/fskulldog_greyscale
+	name = "Skulldog (Top, Greyscale)"
+	icon_state = "fskulldogalt"
+
 /datum/sprite_accessory/snouts/mammal/skulldog
 	name = "Skulldog"
 	icon_state = "skulldog"
+
+/datum/sprite_accessory/snouts/mammal/skulldog_greyscale
+	name = "Skulldog (Greyscale)"
+	icon_state = "skulldogalt"
 
 /datum/sprite_accessory/snouts/mammal/hanubus
 	name = "Anubus"

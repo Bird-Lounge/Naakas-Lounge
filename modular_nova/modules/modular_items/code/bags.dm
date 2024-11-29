@@ -37,7 +37,7 @@
 	atom_storage.max_total_storage = 12
 	atom_storage.max_slots = 3
 	atom_storage.numerical_stacking = FALSE
-	atom_storage.can_hold = typecacheof(list(/obj/item/ammo_box/magazine, /obj/item/ammo_casing, /obj/item/stock_parts/cell/microfusion))
+	atom_storage.can_hold = typecacheof(list(/obj/item/ammo_box/magazine, /obj/item/ammo_casing))
 
 /obj/item/storage/pouch/ammo/post_reskin(mob/our_mob)
 	if(icon_state == "casingpouch")
@@ -154,5 +154,16 @@
 		/obj/item/bonesetter = 1,
 		/obj/item/stack/medical/gauze/twelve = 1,
 		/obj/item/reagent_containers/hypospray/medipen/ekit = 2,
+	)
+	generate_items_inside(items_inside, src)
+
+/obj/item/storage/pouch/medical/firstaid/advanced/Initialize(mapload)
+	. = ..()
+	desc += " Repackaged with improved medical supplies."
+	var/static/items_inside = list(
+		/obj/item/stack/medical/suture/medicated = 2,
+		/obj/item/stack/medical/mesh/advanced = 1,
+		/obj/item/stack/medical/gauze/twelve = 1,
+		/obj/item/reagent_containers/hypospray/medipen/ekit = 1,
 	)
 	generate_items_inside(items_inside, src)

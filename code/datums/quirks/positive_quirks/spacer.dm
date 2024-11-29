@@ -4,7 +4,7 @@
 /datum/quirk/spacer_born
 	name = "Spacer"
 	desc = "You were born in space, and have never known the comfort of a planet's gravity. Your body has adapted to this. \
-		You are more comfortable in zero and artifical gravity and are more resistant to the effects of space, \
+		You are more comfortable in zero and artificial gravity and are more resistant to the effects of space, \
 		but travelling to a planet's surface for an extended period of time will make you feel sick."
 	gain_text = span_notice("You feel at home in space.")
 	lose_text = span_danger("You feel homesick.")
@@ -13,7 +13,7 @@
 	quirk_flags = QUIRK_CHANGES_APPEARANCE //NOVA EDIT CHANGE - ORIGINAL: quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_CHANGES_APPEARANCE
 	medical_record_text = "Patient is well-adapted to non-terrestrial environments."
 	mail_goodies = list(
-		/obj/item/storage/pill_bottle/ondansetron,
+		/obj/item/reagent_containers/hypospray/medipen/deforest/psifinil, // NOVA EDIT CHANGE - ORIGINAL: /obj/item/storage/pill_bottle/ondansetron,
 		/obj/item/reagent_containers/pill/gravitum,
 	)
 	/// How high spacers get bumped up to
@@ -42,9 +42,8 @@
 	// Yes, it's assumed for planetary maps that you start at gravity sickness.
 	check_z(quirk_holder, skip_timers = TRUE)
 
-/datum/quirk/spacer_born/add_unique(client/client_source)
 	// drift slightly faster through zero G
-	quirk_holder.inertia_move_delay *= 0.8
+	quirk_holder.inertia_move_multiplier *= 0.8
 
 	var/mob/living/carbon/human/human_quirker = quirk_holder
 	human_quirker.set_mob_height(modded_height)
@@ -63,10 +62,10 @@
 			you are awarded with a 25% hazard pay bonus due to your [on_a_planet ?  "station" : "occupational"] assignment."))
 
 	// Supply them with some patches to help out on their new assignment
-	var/obj/item/storage/pill_bottle/ondansetron/disgust_killers = new()
-	disgust_killers.desc += " Best to take one when travelling to a planet's surface."
+	var/obj/item/storage/medkit/civil_defense/comfort/stocked/disgust_killers = new() // NOVA EDIT CHANGE - a custom deforest cheesekit filled with much better meds - ORIGINAL: var/obj/item/storage/pill_bottle/ondansetron/disgust_killers = new()
+	//disgust_killers.desc += " Best to take one when travelling to a planet's surface." NOVA EDIT REMOVAL - remove extra blurb, unneeded
 	if(quirk_holder.equip_to_slot_if_possible(disgust_killers, ITEM_SLOT_BACKPACK, qdel_on_fail = TRUE, initial = TRUE, indirect_action = TRUE))
-		to_chat(quirk_holder, span_info("You have[isnull(spacer_account) ? " " : " also "]been given some anti-emetic patches to assist in adjusting to planetary gravity."))
+		to_chat(quirk_holder, span_info("You have[isnull(spacer_account) ? " " : " also "]been given a kit of symptom-alleviating autoinjectors to aid in adjusting to planetary gravity.")) // NOVA EDIT CHANGE - rewords to make sense - ORIGINAL: to_chat(quirk_holder, span_info("You have[isnull(spacer_account) ? " " : " also "]been given some anti-emetic patches to assist in adjusting to planetary gravity."))
 
 /datum/quirk/spacer_born/remove()
 	UnregisterSignal(quirk_holder, COMSIG_MOVABLE_Z_CHANGED)
@@ -74,7 +73,7 @@
 	if(QDELING(quirk_holder))
 		return
 
-	quirk_holder.inertia_move_delay /= 0.8
+	quirk_holder.inertia_move_multiplier /= 0.8
 	quirk_holder.clear_mood_event("spacer")
 	quirk_holder.remove_movespeed_modifier(/datum/movespeed_modifier/spacer)
 	quirk_holder.remove_status_effect(/datum/status_effect/spacer)

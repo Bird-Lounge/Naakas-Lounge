@@ -22,7 +22,7 @@
 
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
-	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_OCLOTHING
+	slot_flags = ITEM_SLOT_BACK
 
 	accepted_magazine_type = /obj/item/ammo_box/magazine/c40sol_rifle
 	spawn_magazine_type = /obj/item/ammo_box/magazine/c40sol_rifle/standard
@@ -30,8 +30,6 @@
 	fire_sound = 'modular_nova/modules/modular_weapons/sounds/rifle_heavy.ogg'
 	suppressed_sound = 'modular_nova/modules/modular_weapons/sounds/suppressed_rifle.ogg'
 	can_suppress = TRUE
-
-	can_bayonet = FALSE
 
 	suppressor_x_offset = 12
 
@@ -121,13 +119,13 @@
 	name = "\improper Qarad Light Machinegun"
 	desc = "A hefty machinegun commonly seen in the hands of SolFed military types. Accepts any standard SolFed rifle magazine."
 
-	icon_state = "outomaties"
+	icon_state = "qarad"
 	worn_icon_state = "outomaties"
 	inhand_icon_state = "outomaties"
 
 	bolt_type = BOLT_TYPE_OPEN
 
-	spawn_magazine_type = /obj/item/ammo_box/magazine/c40sol_rifle/drum
+	spawn_magazine_type = /obj/item/ammo_box/magazine/c40sol_rifle
 
 	fire_delay = 0.1 SECONDS
 
@@ -151,7 +149,7 @@
 /obj/item/gun/ballistic/automatic/sol_rifle/machinegun/no_mag
 	spawnwithmagazine = FALSE
 
-// Evil version of the rifle (nothing different its just black)
+// Evil version of the rifle (nothing different it's just black)
 
 /obj/item/gun/ballistic/automatic/sol_rifle/evil
 	desc = "A heavy battle rifle, this one seems to be painted tacticool black. Accepts any standard SolFed rifle magazine."

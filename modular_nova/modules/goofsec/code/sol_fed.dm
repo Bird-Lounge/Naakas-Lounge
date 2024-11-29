@@ -101,7 +101,7 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 		if(EMERGENCY_RESPONSE_POLICE)
 			team_size = 8
 			cops_to_send = /datum/antagonist/ert/request_911/police
-			announcement_message = "Crewmembers of [station_name()]. this is the Sol Federation. We've recieved a request for immediate marshal support, and we are \
+			announcement_message = "Crewmembers of [station_name()]. this is the Sol Federation. We've received a request for immediate marshal support, and we are \
 				sending our best marshals to support your station.\n\n\
 				If the first responders request that they need SWAT support to do their job, or to report a faulty 911 call, we will send them in at additional cost to your station to the \
 				tune of $20,000.\n\n\
@@ -112,7 +112,7 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 		if(EMERGENCY_RESPONSE_ATMOS)
 			team_size = tgui_input_number(usr, "How many techs would you like dispatched?", "How badly did you screw up?", 3, 3, 1)
 			cops_to_send = /datum/antagonist/ert/request_911/atmos
-			announcement_message = "Crewmembers of [station_name()]. this is the Sol Federation's 811 dispatch. We've recieved a report of stationwide structural damage, atmospherics loss, fire, or otherwise, and we are \
+			announcement_message = "Crewmembers of [station_name()]. this is the Sol Federation's 811 dispatch. We've received a report of stationwide structural damage, atmospherics loss, fire, or otherwise, and we are \
 				sending an Advanced Atmospherics team to support your station.\n\n\
 				The transcript of the call is as follows:\n\
 				[GLOB.call_911_msg]"
@@ -122,7 +122,7 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 		if(EMERGENCY_RESPONSE_EMT)
 			team_size = 8
 			cops_to_send = /datum/antagonist/ert/request_911/emt
-			announcement_message = "Crewmembers of [station_name()]. this is the Sol Federation. We've recieved a request for immediate medical support, and we are \
+			announcement_message = "Crewmembers of [station_name()]. this is the Sol Federation. We've received a request for immediate medical support, and we are \
 				sending our best emergency medical technicians to support your station.\n\n\
 				If the first responders request that they need SWAT support to do their job, or to report a faulty 911 call, we will send them in at additional cost to your station to the \
 				tune of $20,000.\n\n\
@@ -146,7 +146,7 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 	var/list/candidates = SSpolling.poll_ghost_candidates(
 		poll_question,
 		check_jobban = ROLE_DEATHSQUAD,
-		pic_source = /obj/item/solfed_reporter,
+		alert_pic = /obj/item/solfed_reporter,
 		role_name_text = cops_to_send::name,
 	)
 
@@ -175,8 +175,8 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 			var/datum/antagonist/ert/request_911/ert_antag = new cops_to_send
 
 			cop.mind.add_antag_datum(ert_antag)
-			cop.mind.set_assigned_role(SSjob.GetJobType(ert_antag.ert_job_path))
-			SSjob.SendToLateJoin(cop)
+			cop.mind.set_assigned_role(SSjob.get_job_type(ert_antag.ert_job_path))
+			SSjob.send_to_late_join(cop)
 			cop.grant_language(/datum/language/common, source = LANGUAGE_SPAWNER)
 
 			if(cops_to_send == /datum/antagonist/ert/request_911/atmos) // charge for atmos techs
@@ -206,7 +206,7 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 
 	if (GLOB.cops_arrived)
 		to_chat(user, span_warning("911 has already been called this shift!"))
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+		playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 		return FALSE
 
 	if (!issilicon(user))
@@ -214,11 +214,11 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 		var/obj/item/card/id/id_card = held_item?.GetID()
 		if (!istype(id_card))
 			to_chat(user, span_warning("You need to swipe your ID!"))
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 			return FALSE
 		if (!(ACCESS_CAPTAIN in id_card.access))
 			to_chat(user, span_warning("You are not authorized to do this!"))
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
+			playsound(src, 'sound/machines/terminal/terminal_prompt_deny.ogg', 50, FALSE)
 			return FALSE
 	else
 		to_chat(user, "The console refuses to let you dial 911 as an AI or Cyborg!")
@@ -248,7 +248,7 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 
 	call_911(called_group)
 	to_chat(user, span_notice("Authorization confirmed. 911 call dispatched to the Sol Federation [called_group_pretty]."))
-	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+	playsound(src, 'sound/machines/terminal/terminal_prompt_confirm.ogg', 50, FALSE)
 
 /datum/antagonist/ert/request_911
 	name = "911 Responder"
@@ -382,13 +382,43 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 	desc = "A headset used by the Solar Federation response teams."
 	icon_state = "med_headset"
 	keyslot = /obj/item/encryptionkey/headset_solfed/atmos
-	radiosound = 'modular_nova/modules/radiosound/sound/radio/security.ogg'
+	radio_talk_sound = 'modular_nova/modules/radiosound/sound/radio/security.ogg'
 
 /obj/item/encryptionkey/headset_solfed/atmos
 	name = "\improper SolFed adv. atmos encryption key"
 	icon_state = "cypherkey_medical"
-	independent = TRUE
+	special_channels = RADIO_SPECIAL_CENTCOM
 	channels = list(RADIO_CHANNEL_SOLFED = 1, RADIO_CHANNEL_ENGINEERING = 1, RADIO_CHANNEL_COMMAND = 1)
+	greyscale_config = /datum/greyscale_config/encryptionkey_medical
+	greyscale_colors = "#ebebeb#2b2793"
+
+/obj/item/radio/headset/headset_solfed/sec
+	name = "\improper SolFed adv. Security headset"
+	desc = "A headset used by the Solar Federation response teams."
+	icon_state = "med_headset"
+	keyslot = /obj/item/encryptionkey/headset_solfed/atmos
+	radio_talk_sound = 'modular_nova/modules/radiosound/sound/radio/security.ogg'
+
+/obj/item/encryptionkey/headset_solfed/sec
+	name = "\improper SolFed adv. Security encryption key"
+	icon_state = "cypherkey_medical"
+	special_channels = RADIO_SPECIAL_CENTCOM
+	channels = list(RADIO_CHANNEL_SOLFED = 1, RADIO_CHANNEL_SECURITY = 1, RADIO_CHANNEL_COMMAND = 1)
+	greyscale_config = /datum/greyscale_config/encryptionkey_medical
+	greyscale_colors = "#ebebeb#2b2793"
+
+/obj/item/radio/headset/headset_solfed/med
+	name = "\improper SolFed adv. Medical headset"
+	desc = "A headset used by the Solar Federation response teams."
+	icon_state = "med_headset"
+	keyslot = /obj/item/encryptionkey/headset_solfed/atmos
+	radio_talk_sound = 'modular_nova/modules/radiosound/sound/radio/security.ogg'
+
+/obj/item/encryptionkey/headset_solfed/med
+	name = "\improper SolFed adv. Medical encryption key"
+	icon_state = "cypherkey_medical"
+	special_channels = RADIO_SPECIAL_CENTCOM
+	channels = list(RADIO_CHANNEL_SOLFED = 1, RADIO_CHANNEL_MEDICAL = 1, RADIO_CHANNEL_COMMAND = 1)
 	greyscale_config = /datum/greyscale_config/encryptionkey_medical
 	greyscale_colors = "#ebebeb#2b2793"
 
@@ -407,7 +437,7 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 	back = /obj/item/storage/backpack/medic
 	uniform = /obj/item/clothing/under/sol_emt
 	shoes = /obj/item/clothing/shoes/jackboots
-	ears = /obj/item/radio/headset/headset_med
+	ears = /obj/item/radio/headset/headset_solfed/med
 	mask = /obj/item/clothing/mask/gas/alt
 	head = /obj/item/clothing/head/helmet/toggleable/sf_hardened/emt
 	id = /obj/item/card/id/advanced/solfed
@@ -454,7 +484,7 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 	uniform = /obj/item/clothing/under/sol_peacekeeper
 	shoes = /obj/item/clothing/shoes/jackboots
 	glasses = /obj/item/clothing/glasses/sunglasses
-	ears = /obj/item/radio/headset/headset_sec/alt
+	ears = /obj/item/radio/headset/headset_solfed/sec
 	head = /obj/item/clothing/head/helmet/sf_peacekeeper
 	belt = /obj/item/gun/energy/disabler
 	suit = /obj/item/clothing/suit/armor/sf_peacekeeper
@@ -505,7 +535,7 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 
 	back = /obj/item/storage/backpack
 	glasses = /obj/item/clothing/glasses/sunglasses
-	ears = /obj/item/radio/headset/headset_sec/alt
+	ears = /obj/item/radio/headset/headset_solfed/sec
 	l_pocket = /obj/item/restraints/handcuffs
 	r_pocket = /obj/item/flashlight/seclite
 	id = /obj/item/card/id/advanced/solfed
@@ -586,7 +616,7 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 			var/list/candidates = SSpolling.poll_ghost_candidates(
 				ghost_poll_msg,
 				jobban_to_check,
-				pic_source = /obj/item/solfed_reporter,
+				alert_pic = /obj/item/solfed_reporter,
 				role_name_text = summoned_type,
 			)
 
@@ -615,8 +645,8 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 					var/datum/antagonist/ert/request_911/ert_antag = new type_to_summon
 
 					cop.mind.add_antag_datum(ert_antag)
-					cop.mind.set_assigned_role(SSjob.GetJobType(ert_antag.ert_job_path))
-					SSjob.SendToLateJoin(cop)
+					cop.mind.set_assigned_role(SSjob.get_job_type(ert_antag.ert_job_path))
+					SSjob.send_to_late_join(cop)
 					cop.grant_language(/datum/language/common, source = LANGUAGE_SPAWNER)
 
 					var/obj/item/gangster_cellphone/phone = new() // biggest gang in the city
@@ -702,7 +732,7 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 		you placed at the Dogginos that's the seventh furthest Dogginos in the galaxy from your station, and we want to ensure maximum customer satisfaction and \
 		employee satisfaction as well.\n\
 		We've gone ahead and sent some some of our finest regional managers to handle the situation.\n\
-		We hope you enjoy your pizzas, and that we'll be able to recieve the bill of $35,000 plus the fifteen percent tip for our drivers shortly!"
+		We hope you enjoy your pizzas, and that we'll be able to receive the bill of $35,000 plus the fifteen percent tip for our drivers shortly!"
 	announcement_source = "Dogginos"
 	fine_station = FALSE
 	ghost_poll_msg = "Dogginos is sending regional managers to get the station to pay up the pizza money they owe. Are you ready to do some Customer Relations?"
@@ -779,14 +809,14 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 				else
 					message_admins("[ADMIN_LOOKUPFLW(user)] has beamed out [living_user.pulling] alongside them.")
 				var/turf/pulling_turf = get_turf(living_user.pulling)
-				playsound(pulling_turf, 'sound/magic/Repulse.ogg', 100, 1)
+				playsound(pulling_turf, 'sound/effects/magic/Repulse.ogg', 100, 1)
 				var/datum/effect_system/spark_spread/quantum/sparks = new
 				sparks.set_up(10, 1, pulling_turf)
 				sparks.attach(pulling_turf)
 				sparks.start()
 				qdel(living_user.pulling)
 			var/turf/user_turf = get_turf(living_user)
-			playsound(user_turf, 'sound/magic/Repulse.ogg', 100, 1)
+			playsound(user_turf, 'sound/effects/magic/Repulse.ogg', 100, 1)
 			var/datum/effect_system/spark_spread/quantum/sparks = new
 			sparks.set_up(10, 1, user_turf)
 			sparks.attach(user_turf)

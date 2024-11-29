@@ -26,6 +26,9 @@
 
 	return FALSE
 
+/datum/sprite_accessory/horns/none
+	name = SPRITE_ACCESSORY_NONE
+	icon_state = "none"
 
 /datum/sprite_accessory/horns/angler
 	default_color = DEFAULT_SECONDARY
@@ -77,6 +80,18 @@
 	name = "Impala (big)"
 	icon_state = "bigimpala"
 
+/datum/sprite_accessory/horns/big/paintedpoints
+	name = "Painted Points"
+	icon_state = "paintedpoints"
+
+/datum/sprite_accessory/horns/big/whoshorns
+	name = "Who's Horns"
+	icon_state = "whoshorns"
+
+/datum/sprite_accessory/horns/big/highrisehorns
+	name = "High-rise Horns"
+	icon_state = "highrisehorns"
+
 /datum/sprite_accessory/horns/broken
 	name = "Broken"
 	icon_state = "broken"
@@ -108,3 +123,68 @@
 /datum/sprite_accessory/horns/sideswept
 	name = "Side swept back"
 	icon_state = "sideswept"
+
+/datum/sprite_accessory/horns/crippledbull
+	name = "Crippled Bull"
+	icon_state = "crippledbull"
+
+/datum/sprite_accessory/horns/ticketrack
+	name = "Ticket Rack"
+	icon_state = "ticketrack"
+
+/datum/sprite_accessory/horns/hopefulhorns
+	name = "Hopeful Horns"
+	icon_state = "hopefulhorns"
+
+/datum/sprite_accessory/horns/broadcurls
+	name = "Broad Curls"
+	icon_state = "broadcurls"
+
+/datum/sprite_accessory/horns/antenna_fuzzball_v2
+	name = "Fuzzball Antenna"
+	icon_state = "antenna_fuzzballv2"
+	color_src = USE_MATRIXED_COLORS
+
+/datum/sprite_accessory/horns/setaceous
+	name = "Setaceous Antenna"
+	icon_state = "setaceous"
+	color_src = USE_ONE_COLOR
+
+/datum/sprite_accessory/horns/setaceousm
+	name = "Medium Setaceous Antenna"
+	icon_state = "setaceousm"
+	color_src = USE_ONE_COLOR
+
+/datum/sprite_accessory/horns/geniculate
+	name = "Geniculate Antenna"
+	icon_state = "geniculate"
+	color_src = USE_ONE_COLOR
+
+/datum/sprite_accessory/horns/moogle_pom
+	icon = 'modular_nova/master_files/icons/mob/sprite_accessory/moogle_pom.dmi'
+	color_src = USE_MATRIXED_COLORS
+
+/datum/sprite_accessory/horns/moogle_pom/small_front
+	name = "Moogle Pom (Small, Front)"
+	icon_state = "mpom1"
+
+/datum/sprite_accessory/horns/moogle_pom/small_back
+	name = "Moogle Pom (Small, Back)"
+	icon_state = "mpom1alt"
+
+/datum/sprite_accessory/horns/moogle_pom/medium_front
+	name = "Moogle Pom (Medium, Front)"
+	icon_state = "mpom2"
+
+/datum/sprite_accessory/horns/moogle_pom/medium_back
+	name = "Moogle Pom (Medium, Back)"
+	icon_state = "mpom2alt"
+
+/datum/sprite_accessory/horns/moogle_pom/large_front
+	name = "Moogle Pom (Large, Front)"
+	icon_state = "mpom3"
+
+/datum/sprite_accessory/horns/moogle_pom/large_back
+	name = "Moogle Pom (Large, Back)"
+	icon_state = "mpom3alt"
+

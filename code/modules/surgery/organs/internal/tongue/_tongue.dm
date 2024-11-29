@@ -2,7 +2,7 @@
 	name = "tongue"
 	desc = "A fleshy muscle mostly used for lying."
 	icon_state = "tongue"
-	visual = FALSE
+
 	zone = BODY_ZONE_PRECISE_MOUTH
 	slot = ORGAN_SLOT_TONGUE
 	attack_verb_continuous = list("licks", "slobbers", "slaps", "frenches", "tongues")
@@ -94,11 +94,15 @@
 /obj/item/organ/internal/tongue/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
+	if(should_modify_speech(source, speech_args))
+		modify_speech(source, speech_args)
+
+/obj/item/organ/internal/tongue/proc/should_modify_speech(datum/source, list/speech_args)
 	if(speech_args[SPEECH_LANGUAGE] in languages_native) // Speaking a native language?
 		return FALSE // Don't modify speech
 	if(HAS_TRAIT(source, TRAIT_SIGN_LANG)) // No modifiers for signers - I hate this but I simply cannot get these to combine into one statement
 		return FALSE // Don't modify speech
-	modify_speech(source, speech_args)
+	return TRUE
 
 /obj/item/organ/internal/tongue/proc/modify_speech(datum/source, list/speech_args)
 	return speech_args[SPEECH_MESSAGE]
@@ -120,32 +124,30 @@
 		food_taste_reaction = FOOD_LIKED
 	return food_taste_reaction
 
-/obj/item/organ/internal/tongue/Insert(mob/living/carbon/tongue_owner, special = FALSE, drop_if_replaced = TRUE)
+/obj/item/organ/internal/tongue/mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
-	if(!.)
-		return
+
 	if(modifies_speech)
-		RegisterSignal(tongue_owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-	tongue_owner.voice_filter = voice_filter
+		RegisterSignal(receiver, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+	receiver.voice_filter = voice_filter
 	/* This could be slightly simpler, by making the removal of the
 	* NO_TONGUE_TRAIT conditional on the tongue's `sense_of_taste`, but
 	* then you can distinguish between ageusia from no tongue, and
 	* ageusia from having a non-tasting tongue.
 	*/
-	REMOVE_TRAIT(tongue_owner, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
-	if(!sense_of_taste || (organ_flags & ORGAN_FAILING))
-		ADD_TRAIT(tongue_owner, TRAIT_AGEUSIA, ORGAN_TRAIT)
+	REMOVE_TRAIT(receiver, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
 	apply_tongue_effects()
 
-/obj/item/organ/internal/tongue/Remove(mob/living/carbon/tongue_owner, special = FALSE)
+/obj/item/organ/internal/tongue/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
+
 	temp_say_mod = ""
-	UnregisterSignal(tongue_owner, COMSIG_MOB_SAY)
-	REMOVE_TRAIT(tongue_owner, TRAIT_SPEAKS_CLEARLY, SPEAKING_FROM_TONGUE)
-	REMOVE_TRAIT(tongue_owner, TRAIT_AGEUSIA, ORGAN_TRAIT)
+	UnregisterSignal(organ_owner, COMSIG_MOB_SAY)
+	REMOVE_TRAIT(organ_owner, TRAIT_SPEAKS_CLEARLY, SPEAKING_FROM_TONGUE)
+	REMOVE_TRAIT(organ_owner, TRAIT_AGEUSIA, ORGAN_TRAIT)
 	// Carbons by default start with NO_TONGUE_TRAIT caused TRAIT_AGEUSIA
-	ADD_TRAIT(tongue_owner, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
-	tongue_owner.voice_filter = initial(tongue_owner.voice_filter)
+	ADD_TRAIT(organ_owner, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
+	organ_owner.voice_filter = initial(organ_owner.voice_filter)
 
 /obj/item/organ/internal/tongue/apply_organ_damage(damage_amount, maximum = maxHealth, required_organ_flag)
 	. = ..()
@@ -155,7 +157,6 @@
 
 /// Applies effects to our owner based on how damaged our tongue is
 /obj/item/organ/internal/tongue/proc/apply_tongue_effects()
-	//tongues can't taste food when they are failing
 	if(sense_of_taste)
 		//tongues can't taste food when they are failing
 		if(organ_flags & ORGAN_FAILING)
@@ -187,37 +188,33 @@
 	liked_foodtypes = GORE | MEAT | SEAFOOD | NUTS | BUGS
 	disliked_foodtypes = GRAIN | DAIRY | CLOTH | GROSS
 	voice_filter = @{"[0:a] asplit [out0][out2]; [out0] asetrate=%SAMPLE_RATE%*0.9,aresample=%SAMPLE_RATE%,atempo=1/0.9,aformat=channel_layouts=mono,volume=0.2 [p0]; [out2] asetrate=%SAMPLE_RATE%*1.1,aresample=%SAMPLE_RATE%,atempo=1/1.1,aformat=channel_layouts=mono,volume=0.2[p2]; [p0][0][p2] amix=inputs=3"}
-/obj/item/organ/internal/tongue/lizard/modify_speech(datum/source, list/speech_args)
-	var/static/regex/lizard_hiss = new("s+", "g")
-	var/static/regex/lizard_hiSS = new("S+", "g")
-	var/static/regex/lizard_kss = new(@"(\w)x", "g")
-	/* // NOVA EDIT: REMOVAL
-	var/static/regex/lizard_kSS = new(@"(\w)X", "g")
-	*/
-	var/static/regex/lizard_ecks = new(@"\bx([\-|r|R]|\b)", "g")
-	var/static/regex/lizard_eckS = new(@"\bX([\-|r|R]|\b)", "g")
-	var/message = speech_args[SPEECH_MESSAGE]
-	if(message[1] != "*")
-		message = lizard_hiss.Replace(message, "sss")
-		message = lizard_hiSS.Replace(message, "SSS")
-		message = lizard_kss.Replace(message, "$1kss")
-		/* // NOVA EDIT: REMOVAL
-		message = lizard_kSS.Replace(message, "$1KSS")
-		*/
-		message = lizard_ecks.Replace(message, "ecks$1")
-		message = lizard_eckS.Replace(message, "ECKS$1")
-		//NOVA EDIT START: Adding russian version to autohiss
-		if(CONFIG_GET(flag/russian_text_formation))
-			var/static/regex/lizard_hiss_ru = new("с+", "g")
-			var/static/regex/lizard_hiSS_ru = new("С+", "g")
-			message = replacetext(message, "з", "с")
-			message = replacetext(message, "З", "С")
-			message = replacetext(message, "ж", "ш")
-			message = replacetext(message, "Ж", "Ш")
-			message = lizard_hiss_ru.Replace(message, "ссс")
-			message = lizard_hiSS_ru.Replace(message, "ССС")
-		//NOVA EDIT END: Adding russian version to autohiss
-	speech_args[SPEECH_MESSAGE] = message
+	var/static/list/speech_replacements = list(
+		new /regex("s+", "g") = "sss",
+		new /regex("S+", "g") = "SSS",
+		new /regex(@"(\w)x", "g") = "$1kss",
+		//new /regex(@"(\w)X", "g") = "$1KSSS", // NOVA EDIT REMOVAL
+		new /regex(@"\bx([\-|r|R]|\b)", "g") = "ecks$1",
+		new /regex(@"\bX([\-|r|R]|\b)", "g") = "ECKS$1",
+	)
+	// NOVA EDIT ADDITION START - Russian version - yes copy pasted from above because static lists are great.
+	var/static/list/russian_speech_replacements = list(
+		new /regex("s+", "g") = "sss",
+		new /regex("S+", "g") = "SSS",
+		new /regex(@"(\w)x", "g") = "$1kss",
+		new /regex(@"\bx([\-|r|R]|\b)", "g") = "ecks$1",
+		new /regex(@"\bX([\-|r|R]|\b)", "g") = "ECKS$1",
+		new /regex("с+", "g") = "ссс",
+		new /regex("С+", "g") = "ССС",
+		"з" = "с",
+		"З" = "С",
+		"ж" = "ш",
+		"Ж" = "Ш",
+	)
+	// NOVA EDIT ADDITION END
+
+/obj/item/organ/internal/tongue/lizard/New(class, timer, datum/mutation/human/copymut)
+	. = ..()
+	AddComponent(/datum/component/speechmod, replacements = CONFIG_GET(flag/russian_text_formation) ? russian_speech_replacements : speech_replacements, should_modify_speech = CALLBACK(src, PROC_REF(should_modify_speech))) // NOVA EDIT CHANGE - ORIGINAL: AddComponent(/datum/component/speechmod, replacements = speech_replacements, should_modify_speech = CALLBACK(src, PROC_REF(should_modify_speech)))
 
 /obj/item/organ/internal/tongue/lizard/silver
 	name = "silver tongue"
@@ -326,7 +323,7 @@
 		return // the statue ended up getting destroyed while in nullspace?
 
 	var/mob/living/carbon/carbon_owner = owner
-	RegisterSignal(carbon_owner, COMSIG_MOVABLE_MOVED)
+	UnregisterSignal(carbon_owner, COMSIG_MOVABLE_MOVED)
 
 	to_chat(carbon_owner, span_userdanger("Your existence as a living creature snaps as your statue form crumbles!"))
 	carbon_owner.forceMove(get_turf(statue))
@@ -461,7 +458,7 @@ GLOBAL_LIST_INIT(english_to_zombie, list())
 		var/list/message_word_list = splittext(message, " ")
 		var/list/translated_word_list = list()
 		for(var/word in message_word_list)
-			word = GLOB.english_to_zombie[lowertext(word)]
+			word = GLOB.english_to_zombie[LOWER_TEXT(word)]
 			translated_word_list += word ? word : FALSE
 
 		// all occurrences of characters "eiou" (case-insensitive) are replaced with "r"
@@ -564,9 +561,10 @@ GLOBAL_LIST_INIT(english_to_zombie, list())
 	attack_verb_simple = list("beep", "boop")
 	modifies_speech = TRUE
 	taste_sensitivity = 25 // not as good as an organic tongue
+	organ_traits = list(TRAIT_SILICON_EMOTES_ALLOWED)
 	voice_filter = "alimiter=0.9,acompressor=threshold=0.2:ratio=20:attack=10:release=50:makeup=2,highpass=f=1000"
 
-/obj/item/organ/internal/tongue/robot/can_speak_language(language)
+/obj/item/organ/internal/tongue/robot/could_speak_language(datum/language/language_path)
 	return TRUE // THE MAGIC OF ELECTRONICS
 
 /obj/item/organ/internal/tongue/robot/modify_speech(datum/source, list/speech_args)
@@ -616,6 +614,7 @@ GLOBAL_LIST_INIT(english_to_zombie, list())
 	say_mod = "meows"
 	liked_foodtypes = SEAFOOD | ORANGES | BUGS | GORE
 	disliked_foodtypes = GROSS | CLOTH | RAW
+	organ_traits = list(TRAIT_WOUND_LICKER, TRAIT_FISH_EATER)
 
 /obj/item/organ/internal/tongue/jelly
 	name = "jelly tongue"

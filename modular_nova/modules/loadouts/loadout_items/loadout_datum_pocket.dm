@@ -1,12 +1,5 @@
-/*
-*	LOADOUT ITEM DATUMS FOR BACKPACK/POCKET SLOTS
-*/
-
-/// Pocket items (Moved to backpack)
-GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_item/pocket_items))
-
-/datum/loadout_item/pocket_items
-	category = LOADOUT_ITEM_MISC
+/datum/loadout_category/pocket
+	tab_order = /datum/loadout_category/toys::tab_order + 1
 
 /datum/loadout_item/pocket_items/pre_equip_item(datum/outfit/outfit, datum/outfit/outfit_important_for_life, mob/living/carbon/human/equipper, visuals_only = FALSE) // these go in the backpack
 	return FALSE
@@ -15,14 +8,20 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 /datum/loadout_item/pocket_items/wallet
 	name = "Wallet"
 	item_path = /obj/item/storage/wallet
-	additional_tooltip_contents = list("FILLS AUTOMATICALLY - This item will populate itself with your ID card and other small items you may have on spawn.")
+	additional_displayed_text = list("Auto-Filled")
 
 // We add our wallet manually, later, so no need to put it in any outfits.
 /datum/loadout_item/pocket_items/wallet/insert_path_into_outfit(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only)
 	return FALSE
 
 // We didn't spawn any item yet, so nothing to call here.
-/datum/loadout_item/pocket_items/wallet/on_equip_item(datum/preferences/preference_source, mob/living/carbon/human/equipper, visuals_only)
+/datum/loadout_item/pocket_items/wallet/on_equip_item(
+	obj/item/equipped_item,
+	datum/preferences/preference_source,
+	list/preference_list,
+	mob/living/carbon/human/equipper,
+	visuals_only = FALSE,
+)
 	return FALSE
 
 // We add our wallet at the very end of character initialization (after quirks, etc) to ensure the backpack / their ID is all set by now.
@@ -38,8 +37,7 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 		id_card.forceMove(wallet)
 
 		if(equipper.back)
-			var/list/backpack_stuff = list()
-			equipper.back.atom_storage?.return_inv(backpack_stuff, FALSE)
+			var/list/backpack_stuff = equipper.back.atom_storage?.return_inv(FALSE)
 			for(var/obj/item/thing in backpack_stuff)
 				if(wallet.contents.len >= 3)
 					break
@@ -68,6 +66,18 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 /*
 *	LIPSTICK
 */
+
+/datum/loadout_item/pocket_items/lipstick_green
+	name = "Green Lipstick"
+	item_path = /obj/item/lipstick/green
+
+/datum/loadout_item/pocket_items/lipstick_white
+	name = "White Lipstick"
+	item_path = /obj/item/lipstick/white
+
+/datum/loadout_item/pocket_items/lipstick_blue
+	name = "Blue Lipstick"
+	item_path = /obj/item/lipstick/blue
 
 /datum/loadout_item/pocket_items/lipstick_black
 	name = "Black Lipstick"
@@ -117,13 +127,17 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 	name = "Personal AI Device"
 	item_path = /obj/item/pai_card
 
+/datum/loadout_item/pocket_items/link_scryer
+	name = "MODlink Scryer"
+	item_path = /obj/item/clothing/neck/link_scryer/loaded
+
 /datum/loadout_item/pocket_items/cigarettes
 	name = "Cigarette Pack"
 	item_path = /obj/item/storage/fancy/cigarettes
 
 /datum/loadout_item/pocket_items/cigar //smoking is bad mkay
 	name = "Cigar"
-	item_path = /obj/item/clothing/mask/cigarette/cigar
+	item_path = /obj/item/cigarette/cigar
 
 /datum/loadout_item/pocket_items/flask
 	name = "Flask"
@@ -185,9 +199,21 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 *	UTILITY
 */
 
+/datum/loadout_item/pocket_items/hairbrush
+	name = "Hairbrush"
+	item_path = /obj/item/hairbrush
+
+/datum/loadout_item/pocket_items/comb
+	name = "Comb"
+	item_path = /obj/item/hairbrush/comb
+
 /datum/loadout_item/pocket_items/moth_mre
 	name = "Mothic Rations Pack"
 	item_path = /obj/item/storage/box/mothic_rations
+
+/datum/loadout_item/pocket_items/colonial_mre
+	name = "Foreign Colonization Ration"
+	item_path = /obj/item/storage/box/colonial_rations
 
 /datum/loadout_item/pocket_items/cloth_ten
 	name = "Ten Cloth Sheets"
@@ -200,6 +226,26 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 /datum/loadout_item/pocket_items/medkit
 	name = "First-Aid Kit"
 	item_path = /obj/item/storage/medkit/regular
+
+/datum/loadout_item/pocket_items/medipen_pouch
+	name = "Empty Colonial Medipen Pouch"
+	item_path = /obj/item/storage/pouch/cin_medipens
+
+/datum/loadout_item/pocket_items/medkit_pouch
+	name = "Empty Colonial First Aid Pouch"
+	item_path = /obj/item/storage/pouch/cin_medkit
+
+/datum/loadout_item/pocket_items/deforest_cheesekit
+	name = "Civil Defense Medical Kit"
+	item_path = /obj/item/storage/medkit/civil_defense/stocked
+
+/datum/loadout_item/pocket_items/deforest_frontiermedkit
+	name = "Frontier Medical Kit"
+	item_path = /obj/item/storage/medkit/frontier/stocked
+
+/datum/loadout_item/pocket_items/synthetic_medkit
+	name = "Robotic Repair Equipment Kit"
+	item_path = /obj/item/storage/medkit/robotic_repair/stocked
 
 /datum/loadout_item/pocket_items/ingredients
 	name = "Wildcard Ingredient Box"
@@ -215,7 +261,7 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 
 /datum/loadout_item/pocket_items/power_cell
 	name = "Standard Power Cell"
-	item_path = /obj/item/stock_parts/cell
+	item_path = /obj/item/stock_parts/power_store/cell
 
 /datum/loadout_item/pocket_items/soap
 	name = "Bar of Soap"
@@ -299,6 +345,7 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 */
 
 /datum/loadout_item/pocket_items/donator
+	abstract_type = /datum/loadout_item/pocket_items/donator
 	donator_only = TRUE
 
 /datum/loadout_item/pocket_items/donator/coin
@@ -311,4 +358,4 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 
 /datum/loadout_item/pocket_items/donator/vape
 	name = "E-Cigarette"
-	item_path = /obj/item/clothing/mask/vape
+	item_path = /obj/item/vape

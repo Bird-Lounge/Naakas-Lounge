@@ -6,6 +6,7 @@
 /obj/item/stack/shibari_rope
 	name = "shibari ropes"
 	desc = "Coil of bondage ropes."
+	full_w_class = WEIGHT_CLASS_SMALL
 	icon = 'modular_nova/modules/modular_items/lewd_items/icons/obj/lewd_items/lewd_items.dmi'
 	icon_state = "shibari_rope"
 	amount = 1
@@ -39,9 +40,10 @@
 /obj/item/stack/shibari_rope/glow
 	name = "glowy shibari ropes"
 	singular_name = "glowy rope"
+	full_w_class = WEIGHT_CLASS_SMALL
 	merge_type = /obj/item/stack/shibari_rope/glow
 	icon_state = "shibari_rope_glow"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 1
 	light_on = TRUE
 	light_power = 3
@@ -141,7 +143,7 @@
 		return
 	var/obj/item/stack/shibari_rope/split_rope = null
 	var/slow = 0
-	if(them.bodytype & BODYTYPE_TAUR)
+	if(them.bodyshape & BODYSHAPE_TAUR)
 		split_rope = split_stack(null, 2)
 		slow = 4
 	else
@@ -218,7 +220,7 @@
 	if(them.shoes)
 		to_chat(user, span_warning("They're already wearing something on this slot!"))
 		return
-	if(them.bodytype & BODYTYPE_TAUR)
+	if(them.bodyshape & BODYSHAPE_TAUR)
 		to_chat(user, span_warning("You can't tie their feet, they're a taur!"))
 		return
 	them.visible_message(span_warning("[user] starts tying [them]'s feet!"),\
@@ -250,7 +252,7 @@
 			if(!do_after(user, HAS_TRAIT(user, TRAIT_RIGGER) ? 20 : 60, them))
 				return
 			var/slow = 0
-			if(them.bodytype & BODYTYPE_TAUR)
+			if(them.bodyshape & BODYSHAPE_TAUR)
 				slow = 4
 			var/obj/item/stack/shibari_rope/split_rope = split_stack(null, 1)
 			if(split_rope)
@@ -283,7 +285,7 @@
 				return
 			var/obj/item/stack/shibari_rope/split_rope = null
 			var/slow = 0
-			if(them.bodytype & BODYTYPE_TAUR)
+			if(them.bodyshape & BODYSHAPE_TAUR)
 				split_rope = split_stack(null, 2)
 				slow = 4
 			else
@@ -317,15 +319,15 @@
 	switch(tightness)
 		if(ROPE_TIGHTNESS_HIGH)
 			tightness = ROPE_TIGHTNESS_LOW
-			play_lewd_sound(loc, 'modular_nova/modules/modular_items/lewd_items/sounds/latex.ogg', 25)
+			playsound_if_pref(loc, 'modular_nova/modules/modular_items/lewd_items/sounds/latex.ogg', 25)
 			balloon_alert(user, span_notice("You slightly tightened the ropes"))
 		if(ROPE_TIGHTNESS_LOW)
 			tightness = ROPE_TIGHTNESS_MED
-			play_lewd_sound(loc, 'modular_nova/modules/modular_items/lewd_items/sounds/latex.ogg', 50)
+			playsound_if_pref(loc, 'modular_nova/modules/modular_items/lewd_items/sounds/latex.ogg', 50)
 			balloon_alert(user, span_notice("You moderately tightened the ropes"))
 		if(ROPE_TIGHTNESS_MED)
 			tightness = ROPE_TIGHTNESS_HIGH
-			play_lewd_sound(loc, 'modular_nova/modules/modular_items/lewd_items/sounds/latex.ogg', 75)
+			playsound_if_pref(loc, 'modular_nova/modules/modular_items/lewd_items/sounds/latex.ogg', 75)
 			balloon_alert(user, span_notice("You strongly tightened the ropes"))
 
 #undef ROPE_TIGHTNESS_LOW

@@ -27,15 +27,22 @@
  *
  * Arguments:
  * * dna - The `/datum/dna` datum from which we're going to be extracting the data to set the
+ * * accessory_name - instead of using the name from mutant_bodyparts[feature_key][MUTANT_INDEX_NAME] you can optionally pass one explicitly
+ * * feature_key - same as with accessory_key, you can optionally pass a feature_key explicitly
  * appearance.
  */
-/datum/bodypart_overlay/mutant/proc/set_appearance_from_dna(datum/dna/dna)
-	sprite_datum = fetch_sprite_datum_from_name(dna.mutant_bodyparts[feature_key][MUTANT_INDEX_NAME])
+/datum/bodypart_overlay/mutant/proc/set_appearance_from_dna(datum/dna/dna, accessory_name, feature_key)
+	if(isnull(feature_key)) // if not explicitly set, just use the feature_key of the bodypart_overlay
+		feature_key = src.feature_key
+	var/list/mutantparts_list = dna.mutant_bodyparts[feature_key] ? dna.mutant_bodyparts : dna.species.mutant_bodyparts
+	if(!mutantparts_list[feature_key])
+		return FALSE
+	sprite_datum = fetch_sprite_datum_from_name(accessory_name ? accessory_name : mutantparts_list[feature_key][MUTANT_INDEX_NAME])
 	modsuit_affected = sprite_datum.use_custom_mod_icon
-	draw_color = dna.mutant_bodyparts[feature_key][MUTANT_INDEX_COLOR_LIST]
-	build_emissive_eligibility(dna.mutant_bodyparts[feature_key][MUTANT_INDEX_EMISSIVE_LIST])
+	draw_color = mutantparts_list[feature_key][MUTANT_INDEX_COLOR_LIST]
+	build_emissive_eligibility(mutantparts_list[feature_key][MUTANT_INDEX_EMISSIVE_LIST])
 	cache_key = jointext(generate_icon_cache(), "_")
-
+	return TRUE
 
 // We do this here like this so that we handle matrixed color bodypart overlays and emissives.
 /datum/bodypart_overlay/mutant/get_overlay(layer, obj/item/bodypart/limb)
@@ -130,7 +137,7 @@
 			if(mod_overlay)
 				mod_overlay.add_overlay(sprite_datum.get_custom_mod_icon(owner, image_to_return))
 
-	if(sprite_datum.hasinner)
+	if(sprite_datum.has_inner)
 		returned_images += get_singular_image(build_icon_state(gender, image_layer, feature_key_suffix = "inner"), image_layer, owner)
 
 	// Gets the icon_state of a single or matrix colored accessory and overlays it with a texture

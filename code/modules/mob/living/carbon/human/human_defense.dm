@@ -93,7 +93,7 @@
 		return TRUE
 
 	var/block_chance_modifier = round(damage / -3)
-	for(var/obj/item/worn_thing in get_equipped_items(include_pockets = FALSE) + held_items)
+	for(var/obj/item/worn_thing in get_equipped_items(INCLUDE_HELD))
 		// Things that are supposed to be worn, being held = cannot block
 		if(isclothing(worn_thing))
 			if(worn_thing in held_items)
@@ -109,7 +109,7 @@
 
 	return FALSE
 
-/mob/living/carbon/human/grippedby(mob/living/user, instant = FALSE)
+/mob/living/carbon/human/grippedby(mob/living/carbon/user, instant = FALSE)
 	if(w_uniform)
 		w_uniform.add_fingerprint(user)
 	..()
@@ -129,29 +129,46 @@
 	apply_damage(15, BRUTE, wound_bonus=10)
 
 /mob/living/carbon/human/attack_hand(mob/user, list/modifiers)
-	if(..()) //to allow surgery to return properly.
-		return
+	. = ..()
+	if(.)
+		return TRUE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		dna.species.spec_attack_hand(H, src, null, modifiers)
+
+/mob/living/carbon/human/proc/disarm_precollide(datum/source, mob/living/shover, mob/living/target, obj/item/weapon)
+	SIGNAL_HANDLER
+	return COMSIG_LIVING_ACT_SOLID
+
+/mob/living/carbon/human/proc/disarm_collision(datum/source, mob/living/shover, mob/living/target, shove_flags, obj/item/weapon)
+	SIGNAL_HANDLER
+	if(src == target || LAZYFIND(target.buckled_mobs, src) || !iscarbon(target))
+		return
+	if(!(shove_flags & SHOVE_KNOCKDOWN_BLOCKED))
+		target.Knockdown(SHOVE_KNOCKDOWN_HUMAN)
+		target.apply_status_effect(/datum/status_effect/next_shove_stuns)
+	if(!HAS_TRAIT(src, TRAIT_BRAWLING_KNOCKDOWN_BLOCKED))
+		Knockdown(SHOVE_KNOCKDOWN_COLLATERAL)
+		apply_status_effect(/datum/status_effect/next_shove_stuns)
+	target.visible_message(span_danger("[shover] shoves [target.name] into [name]!"),
+		span_userdanger("You're shoved into [name] by [shover]!"), span_hear("You hear aggressive shuffling followed by a loud thud!"), COMBAT_MESSAGE_RANGE, src)
+	to_chat(src, span_danger("You shove [target.name] into [name]!"))
+	log_combat(shover, target, "shoved", addition = "into [name][weapon ? " with [weapon]" : ""]")
+	return COMSIG_LIVING_SHOVE_HANDLED
 
 /mob/living/carbon/human/attack_paw(mob/living/carbon/human/user, list/modifiers)
 	var/dam_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	var/obj/item/bodypart/affecting = get_bodypart(get_random_valid_zone(dam_zone))
 
-	var/martial_result = user.apply_martial_art(src, modifiers)
-	if (martial_result != MARTIAL_ATTACK_INVALID)
-		return martial_result
-
 	if(LAZYACCESS(modifiers, RIGHT_CLICK)) //Always drop item in hand, if no item, get stunned instead.
 		var/obj/item/I = get_active_held_item()
 		if(I && !(I.item_flags & ABSTRACT) && dropItemToGround(I))
-			playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
+			playsound(loc, 'sound/items/weapons/slash.ogg', 25, TRUE, -1)
 			visible_message(span_danger("[user] disarmed [src]!"), \
 							span_userdanger("[user] disarmed you!"), span_hear("You hear aggressive shuffling!"), null, user)
 			to_chat(user, span_danger("You disarm [src]!"))
 		else if(!user.client || prob(5)) // only natural monkeys get to stun reliably, (they only do it occasionaly)
-			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
+			playsound(loc, 'sound/items/weapons/pierce.ogg', 25, TRUE, -1)
 			if (src.IsKnockdown() && !src.IsParalyzed())
 				Paralyze(40)
 				log_combat(user, src, "pinned")
@@ -184,7 +201,7 @@
 			apply_damage(damage, BRUTE, affecting, run_armor_check(affecting, MELEE))
 		return TRUE
 
-//NOVA EDIT REMOVAL BEGIN - SKYRAT_XENO_REDO - Moved to: modular_nova\modules\xenos_skyrat_redo\code\human_defense.dm
+//NOVA EDIT REMOVAL BEGIN - NOVA_XENO_REDO - Moved to: modular_nova\modules\xenos_nova_redo\code\human_defense.dm
 /*
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/adult/user, list/modifiers)
 	. = ..()
@@ -194,25 +211,25 @@
 	if(LAZYACCESS(modifiers, RIGHT_CLICK)) //Always drop item in hand if there is one. If there's no item, shove the target. If the target is incapacitated, slam them into the ground to stun them.
 		var/obj/item/I = get_active_held_item()
 		if(I && dropItemToGround(I))
-			playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
+			playsound(loc, 'sound/items/weapons/slash.ogg', 25, TRUE, -1)
 			visible_message(span_danger("[user] disarms [src]!"), \
 							span_userdanger("[user] disarms you!"), span_hear("You hear aggressive shuffling!"), null, user)
 			to_chat(user, span_danger("You disarm [src]!"))
 		else if(!HAS_TRAIT(src, TRAIT_INCAPACITATED))
-			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
+			playsound(loc, 'sound/items/weapons/pierce.ogg', 25, TRUE, -1)
 			var/shovetarget = get_edge_target_turf(user, get_dir(user, get_step_away(src, user)))
 			adjustStaminaLoss(35)
 			throw_at(shovetarget, 4, 2, user, force = MOVE_FORCE_OVERPOWERING)
 			log_combat(user, src, "shoved")
-			visible_message("<span class='danger'>[user] tackles [src] down!</span>", \
-							"<span class='userdanger'>[user] shoves you with great force!</span>", "<span class='hear'>You hear aggressive shuffling followed by a loud thud!</span>", null, user)
-			to_chat(user, "<span class='danger'>You shove [src] with great force!</span>")
+			visible_message(span_danger("[user] tackles [src] down!"), \
+							span_userdanger("[user] shoves you with great force!"), span_hear("You hear aggressive shuffling followed by a loud thud!"), null, user)
+			to_chat(user, span_danger("You shove [src] with great force!"))
 		else
 			Paralyze(5 SECONDS)
-			playsound(loc, 'sound/weapons/punch3.ogg', 25, TRUE, -1)
-			visible_message("<span class='danger'>[user] slams [src] into the floor!</span>", \
-							"<span class='userdanger'>[user] slams you into the ground!</span>", "<span class='hear'>You hear something slam loudly onto the floor!</span>", null, user)
-			to_chat(user, "<span class='danger'>You slam [src] into the floor beneath you!</span>")
+			playsound(loc, 'sound/items/weapons/punch3.ogg', 25, TRUE, -1)
+			visible_message(span_danger("[user] slams [src] into the floor!"), \
+							span_userdanger("[user] slams you into the ground!"), span_hear("You hear something slam loudly onto the floor!"), null, user)
+			to_chat(user, span_danger("You slam [src] into the floor beneath you!"))
 			log_combat(user, src, "slammed into the ground")
 		return TRUE
 
@@ -221,7 +238,7 @@
 			w_uniform.add_fingerprint(user)
 		var/damage = prob(90) ? rand(user.melee_damage_lower, user.melee_damage_upper) : 0
 		if(!damage)
-			playsound(loc, 'sound/weapons/slashmiss.ogg', 50, TRUE, -1)
+			playsound(loc, 'sound/items/weapons/slashmiss.ogg', 50, TRUE, -1)
 			visible_message(span_danger("[user] lunges at [src]!"), \
 							span_userdanger("[user] lunges at you!"), span_hear("You hear a swoosh!"), null, user)
 			to_chat(user, span_danger("You lunge at [src]!"))
@@ -229,7 +246,7 @@
 		var/obj/item/bodypart/affecting = get_bodypart(get_random_valid_zone(user.zone_selected))
 		var/armor_block = run_armor_check(affecting, MELEE,"","",10)
 
-		playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
+		playsound(loc, 'sound/items/weapons/slice.ogg', 25, TRUE, -1)
 		visible_message(span_danger("[user] slashes at [src]!"), \
 						span_userdanger("[user] slashes at you!"), span_hear("You hear a sickening sound of a slice!"), null, user)
 		to_chat(user, span_danger("You slash at [src]!"))
@@ -373,14 +390,6 @@
 	//Don't go further if the shock was blocked/too weak.
 	if(!.)
 		return
-	//NOVA EDIT BEGIN: MAKES POWERFUL SHOCKS HAVE A CHANCE TO STOP YOUR HEART. DANGER
-	if(can_heartattack() && !(flags & SHOCK_ILLUSION) && shock_damage >= 70)
-		if(shock_damage * siemens_coeff >= 1 && prob(30))//Higher chance to disrupt the pacemaker cells
-			var/obj/item/organ/internal/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
-			heart.Stop()
-			visible_message("<span class='danger'>[src.name] briefly twitches; before falling limp - their breathing irratic and chest spasming violently!</span>", \
-								"<span class='danger'>You feel your heart thump eratically; before ceasing to beat, a violent twitch overcoming your form!</span>", ignored_mobs=src)
-	//NOVA EDIT END
 	if(!(flags & SHOCK_ILLUSION))
 		if(shock_damage * siemens_coeff >= 5)
 			force_say()
@@ -544,7 +553,7 @@
 			. = rand(-1000, 1000)
 	..() //Called afterwards because getting the mind after getting gibbed is sketchy
 
-/mob/living/carbon/human/help_shake_act(mob/living/carbon/helper)
+/mob/living/carbon/human/help_shake_act(mob/living/carbon/helper, force_friendly)
 	if(!istype(helper))
 		return
 
@@ -796,6 +805,10 @@
 	if(leg_clothes)
 		burning_items |= leg_clothes
 
+	if (!gloves || (!(gloves.resistance_flags & FIRE_PROOF) && (gloves.resistance_flags & FLAMMABLE)))
+		for(var/obj/item/burnable_item in held_items)
+			burning_items |= burnable_item
+
 	for(var/obj/item/burning in burning_items)
 		burning.fire_act((stacks * 25 * seconds_per_tick)) //damage taken is reduced to 2% of this value by fire_act()
 
@@ -803,6 +816,6 @@
 	SEND_SIGNAL(src, COMSIG_HUMAN_BURNING)
 	burn_clothing(seconds_per_tick, fire_handler.stacks)
 	var/no_protection = FALSE
-	if(dna && dna.species)
-		no_protection = dna.species.handle_fire(src, seconds_per_tick, no_protection)
+	if (HAS_TRAIT(src, TRAIT_IGNORE_FIRE_PROTECTION))
+		no_protection = TRUE
 	fire_handler.harm_human(seconds_per_tick, no_protection)

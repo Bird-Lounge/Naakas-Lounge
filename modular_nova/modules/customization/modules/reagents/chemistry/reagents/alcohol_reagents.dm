@@ -22,7 +22,7 @@
 
 /datum/glass_style/drinking_glass/synthanol
 	required_drink_type = /datum/reagent/consumable/ethanol/synthanol
-	icon = 'modular_nova/master_files/icons/obj/drinks.dmi' // This should cover anything synthanol related. Will have to individually tag others unless we make an object path for skyrat drinks.
+	icon = 'modular_nova/master_files/icons/obj/drinks.dmi' // This should cover anything synthanol related. Will have to individually tag others unless we make an object path for Nova drinks.
 	icon_state = "synthanolglass"
 	name = "glass of synthanol"
 	desc = "The equivalent of alcohol for synthetic crewmembers. They'd find it awful if they had tastebuds too."
@@ -831,6 +831,30 @@
 	icon_state = "cityofsin"
 	name = "glass of city of sin"
 	desc = "Looking at it makes you recall every mistake you've made."
+
+/datum/reagent/consumable/ethanol/cringe_weaver
+	name = "Cringe Weaver"
+	description = "An infrangibly awful-tasting drink that 'smart' people inexplicably covet. For when they ask for a Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+	color = "#2BFE3C"
+	boozepwr = -20 //spicy. sobering. burning. cringe.
+	taste_description = "cringe and latin"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+
+/datum/reagent/consumable/ethanol/cringe_weaver/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
+	. = ..()
+	var/obj/item/organ/internal/liver/liver = drinker.get_organ_slot(ORGAN_SLOT_LIVER)
+	if(liver && HAS_TRAIT(liver, TRAIT_CORONER_METABOLISM))
+		if(drinker.heal_bodypart_damage(1 * REM * seconds_per_tick, 1 * REM * seconds_per_tick)) //coroners love drinking formaldehyde
+			return UPDATE_MOB_HEALTH
+	else
+		drinker.adjust_disgust(1 * REM * seconds_per_tick)
+
+/datum/glass_style/drinking_glass/cringe_weaver
+	required_drink_type = /datum/reagent/consumable/ethanol/cringe_weaver
+	name = "Cringe Weaver"
+	desc = "Spicy, sobering, burning, and of course - irrefutably cringe. Enjoyed by patrons who ask for a plum in a man's hat."
+	icon = 'modular_nova/master_files/icons/obj/drinks.dmi'
+	icon_state = "cringe_weaver"
 
 /datum/reagent/consumable/ethanol/shakiri
 	name = "Shakiri"

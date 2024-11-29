@@ -42,13 +42,13 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	obj_damage = 40
-	attack_sound = 'sound/effects/attackblob.ogg'
+	attack_sound = 'sound/effects/blob/attackblob.ogg'
 
 	basic_mob_flags = DEL_ON_DEATH
 	gold_core_spawnable = HOSTILE_SPAWN
 	death_message = "evaporates!"
 
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_color = LIGHT_COLOR_FIRE
 	light_range = 2
 	light_power = 1
@@ -121,7 +121,7 @@
 	melee_damage_lower = 7
 	melee_damage_upper = 13
 	obj_damage = 30
-	attack_sound = 'sound/weapons/bite.ogg'
+	attack_sound = 'sound/items/weapons/bite.ogg'
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
 
@@ -188,7 +188,7 @@
 	obj_damage = 20
 	attack_verb_continuous = "stings"
 	attack_verb_simple = "sting"
-	attack_sound = 'sound/effects/attackblob.ogg'
+	attack_sound = 'sound/effects/blob/attackblob.ogg'
 	basic_mob_flags = DEL_ON_DEATH
 
 	ai_controller = /datum/ai_controller/basic_controller/electric_mosquito
@@ -252,7 +252,7 @@
 	obj_damage = 40
 	attack_sound = 'sound/effects/wounds/crackandbleed.ogg'
 
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 2
 	light_power = 1
 	light_color = LIGHT_COLOR_GREEN

@@ -1,12 +1,14 @@
+/datum/loadout_category/face
+	category_name = "Face"
+	category_ui_icon = FA_ICON_MASK
+	type_to_generate = /datum/loadout_item/mask
+	tab_order = /datum/loadout_category/glasses::tab_order + 1
+
 /*
 *	LOADOUT ITEM DATUMS FOR THE MASK SLOT
 */
-
-/// Mask Slot Items (Deletes overrided items)
-GLOBAL_LIST_INIT(loadout_masks, generate_loadout_items(/datum/loadout_item/mask))
-
 /datum/loadout_item/mask
-	category = LOADOUT_ITEM_MASK
+	abstract_type = /datum/loadout_item/mask
 
 /datum/loadout_item/mask/pre_equip_item(datum/outfit/outfit, datum/outfit/outfit_important_for_life, mob/living/carbon/human/equipper, visuals_only = FALSE)
 	if(initial(outfit_important_for_life.mask))
@@ -49,6 +51,10 @@ GLOBAL_LIST_INIT(loadout_masks, generate_loadout_items(/datum/loadout_item/mask)
 	name = "Skull Bandana"
 	item_path = /obj/item/clothing/mask/bandana/skull
 
+/datum/loadout_item/mask/facescarf
+	name = "Facescarf"
+	item_path = /obj/item/clothing/mask/facescarf
+
 /*
 *	BALACLAVAS
 */
@@ -84,6 +90,10 @@ GLOBAL_LIST_INIT(loadout_masks, generate_loadout_items(/datum/loadout_item/mask)
 /datum/loadout_item/mask/respirator
 	name = "Half Mask Respirator"
 	item_path = /obj/item/clothing/mask/gas/respirator
+
+/datum/loadout_item/mask/neck_gaiter
+	name = "Neck Gaiter"
+	item_path = /obj/item/clothing/mask/neck_gaiter
 
 /*
 *	JOB-LOCKED
@@ -132,15 +142,19 @@ GLOBAL_LIST_INIT(loadout_masks, generate_loadout_items(/datum/loadout_item/mask)
 
 /datum/loadout_item/mask/pipe
 	name = "Pipe"
-	item_path = /obj/item/clothing/mask/cigarette/pipe
+	item_path = /obj/item/cigarette/pipe
 
 /datum/loadout_item/mask/corn_pipe
 	name = "Corn Cob Pipe"
-	item_path = /obj/item/clothing/mask/cigarette/pipe/cobpipe
+	item_path = /obj/item/cigarette/pipe/cobpipe
 
 /datum/loadout_item/mask/plague_doctor
 	name = "Plague Doctor Mask"
 	item_path = /obj/item/clothing/mask/gas/plaguedoctor
+
+/datum/loadout_item/mask/rebellion
+	name = "Rebellion Mask"
+	item_path = /obj/item/clothing/mask/rebellion
 
 /datum/loadout_item/mask/monkey
 	name = "Monkey Mask"
@@ -149,6 +163,10 @@ GLOBAL_LIST_INIT(loadout_masks, generate_loadout_items(/datum/loadout_item/mask)
 /datum/loadout_item/mask/owl
 	name = "Owl Mask"
 	item_path = /obj/item/clothing/mask/gas/owl_mask
+
+/datum/loadout_item/mask/kitsune
+	name = "Kitsune Mask"
+	item_path = /obj/item/clothing/mask/kitsune
 
 /datum/loadout_item/mask/joy
 	name = "Joy Mask"
@@ -166,14 +184,16 @@ GLOBAL_LIST_INIT(loadout_masks, generate_loadout_items(/datum/loadout_item/mask)
 	name = "Balaclava"
 	item_path = /obj/item/clothing/mask/balaclava
 
-
 /*
 *	DONATOR
 */
 
 /datum/loadout_item/mask/donator
+	abstract_type = /datum/loadout_item/mask/donator
 	donator_only = TRUE
 
+/datum/loadout_item/mask/donator/nightlight_mask
+	abstract_type = /datum/loadout_item/mask/donator/nightlight_mask
 
 /datum/loadout_item/mask/donator/nightlight_mask/alldono
 	name = "Commercial FIR-36 Rebreather"

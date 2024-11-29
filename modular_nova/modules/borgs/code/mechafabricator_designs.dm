@@ -7,7 +7,7 @@
 		/datum/material/iron = SHEET_MATERIAL_AMOUNT * 10,
 		/datum/material/glass = SHEET_MATERIAL_AMOUNT * 4,
 	)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list(
 		RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_ALL,
 	)
@@ -26,7 +26,7 @@
 		/datum/material/titanium = SHEET_MATERIAL_AMOUNT * 4,
 		/datum/material/plasma = SHEET_MATERIAL_AMOUNT,
 	)
-	construction_time = 80
+	construction_time = 8 SECONDS
 	category = list(
 		RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_MEDICAL,
 	)
@@ -40,7 +40,7 @@
 		/datum/material/iron = HALF_SHEET_MATERIAL_AMOUNT,
 		/datum/material/glass = HALF_SHEET_MATERIAL_AMOUNT,
 	)
-	construction_time = 40
+	construction_time = 4 SECONDS
 	category = list(
 		RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_ALL,
 	)
@@ -61,21 +61,6 @@
 		RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_ENGINEERING,
 	)
 
-/datum/design/inducer_upgrade
-	name = "Inducer Module"
-	id = "inducer_module"
-	construction_time = 60
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/inducer
-	materials = list(
-		/datum/material/iron=SHEET_MATERIAL_AMOUNT * 5,
-		/datum/material/gold=SHEET_MATERIAL_AMOUNT * 2,
-		/datum/material/plasma=SHEET_MATERIAL_AMOUNT,
-	)
-	category = list(
-		RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_ENGINEERING,
-	)
-
 /datum/design/borg_shapeshifter_module
 	name = "Shapeshifting Module"
 	id = "borg_shapeshifter_module"
@@ -86,7 +71,7 @@
 		/datum/material/plasma = SHEET_MATERIAL_AMOUNT * 5,
 		/datum/material/diamond = SHEET_MATERIAL_AMOUNT * 2,
 	)
-	construction_time = 120
+	construction_time = 12 SECONDS
 	category = list(
 		RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_ALL,
 	)
@@ -105,7 +90,7 @@
 		RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_MINING,
 	)
 
-//Cyborg Skyrat overrides
+//Cyborg Nova overrides
 /datum/design/borg_suit
 	name = "Cyborg Endoskeleton"
 	id = "borg_suit"

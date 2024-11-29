@@ -18,6 +18,8 @@
 	. = ..()
 	// as a wise man once wrote: "pull over that ass too fat"
 	REMOVE_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	// that'd be a too cheeky shield bashing strat
+	ADD_TRAIT(src, TRAIT_BRAWLING_KNOCKDOWN_BLOCKED, INNATE_TRAIT)
 	AddComponent(/datum/component/seethrough_mob)
 
 /mob/living/carbon/alien/adult/royal/on_lying_down(new_lying_angle)
@@ -166,10 +168,9 @@
 		span_noticealien("The queen has granted you a promotion to Praetorian!"),
 	)
 
-	var/mob/living/carbon/alien/adult/royal/praetorian/new_prae = new(to_promote.loc)
-	to_promote.mind.transfer_to(new_prae)
-
-	qdel(to_promote)
+	var/mob/living/carbon/alien/lucky_winner = to_promote
+	var/mob/living/carbon/alien/adult/royal/praetorian/new_prae = new(lucky_winner.loc)
+	lucky_winner.alien_evolve(new_prae)
 	qdel(src)
 	return TRUE
 

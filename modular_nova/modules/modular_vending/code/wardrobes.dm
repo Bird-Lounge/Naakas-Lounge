@@ -56,21 +56,25 @@
 /obj/machinery/vending/wardrobe/robo_wardrobe
 	products_nova = list(
 		/obj/item/clothing/head/beret/science/fancy/robo = 2,
-		/obj/item/clothing/under/rank/rnd/roboticist/nova/sleek = 2,
 		/obj/item/tank/internals/anesthetic = 2,
 		/obj/item/clothing/mask/breath = 2,
 		/obj/item/reagent_containers/cup/bottle/morphine = 2,
 		/obj/item/reagent_containers/syringe = 2,
 		/obj/item/reagent_containers/spray/hercuri/chilled = 2,
-		/obj/item/clothing/gloves/color/black = 2, // fire resistant, allows the robo to painlessly mold metal. also its down here because its a treatment item
+		/obj/item/reagent_containers/spray/dinitrogen_plasmide = 2,
+		/obj/item/clothing/gloves/color/black = 2, // fire resistant, allows the robo to painlessly mold metal. also it's down here because it's a treatment item
 		/obj/item/bonesetter = 2, // for dislocations
 		/obj/item/stack/medical/gauze = 4, // for ALL wounds
-		/obj/item/healthanalyzer/no_medibot = 2, // disallows medibot use so its not wasted immediately on medibots
+		/obj/item/healthanalyzer/no_medibot = 2, // disallows medibot use so it's not wasted immediately on medibots
 		/obj/item/healthanalyzer/simple = 2,
 		/obj/item/storage/backpack/science/robo = 2,
 		/obj/item/storage/backpack/satchel/science/robo = 2,
 		/obj/item/storage/backpack/duffelbag/science/robo = 2,
 		/obj/item/storage/backpack/messenger/science/robo = 2,
+	)
+
+	contraband_nova = list(
+		/obj/item/organ/internal/tongue/lizard/robot = 2,
 	)
 
 /obj/machinery/vending/wardrobe/science_wardrobe
@@ -121,6 +125,7 @@
 	products_nova = list(
 		/obj/item/clothing/under/rank/medical/chemist/nova/formal = 2,
 		/obj/item/clothing/under/rank/medical/chemist/nova/formal/skirt = 2,
+		/obj/item/clothing/suit/toggle/labcoat/nova/pharmacist = 2,
 		/obj/item/clothing/head/beret/medical/chemist = 2,
 		/obj/item/storage/backpack/messenger/chem = 2,
 	)
@@ -156,8 +161,7 @@
 		/obj/item/clothing/under/suit/nova/inferno/beeze = 2,
 	)
 
-/// GHOST CAFE WARDROBES
-// Needed to remove radios from Ghost Cafe
+
 /// Removes given list of products. Must be called before build_inventory() to actually prevent the records from being created.
 /obj/machinery/vending/proc/remove_products(list/paths_to_remove)
 	if(!length(paths_to_remove))
@@ -174,82 +178,3 @@
 /obj/machinery/vending/Initialize(mapload)
 	remove_products(excluded_products)
 	return ..()
-
-/obj/machinery/vending/wardrobe/cargo_wardrobe/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)
-
-/obj/machinery/vending/wardrobe/science_wardrobe/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)
-
-/obj/machinery/vending/wardrobe/bar_wardrobe/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)
-
-/obj/machinery/vending/wardrobe/chef_wardrobe/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)
-
-/obj/machinery/vending/wardrobe/medi_wardrobe/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)
-
-/obj/machinery/vending/wardrobe/engi_wardrobe/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)
-
-/obj/machinery/vending/wardrobe/law_wardrobe/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)
-
-/obj/machinery/vending/wardrobe/jani_wardrobe/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)
-
-/obj/machinery/vending/wardrobe/coroner_wardrobe/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)
-
-/obj/machinery/vending/wardrobe/curator_wardrobe/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)
-/obj/machinery/vending/wardrobe/chap_wardrobe/unholy/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)
-
-/obj/machinery/vending/wardrobe/gene_wardrobe/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)
-
-/obj/machinery/vending/wardrobe/chem_wardrobe/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)
-
-/obj/machinery/vending/wardrobe/viro_wardrobe/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)
-
-/obj/machinery/vending/wardrobe/robo_wardrobe/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)
-
-/obj/machinery/vending/wardrobe/hydro_wardrobe/ghost_cafe
-	excluded_products = list(
-		/obj/item/radio/headset,
-	)

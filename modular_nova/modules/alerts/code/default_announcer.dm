@@ -1,9 +1,9 @@
 /datum/centcom_announcer/default
-	welcome_sounds = list('sound/ai/default/welcome.ogg')
+	welcome_sounds = list('sound/announcer/default/welcome.ogg')
 	alert_sounds = list('modular_nova/modules/alerts/sound/alerts/alert2.ogg')
 	command_report_sounds = list('modular_nova/modules/alerts/sound/alerts/commandreport.ogg')
 	event_sounds = list(
-		ANNOUNCER_AIMALF = 'sound/ai/default/aimalf.ogg',
+		ANNOUNCER_AIMALF = 'sound/announcer/default/aimalf.ogg',
 		ANNOUNCER_ALIENS = 'modular_nova/modules/alerts/sound/alerts/lifesigns.ogg',
 		ANNOUNCER_ANIMES = 'modular_nova/modules/alerts/sound/alerts/animes.ogg',
 		ANNOUNCER_INTERCEPT = 'modular_nova/modules/alerts/sound/alerts/alert2.ogg',
@@ -40,8 +40,6 @@
 		ANNOUNCER_SPOOKY = 'modular_nova/modules/alerts/sound/misc/admin_horror_music.ogg',
 		ANNOUNCER_ERTYES = 'modular_nova/modules/alerts/sound/alerts/yesert.ogg',
 		ANNOUNCER_MUTANTS = 'modular_nova/modules/alerts/sound/alerts/hazdet.ogg',
-		ANNOUNCER_KLAXON = 'modular_nova/modules/black_mesa/sound/siren1_long.ogg',
-		ANNOUNCER_ICARUS = 'modular_nova/modules/assault_operatives/sound/icarus_alarm.ogg',
 		ANNOUNCER_NRI_RAIDERS = 'modular_nova/modules/encounters/sounds/morse.ogg',
 		ANNOUNCER_DEPARTMENTAL = 'modular_nova/modules/alerts/sound/alerts/alert3.ogg',
 		ANNOUNCER_SHUTTLE = 'modular_nova/modules/alerts/sound/alerts/alert3.ogg',

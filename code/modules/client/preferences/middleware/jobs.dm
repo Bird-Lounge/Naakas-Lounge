@@ -13,7 +13,7 @@
 	if (level != null && level != JP_LOW && level != JP_MEDIUM && level != JP_HIGH)
 		return FALSE
 
-	var/datum/job/job = SSjob.GetJob(job_title)
+	var/datum/job/job = SSjob.get_job(job_title)
 
 	if (isnull(job))
 		return FALSE
@@ -28,12 +28,12 @@
 
 	return TRUE
 
-// NOVA EDIT
+// NOVA EDIT ADDITION START
 /datum/preference_middleware/jobs/proc/set_job_title(list/params, mob/user)
 	var/job_title = params["job"]
 	var/new_job_title = params["new_title"]
 
-	var/datum/job/job = SSjob.GetJob(job_title)
+	var/datum/job/job = SSjob.get_job(job_title)
 
 	if (isnull(job))
 		return FALSE
@@ -44,7 +44,7 @@
 	preferences.alt_job_titles[job_title] = new_job_title
 
 	return TRUE
-// NOVA EDIT END
+// NOVA EDIT ADDITION END
 
 /datum/preference_middleware/jobs/get_constant_data()
 	var/list/data = list()
@@ -53,6 +53,8 @@
 	var/list/jobs = list()
 
 	for (var/datum/job/job as anything in SSjob.joinable_occupations)
+		if (job.job_flags & JOB_LATEJOIN_ONLY)
+			continue
 		var/datum/job_department/department_type = job.department_for_prefs || job.departments_list?[1]
 		if (isnull(department_type))
 			stack_trace("[job] does not have a department set, yet is a joinable occupation!")
@@ -118,6 +120,8 @@
 	var/list/job_required_experience = list()
 
 	for (var/datum/job/job as anything in SSjob.all_occupations)
+		if (job.job_flags & JOB_LATEJOIN_ONLY)
+			continue
 		var/required_playtime_remaining = job.required_playtime_remaining(user.client)
 		if (required_playtime_remaining)
 			job_required_experience[job.title] = list(

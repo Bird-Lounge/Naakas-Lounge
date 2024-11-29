@@ -24,7 +24,7 @@
 		to_chat(user, "You cannot send IC messages (muted).")
 		return FALSE
 	else if(!params)
-		subtle_emote = tgui_input_text(user, "Choose an emote to display.", "Subtle", null, MAX_MESSAGE_LEN, TRUE)
+		subtle_emote = tgui_input_text(user, "Choose an emote to display.", "Subtle", null, max_length = MAX_MESSAGE_LEN, multiline = TRUE)
 		if(!subtle_emote)
 			return FALSE
 		subtle_message = subtle_emote
@@ -57,8 +57,8 @@
 		if((ghost.client?.prefs.chat_toggles & CHAT_GHOSTSIGHT) && !(ghost in viewers))
 			ghost.show_message(subtle_message)
 
-	for(var/mob/reciever in viewers)
-		reciever.show_message(subtle_message, alt_msg = subtle_message)
+	for(var/mob/receiver in viewers)
+		receiver.show_message(subtle_message, alt_msg = subtle_message)
 
 	return TRUE
 
@@ -92,7 +92,7 @@
 		to_chat(user, span_warning("You cannot send IC messages (muted)."))
 		return FALSE
 	else if(!subtler_emote)
-		subtler_emote = tgui_input_text(user, "Choose an emote to display.", "Subtler" , null, MAX_MESSAGE_LEN, TRUE)
+		subtler_emote = tgui_input_text(user, "Choose an emote to display.", "Subtler" , max_length = MAX_MESSAGE_LEN, multiline = TRUE)
 		if(!subtler_emote)
 			return FALSE
 
@@ -158,8 +158,8 @@
 			if(holo?.Impersonation?.client)
 				ghostless |= holo.Impersonation
 
-		for(var/mob/reciever in ghostless)
-			reciever.show_message(subtler_message, alt_msg = subtler_message)
+		for(var/mob/receiver in ghostless)
+			receiver.show_message(subtler_message, alt_msg = subtler_message)
 
 	return TRUE
 

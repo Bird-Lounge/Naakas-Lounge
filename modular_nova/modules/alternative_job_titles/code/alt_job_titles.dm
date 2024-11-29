@@ -29,6 +29,8 @@
 		"Trader",
 		"Off-Duty Crew",
 		"Off-Duty Staff",
+		"Colonist",
+		"Contractor",
 	)
 
 /datum/job/atmospheric_technician
@@ -91,6 +93,7 @@
 	alt_titles = list(
 		"Bouncer",
 		"Service Guard",
+		"Doorman",
 	)
 
 /datum/job/corrections_officer
@@ -110,11 +113,13 @@
 
 /datum/job/cargo_technician
 	alt_titles = list(
+		"Cargo Technician",
 		"Warehouse Technician",
 		"Commodities Trader",
 		"Deck Worker",
 		"Inventory Associate",
 		"Mailman",
+		"Mail Carrier",
 		"Receiving Clerk",
 		"Union Associate",
 	)
@@ -123,15 +128,20 @@
 	alt_titles = list(
 		"Chaplain",
 		"High Priest",
+		"High Priestess",
 		"Imam",
 		"Magister",
 		"Monk",
+		"Nun",
 		"Oracle",
 		"Preacher",
 		"Priest",
+		"Priestess",
 		"Pontifex",
 		"Rabbi",
 		"Reverend",
+		"Shrine Maiden",
+		"Shrine Guardian",
 	)
 
 /datum/job/chemist
@@ -173,6 +183,7 @@
 		"Chef",
 		"Culinary Artist",
 		"Sous-Chef",
+		"Junior Chef",
 	)
 
 /datum/job/coroner
@@ -299,6 +310,7 @@
 		"Paramedic",
 		"Emergency Medical Technician",
 		"Search and Rescue Technician",
+		"Trauma Team Responder",
 	)
 
 /datum/job/prisoner
@@ -343,6 +355,7 @@
 	alt_titles = list(
 		"Roboticist",
 		"Biomechanical Engineer",
+		"Cyberneticist",
 		"Machinist",
 		"Mechatronic Engineer",
 		"Apprentice Roboticist",
@@ -360,6 +373,7 @@
 		"Lab Technician",
 		"Ordnance Technician",
 		"Plasma Researcher",
+		"Resonance Researcher",
 		"Theoretical Physicist",
 		"Xenoarchaeologist",
 		"Xenobiologist",
@@ -376,6 +390,7 @@
 
 /datum/job/shaft_miner
 	alt_titles = list(
+		"Shaft Miner",
 		"Union Miner",
 		"Excavator",
 		"Drill Technician",
@@ -393,6 +408,15 @@
 		"EVA Technician",
 		"Mechanic",
 		"Apprentice Engineer",
+	)
+
+/datum/job/telecomms_specialist
+	alt_titles = list(
+		"Telecomms Specialist",
+		"Wireless Operator",
+		"Network Engineer",
+		"Sysadmin",
+		"Tram Technician",
 	)
 
 /datum/job/virologist

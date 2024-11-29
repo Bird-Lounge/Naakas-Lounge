@@ -25,7 +25,7 @@
 	new /obj/item/clothing/accessory/armband(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/clothing/suit/toggle/jacket/sec/old/syndicate(src)
-	new /obj/item/clothing/mask/gas/sechailer/syndicate(src)
+	new /obj/item/clothing/mask/neck_gaiter(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch/redsec(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/redsec(src)
 
@@ -33,9 +33,13 @@
 	..()
 
 	new /obj/item/storage/belt/security/full(src)
-	new /obj/item/gun/energy/disabler(src)
 	new /obj/item/storage/bag/garment/brig_officer(src)
 	new /obj/item/radio/headset/interdyne(src)
+
+/obj/structure/closet/secure_closet/des_two/brig_officer_locker/populate_contents_immediate()
+	. = ..()
+
+	new /obj/item/gun/energy/disabler(src)
 
 /obj/structure/closet/secure_closet/des_two/armory_gear_locker
 	anchored = 1

@@ -33,17 +33,20 @@
 	overdose_threshold = 15
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/stimulants = 20)
+	process_flags = REAGENT_ORGANIC | REAGENT_SYNTHETIC
 	/// How much time has the drug been in them?
 	var/constant_dose_time = 0
 	/// What type of span class do we change heard speech to?
 	var/speech_effect_span
+	/// How much the mob heating is multiplied by, if the target is a robot or has muscled veins
+	var/mob_heating_muliplier = 5
 
 
 /datum/reagent/drug/twitch/on_mob_metabolize(mob/living/our_guy)
 	. = ..()
 
 	our_guy.add_movespeed_modifier(/datum/movespeed_modifier/reagent/twitch)
-	our_guy.next_move_modifier -= 0.3 // For the duration of this you move and attack faster
+	our_guy.next_move_modifier *= 0.7 // For the duration of this you move and attack faster
 
 	our_guy.sound_environment_override = SOUND_ENVIRONMENT_DIZZY
 
@@ -58,21 +61,22 @@
 	var/atom/movable/plane_master_controller/game_plane_master_controller = our_guy.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 
 	var/static/list/col_filter_green = list(0.5,0,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1)
+	var/static/list/col_filter_purple = list(1,0,0,0, 0,0.5,0,0, 0,0,1,0, 0,0,0,1)
 
-	game_plane_master_controller.add_filter(TWITCH_SCREEN_FILTER, 10, color_matrix_filter(col_filter_green, FILTER_COLOR_RGB))
+	var/color_filter_to_use = col_filter_green
+	if(overdosed)
+		color_filter_to_use = col_filter_purple
 
-	game_plane_master_controller.add_filter(TWITCH_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.1))
+	game_plane_master_controller.add_filter(TWITCH_SCREEN_FILTER, 10, color_matrix_filter(color_filter_to_use, FILTER_COLOR_RGB))
 
-	for(var/filter in game_plane_master_controller.get_filters("twitch_blur"))
-		animate(filter, loop = -1, size = 0.2, time = 2 SECONDS, easing = ELASTIC_EASING|EASE_OUT, flags = ANIMATION_PARALLEL)
-		animate(size = 0.1, time = 6 SECONDS, easing = CIRCULAR_EASING|EASE_IN)
+	game_plane_master_controller.add_filter(TWITCH_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.02))
 
 
 /datum/reagent/drug/twitch/on_mob_end_metabolize(mob/living/carbon/our_guy)
 	. = ..()
 
 	our_guy.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/twitch)
-	our_guy.next_move_modifier += (overdosed ? 0.5 : 0.3)
+	our_guy.next_move_modifier /= (overdosed ? 0.49 : 0.7)
 
 	our_guy.sound_environment_override = NONE
 
@@ -84,20 +88,34 @@
 		UnregisterSignal(our_guy, COMSIG_ATOM_PRE_BULLET_ACT)
 
 	if(constant_dose_time < CONSTANT_DOSE_SAFE_LIMIT) // Anything less than this and you'll come out fiiiine, aside from a big hit of stamina damage
-		our_guy.visible_message(
-			span_danger("[our_guy] suddenly slows from their inhuman speeds, coming back with a wicked nosebleed!"),
-			span_danger("You suddenly slow back to normal, a stream of blood gushing from your nose!")
-		)
+		if(!(our_guy.mob_biotypes & MOB_ROBOTIC))
+			our_guy.visible_message(
+				span_danger("[our_guy] suddenly slows from [our_guy.p_their()] inhuman speeds, coming back with a wicked nosebleed!"),
+				span_danger("You suddenly slow back to normal, a stream of blood gushing from your nose!")
+			)
+		else
+			our_guy.visible_message(
+				span_danger("[our_guy] suddenly slows from [our_guy.p_their()] inhuman speeds!"),
+				span_danger("You suddenly slow back to normal speed!")
+			)
 		our_guy.adjustStaminaLoss(constant_dose_time)
+
 	else // Much longer than that however, and you're not gonna have a good day
-		our_guy.visible_message(
-			span_danger("[our_guy] suddenly snaps back from their inhumans speeds, coughing up a spray of blood!"),
-			span_danger("As you snap back to normal speed you cough up a worrying amount of blood. You feel like you've just been run over by a power loader.")
-		)
-		our_guy.spray_blood(our_guy.dir, 2) // The before mentioned coughing up blood
-		our_guy.emote("cough")
+		if(!(our_guy.mob_biotypes & MOB_ROBOTIC))
+			our_guy.spray_blood(our_guy.dir, 2) // The before mentioned coughing up blood
+			our_guy.emote("cough")
+			our_guy.visible_message(
+				span_danger("[our_guy] suddenly snaps back from [our_guy.p_their()] inhuman speeds, coughing up a spray of blood!"),
+				span_danger("As you snap back to normal speed you cough up a worrying amount of blood. You feel like you've just been run over by a power loader.")
+			)
+		else
+			our_guy.visible_message(
+				span_danger("[our_guy] suddenly snaps back from [our_guy.p_their()] inhuman speeds!"),
+				span_danger("You suddenly snap back to normal speeds. You feel like you've just been run over by a power loader.")
+			)
 		our_guy.adjustStaminaLoss(constant_dose_time)
-		our_guy.adjustOrganLoss(ORGAN_SLOT_HEART, 0.3 * constant_dose_time) // Basically you might die
+		if(!HAS_TRAIT(our_guy, TRAIT_TWITCH_ADAPTED))
+			our_guy.adjustOrganLoss(ORGAN_SLOT_HEART, 0.3 * constant_dose_time) // Basically you might die
 
 	if(!our_guy.hud_used)
 		return
@@ -124,7 +142,7 @@
 		span_danger("[source] effortlessly dodges [hitting_projectile]!"),
 		span_userdanger("You effortlessly evade [hitting_projectile]!"),
 	)
-	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
+	playsound(source, pick('sound/items/weapons/bulletflyby.ogg', 'sound/items/weapons/bulletflyby2.ogg', 'sound/items/weapons/bulletflyby3.ogg'), 75, TRUE)
 	source.add_filter(TWITCH_BLUR_EFFECT, 2, gauss_blur_filter(5))
 	addtimer(CALLBACK(source, TYPE_PROC_REF(/datum, remove_filter), TWITCH_BLUR_EFFECT), 0.5 SECONDS)
 	return COMPONENT_BULLET_PIERCED
@@ -135,7 +153,17 @@
 
 	constant_dose_time += seconds_per_tick
 
-	our_guy.adjustOrganLoss(ORGAN_SLOT_HEART, 0.1 * REM * seconds_per_tick)
+	// If the target is a robot, or has muscle veins, then they get an effect similar to herignis, heating them up quite a bit
+	if((our_guy.mob_biotypes & MOB_ROBOTIC) || HAS_TRAIT(our_guy, TRAIT_STABLEHEART))
+		var/heating = mob_heating_muliplier * creation_purity * REM * seconds_per_tick
+		our_guy.reagents?.chem_temp += heating
+		our_guy.adjust_bodytemperature(heating * TEMPERATURE_DAMAGE_COEFFICIENT)
+		if(!ishuman(our_guy))
+			return
+		var/mob/living/carbon/human/human = our_guy
+		human.adjust_coretemperature(heating * TEMPERATURE_DAMAGE_COEFFICIENT)
+	else
+		our_guy.adjustOrganLoss(ORGAN_SLOT_HEART, 0.1 * REM * seconds_per_tick)
 
 	if(locate(/datum/reagent/drug/kronkaine) in our_guy.reagents.reagent_list) // Kronkaine, another heart-straining drug, could cause problems if mixed with this
 		our_guy.ForceContractDisease(new /datum/disease/adrenal_crisis(), FALSE, TRUE)
@@ -146,7 +174,7 @@
 
 	RegisterSignal(our_guy, COMSIG_ATOM_PRE_BULLET_ACT, PROC_REF(dodge_bullets))
 
-	our_guy.next_move_modifier -= 0.2 // Overdosing makes you a liiitle faster but you know has some really bad consequences
+	our_guy.next_move_modifier *= 0.7 // Overdosing makes you a liiitle faster but you know has some really bad consequences
 
 	if(!our_guy.hud_used)
 		return
@@ -163,10 +191,20 @@
 	. = ..()
 	our_guy.set_jitter_if_lower(10 SECONDS * REM * seconds_per_tick)
 
-	our_guy.adjustOrganLoss(ORGAN_SLOT_HEART, 1 * REM * seconds_per_tick, required_organ_flag = affected_organ_flags)
+	// If the target is a robot, or has muscle veins, then they get an effect similar to herignis, heating them up quite a bit
+	if((our_guy.mob_biotypes & MOB_ROBOTIC) || HAS_TRAIT(our_guy, TRAIT_STABLEHEART))
+		var/heating = (mob_heating_muliplier * 2) * creation_purity * REM * seconds_per_tick
+		our_guy.reagents?.chem_temp += heating
+		our_guy.adjust_bodytemperature(heating * TEMPERATURE_DAMAGE_COEFFICIENT)
+		if(!ishuman(our_guy))
+			return
+		var/mob/living/carbon/human/human = our_guy
+		human.adjust_coretemperature(heating * TEMPERATURE_DAMAGE_COEFFICIENT)
+	else
+		our_guy.adjustOrganLoss(ORGAN_SLOT_HEART, 1 * REM * seconds_per_tick, required_organ_flag = affected_organ_flags)
 	our_guy.adjustToxLoss(1 * REM * seconds_per_tick, updating_health = FALSE, forced = TRUE, required_biotype = affected_biotype)
 
-	if(SPT_PROB(5, seconds_per_tick))
+	if(SPT_PROB(5, seconds_per_tick) && !(our_guy.mob_biotypes & MOB_ROBOTIC))
 		to_chat(our_guy, span_danger("You cough up a splatter of blood!"))
 		our_guy.spray_blood(our_guy.dir, 1)
 		our_guy.emote("cough")

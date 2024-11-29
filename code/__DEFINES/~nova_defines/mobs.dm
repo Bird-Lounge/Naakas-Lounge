@@ -10,6 +10,7 @@
 #define UNDERWEAR_HIDE_SHIRT (1<<1)
 #define UNDERWEAR_HIDE_UNDIES (1<<2)
 #define UNDERWEAR_HIDE_BRA (1<<3)
+#define UNDERWEAR_HIDE_ALL (UNDERWEAR_HIDE_SOCKS | UNDERWEAR_HIDE_SHIRT | UNDERWEAR_HIDE_UNDIES | UNDERWEAR_HIDE_BRA)
 
 //Appends to the bottom of Defib fails - DNR TRAIT
 #define DEFIB_FAIL_DNR (1<<11)
@@ -32,3 +33,4 @@
 #define BODYPART_ICON_SYNTHMAMMAL 'modular_nova/modules/bodyparts/icons/synthmammal_parts_greyscale.dmi'
 #define BODYPART_ICON_IPC 'modular_nova/modules/bodyparts/icons/ipc_parts.dmi'
 #define BODYPART_ICON_SYNTHLIZARD 'modular_nova/modules/bodyparts/icons/synthliz_parts_greyscale.dmi'
+#define BODYPART_ICON_SNAIL 'modular_nova/modules/bodyparts/icons/snail_parts_greyscale.dmi'

@@ -97,7 +97,6 @@
 /obj/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
 	damage = 6
-	weak_against_armour = TRUE
 
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubber shot"
@@ -109,7 +108,6 @@
 	harmful = FALSE
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
-	weak_against_armour = TRUE
 	stamina = 10
 
 /obj/item/ammo_casing/shotgun/magnum
@@ -180,7 +178,7 @@
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_buckshot/beehive
 	pellets = 4
 	variance = 15
-	fire_sound = 'sound/weapons/taser.ogg'
+	fire_sound = 'sound/items/weapons/taser.ogg'
 	harmful = FALSE
 	custom_materials = AMMO_MATS_SHOTGUN_HIVE
 	advanced_print_req = TRUE
@@ -213,7 +211,7 @@
 	pellets = 8 // 8 * 7 for 56 stamina damage, plus whatever the embedded shells do
 	variance = 30
 	harmful = FALSE
-	fire_sound = 'sound/weapons/taser.ogg'
+	fire_sound = 'sound/items/weapons/taser.ogg'
 	custom_materials = AMMO_MATS_SHOTGUN_TIDE
 	advanced_print_req = TRUE
 
@@ -232,7 +230,17 @@
 	eyeblur = 1 SECONDS
 	sharpness = NONE
 	range = 8
-	embedding = list(embed_chance=70, pain_chance=25, fall_chance=15, jostle_chance=80, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.9, pain_mult=2, rip_time=10)
+	embed_type = /datum/embed_data/shotgun_buckshot/antitide
+
+/datum/embed_data/shotgun_buckshot/antitide
+	embed_chance = 70
+	pain_chance = 25
+	fall_chance = 15
+	jostle_chance = 80
+	ignore_throwspeed_threshold = TRUE
+	pain_stam_pct = 0.9
+	pain_mult = 2
+	rip_time = 1 SECONDS
 
 /obj/projectile/bullet/pellet/shotgun_buckshot/antitide/on_range()
 	do_sparks(1, TRUE, src)
@@ -247,6 +255,25 @@
 /obj/projectile/bullet/shotgun_slug/hunter
 	name = "12g hunter slug"
 	damage = 20
+	range = 12
+	/// How much the damage is multiplied by when we hit a mob with the correct biotype
+	var/biotype_damage_multiplier = 5
+	/// What biotype we look for
+	var/biotype_we_look_for = MOB_BEAST
+
+/obj/projectile/bullet/shotgun_slug/hunter/on_hit(atom/target, blocked, pierce_hit)
+	if(ismineralturf(target))
+		var/turf/closed/mineral/mineral_turf = target
+		mineral_turf.gets_drilled(firer, FALSE)
+		if(range > 0)
+			return BULLET_ACT_FORCE_PIERCE
+		return ..()
+	if(!isliving(target) || (damage > initial(damage)))
+		return ..()
+	var/mob/living/target_mob = target
+	if(target_mob.mob_biotypes & biotype_we_look_for || istype(target_mob, /mob/living/simple_animal/hostile/megafauna))
+		damage *= biotype_damage_multiplier
+	return ..()
 
 /obj/projectile/bullet/shotgun_slug/hunter/Initialize(mapload)
 	. = ..()

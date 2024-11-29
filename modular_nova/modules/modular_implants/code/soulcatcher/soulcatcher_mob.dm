@@ -81,7 +81,7 @@
 	name = new_name
 	return TRUE
 
-/// Attempts to reset the soul's name to it's name in prefs. Returns `TRUE` if the name is reset, otherwise returns `FALSE`.
+/// Attempts to reset the soul's name to its name in prefs. Returns `TRUE` if the name is reset, otherwise returns `FALSE`.
 /mob/living/soulcatcher_soul/proc/reset_name()
 	if(!mind?.name || change_name(mind.name))
 		return FALSE
@@ -111,7 +111,19 @@
 	return_to_body()
 	qdel(src)
 
-/mob/living/soulcatcher_soul/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced, filterproof, message_range, datum/saymode/saymode)
+/mob/living/soulcatcher_soul/say(
+	message,
+	bubble_type,
+	list/spans = list(),
+	sanitize = TRUE,
+	datum/language/language,
+	ignore_spam = FALSE,
+	forced,
+	filterproof = FALSE,
+	message_range = 7,
+	datum/saymode/saymode,
+	list/message_mods = list(),
+)
 	message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	if(!message || message == "")
 		return
@@ -127,7 +139,7 @@
 	room.send_message(message, src, FALSE)
 	return TRUE
 
-/mob/living/soulcatcher_soul/me_verb(message as text)
+/mob/living/soulcatcher_soul/me_verb(message as text|null)
 	message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	if(!message)
 		return FALSE

@@ -25,7 +25,7 @@
 	lefthand_file = 'modular_nova/modules/modular_items/lewd_items/icons/mob/lewd_inhands/lewd_inhand_left.dmi'
 	righthand_file = 'modular_nova/modules/modular_items/lewd_items/icons/mob/lewd_inhands/lewd_inhand_right.dmi'
 	minimize_when_attached = FALSE
-	attachment_slot = null
+	attachment_slot = NONE
 	/// If the color has been changed before
 	var/color_changed = FALSE
 	/// Current color of the apron, can change and affects sprite
@@ -48,24 +48,22 @@
 		"yellow" = image (icon = src.icon, icon_state = "lewdapron_yellow"))
 
 //to change model
-/obj/item/clothing/accessory/lewdapron/AltClick(mob/user)
+/obj/item/clothing/accessory/lewdapron/click_alt(mob/user)
 	if(color_changed)
-		return
-	. = ..()
-	if(.)
-		return
+		return CLICK_ACTION_BLOCKING
 	var/choice = show_radial_menu(user, src, apron_designs, custom_check = CALLBACK(src, PROC_REF(check_menu), user), radius = 36, require_near = TRUE)
 	if(!choice)
-		return FALSE
+		return CLICK_ACTION_BLOCKING
 	current_color = choice
 	update_icon()
 	color_changed = TRUE
+	return CLICK_ACTION_SUCCESS
 
 /// to check if we can change kinkphones's model
 /obj/item/clothing/accessory/lewdapron/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	return TRUE
 

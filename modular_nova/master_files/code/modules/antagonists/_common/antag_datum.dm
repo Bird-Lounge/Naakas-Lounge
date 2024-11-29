@@ -21,6 +21,12 @@
 		/datum/crafting_recipe/boneaxe,
 		/datum/crafting_recipe/bonespear,
 		/datum/crafting_recipe/bonedagger,
+		/datum/crafting_recipe/ash_recipe/ash_headdress,
+		/datum/crafting_recipe/ash_recipe/ash_headdress/winged,
+		/datum/crafting_recipe/ash_recipe/ash_robes,
+		/datum/crafting_recipe/ash_recipe/ash_plates,
+		/datum/crafting_recipe/ash_recipe/ash_plates/decorated,
+		/datum/crafting_recipe/thatch_bed,
 	)
 
 /datum/antagonist/heretic
@@ -57,7 +63,7 @@
 /datum/antagonist/rev/head
 	view_exploitables = TRUE // heads only. while all revs having exploitables would be fine, i feel this would complement the "leaders leading the masses" stuff rev naturally makes
 
-/*/datum/antagonist/cortical_borer // come back to borer when its not as new
+/*/datum/antagonist/cortical_borer // come back to borer when it's not as new
 	view_exploitables = TRUE */
 
 /datum/antagonist/cult // cult is adminbus only... im not sure about this but im doing it anyway

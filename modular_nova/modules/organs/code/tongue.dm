@@ -12,19 +12,32 @@
 	icon_state = "tongue"
 	modifies_speech = TRUE
 
-/obj/item/organ/internal/tongue/dog/Insert(mob/living/carbon/signer, special = FALSE, drop_if_replaced = TRUE)
+/obj/item/organ/internal/tongue/dog/mob_insert(mob/living/carbon/signer, special = FALSE, movement_flags = DELETE_IF_REPLACED)
 	. = ..()
 	signer.verb_ask = "arfs"
 	signer.verb_exclaim = "wans"
 	signer.verb_whisper = "whimpers"
 	signer.verb_yell = "barks"
 
-/obj/item/organ/internal/tongue/dog/Remove(mob/living/carbon/speaker, special = FALSE)
-	..()
+/obj/item/organ/internal/tongue/dog/mob_remove(mob/living/carbon/speaker, special = FALSE)
+	. = ..()
 	speaker.verb_ask = initial(verb_ask)
 	speaker.verb_exclaim = initial(verb_exclaim)
 	speaker.verb_whisper = initial(verb_whisper)
-	speaker.verb_sing = initial(verb_sing)
+	speaker.verb_yell = initial(verb_yell)
+
+/obj/item/organ/internal/tongue/cat/mob_insert(mob/living/carbon/signer, special = FALSE, movement_flags = DELETE_IF_REPLACED)
+	. = ..()
+	signer.verb_ask = "mrrps"
+	signer.verb_exclaim = "mrrowls"
+	signer.verb_whisper = "purrs"
+	signer.verb_yell = "yowls"
+
+/obj/item/organ/internal/tongue/cat/mob_remove(mob/living/carbon/speaker, special = FALSE)
+	. = ..()
+	speaker.verb_ask = initial(verb_ask)
+	speaker.verb_exclaim = initial(verb_exclaim)
+	speaker.verb_whisper = initial(verb_whisper)
 	speaker.verb_yell = initial(verb_yell)
 
 /obj/item/organ/internal/tongue/avian
@@ -34,25 +47,58 @@
 	icon_state = "tongue"
 	modifies_speech = TRUE
 
-/obj/item/organ/internal/tongue/avian/Insert(mob/living/carbon/signer, special = FALSE, drop_if_replaced = TRUE)
+/obj/item/organ/internal/tongue/avian/mob_insert(mob/living/carbon/signer, special = FALSE, movement_flags = DELETE_IF_REPLACED)
 	. = ..()
 	signer.verb_ask = "peeps"
 	signer.verb_exclaim = "squawks"
 	signer.verb_whisper = "murmurs"
 	signer.verb_yell = "shrieks"
 
-/obj/item/organ/internal/tongue/avian/Remove(mob/living/carbon/speaker, special = FALSE)
+/obj/item/organ/internal/tongue/avian/mob_remove(mob/living/carbon/speaker, special = FALSE)
 	. = ..()
 	speaker.verb_ask = initial(verb_ask)
 	speaker.verb_exclaim = initial(verb_exclaim)
 	speaker.verb_whisper = initial(verb_whisper)
-	speaker.verb_sing = initial(verb_sing)
 	speaker.verb_yell = initial(verb_yell)
 
 /// This "human" tongue is only used in Character Preferences / Augmentation menu.
 /// The base tongue class lacked a say_mod. With say_mod included it makes a non-Human user sound like a Human.
 /obj/item/organ/internal/tongue/human
 	say_mod = "says"
+
+/obj/item/organ/internal/tongue/lizard/robot
+	name = "robotic lizard voicebox"
+	desc = "A lizard-like voice synthesizer that can interface with organic lifeforms."
+	organ_flags = ORGAN_ROBOTIC | ORGAN_SYNTHETIC_FROM_SPECIES
+	icon_state = "tonguerobot"
+	say_mod = "hizzes"
+	attack_verb_continuous = list("beeps", "boops")
+	attack_verb_simple = list("beep", "boop")
+	modifies_speech = TRUE
+	taste_sensitivity = 25 // not as good as an organic tongue
+	liked_foodtypes = NONE
+	disliked_foodtypes = NONE
+	organ_traits = list(TRAIT_SILICON_EMOTES_ALLOWED)
+	voice_filter = "alimiter=0.9,acompressor=threshold=0.2:ratio=20:attack=10:release=50:makeup=2,highpass=f=1000"
+
+/obj/item/organ/internal/tongue/lizard/robot/can_speak_language(language)
+	return TRUE // THE MAGIC OF ELECTRONICS
+
+/obj/item/organ/internal/tongue/lizard/robot/modify_speech(datum/source, list/speech_args)
+	. = ..()
+	speech_args[SPEECH_SPANS] |= SPAN_ROBOT
+
+/obj/item/organ/internal/tongue/lizard/cybernetic
+	name = "forked cybernetic tongue"
+	icon = 'modular_nova/modules/organs/icons/cyber_tongue.dmi'
+	icon_state = "cybertongue-lizard"
+	desc =  "A fully-functional forked synthetic tongue, encased in soft silicone. Features include high-resolution vocals and taste receptors."
+	organ_flags = ORGAN_ROBOTIC | ORGAN_SYNTHETIC_FROM_SPECIES
+	// Not as good as organic tongues, not as bad as the robotic voicebox.
+	taste_sensitivity = 20
+	liked_foodtypes = NONE
+	disliked_foodtypes = NONE
+	modifies_speech = TRUE
 
 /obj/item/organ/internal/tongue/cybernetic
 	name = "cybernetic tongue"
@@ -63,6 +109,8 @@
 	say_mod = "says"
 	// Not as good as organic tongues, not as bad as the robotic voicebox.
 	taste_sensitivity = 20
+	liked_foodtypes = NONE
+	disliked_foodtypes = NONE
 
 /obj/item/organ/internal/tongue/vox
 	name = "vox tongue"
@@ -103,10 +151,19 @@
 
 /obj/item/organ/internal/tongue/xeno_hybrid/Initialize(mapload)
 	. = ..()
-	var/obj/item/organ/internal/tongue/alien/alien_tongue_type = /obj/item/organ/internal/tongue/alien
-	voice_filter = initial(alien_tongue_type.voice_filter)
+	voice_filter = /obj/item/organ/internal/tongue/alien::voice_filter
 
 /obj/item/organ/internal/tongue/skrell
 	name = "skrell tongue"
 	desc = "A fleshy muscle mostly used for warbling."
 	say_mod = "warbles"
+
+/obj/item/organ/internal/tongue/lizard/filterless
+	name = "smooth forked tongue"
+
+	voice_filter = null
+
+/obj/item/organ/internal/tongue/lizard/filterless/Initialize(mapload)
+	. = ..()
+
+	desc += " This one is noticeably smooth, and would lack any non-hissing lisps if used."

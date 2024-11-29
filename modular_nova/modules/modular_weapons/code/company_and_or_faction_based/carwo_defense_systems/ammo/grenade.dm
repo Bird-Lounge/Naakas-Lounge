@@ -36,6 +36,8 @@
 	var/obj/item/gun/ballistic/automatic/sol_grenade_launcher/firing_launcher = fired_from
 	if(istype(firing_launcher))
 		loaded_projectile.range = firing_launcher.target_range
+	else if(istype(fired_from, /obj/item/gun/ballistic/shotgun/shell_launcher))
+		loaded_projectile.range = 5
 
 	. = ..()
 
@@ -141,17 +143,15 @@
 
 
 /obj/projectile/bullet/c980grenade/shrapnel/fuse_activation(atom/target)
-	var/obj/item/grenade/shrapnel_maker = new casing_to_spawn(get_turf(src))
-
+	var/obj/item/grenade/shrapnel_maker = new casing_to_spawn(get_turf(target))
 	shrapnel_maker.detonate()
-	qdel(shrapnel_maker)
-
 	playsound(src, 'modular_nova/modules/modular_weapons/sounds/grenade_burst.ogg', 50, TRUE, -3)
+	qdel(shrapnel_maker)
 
 
 /obj/item/ammo_box/c980grenade/shrapnel
 	name = "ammo box (.980 Tydhouer shrapnel)"
-	desc = "A box of four .980 Tydhouer shrapnel grenades. Instructions on the box indicate these are shrapnel rounds. Its also covered in hazard signs, odd."
+	desc = "A box of four .980 Tydhouer shrapnel grenades. Instructions on the box indicate these are shrapnel rounds. It's also covered in hazard signs, odd."
 
 	icon_state = "980box_explosive"
 
@@ -160,7 +160,7 @@
 
 /obj/item/grenade/c980payload
 	shrapnel_type = /obj/projectile/bullet/shrapnel/short_range
-	shrapnel_radius = 2
+	shrapnel_radius = 3
 	ex_dev = 0
 	ex_heavy = 0
 	ex_light = 0
@@ -201,17 +201,11 @@
 
 /obj/item/ammo_box/c980grenade/shrapnel/phosphor
 	name = "ammo box (.980 Tydhouer phosphor)"
-	desc = "A box of four .980 Tydhouer phosphor grenades. Instructions on the box indicate these are incendiary explosive rounds. Its also covered in hazard signs, odd."
+	desc = "A box of four .980 Tydhouer phosphor grenades. Instructions on the box indicate these are incendiary explosive rounds. It's also covered in hazard signs, odd."
 
 	icon_state = "980box_gas_alternate"
 
 	ammo_type = /obj/item/ammo_casing/c980grenade/shrapnel/phosphor
-
-
-/obj/item/ammo_casing/shrapnel_exploder/phosphor
-	pellets = 8
-
-	projectile_type = /obj/projectile/bullet/incendiary/fire/backblast/short_range
 
 
 /obj/item/grenade/c980payload/phosphor

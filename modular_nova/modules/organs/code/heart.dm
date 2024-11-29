@@ -9,7 +9,7 @@
 
 	COOLDOWN_DECLARE(shell_effect_cd)
 
-/obj/item/organ/internal/heart/snail/on_insert(mob/living/carbon/organ_owner, special)
+/obj/item/organ/internal/heart/snail/on_mob_insert(mob/living/carbon/organ_owner, special)
 	. = ..()
 	if(!ishuman(organ_owner))
 		return
@@ -22,7 +22,7 @@
 	RegisterSignal(human_owner, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(modify_damage))
 	RegisterSignal(human_owner, COMSIG_MOB_AFTER_APPLY_DAMAGE, PROC_REF(do_block_effect))
 
-/obj/item/organ/internal/heart/snail/on_remove(mob/living/carbon/organ_owner, special)
+/obj/item/organ/internal/heart/snail/on_mob_remove(mob/living/carbon/organ_owner, special)
 	. = ..()
 	if(!ishuman(organ_owner) || QDELETED(organ_owner))
 		return
@@ -57,7 +57,7 @@
 
 	if(COOLDOWN_FINISHED(src, shell_effect_cd))
 		source.visible_message(span_warning("[source]'s shell weathers the blow, absorbing most of the shock!"))
-		playsound(source, 'sound/weapons/parry.ogg', 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(source, 'sound/items/weapons/parry.ogg', 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 
 	COOLDOWN_START(src, shell_effect_cd, 5 SECONDS) // Cooldown resets EVERY time we get hit
 

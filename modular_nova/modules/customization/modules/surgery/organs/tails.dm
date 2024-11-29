@@ -7,6 +7,9 @@
 /datum/bodypart_overlay/mutant/tail
 	color_source = ORGAN_COLOR_OVERRIDE
 
+/datum/bodypart_overlay/mutant/tail/get_global_feature_list()
+	return SSaccessories.sprite_accessories["tail"]
+
 /datum/bodypart_overlay/mutant/tail/override_color(rgb_value)
 	return draw_color
 
@@ -41,7 +44,7 @@
 	return TRUE
 
 
-/obj/item/organ/external/tail/Insert(mob/living/carbon/reciever, special, drop_if_replaced)
+/obj/item/organ/external/tail/mob_insert(mob/living/carbon/receiver, special, movement_flags)
 	if(sprite_accessory_flags & SPRITE_ACCESSORY_WAG_ABLE)
 		wag_flags |= WAG_ABLE
 	return ..()
@@ -50,6 +53,7 @@
 	mutantpart_info = list(MUTANT_INDEX_NAME = "Cat", MUTANT_INDEX_COLOR_LIST = list("#FFAA00"))
 
 /obj/item/organ/external/tail/monkey
+	wag_flags = WAG_ABLE // waggable monkey tails
 	mutantpart_info = list(MUTANT_INDEX_NAME = "Monkey", MUTANT_INDEX_COLOR_LIST = list("#FFFFFF"))
 
 /obj/item/organ/external/tail/lizard

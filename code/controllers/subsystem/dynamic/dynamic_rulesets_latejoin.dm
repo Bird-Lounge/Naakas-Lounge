@@ -136,7 +136,7 @@
 		return FALSE
 	var/head_check = 0
 	for(var/mob/player in GLOB.alive_player_list)
-		if (player.mind.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND)
+		if (player.mind.assigned_role.job_flags & JOB_HEAD_OF_STAFF)
 			head_check++
 	return (head_check >= required_heads_of_staff)
 
@@ -175,7 +175,7 @@
 /// Checks for revhead loss conditions and other antag datums.
 /datum/dynamic_ruleset/latejoin/provocateur/proc/check_eligible(datum/mind/M)
 	var/turf/T = get_turf(M.current)
-	if(!considered_afk(M) && considered_alive(M) && is_station_level(T.z) && !M.antag_datums?.len && !HAS_TRAIT(M, TRAIT_MINDSHIELD))
+	if(!considered_afk(M) && considered_alive(M) && is_station_level(T.z) && !M.antag_datums?.len && !HAS_MIND_TRAIT(M.current, TRAIT_UNCONVERTABLE))
 		return TRUE
 	return FALSE
 

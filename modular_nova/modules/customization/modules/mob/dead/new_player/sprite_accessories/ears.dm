@@ -1,7 +1,7 @@
 /datum/sprite_accessory/ears
 	key = "ears"
 	generic = "Ears"
-	organ_type = /obj/item/organ/external/ears // SET BACK TO THIS AS SOON AS WE GET EARS AS EXTERNAL ORGANS: organ_type = /obj/item/organ/internal/ears/mutant
+	organ_type = /obj/item/organ/internal/ears/mutant
 	relevent_layers = list(BODY_BEHIND_LAYER, BODY_ADJ_LAYER, BODY_FRONT_LAYER)
 	color_src = USE_MATRIXED_COLORS
 	genetic = TRUE
@@ -26,23 +26,29 @@
 
 	return FALSE
 
+/datum/sprite_accessory/ears/none
+	name = SPRITE_ACCESSORY_NONE
+	icon_state = "none"
+
 /datum/sprite_accessory/ears/cat
 	recommended_species = list(SPECIES_MAMMAL, SPECIES_HUMAN, SPECIES_SYNTH, SPECIES_FELINE, SPECIES_HUMANOID, SPECIES_GHOUL)
 	relevent_layers = list(BODY_BEHIND_LAYER, BODY_FRONT_LAYER)
 	color_src = USE_ONE_COLOR
+	has_inner = TRUE
 
 /datum/sprite_accessory/ears/fox
 	color_src = USE_ONE_COLOR
+	has_inner = TRUE
 
 /datum/sprite_accessory/ears/mutant
 	icon = 'modular_nova/master_files/icons/mob/sprite_accessory/ears.dmi'
-	organ_type = /obj/item/organ/external/ears // SET BACK TO THIS AS SOON AS WE GET EARS AS EXTERNAL ORGANS: organ_type = /obj/item/organ/internal/ears/mutant
+	organ_type = /obj/item/organ/internal/ears/mutant
 	color_src = USE_MATRIXED_COLORS
 	recommended_species = list(SPECIES_MAMMAL, SPECIES_HUMAN, SPECIES_SYNTH, SPECIES_FELINE, SPECIES_HUMANOID, SPECIES_GHOUL)
 	uses_emissives = TRUE
 
 /datum/sprite_accessory/ears/mutant/none
-	name = "None"
+	name = SPRITE_ACCESSORY_NONE
 	icon_state = "none"
 	color_src = null
 	factual = FALSE
@@ -80,7 +86,7 @@
 /datum/sprite_accessory/ears/mutant/bigwolfinner
 	name = "Big Wolf (ALT)"
 	icon_state = "bigwolfinner"
-	hasinner = TRUE
+	has_inner = TRUE
 
 /datum/sprite_accessory/ears/mutant/bigwolfdark //alphabetical sort ignored here for ease-of-use
 	name = "Dark Big Wolf"
@@ -89,7 +95,7 @@
 /datum/sprite_accessory/ears/mutant/bigwolfinnerdark
 	name = "Dark Big Wolf (ALT)"
 	icon_state = "bigwolfinnerdark"
-	hasinner = TRUE
+	has_inner = TRUE
 
 /datum/sprite_accessory/ears/mutant/bunny
 	name = "Bunny"
@@ -98,6 +104,10 @@
 /datum/sprite_accessory/ears/mutant/tajaran/catbig
 	name = "Cat, Big"
 	icon_state = "catbig"
+
+/datum/sprite_accessory/ears/mutant/tajaran/catbigalt
+	name = "Cat, Big (Alt)"
+	icon_state = "catbigalt"
 
 /datum/sprite_accessory/ears/mutant/tajaran/catnormal
 	name = "Cat, normal"
@@ -143,6 +153,10 @@
 	name = "Broad Elf"
 	icon_state = "elfbroad"
 
+/datum/sprite_accessory/ears/mutant/elf/broad/reverse
+	name = "Broad Elf, Reversed"
+	icon_state = "elfbroadreverse"
+
 /datum/sprite_accessory/ears/mutant/elf/longer
 	name = "Longer Elf"
 	icon_state = "elflonger"
@@ -160,6 +174,10 @@
 	name = "Fish"
 	icon_state = "fish"
 	color_src = USE_ONE_COLOR
+
+/datum/sprite_accessory/ears/mutant/floppy
+	name = "Floppy"
+	icon_state = "floppy"
 
 /datum/sprite_accessory/ears/mutant/vulpkanin/fox
 	name = "Fox"
@@ -262,6 +280,26 @@
 /datum/sprite_accessory/ears/mutant/antenna_fuzzball_v2
 	name = "Fuzzball antenna (coloring 3+1)"
 	icon_state = "antenna_fuzzballv2"
+
+/datum/sprite_accessory/ears/mutant/setaceous
+	name = "Setaceous Antenna"
+	icon_state = "setaceous"
+	color_src = USE_ONE_COLOR
+
+/datum/sprite_accessory/ears/mutant/setaceousm
+	name = "Medium Setaceous Antenna"
+	icon_state = "setaceousm"
+	color_src = USE_ONE_COLOR
+
+/datum/sprite_accessory/ears/mutant/geniculate
+	name = "Geniculate Antenna"
+	icon_state = "geniculate"
+	color_src = USE_ONE_COLOR
+
+/datum/sprite_accessory/ears/mutant/big/eyes
+	name = "Eye Antenna"
+	icon_state = "eyes"
+	color_src = USE_ONE_COLOR
 
 /datum/sprite_accessory/ears/mutant/cobrahood
 	name = "Cobra Hood"

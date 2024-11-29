@@ -30,7 +30,7 @@
 	if (lungs != lungs_added && lungs != lungs_holding)
 		qdel(lungs_holding)
 		return
-	lungs_holding.Insert(carbon_holder, special = TRUE, drop_if_replaced = FALSE)
+	lungs_holding.Insert(carbon_holder, special = TRUE, movement_flags = DELETE_IF_REPLACED)
 	lungs_holding.organ_flags &= ~ORGAN_FROZEN
 
 /datum/quirk/equipping/lungs/on_equip_item(obj/item/equipped, success)
@@ -39,7 +39,9 @@
 		return
 	var/obj/item/clothing/accessory/breathing/acc = equipped
 	acc.breath_type = breath_type
-	if (acc.can_attach_accessory(human_holder?.w_uniform, human_holder))
+
+	var/obj/item/clothing/under/attach_to = human_holder?.w_uniform
+	if (attach_to && acc.can_attach_accessory(attach_to, human_holder))
 		acc.attach(human_holder.w_uniform, human_holder)
 
 /obj/item/clothing/accessory/breathing

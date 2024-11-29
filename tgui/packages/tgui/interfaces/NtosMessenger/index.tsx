@@ -1,8 +1,9 @@
 import { sortBy } from 'common/collections';
 import { BooleanLike } from 'common/react';
 import { createSearch } from 'common/string';
+import { useState } from 'react';
 
-import { useBackend, useLocalState } from '../../backend';
+import { useBackend } from '../../backend';
 import {
   Box,
   Button,
@@ -10,6 +11,7 @@ import {
   Divider,
   Icon,
   Input,
+  NoticeBox,
   Section,
   Stack,
   TextArea,
@@ -21,6 +23,7 @@ import { NtChat, NtMessenger, NtPicture } from './types';
 type NtosMessengerData = {
   can_spam: BooleanLike;
   is_silicon: BooleanLike;
+  remote_silicon: BooleanLike;
   owner?: NtMessenger;
   saved_chats: Record<string, NtChat>;
   messengers: Record<string, NtMessenger>;
@@ -40,6 +43,7 @@ export const NtosMessenger = (props) => {
   const { data } = useBackend<NtosMessengerData>();
   const {
     is_silicon,
+    remote_silicon,
     saved_chats,
     stored_photos,
     selected_photo_path,
@@ -49,7 +53,9 @@ export const NtosMessenger = (props) => {
   } = data;
 
   let content: JSX.Element;
-  if (open_chat !== null) {
+  if (remote_silicon) {
+    content = <AccessDeniedScreen />;
+  } else if (open_chat !== null) {
     const openChat = saved_chats[open_chat];
     const temporaryRecipient = messengers[open_chat];
 
@@ -81,6 +87,41 @@ export const NtosMessenger = (props) => {
   );
 };
 
+const AccessDeniedScreen = (props: any) => {
+  const { act, data } = useBackend<NtosMessengerData>();
+
+  return (
+    <Stack fill vertical>
+      <Stack.Item>
+        <Section>
+          <Stack vertical textAlign="center">
+            <Box bold>
+              <Icon name="address-card" />
+              SpaceMessenger V6.5.3
+            </Box>
+          </Stack>
+        </Section>
+      </Stack.Item>
+      <NoticeBox
+        color="white"
+        position="relative"
+        top="30%"
+        fontSize="30px"
+        textAlign="center"
+      >
+        ERROR: CONNECTION REFUSED
+      </NoticeBox>
+      <Stack vertical position="relative" top="35%" textAlign="left">
+        <Section>
+          <Box>Message from host:</Box>
+          <Box>- Remote access of this application has been restricted.</Box>
+          <Box>- Contact your Administrator for further assistance.</Box>
+        </Section>
+      </Stack>
+    </Stack>
+  );
+};
+
 const ContactsScreen = (props: any) => {
   const { act, data } = useBackend<NtosMessengerData>();
   const {
@@ -97,9 +138,10 @@ const ContactsScreen = (props: any) => {
     sending_virus,
   } = data;
 
-  const [searchUser, setSearchUser] = useLocalState('searchUser', '');
+  const [searchUser, setSearchUser] = useState('');
 
-  const sortByUnreads = sortBy<NtChat>((chat) => chat.unread_messages);
+  const sortByUnreads = (array: NtChat[]) =>
+    sortBy(array, (chat) => chat.unread_messages);
 
   const searchChatByName = createSearch(
     searchUser,
@@ -298,7 +340,7 @@ const SendToAllSection = (props) => {
   const { data, act } = useBackend<NtosMessengerData>();
   const { on_spam_cooldown } = data;
 
-  const [message, setmessage] = useLocalState('everyoneMessage', '');
+  const [message, setmessage] = useState('');
 
   return (
     <>

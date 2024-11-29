@@ -1,6 +1,7 @@
 import { BooleanLike } from 'common/react';
 
 import { sendAct } from '../../backend';
+import { LoadoutCategory, LoadoutList } from './loadout/base';
 import { Gender } from './preferences/gender';
 
 export enum Food {
@@ -92,7 +93,8 @@ export type Quirk = {
   value: number;
   customizable: boolean;
   customization_options?: string[];
-  veteran_only: boolean; // NOVA EDIT - Veteran quirks
+  veteran_only: boolean; // NOVA EDIT ADDITION - Veteran quirks
+  erp_quirk: boolean; // NOVA EDIT ADDITION - Purple ERP quirks
 };
 
 // NOVA EDIT START
@@ -137,6 +139,7 @@ export type QuirkInfo = {
   max_positive_quirks: number;
   quirk_info: Record<string, Quirk>;
   quirk_blacklist: string[][];
+  points_enabled: boolean;
 };
 
 export enum RandomSetting {
@@ -178,6 +181,7 @@ export type PreferencesMenuData = {
   preview_selection: string; // NOVA EDIT ADDITION
 
   is_veteran: BooleanLike; // NOVA EDIT - Veteran status
+  erp_pref: BooleanLike; // NOVA EDIT ADDITION
 
   character_preferences: {
     clothing: Record<string, string>;
@@ -197,6 +201,8 @@ export type PreferencesMenuData = {
       gender: Gender;
       joblessrole: JoblessRole;
       species: string;
+      loadout_list: LoadoutList;
+      job_clothes: BooleanLike;
     };
 
     randomization: Record<string, RandomSetting>;
@@ -226,9 +232,12 @@ export type PreferencesMenuData = {
   selected_languages: Language[];
   unselected_languages: Language[];
   total_language_points: number;
+  quirk_points_enabled: number;
   quirks_balance: number;
   positive_quirk_count: number;
   species_restricted_jobs?: string[];
+  ckey: string;
+  is_donator: BooleanLike;
   // NOVA EDIT END
   keybindings: Record<string, string[]>;
   overflow_role: string;
@@ -255,6 +264,9 @@ export type ServerData = {
   quirks: QuirkInfo;
   random: {
     randomizable: string[];
+  };
+  loadout: {
+    loadout_tabs: LoadoutCategory[];
   };
   species: Record<string, Species>;
   [otheyKey: string]: unknown;

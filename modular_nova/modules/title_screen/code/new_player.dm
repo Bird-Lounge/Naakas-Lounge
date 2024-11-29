@@ -27,6 +27,11 @@
 		ViewManifest()
 		return
 
+	if(href_list["view_directory"])
+		play_lobby_button_sound()
+		client?.show_character_directory()
+		return
+
 	if(href_list["toggle_antag"])
 		play_lobby_button_sound()
 		var/datum/preferences/preferences = client.prefs
@@ -51,6 +56,9 @@
 		return
 
 	if(href_list["toggle_ready"])
+		if(SSticker && SSticker.current_state > GAME_STATE_PREGAME)
+			to_chat(src, span_notice("It's too late for that, the round is already starting!"))
+			return
 		play_lobby_button_sound()
 		if(CONFIG_GET(flag/min_flavor_text))
 			if(!is_admin(client) && length_char(client?.prefs?.read_preference(/datum/preference/text/flavor_text)) < CONFIG_GET(number/flavor_text_character_requirement))
@@ -64,6 +72,21 @@
 	if(href_list["late_join"])
 		play_lobby_button_sound()
 		GLOB.latejoin_menu.ui_interact(usr)
+		return
+
+	if(href_list["display_polls"])
+		handle_player_polling()
+		return
+
+	if (href_list["viewpoll"])
+		var/datum/poll_question/poll = locate(href_list["viewpoll"]) in GLOB.polls
+		poll_player(poll)
+		return
+
+	if (href_list["votepollref"])
+		var/datum/poll_question/poll = locate(href_list["votepollref"]) in GLOB.polls
+		vote_on_poll_handler(poll, href_list)
+		return
 
 	if(href_list["title_is_ready"])
 		title_screen_is_ready = TRUE
@@ -170,9 +193,9 @@
 		qdel(query_get_new_polls)
 		return
 	if(query_get_new_polls.NextRow())
-		output +={"<a class="menu_button menu_newpoll" href='?src=[text_ref(src)];viewpoll=1'>POLLS (NEW)</a>"}
+		output +={"<a class="menu_button menu_newpoll" href='?src=[text_ref(src)];display_polls=1'>POLLS (NEW)</a>"}
 	else
-		output +={"<a class="menu_button" href='?src=[text_ref(src)];viewpoll=1'>POLLS</a>"}
+		output +={"<a class="menu_button" href='?src=[text_ref(src)];display_polls=1'>POLLS</a>"}
 	qdel(query_get_new_polls)
 	if(QDELETED(src))
 		return

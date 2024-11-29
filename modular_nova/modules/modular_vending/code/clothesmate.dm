@@ -37,6 +37,7 @@
 				/obj/item/clothing/neck/cloak/colourable/shroud = 5,
 				/obj/item/clothing/neck/cloak/colourable/boat = 5,
 				/obj/item/clothing/neck/mantle/recolorable = 5,
+				/obj/item/clothing/neck/tesharian_mantle = 5,
 				/obj/item/clothing/neck/long_cape = 5,
 				/obj/item/clothing/neck/wide_cape = 5,
 				/obj/item/clothing/neck/robe_cape = 5,
@@ -44,7 +45,8 @@
 				/obj/item/clothing/glasses/thin = 5,
 				/obj/item/clothing/glasses/hud/ar/projector = 5,
 				/obj/item/clothing/neck/face_scarf = 5,
-				/obj/item/clothing/gloves/bracer/wraps,
+				/obj/item/clothing/mask/neck_gaiter = 5,
+				/obj/item/clothing/gloves/bracer/wraps = 5,
 			),
 		),
 
@@ -53,6 +55,10 @@
 			"icon" = "shirt",
 			"products" = list(
 				/obj/item/clothing/under/pants/nova/jeans_ripped = 5,
+				/obj/item/clothing/under/pants/nova/loose_pants = 5,
+				/obj/item/clothing/under/pants/nova/big_pants = 5,
+				/obj/item/clothing/under/dress/skirt/nova/loincloth = 5,
+				/obj/item/clothing/under/dress/skirt/nova/loincloth/loincloth_alt = 5,
 				/obj/item/clothing/under/shorts/nova/shorts_ripped = 5,
 				/obj/item/clothing/under/pants/nova/yoga = 5,
 				/obj/item/clothing/under/misc/nova/mechanic = 5,
@@ -84,6 +90,7 @@
 				/obj/item/clothing/under/suit/nova/helltaker/skirt = 3,
 				/obj/item/clothing/under/dress/skirt/nova/medium = 5,
 				/obj/item/clothing/under/dress/skirt/nova/long = 5,
+				/obj/item/clothing/under/dress/nova/giant_scarf = 5,
 			),
 		),
 
@@ -121,13 +128,22 @@
 				/obj/item/clothing/suit/urban = 5,
 				/obj/item/clothing/suit/duster = 5,
 				/obj/item/clothing/suit/fallsparka = 5,
-				/obj/item/clothing/suit/croptop = 5,
+				/obj/item/clothing/suit/jacket/croptop = 5,
+				/obj/item/clothing/suit/jacket/white_robe = 5,
 				/obj/item/clothing/suit/modernwintercoatthing = 5,
 				/obj/item/clothing/suit/hooded/wintercoat/colourable = 5,
 				/obj/item/clothing/suit/apron/chef/colorable_apron = 5,
 				/obj/item/clothing/suit/warm_coat = 5,
 				/obj/item/clothing/suit/warm_sweater = 5,
 				/obj/item/clothing/suit/heart_sweater = 5,
+				/obj/item/clothing/suit/crop_jacket = 5,
+				/obj/item/clothing/suit/crop_jacket/shortsleeve = 5,
+				/obj/item/clothing/suit/crop_jacket/sleeveless = 5,
+				/obj/item/clothing/suit/crop_jacket/long = 5,
+				/obj/item/clothing/suit/crop_jacket/shortsleeve/long = 5,
+				/obj/item/clothing/suit/crop_jacket/sleeveless/long = 5,
+				/obj/item/clothing/suit/big_jacket = 5,
+				/obj/item/clothing/suit/dagger_mantle = 5,
 			),
 		),
 
@@ -143,6 +159,7 @@
 				/obj/item/clothing/shoes/jungleboots = 5,
 				/obj/item/clothing/shoes/jackboots/knee = 5,
 				/obj/item/clothing/shoes/jackboots/recolorable = 5,
+				/obj/item/clothing/shoes/jackboots/duckboots = 5,
 			),
 		),
 
@@ -155,6 +172,7 @@
 				/obj/item/clothing/under/costume/nova/bathrobe = 5,
 				/obj/item/clothing/mask/gas/respirator = 5,
 				/obj/item/clothing/mask/surgical/greyscale = 5,
+				/obj/item/clothing/glasses/blindfold/color = 5,
 			)
 		)
 	)
@@ -165,4 +183,10 @@
 		/obj/item/clothing/suit/brownbattlecoat = 1,
 		/obj/item/clothing/suit/blackfurrich = 1,
 		/obj/item/clothing/suit/frenchtrench = 1,
+		/obj/item/clothing/suit/toggle/labcoat/nova/lalunevest = 2,
+		/obj/item/clothing/gloves/lalune_long = 2,
+	)
+
+	contraband_nova = list(
+		/obj/item/clothing/mask/neck_gaiter/syndicate/tacticool = 2,
 	)

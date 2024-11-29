@@ -6,8 +6,13 @@
 	name = "cobolterium"
 	desc = "Cobolterium"
 	color = list(0.2,0.5,0.7,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
-	greyscale_colors = "#264d61"
-	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE, MAT_CATEGORY_ITEM_MATERIAL = TRUE)
+	greyscale_color = "#264d61"
+	categories = list(
+		MAT_CATEGORY_RIGID = TRUE,
+		MAT_CATEGORY_BASE_RECIPES = TRUE,
+		MAT_CATEGORY_ITEM_MATERIAL = TRUE,
+		MAT_CATEGORY_ITEM_MATERIAL_COMPLEMENTARY = TRUE,
+	)
 	sheet_type = /obj/item/stack/sheet/cobolterium
 
 /datum/material/cobolterium/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
@@ -19,7 +24,7 @@
 	desc = "Cobalt-blue metal that might actually just be cobalt."
 	singular_name = "cobolterium bar"
 	icon = 'modular_nova/modules/company_imports/icons/special_metals_stack.dmi'
-	icon_state = "dracula-rapping"
+	icon_state = "precious-metals"
 	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
 	mats_per_unit = list(/datum/material/cobolterium = SHEET_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/cobolterium
@@ -35,8 +40,13 @@
 	name = "copporcitite"
 	desc = "Copporcitite"
 	color = list(0.8,0.35,0.1,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
-	greyscale_colors = "#c55a1d"
-	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE, MAT_CATEGORY_ITEM_MATERIAL = TRUE)
+	greyscale_color = "#c55a1d"
+	categories = list(
+		MAT_CATEGORY_RIGID = TRUE,
+		MAT_CATEGORY_BASE_RECIPES = TRUE,
+		MAT_CATEGORY_ITEM_MATERIAL = TRUE,
+		MAT_CATEGORY_ITEM_MATERIAL_COMPLEMENTARY = TRUE,
+	)
 	sheet_type = /obj/item/stack/sheet/copporcitite
 
 /datum/material/copporcitite/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
@@ -48,7 +58,7 @@
 	desc = "Copper colored metal that might actually just be copper."
 	singular_name = "copporcitite bar"
 	icon = 'modular_nova/modules/company_imports/icons/special_metals_stack.dmi'
-	icon_state = "dracula-rapping"
+	icon_state = "precious-metals"
 	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
 	mats_per_unit = list(/datum/material/copporcitite = SHEET_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/copporcitite
@@ -64,8 +74,13 @@
 	name = "tinumium"
 	desc = "Tinumium"
 	color = list(0.45,0.5,0.6,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
-	greyscale_colors = "#717e97"
-	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE, MAT_CATEGORY_ITEM_MATERIAL = TRUE)
+	greyscale_color = "#717e97"
+	categories = list(
+		MAT_CATEGORY_RIGID = TRUE,
+		MAT_CATEGORY_BASE_RECIPES = TRUE,
+		MAT_CATEGORY_ITEM_MATERIAL = TRUE,
+		MAT_CATEGORY_ITEM_MATERIAL_COMPLEMENTARY = TRUE,
+	)
 	sheet_type = /obj/item/stack/sheet/tinumium
 
 /datum/material/tinumium/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
@@ -77,7 +92,7 @@
 	desc = "Heavily blued, silver colored metal."
 	singular_name = "tinumium bar"
 	icon = 'modular_nova/modules/company_imports/icons/special_metals_stack.dmi'
-	icon_state = "dracula-rapping"
+	icon_state = "precious-metals"
 	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
 	mats_per_unit = list(/datum/material/tinumium = SHEET_MATERIAL_AMOUNT )
 	merge_type = /obj/item/stack/sheet/tinumium
@@ -93,8 +108,13 @@
 	name = "brussite"
 	desc = "Brussite"
 	color = list(0.9,0.75,0.4,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
-	greyscale_colors = "#E1C16E"
-	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE, MAT_CATEGORY_ITEM_MATERIAL = TRUE)
+	greyscale_color = "#E1C16E"
+	categories = list(
+		MAT_CATEGORY_RIGID = TRUE,
+		MAT_CATEGORY_BASE_RECIPES = TRUE,
+		MAT_CATEGORY_ITEM_MATERIAL = TRUE,
+		MAT_CATEGORY_ITEM_MATERIAL_COMPLEMENTARY = TRUE,
+	)
 	sheet_type = /obj/item/stack/sheet/brussite
 
 /datum/material/brussite/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
@@ -106,7 +126,7 @@
 	desc = "Brassy-yellow metal that might actually just be brass."
 	singular_name = "brussite bar"
 	icon = 'modular_nova/modules/company_imports/icons/special_metals_stack.dmi'
-	icon_state = "dracula-rapping"
+	icon_state = "precious-metals"
 	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
 	mats_per_unit = list(/datum/material/brussite = SHEET_MATERIAL_AMOUNT )
 	merge_type = /obj/item/stack/sheet/brussite
