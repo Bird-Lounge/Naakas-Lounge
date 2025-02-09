@@ -9,7 +9,7 @@ import {
   NumberInput,
   Section,
   Stack,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { BooleanLike } from 'tgui-core/react';
 import { capitalizeFirst } from 'tgui-core/string';
 

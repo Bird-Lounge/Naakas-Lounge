@@ -8,7 +8,7 @@ import {
   Section,
   Stack,
   Tooltip,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { BooleanLike, classes } from 'tgui-core/react';
 import { capitalize } from 'tgui-core/string';
 

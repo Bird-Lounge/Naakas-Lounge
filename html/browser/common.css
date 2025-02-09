@@ -153,22 +153,22 @@ h4
 
 .good
 {
-	color: #00ff00;
+	color: #aaff00;
 }
 
 .average
 {
-	color: #d09000;
+	color: #ffff00;
 }
 
 .bad
 {
-	color: #ff0000;
+	color: #ff6600;
 }
 
 .highlight
 {
-	color: #8BA5C4;
+	color: #a3bf4d;
 }
 
 .dark
@@ -255,31 +255,31 @@ div.notice
 {
 	width: 100%;
 	height: 100%;
-	background: #40628a;
+	background: #0066ff;
 	overflow: hidden;
 }
 
 .progressFill.good
 {
-	color: #ffffff;
+	color: #aaff00;
 	background: #00ff00;
 }
 
 .progressFill.average
 {
-	color: #ffffff;
+	color: #ffff00;
 	background: #d09000;
 }
 
 .progressFill.bad
 {
-	color: #ffffff;
+	color: #ff6600;
 	background: #ff0000;
 }
 
 .progressFill.highlight
 {
-	color: #ffffff;
+	color: #6600ff;
 	background: #8BA5C4;
 }
 

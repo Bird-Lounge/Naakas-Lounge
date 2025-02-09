@@ -24,11 +24,11 @@ $brown: hsl(24, 47%, 45%) !default;
 $grey: hsl(0, 0%, 47%) !default;
 $light-grey: hsl(0, 0%, 67%) !default;
 
-$primary: hsl(210, 37%, 46%) !default;
-$good: hsl(94, 63%, 41%) !default;
-$average: hsl(33, 89%, 50%) !default;
-$bad: hsl(0, 72%, 50%) !default;
-$label: hsl(210, 18%, 58%) !default;
+$primary: #a3bf4d !default;
+$good: #aaff00 !default;
+$average: #ffff00 !default;
+$bad: #ff6600 !default;
+$label: #758040 !default;
 
 // Background and foreground color lightness ratios
 $bg-lightness: -15% !default;

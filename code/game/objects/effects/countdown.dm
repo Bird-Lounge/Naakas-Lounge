@@ -9,6 +9,10 @@
 	anchored = TRUE
 	plane = GHOST_PLANE
 	color = "#ff0000" // text color
+	
+	maptext_x = -44  /// NAAKAS-LOUNGE ADDITION: helps with larger fonts
+	maptext_width = 120
+	
 	var/text_size = 3 // larger values clip when the displayed text is larger than 2 digits.
 	var/started = FALSE
 	var/displayed_text
@@ -64,7 +68,7 @@
 	displayed_text = new_val
 
 	if(displayed_text)
-		maptext = MAPTEXT("[displayed_text]")
+		maptext = MAPTEXT_MNC_BIG("<div align='center' valign='bottom' style='position:relative; top:0px; left:0px'>[displayed_text]</div>") /// NAAKAS-LOUNGE EDIT: MNC maptext variant
 	else
 		maptext = null
 

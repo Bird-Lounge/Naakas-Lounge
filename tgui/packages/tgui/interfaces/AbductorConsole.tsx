@@ -1,10 +1,4 @@
-import {
-  Button,
-  LabeledList,
-  NoticeBox,
-  Section,
-  Tabs,
-} from 'tgui-core/components';
+import { Button, LabeledList, NoticeBox, Section, Tabs } from 'tgui/components';
 import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend, useSharedState } from '../backend';

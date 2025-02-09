@@ -8,7 +8,7 @@ import {
   Section,
   Stack,
   TextArea,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { formatMoney } from 'tgui-core/format';
 
 import { useBackend } from '../backend';

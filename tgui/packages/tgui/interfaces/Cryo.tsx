@@ -4,7 +4,7 @@ import {
   LabeledList,
   ProgressBar,
   Section,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { round } from 'tgui-core/math';
 import { BooleanLike } from 'tgui-core/react';
 

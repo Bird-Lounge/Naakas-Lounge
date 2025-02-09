@@ -6,7 +6,7 @@ import { createUuid } from 'tgui-core/uuid';
 export const createHighlightSetting = (obj?: Record<string, any>) => ({
   id: createUuid(),
   highlightText: '',
-  highlightColor: '#ffdd44',
+  highlightColor: '#aaff00', // NAAKAS-LOUNGE EDIT
   highlightWholeMessage: true,
   matchWord: false,
   matchCase: false,

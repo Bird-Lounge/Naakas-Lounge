@@ -1,4 +1,4 @@
-import { Box, Button, Section } from 'tgui-core/components';
+import { Box, Button, Section } from 'tgui/components';
 import { toFixed } from 'tgui-core/math';
 
 import { useBackend } from '../backend';

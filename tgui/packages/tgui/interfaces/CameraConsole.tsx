@@ -7,7 +7,7 @@ import {
   NoticeBox,
   Section,
   Stack,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { BooleanLike, classes } from 'tgui-core/react';
 import { createSearch } from 'tgui-core/string';
 

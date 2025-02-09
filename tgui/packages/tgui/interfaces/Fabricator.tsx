@@ -6,7 +6,7 @@ import {
   Section,
   Stack,
   Tooltip,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { classes } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
