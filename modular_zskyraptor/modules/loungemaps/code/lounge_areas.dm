@@ -9,7 +9,6 @@
 	requires_power = FALSE
 	ambience_index = AMBIENCE_GENERIC
 	sound_environment = SOUND_AREA_STANDARD_STATION
-	has_gravity = STANDARD_GRAVITY
 
 /area/centcom/biodome/interior
 	icon_state = "biodome_interior"

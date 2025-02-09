@@ -22,5 +22,5 @@
 /obj/effect/landmark/start/lounge_upgrade_machine/after_round_start()
 	for(var/obj/machinery/machine in SSmachines.get_all_machines())
 		if(machine.z == z)
-			upgrade_gubbin.part_replace_action(machine, null)
+			machine.exchange_parts(null, upgrade_gubbin)
 	. = ..()

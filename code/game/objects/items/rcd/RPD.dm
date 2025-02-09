@@ -545,8 +545,6 @@
 	var/list/pipe_layer_numbers = get_active_pipe_layers()
 	for(var/layer_to_build in pipe_layer_numbers)
 		playsound(get_turf(src), SFX_TOOL_SWITCH, 20, vary = TRUE)
-		if(!continued_build/* && !do_after(user, atmos_build_speed, target = atom_to_target)*/) /// NAAKAS-LOUNGE EDIT: REMOVE DO_AFTER
-			return FALSE
 		if(!recipe.all_layers && (layer_to_build == 1 || layer_to_build == 5))
 			balloon_alert(user, "can't build on layer [layer_to_build]!")
 			if(multi_layer)
