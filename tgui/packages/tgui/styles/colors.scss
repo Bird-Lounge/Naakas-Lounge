@@ -8,21 +8,21 @@
 @use 'sass:meta';
 
 // Base colors
-$black: #000000 !default;
-$white: #ffffff !default;
-$red: #d92121 !default;
-$orange: #d96a21 !default;
-$yellow: #d9d921 !default;
-$olive: #9bd921 !default;
-$green: #21d921 !default;
-$teal: #21d97d !default;
-$blue: #216ad9 !default;
-$violet: #6a21d9 !default;
-$purple: #d921d9 !default;
-$pink: #d96ca3 !default;
-$brown: #a6725b !default;
-$grey: #7f7f7f !default;
-$light-grey: #aaaaaa !default;
+$black: hsl(0, 0%, 0%) !default;
+$white: hsl(0, 0%, 100%) !default;
+$red: hsl(0, 72%, 50%) !default;
+$orange: hsl(24, 89%, 54%) !default;
+$yellow: hsl(52, 97%, 52%) !default;
+$olive: hsl(68, 76%, 45%) !default;
+$green: hsl(136, 70%, 41%) !default;
+$teal: hsl(178, 100%, 35%) !default;
+$blue: hsl(208, 65%, 47%) !default;
+$violet: hsl(259, 60%, 50%) !default;
+$purple: hsl(288, 60%, 49%) !default;
+$pink: hsl(326, 71%, 56%) !default;
+$brown: hsl(24, 47%, 45%) !default;
+$grey: hsl(0, 0%, 47%) !default;
+$light-grey: hsl(0, 0%, 67%) !default;
 
 $primary: #a3bf4d !default;
 $good: #aaff00 !default;
@@ -74,7 +74,7 @@ $bg-map-keys: map.keys($_gen_map) !default;
 $fg-map: ();
 @each $color-name in $fg-map-keys {
   // prettier-ignore
-  $fg-map: map-merge($fg-map, (
+  $fg-map: map.merge($fg-map, (
     $color-name: fg(map.get($_gen_map, $color-name)),
   ));
 }
@@ -82,7 +82,7 @@ $fg-map: ();
 $bg-map: ();
 @each $color-name in $bg-map-keys {
   // prettier-ignore
-  $bg-map: map-merge($bg-map, (
+  $bg-map: map.merge($bg-map, (
     $color-name: bg(map.get($_gen_map, $color-name)),
   ));
 }

@@ -12,6 +12,8 @@
 	fire_sound_volume = 90
 	rack_sound = 'sound/items/weapons/gun/shotgun/rack.ogg'
 	load_sound = 'sound/items/weapons/gun/shotgun/insert_shell.ogg'
+	drop_sound = 'sound/items/handling/gun/ballistics/shotgun/shotgun_drop1.ogg'
+	pickup_sound = 'sound/items/handling/gun/ballistics/shotgun/shotgun_pickup1.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	obj_flags = CONDUCTS_ELECTRICITY
@@ -157,7 +159,7 @@
 	accepted_magazine_type = /obj/item/ammo_box/magazine/m12g
 	can_suppress = FALSE
 	burst_size = 2
-	fire_delay = 10 //NOVA EDIT - Original: 0
+	fire_delay = 1
 	pin = /obj/item/firing_pin/implant/pindicate
 	fire_sound = 'sound/items/weapons/gun/shotgun/shot_alt.ogg'
 	actions_types = list(/datum/action/item_action/toggle_firemode)

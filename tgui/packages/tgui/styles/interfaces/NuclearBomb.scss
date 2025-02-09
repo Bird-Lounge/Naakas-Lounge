@@ -8,9 +8,9 @@ $color-caution: colors.bg(colors.$average) !default;
 $background-beige: colors.bg(colors.$primary) !default;
 
 .NuclearBomb__displayBox {
-  background-color: #002003;
+  background-color: hsl(150, 100%, 1%);
   border: 0.167em inset $background-beige;
-  color: #03e017;
+  color: hsl(132, 100%, 45%);
   font-size: 2em;
   font-family: monospace;
   padding: 0.25em;

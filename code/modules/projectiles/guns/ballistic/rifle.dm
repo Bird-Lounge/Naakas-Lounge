@@ -13,6 +13,8 @@
 	fire_sound_volume = 90
 	rack_sound = 'sound/items/weapons/gun/rifle/bolt_out.ogg'
 	bolt_drop_sound = 'sound/items/weapons/gun/rifle/bolt_in.ogg'
+	drop_sound = 'sound/items/handling/gun/ballistics/rifle/rifle_drop1.ogg'
+	pickup_sound = 'sound/items/handling/gun/ballistics/rifle/rifle_pickup1.ogg'
 	tac_reloads = FALSE
 
 /obj/item/gun/ballistic/rifle/rack(mob/user = null)
@@ -317,7 +319,7 @@
 
 /obj/item/gun/ballistic/rifle/boltaction/pipegun/examine_more(mob/user)
 	. = ..()
-	. += span_notice("<b><i>Looking down at the [name], you recall a tale told to you in some distant memory...</i></b>")
+	. += span_notice("<b><i>Looking down at \the [src], you recall a tale told to you in some distant memory...</i></b>")
 
 	. += span_info("It's said that the first slaying committed on a Nanotrasen space station was by an assistant.")
 	. += span_info("That this act, done by toolbox, maybe spear, was what consigned their kind to a life of destitution, rejection and violence.")
