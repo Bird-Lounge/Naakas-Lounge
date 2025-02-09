@@ -189,7 +189,7 @@
 /turf/open/floor/iron/white,
 /area/centcom/biodome/medical/lobby)
 "aiT" = (
-/obj/machinery/vending/boozeomat/all_access{
+/obj/machinery/vending/boozeomat{
 	dir = 4
 	},
 /turf/open/floor/iron/smooth_corner{
@@ -840,7 +840,7 @@
 /turf/open/floor/wood/large,
 /area/centcom/biodome/homes/casa_de_ko/lounge)
 "aOK" = (
-/turf/open/floor/wood/parquet,
+/turf/open/floor/bamboo,
 /area/centcom/biodome/service/theatre)
 "aOU" = (
 /obj/structure/table/reinforced/rglass,
@@ -4158,7 +4158,7 @@
 	name = "The Wanderlust: Lounge"
 	})
 "drT" = (
-/obj/machinery/vending/autodrobe/all_access,
+/obj/machinery/vending/autodrobe,
 /turf/open/floor/iron/dark,
 /area/centcom/biodome/apartments)
 "dsb" = (
@@ -4759,9 +4759,8 @@
 /turf/open/floor/carpet,
 /area/centcom/biodome/homes/casa_de_tchiko/bed2)
 "dVp" = (
-/obj/machinery/airalarm/directional/east,
 /obj/machinery/firealarm/directional/east,
-/turf/open/floor/wood/parquet,
+/turf/open/floor/bamboo,
 /area/centcom/biodome/service/theatre)
 "dVS" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
@@ -5348,6 +5347,10 @@
 "ezv" = (
 /turf/closed/wall,
 /area/centcom/biodome/apartments/apartment1)
+"eAK" = (
+/obj/structure/chair/pillow_small,
+/turf/open/floor/bamboo,
+/area/centcom/biodome/service/theatre)
 "eBF" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -5535,7 +5538,7 @@
 /area/centcom/biodome/science/robotics)
 "eMw" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/wood/parquet,
+/turf/open/floor/bamboo,
 /area/centcom/biodome/service/theatre)
 "eNc" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -7618,7 +7621,8 @@
 /area/centcom/biodome/service/botany)
 "gzD" = (
 /obj/machinery/light/warm/directional/north,
-/turf/open/floor/wood/parquet,
+/obj/structure/table/reinforced/uraniumrglass,
+/turf/open/floor/grass/fairy,
 /area/centcom/biodome/service/theatre)
 "gAb" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -8592,8 +8596,9 @@
 /turf/open/floor/engine,
 /area/centcom/biodome/engineering/atmos)
 "hme" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
-/turf/open/floor/wood/parquet,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/bamboo,
 /area/centcom/biodome/service/theatre)
 "hmr" = (
 /obj/effect/turf_decal/box/red,
@@ -11918,7 +11923,7 @@
 	})
 "kdb" = (
 /obj/machinery/light/warm/directional/west,
-/turf/open/floor/wood/parquet,
+/turf/open/floor/bamboo,
 /area/centcom/biodome/service/theatre)
 "kdi" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -12440,6 +12445,11 @@
 /area/centcom/biodome/voxbox{
 	name = "Hakit's Meth Lab"
 	})
+"kCN" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
+/obj/structure/chair/pillow_small,
+/turf/open/floor/bamboo,
+/area/centcom/biodome/service/theatre)
 "kDg" = (
 /obj/structure/table/reinforced/plastitaniumglass,
 /obj/machinery/recharger,
@@ -13356,6 +13366,9 @@
 /obj/machinery/light/cold/directional/north,
 /turf/open/floor/iron/dark,
 /area/centcom/biodome/apartments)
+"loI" = (
+/turf/open/floor/grass/fairy,
+/area/centcom/biodome/service/theatre)
 "loK" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/decorative/shelf/soda_multipacks,
@@ -13746,6 +13759,12 @@
 	},
 /obj/machinery/vending/wardrobe/chap_wardrobe,
 /turf/open/floor/carpet/stellar,
+/area/centcom/biodome/service/theatre)
+"lIv" = (
+/obj/structure/grille,
+/obj/structure/curtain/cloth,
+/obj/structure/window/uranium/fulltile,
+/turf/open/floor/plating,
 /area/centcom/biodome/service/theatre)
 "lIw" = (
 /obj/structure/table/reinforced/plastitaniumglass,
@@ -14281,6 +14300,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/centcom/biodome/medical)
+"mlH" = (
+/obj/machinery/airalarm/directional/east,
+/turf/open/floor/bamboo,
+/area/centcom/biodome/service/theatre)
 "mlN" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/visible{
@@ -20883,6 +20906,11 @@
 	},
 /turf/open/floor/engine,
 /area/centcom/biodome/engineering/engine)
+"rzU" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/chair/pillow_small,
+/turf/open/floor/bamboo,
+/area/centcom/biodome/service/theatre)
 "rAf" = (
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/biodome/homes/casa_de_liora/office)
@@ -21784,6 +21812,11 @@
 /obj/structure/marker_beacon/olive,
 /turf/open/misc/asteroid/snow/icemoon/do_not_chasm,
 /area/centcom/biodome/exterior)
+"shZ" = (
+/obj/structure/grille,
+/obj/structure/window/fulltile,
+/turf/open/floor/plating,
+/area/centcom/biodome/service/diner)
 "sic" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
@@ -21903,6 +21936,13 @@
 /area/centcom/biodome/homes/evership/bar{
 	name = "The Wanderlust: Bar"
 	})
+"slD" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
+	dir = 1
+	},
+/obj/structure/chair/pillow_small,
+/turf/open/floor/bamboo,
+/area/centcom/biodome/service/theatre)
 "smw" = (
 /obj/machinery/light/directional/north,
 /turf/open/floor/iron/smooth_edge{
@@ -21947,6 +21987,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/curtain/cloth,
 /turf/open/floor/iron,
 /area/centcom/biodome/service/lounge)
 "soC" = (
@@ -22980,6 +23021,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/checker,
 /area/centcom/biodome/service/bar)
+"tfv" = (
+/obj/structure/flora/bush/flowers_pp/style_random,
+/turf/open/floor/iron/dark/pavement,
+/area/centcom/biodome/interior)
 "tfy" = (
 /obj/effect/turf_decal/trimline/yellow/mid_joiner,
 /obj/effect/turf_decal/trimline/yellow/warning,
@@ -24123,9 +24168,9 @@
 /turf/open/floor/wood/tile,
 /area/centcom/biodome/service/lounge)
 "uiF" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/wood/parquet,
+/obj/structure/table/reinforced/uraniumrglass,
+/turf/open/floor/grass/fairy,
 /area/centcom/biodome/service/theatre)
 "uiX" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
@@ -24181,7 +24226,7 @@
 /area/centcom/biodome/homes/casa_de_liora/lounge)
 "ujW" = (
 /obj/machinery/light_switch/directional/east,
-/turf/open/floor/wood/parquet,
+/turf/open/floor/bamboo,
 /area/centcom/biodome/service/theatre)
 "ukg" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
@@ -24463,10 +24508,8 @@
 	name = "Hakit's Meth Lab"
 	})
 "upX" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
-	dir = 1
-	},
-/turf/open/floor/wood/parquet,
+/obj/structure/table/reinforced/uraniumrglass,
+/turf/open/floor/grass/fairy,
 /area/centcom/biodome/service/theatre)
 "urm" = (
 /obj/effect/turf_decal/siding/dark/corner{
@@ -24479,7 +24522,7 @@
 /area/centcom/biodome/townhall/meeting)
 "urx" = (
 /obj/machinery/light/warm/directional/south,
-/turf/open/floor/wood/parquet,
+/turf/open/floor/bamboo,
 /area/centcom/biodome/service/theatre)
 "urR" = (
 /obj/machinery/holopad{
@@ -27355,9 +27398,6 @@
 /obj/item/gun/ballistic/automatic/sniper_rifle/modular/blackmarket{
 	pixel_y = 5
 	},
-/obj/item/gun/ballistic/revolver/syndicate/cowboy{
-	pixel_y = 11
-	},
 /obj/effect/turf_decal/trimline/red/real_red/line{
 	dir = 6
 	},
@@ -28891,6 +28931,12 @@
 	},
 /turf/open/floor/plating/snowed/icemoon,
 /area/centcom/biodome/exterior)
+"xYP" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/chair/pillow_small,
+/turf/open/floor/bamboo,
+/area/centcom/biodome/service/theatre)
 "xZl" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
@@ -58642,7 +58688,7 @@ cdr
 vAJ
 lcB
 rlf
-aOK
+upX
 aOK
 kdb
 aOK
@@ -58900,9 +58946,9 @@ vFy
 tWo
 rlf
 gzD
-aOK
-aOK
-aOK
+eAK
+rzU
+slD
 urx
 sRb
 iUz
@@ -59156,12 +59202,12 @@ azc
 azc
 azc
 azc
-aOK
-aOK
-eMw
+upX
+upX
+uiF
 upX
 aOK
-sRb
+lIv
 iUz
 jst
 jst
@@ -59413,12 +59459,12 @@ wUd
 svj
 mmW
 azc
-aOK
-aOK
+eAK
+loI
 eMw
+loI
 aOK
-aOK
-sRb
+lIv
 iUz
 jst
 jst
@@ -59661,7 +59707,7 @@ frt
 iUz
 mzs
 njN
-dms
+shZ
 aoX
 kFp
 dpL
@@ -59670,12 +59716,12 @@ wjb
 wUd
 odk
 azc
-aOK
-aOK
+eAK
+loI
 eMw
+loI
 aOK
-aOK
-sRb
+lIv
 iUz
 iUz
 iUz
@@ -59927,12 +59973,12 @@ nmV
 tlT
 aBY
 azc
-aOK
-hme
+upX
+upX
 uiF
+upX
 aOK
-aOK
-sRb
+lIv
 iUz
 ecm
 iUz
@@ -60175,7 +60221,7 @@ frt
 iUz
 mzs
 iUz
-dms
+shZ
 ybd
 kFp
 pEj
@@ -60185,9 +60231,9 @@ wUd
 mji
 azc
 gzD
-aOK
-uiF
-aOK
+kCN
+xYP
+eAK
 urx
 sRb
 iUz
@@ -60441,11 +60487,11 @@ wUd
 wUd
 kGk
 azc
-aOK
+upX
 ujW
-uiF
+hme
 dVp
-aOK
+mlH
 sRb
 iUz
 rUh
@@ -74078,28 +74124,28 @@ cbh
 rbQ
 juX
 rbQ
-jst
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-fFP
+tfv
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+rbQ
+rbQ
+rbQ
 iUz
 iUz
 iUz
@@ -74334,29 +74380,29 @@ kPt
 kPt
 juX
 juX
+mqq
+xlF
+xlF
+xlF
+xlF
+xlF
+xlF
+xlF
+xlF
+xlF
+xlF
+xlF
+xlF
+xlF
+xlF
+xlF
+xlF
+xlF
+xlF
+xlF
+mqq
+mqq
 rbQ
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
 iUz
 iUz
 iUz
@@ -74592,28 +74638,28 @@ cbh
 rbQ
 rbQ
 rbQ
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
-iUz
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+cbh
+rbQ
+rbQ
+rbQ
 iUz
 iUz
 iUz
