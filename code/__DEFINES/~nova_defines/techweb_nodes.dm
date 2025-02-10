@@ -1,4 +1,6 @@
 #define TECHWEB_NODE_ADVANCED_VISION "adv_vision"
+#define TECHWEB_NODE_ANDROID_ORGANS "android_organs"
+#define TECHWEB_NODE_ANDROID_CHASSIS "android_chassis"
 #define TECHWEB_NODE_BORG_SHAPESHIFTER "borg_shapeshifter"
 #define TECHWEB_NODE_CARGO_TELEPORTER "cargoteleporter"
 #define TECHWEB_NODE_COLONY_APPLIANCES "colony_fabricator_appliances"
@@ -25,3 +27,4 @@
 #define TECHWEB_NODE_XENOARCH_BASIC "basic_xenoarch"
 #define TECHWEB_NODE_XENOARCH_MACHINES "xenoarch_machines"
 #define TECHWEB_NODE_XENOARCH_STORAGE "xenoarch_storage"
+#define TECHWEB_NODE_RMBK "rmbk2"

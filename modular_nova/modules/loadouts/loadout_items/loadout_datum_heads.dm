@@ -121,6 +121,10 @@
 	name = "Mothic Softcap"
 	item_path = /obj/item/clothing/head/mothcap
 
+/datum/loadout_item/head/colonialcap
+	name = "Colonial Cap"
+	item_path = /obj/item/clothing/head/hats/colonial
+
 /datum/loadout_item/head/frontiercap
 	name = "Frontier Cap"
 	item_path = /obj/item/clothing/head/soft/frontier_colonist
@@ -278,6 +282,18 @@
 	name = "Colourable Maid Headband"
 	item_path = /obj/item/clothing/head/maid_headband
 
+/datum/loadout_item/head/hairpin
+	name = "Fancy Hairpin"
+	item_path = /obj/item/clothing/head/costume/hairpin
+
+/datum/loadout_item/head/skrell_chain_gold
+	name = "Gold skrellian head chain"
+	item_path = /obj/item/clothing/head/skrell_chain
+
+/datum/loadout_item/head/skrell_chain_silver
+	name = "Silver skrellian head chain"
+	item_path = /obj/item/clothing/head/skrell_chain/silver
+
 /*
 *	CHRISTMAS
 */
@@ -333,10 +349,6 @@
 /*
 *	MISC
 */
-
-/datum/loadout_item/head/baseball
-	name = "Ballcap"
-	item_path = /obj/item/clothing/head/soft/mime
 
 /datum/loadout_item/head/pirate
 	name = "Pirate hat"
@@ -505,6 +517,22 @@
 	name = "Officer's Cap (Red)"
 	item_path = /obj/item/clothing/head/hats/caphat/parade/fedcap/sec
 
+/datum/loadout_item/head/trekcapcustom
+	name = "Officer's Cap (Custom)"
+	item_path = /obj/item/clothing/head/hats/caphat/parade/fedcap/custom
+
+/datum/loadout_item/head/trekcapcustom_gold
+	name = "Officer's Cap (Custom, Gold Badge)"
+	item_path = /obj/item/clothing/head/hats/caphat/parade/fedcap/custom/gold
+
+/datum/loadout_item/head/navalcap
+	name = "Custom Naval Cap"
+	item_path = /obj/item/clothing/head/hats/caphat/naval/custom
+
+/datum/loadout_item/head/navalcap_gold
+	name = "Custom Naval Cap (Gold Badge)"
+	item_path = /obj/item/clothing/head/hats/caphat/naval/custom/gold
+
 /*
 *	JOB-LOCKED
 */
@@ -604,14 +632,10 @@
 /datum/loadout_item/head/azulea_oldblood
 	name = "Oldblood's Royal cap"
 	item_path = /obj/item/clothing/head/hats/caphat/azulean/old_blood
-	restricted_roles = list(JOB_CAPTAIN, JOB_NT_REP)
-	restricted_species = list(SPECIES_AKULA)
 
 /datum/loadout_item/head/azulea_upstart
 	name = "Upstart's Noble cap"
 	item_path = /obj/item/clothing/head/hats/caphat/azulean/upstart
-	restricted_roles = list(JOB_CAPTAIN, JOB_NT_REP)
-	restricted_species = list(SPECIES_AKULA)
 
 /*
 *	JOB BERETS
@@ -681,25 +705,9 @@
 *	FLOWERS
 */
 
-/datum/loadout_item/head/donator/poppy
-	name = "Poppy Flower"
-	item_path = /obj/item/food/grown/poppy
-
-/datum/loadout_item/head/donator/lily
-	name = "Lily Flower"
-	item_path = /obj/item/food/grown/poppy/lily
-
-/datum/loadout_item/head/donator/geranium
-	name = "Geranium Flower"
-	item_path = /obj/item/food/grown/poppy/geranium
-
 /datum/loadout_item/head/donator/fraxinella
 	name = "Fraxinella Flower"
 	item_path = /obj/item/food/grown/poppy/geranium/fraxinella
-
-/datum/loadout_item/head/donator/harebell
-	name = "Harebell Flower"
-	item_path = /obj/item/food/grown/harebell
 
 /datum/loadout_item/head/donator/rose
 	name = "Rose Flower"
@@ -708,10 +716,6 @@
 /datum/loadout_item/head/donator/carbon_rose
 	name = "Carbon Rose Flower"
 	item_path = /obj/item/grown/carbon_rose
-
-/datum/loadout_item/head/donator/sunflower
-	name = "Sunflower"
-	item_path = /obj/item/food/grown/sunflower
 
 /datum/loadout_item/head/donator/rainbow_bunch
 	name = "Rainbow Bunch"

@@ -24,9 +24,22 @@
 	build_plane_masters(0, SSmapping.max_plane_offset)
 
 /datum/plane_master_group/Destroy()
-	orphan_hud()
+	set_hud(null)
 	QDEL_LIST_ASSOC_VAL(plane_masters)
 	return ..()
+
+/datum/plane_master_group/proc/set_hud(datum/hud/new_hud)
+	if(new_hud == our_hud)
+		return
+	if(our_hud)
+		our_hud.master_groups -= key
+		hide_hud()
+	our_hud = new_hud
+	if(new_hud)
+		our_hud.master_groups[key] = src
+		show_hud()
+		build_planes_offset(our_hud, active_offset)
+	SEND_SIGNAL(src, COMSIG_GROUP_HUD_CHANGED, our_hud)
 
 /// Display a plane master group to some viewer, so show all our planes to it
 /datum/plane_master_group/proc/attach_to(datum/hud/viewing_hud)
@@ -38,21 +51,14 @@
 	#warn Fully change default relay_loc to "1,1", rather than changing it based on client version
 #endif
 
-	if(viewing_hud.mymob?.client?.byond_version > 515)
-		relay_loc = "1,1"
-		rebuild_plane_masters()
-
-	our_hud = viewing_hud
+	set_hud(viewing_hud)
 	our_hud.master_groups[key] = src
 	show_hud()
 	build_planes_offset(our_hud, active_offset)
 
-/// Hide the plane master from its current hud, fully clear it out
-/datum/plane_master_group/proc/orphan_hud()
-	if(our_hud)
-		our_hud.master_groups -= key
-		hide_hud()
-		our_hud = null
+	if(viewing_hud.mymob?.client?.byond_version > 515)
+		relay_loc = "1,1"
+		rebuild_plane_masters()
 
 /// Well, refresh our group, mostly useful for plane specific updates
 /datum/plane_master_group/proc/refresh_hud()
@@ -64,6 +70,7 @@
 	hide_hud()
 	rebuild_plane_masters()
 	show_hud()
+	our_hud.update_parallax_pref()
 	build_planes_offset(our_hud, active_offset)
 
 /// Regenerate our plane masters, this is useful if we don't have a mob but still want to rebuild. Such in the case of changing the screen_loc of relays

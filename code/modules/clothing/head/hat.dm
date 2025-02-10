@@ -22,7 +22,7 @@
 
 /obj/item/clothing/head/costume/constable
 	name = "constable helmet"
-	desc = "A british looking helmet."
+	desc = "A British-looking helmet."
 	icon_state = "constable"
 	inhand_icon_state = null
 	custom_price = PAYCHECK_COMMAND * 1.5
@@ -50,6 +50,7 @@
 	icon_state = "mailman"
 	desc = "<i>'Right-on-time'</i> mail service head wear."
 	clothing_traits = list(TRAIT_HATED_BY_DOGS)
+	custom_premium_price = PAYCHECK_CREW
 
 /obj/item/clothing/head/bio_hood/plague
 	name = "plague doctor's hat"
@@ -210,6 +211,14 @@
 	name = "rice hat"
 	desc = "Welcome to the rice fields, motherfucker."
 	icon_state = "rice_hat"
+	base_icon_state = "rice_hat"
+	var/reversed = FALSE
+
+/obj/item/clothing/head/costume/rice_hat/click_alt(mob/user)
+	reversed = !reversed
+	worn_icon_state = "[base_icon_state][reversed ? "_kim" : ""]"
+	to_chat(user, span_notice("You [reversed ? "lower" : "raise"] the hat."))
+	update_appearance()
 
 /obj/item/clothing/head/costume/lizard
 	name = "lizardskin cloche hat"

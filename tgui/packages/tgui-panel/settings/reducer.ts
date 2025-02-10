@@ -14,7 +14,7 @@ import {
   updateHighlightSetting,
   updateSettings,
 } from './actions';
-import { FONTS, MAX_HIGHLIGHT_SETTINGS, SETTINGS_TABS } from './constants';
+import { FONTS, SETTINGS_TABS } from './constants';
 import { createDefaultHighlightSetting } from './model';
 
 const defaultHighlightSetting = createDefaultHighlightSetting();
@@ -38,6 +38,9 @@ const initialState = {
     visible: false,
     activeTab: SETTINGS_TABS[0].id,
   },
+  statLinked: true,
+  statFontSize: 12,
+  statTabsStyle: 'default',
 } as const;
 
 export function settingsReducer(
@@ -127,10 +130,6 @@ export function settingsReducer(
 
     case addHighlightSetting.type: {
       const highlightSetting = payload;
-
-      if (state.highlightSettings.length >= MAX_HIGHLIGHT_SETTINGS) {
-        return state;
-      }
 
       return {
         ...state,
