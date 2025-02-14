@@ -24,8 +24,6 @@
 /datum/status_effect/staggered/on_remove()
 	UnregisterSignal(owner, COMSIG_LIVING_DEATH)
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/staggered)
-	// Resetting both X on remove so we're back to normal
-	animate(owner, pixel_x = owner.base_pixel_x, time = 0.2 SECONDS, flags = ANIMATION_PARALLEL)
 
 /// Signal proc that self deletes our staggered effect
 /datum/status_effect/staggered/proc/clear_staggered(datum/source)
@@ -45,11 +43,12 @@
 /// Helper proc that causes the mob to do a stagger animation.
 /// Doesn't change significantly, just meant to represent swaying back and forth
 /mob/living/proc/do_stagger_animation()
-	animate(src, pixel_x = 4, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
-	sleep(0.2 SECONDS)
-	animate(src, pixel_x = -8, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
-	sleep(0.2 SECONDS)
-	animate(src, pixel_x = 4, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	var/normal_pos = base_pixel_x + body_position_pixel_x_offset
+	var/jitter_right = normal_pos + 4
+	var/jitter_left = normal_pos - 4
+	animate(src, pixel_x = jitter_left, 0.2 SECONDS, flags = ANIMATION_PARALLEL)
+	animate(pixel_x = jitter_right, time = 0.4 SECONDS)
+	animate(pixel_x = normal_pos, time = 0.2 SECONDS)
 
 /// Status effect specifically for instances where someone is vulnerable to being stunned when shoved.
 /datum/status_effect/next_shove_stuns
@@ -72,7 +71,7 @@
 		COMSIG_LIVING_STATUS_STUN,
 		COMSIG_LIVING_STATUS_IMMOBILIZE), PROC_REF(clear_stun_vulnverability)
 	)
-	ADD_TRAIT(owner, TRAIT_STUN_ON_NEXT_SHOVE, STATUS_EFFECT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_STUN_ON_NEXT_SHOVE, TRAIT_STATUS_EFFECT(id))
 	vulnverability_overlay = mutable_appearance(icon = 'icons/effects/effects.dmi', icon_state = "dazed")
 	owner.add_overlay(vulnverability_overlay)
 	return TRUE
@@ -84,7 +83,7 @@
 		COMSIG_LIVING_STATUS_IMMOBILIZE,
 		COMSIG_LIVING_DEATH,
 	))
-	REMOVE_TRAIT(owner, TRAIT_STUN_ON_NEXT_SHOVE, STATUS_EFFECT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_STUN_ON_NEXT_SHOVE, TRAIT_STATUS_EFFECT(id))
 	if(vulnverability_overlay)
 		clear_stun_vulnverability_overlay()
 
@@ -124,12 +123,12 @@
 	if(owner.stat == DEAD)
 		return FALSE
 	RegisterSignal(owner, COMSIG_LIVING_DEATH, PROC_REF(clear_on_death))
-	ADD_TRAIT(owner, TRAIT_NO_SIDE_KICK, STATUS_EFFECT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_NO_SIDE_KICK, TRAIT_STATUS_EFFECT(id))
 	return TRUE
 
 /datum/status_effect/no_side_kick/on_remove()
 	UnregisterSignal(owner, list(COMSIG_LIVING_DEATH))
-	REMOVE_TRAIT(owner, TRAIT_NO_SIDE_KICK, STATUS_EFFECT_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_NO_SIDE_KICK, TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/no_side_kick/proc/clear_on_death(mob/living/source)
 	SIGNAL_HANDLER

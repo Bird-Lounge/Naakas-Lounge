@@ -179,7 +179,7 @@
 
 		else
 			var/image/I = image('modular_nova/master_files/icons/mob/huds/hud.dmi', src, "")	//NOVA EDIT: original filepath 'icons/mob/huds/hud.dmi'
-			I.appearance_flags = RESET_COLOR|RESET_TRANSFORM
+			I.appearance_flags = RESET_COLOR|PIXEL_SCALE|KEEP_APART
 			hud_list[hud] = I
 		set_hud_image_active(hud, update_huds = FALSE) //by default everything is active. but dont add it to huds to keep control.
 
@@ -277,7 +277,7 @@
 	hearers -= ignored_mobs
 
 	//NOVA EDIT ADDITION BEGIN - AI QoL
-	for(var/mob/camera/ai_eye/ai_eye in hearers)
+	for(var/mob/eye/camera/ai/ai_eye in hearers)
 		if(ai_eye.ai?.client && !(ai_eye.ai.stat == DEAD))
 			hearers -= ai_eye
 			hearers |= ai_eye.ai
@@ -292,7 +292,7 @@
 
 	var/raw_msg = message
 	if(visible_message_flags & EMOTE_MESSAGE)
-		message = "<span class='emote'><b>[src]</b>[separation][message]</span>" // NOVA EDIT - Better emotes
+		message = span_emote("<b>[src]</b>[separation][message]") // NOVA EDIT - Better emotes - ORIGINAL: message = span_emote("<b>[src]</b> [message]")
 
 	for(var/mob/M in hearers)
 		if(!M.client)
@@ -333,7 +333,7 @@
 	var/raw_self_message = self_message
 	var/self_runechat = FALSE
 	if(visible_message_flags & EMOTE_MESSAGE)
-		self_message = "<span class='emote'><b>[src]</b> [self_message]</span>" // May make more sense as "You do x"
+		self_message = span_emote("<b>[src]</b> [self_message]") // May make more sense as "You do x"
 
 	if(visible_message_flags & ALWAYS_SHOW_SELF_MESSAGE)
 		to_chat(src, self_message)
@@ -361,7 +361,7 @@
 	var/list/hearers = get_hearers_in_view(hearing_distance, src)
 
 	//NOVA EDIT ADDITION BEGIN - AI QoL
-	for(var/mob/camera/ai_eye/ai_eye in hearers)
+	for(var/mob/eye/camera/ai/ai_eye in hearers)
 		if(ai_eye.ai?.client && !(ai_eye.ai.stat == DEAD))
 			hearers -= ai_eye
 			hearers |= ai_eye.ai
@@ -375,7 +375,7 @@
 		hearers -= src
 	var/raw_msg = message
 	if(audible_message_flags & EMOTE_MESSAGE)
-		message = "<span class='emote'><b>[src]</b>[separation][message]</span>" //NOVA EDIT CHANGE
+		message = span_emote("<b>[src]</b>[separation][message]") //NOVA EDIT CHANGE - Better emotes - ORIGINAL: message = span_emote("<b>[src]</b> [message]")
 	for(var/mob/M in hearers)
 	// NOVA EDIT ADDITION - Emote pref checks
 		if(pref_to_check && !M.client?.prefs.read_preference(pref_to_check))
@@ -403,7 +403,7 @@
 	var/raw_self_message = self_message
 	var/self_runechat = FALSE
 	if(audible_message_flags & EMOTE_MESSAGE)
-		self_message = "<span class='emote'><b>[src]</b> [self_message]</span>"
+		self_message = span_emote("<b>[src]</b> [self_message]")
 	if(audible_message_flags & ALWAYS_SHOW_SELF_MESSAGE)
 		to_chat(src, self_message)
 		self_runechat = TRUE
@@ -563,7 +563,7 @@
 			var/list/result = examinify.examine_more(src)
 			if(!length(result))
 				result += span_notice("<i>You examine [examinify] closer, but find nothing of interest...</i>")
-			result_combined = jointext(result, "<br>")
+			result_combined = boxed_message(jointext(result, "<br>"))
 			result_combined = replacetext(result_combined, "<hr><br>", "<hr>") // NOVA EDIT ADDITION - bit of a hack here to make sure we don't get linebreaks coming after headers
 
 		else
@@ -575,8 +575,8 @@
 		var/list/result = examinify.examine(src)
 		var/atom_title = examinify.examine_title(src, thats = TRUE)
 		SEND_SIGNAL(src, COMSIG_MOB_EXAMINING, examinify, result)
-		result_combined = (atom_title ? "[span_slightly_larger("[atom_title][ismob(examinify) ? "!" :"."][EXAMINE_SECTION_BREAK]")]" : "") + jointext(result, "<br>") // NOVA EDIT CHANGE - No centered title + exclamation point for mobs - ORIGINAL: result_combined = (atom_title ? fieldset_block("[span_slightly_larger(atom_title)].", jointext(result, "<br>"), "examine_block") : examine_block(jointext(result, "<br>")))
-		result_combined = examine_block(replacetext(result_combined, "<hr><br>", "<hr>")) // NOVA EDIT ADDITION - bit of a hack here to make sure we don't get linebreaks coming after headers, as well as properly adding the examine_block
+		result_combined = (atom_title ? fieldset_block("[atom_title][ismob(examinify) ? "!" :"."]", jointext(result, "<br>"), "boxed_message") : boxed_message(jointext(result, "<br>"))) // NOVA EDIT CHANGE - ORIGINAL: result_combined = (atom_title ? fieldset_block("[atom_title]", jointext(result, "<br>"), "boxed_message") : boxed_message(jointext(result, "<br>")))
+		result_combined = replacetext(result_combined, "<hr><br>", "<hr>") // NOVA EDIT ADDITION - bit of a hack here to make sure we don't get linebreaks coming after headers
 
 	to_chat(src, span_infoplain(result_combined))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, examinify)
@@ -603,7 +603,7 @@
 			return FALSE
 
 	//you can only initiate exaimines if you have a hand, it's not disabled, and only as many examines as you have hands
-	/// our active hand, to check if it's disabled/detatched
+	/// our active hand, to check if it's disabled/detached
 	var/obj/item/bodypart/active_hand = has_active_hand()? get_active_hand() : null
 	if(!active_hand || active_hand.bodypart_disabled || do_after_count() >= usable_hands)
 		to_chat(src, span_warning("You don't have a free hand to examine this!"))
@@ -657,7 +657,7 @@
 	return
 
 /mob/living/handle_eye_contact(mob/living/examined_mob)
-	if(!istype(examined_mob) || src == examined_mob || examined_mob.stat >= UNCONSCIOUS || !client)
+	if(!istype(examined_mob) || src == examined_mob || examined_mob.stat >= UNCONSCIOUS || !client || is_blind())
 		return
 
 	var/imagined_eye_contact = FALSE
@@ -673,12 +673,16 @@
 
 	// check to see if their face is blocked or, if not, a signal blocks it
 	if(examined_mob.is_face_visible() && SEND_SIGNAL(src, COMSIG_MOB_EYECONTACT, examined_mob, TRUE) != COMSIG_BLOCK_EYECONTACT)
-		var/msg = span_smallnotice("You make eye contact with [examined_mob].")
-		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), src, msg), 0.3 SECONDS) // so the examine signal has time to fire and this will print after
+		var/obj/item/clothing/eye_cover = examined_mob.is_eyes_covered()
+		if (!eye_cover || (!eye_cover.tint && !eye_cover.flash_protect))
+			var/msg = span_smallnotice("You make eye contact with [examined_mob].")
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), src, msg), 0.3 SECONDS) // so the examine signal has time to fire and this will print after
 
-	if(!imagined_eye_contact && is_face_visible() && SEND_SIGNAL(examined_mob, COMSIG_MOB_EYECONTACT, src, FALSE) != COMSIG_BLOCK_EYECONTACT)
-		var/msg = span_smallnotice("[src] makes eye contact with you.")
-		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), examined_mob, msg), 0.3 SECONDS)
+	if(!imagined_eye_contact && is_face_visible() && !examined_mob.is_blind() && SEND_SIGNAL(examined_mob, COMSIG_MOB_EYECONTACT, src, FALSE) != COMSIG_BLOCK_EYECONTACT)
+		var/obj/item/clothing/eye_cover = is_eyes_covered()
+		if (!eye_cover || (!eye_cover.tint && !eye_cover.flash_protect))
+			var/msg = span_smallnotice("[src] makes eye contact with you.")
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), examined_mob, msg), 0.3 SECONDS)
 
 /**
  * Called by using Activate Held Object with an empty hand/limb
@@ -934,9 +938,8 @@
 		return
 
 	if(!selected_hand)
-		selected_hand = (active_hand_index % held_items.len)+1
-
-	if(istext(selected_hand))
+		selected_hand = active_hand_index
+	else if(istext(selected_hand))
 		selected_hand = LOWER_TEXT(selected_hand)
 		if(selected_hand == "right" || selected_hand == "r")
 			selected_hand = 2
@@ -945,8 +948,9 @@
 
 	if(selected_hand != active_hand_index)
 		swap_hand(selected_hand)
-	else
-		mode()
+
+	// _queue_verb requires a client, so when we don't have it (AI controlled mob) we don't use it
+	client ? mode() : execute_mode()
 
 /mob/proc/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) //For sec bot threat assessment
 	return 0
@@ -1027,7 +1031,7 @@
 		)
 		antimagic_effect = mutable_appearance('icons/effects/effects.dmi', "shield-red", MOB_SHIELD_LAYER)
 		antimagic_color = LIGHT_COLOR_BLOOD_MAGIC
-		playsound(src, 'sound/magic/magic_block.ogg', 50, TRUE)
+		playsound(src, 'sound/effects/magic/magic_block.ogg', 50, TRUE)
 
 	else if(magic_flags & MAGIC_RESISTANCE_HOLY)
 		visible_message(
@@ -1036,7 +1040,7 @@
 		)
 		antimagic_effect = mutable_appearance('icons/mob/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 		antimagic_color = LIGHT_COLOR_HOLY_MAGIC
-		playsound(src, 'sound/magic/magic_block_holy.ogg', 50, TRUE)
+		playsound(src, 'sound/effects/magic/magic_block_holy.ogg', 50, TRUE)
 
 	else if(magic_flags & MAGIC_RESISTANCE_MIND)
 		visible_message(
@@ -1045,7 +1049,7 @@
 		)
 		antimagic_effect = mutable_appearance('icons/mob/effects/genetics.dmi', "telekinesishead", MOB_SHIELD_LAYER)
 		antimagic_color = LIGHT_COLOR_DARK_BLUE
-		playsound(src, 'sound/magic/magic_block_mind.ogg', 50, TRUE)
+		playsound(src, 'sound/effects/magic/magic_block_mind.ogg', 50, TRUE)
 
 	mob_light(range = 2, power = 2, color = antimagic_color, duration = 5 SECONDS)
 	add_overlay(antimagic_effect)
@@ -1126,6 +1130,7 @@
  * * BYPASS_ADJACENCY - The target does not have to be adjacent
  * * SILENT_ADJACENCY - Adjacency is required but errors are not printed
  * * NOT_INSIDE_TARGET - The target maybe adjacent but the mob should not be inside the target
+ * * ALLOW_PAI - Allows pAIs to perform an action
  *
  * silence_adjacency: Sometimes we want to use this proc to check interaction without allowing it to throw errors for base case adjacency
  * Alt click uses this, as otherwise you can detect what is interactable from a distance via the error message

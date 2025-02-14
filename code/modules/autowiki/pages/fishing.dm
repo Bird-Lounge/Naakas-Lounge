@@ -44,21 +44,27 @@
 		if(fish::breeding_timeout != def_breeding)
 			extra_info += "It takes <b>[DisplayTimeText(fish::breeding_timeout)]</b> to reproduce instead of [def_breeding_text]"
 		if(length(extra_info))
-			description += "<br>[extra_info.Join(extra_info,"<br>")]"
+			description += "<br>[extra_info.Join("<br>")]"
 
-		output += "\n\n" + include_template("Autowiki/FishEntry", list(
+		var/list/output_list = list(
 			"name" = full_capitalize(escape_value(fish::name)),
 			"icon" = filename,
 			"description" = description,
 			"size_weight" = "[fish::average_size]cm / [fish::average_weight]g",
 			"fluid" = escape_value(fish::required_fluid_type),
-			"temperature" = "[fish::required_temperature_min] - [fish::required_temperature_max] K",
+			"temperature" = "Doesn't matter",
 			"stable_population" = fish::stable_population,
 			"traits" = generate_traits(properties[FISH_PROPERTIES_TRAITS]),
 			"favorite_baits" = generate_baits(properties[FISH_PROPERTIES_FAV_BAIT]),
 			"disliked_baits" = generate_baits(properties[FISH_PROPERTIES_BAD_BAIT], TRUE),
 			"beauty_score" = properties[FISH_PROPERTIES_BEAUTY_SCORE],
-		))
+		)
+		var/not_infinity = fish::required_temperature_max < INFINITY
+		if(fish::required_temperature_min > 0 || not_infinity)
+			var/max_temp = not_infinity ? fish::required_temperature_max : "∞"
+			output_list["temperature"] = "[fish::required_temperature_min] - [max_temp] K"
+
+		output += "\n\n" + include_template("Autowiki/FishEntry", output_list)
 
 	return output
 

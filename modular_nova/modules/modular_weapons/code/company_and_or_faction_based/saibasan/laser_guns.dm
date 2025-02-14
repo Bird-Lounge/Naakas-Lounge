@@ -64,8 +64,8 @@
 	var/speech_json_file = LONG_MOD_LASER_SPEECH
 	/// Keeps track of the last processed charge, prevents message spam
 	var/last_charge = 0
-	/// If the gun's personality speech thing is on, defaults to on because just listen to her
-	var/personality_mode = TRUE
+	/// If the gun's personality speech thing is on, defaults to on because just listen to her // Defaults its to Off, so its easier to advertice that someone wants a talking gun and companion.
+	var/personality_mode = FALSE
 	/// Keeps track of our soulcatcher component
 	var/datum/component/soulcatcher/tracked_soulcatcher
 	/// What is this gun's extended examine, we only have to do this because the carbine is a subtype
@@ -195,7 +195,7 @@
 	if(!ignores_cooldown && !COOLDOWN_FINISHED(src, last_speech))
 		return
 	say(pick_list_replacements(speech_json_file, json_string))
-	playsound(src, 'sound/creatures/tourist/tourist_talk.ogg', 15, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = rand(2, 2.2))
+	playsound(src, 'sound/mobs/non-humanoids/tourist/tourist_talk.ogg', 15, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = rand(2, 2.2))
 	Shake(2, 2, 1 SECONDS)
 	COOLDOWN_START(src, last_speech, MOD_LASER_SPEECH_COOLDOWN)
 
@@ -233,7 +233,7 @@
 /obj/item/gun/energy/modular_laser_rifle/ui_action_click(mob/user, actiontype)
 	if(!istype(actiontype, /datum/action/item_action/toggle_personality))
 		return ..()
-	playsound(src, 'sound/machines/beep.ogg', 30, TRUE)
+	playsound(src, 'sound/machines/beep/beep.ogg', 30, TRUE)
 	personality_mode = !personality_mode
 	speak_up("[personality_mode ? "pickup" : "putdown"]", ignores_personality_toggle = TRUE)
 	return ..()
@@ -248,10 +248,6 @@
 	name = "Toggle Weapon Personality"
 	desc = "Toggles the weapon's personality core. Studies find that turning them off makes them quite sad, however."
 	background_icon_state = "bg_mod"
-
-/datum/component/soulcatcher/modular_laser
-	max_souls = 1
-	communicate_as_parent = TRUE
 
 //Short version of the above modular rifle, has less charge and different modes
 /obj/item/gun/energy/modular_laser_rifle/carbine

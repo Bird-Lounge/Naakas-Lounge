@@ -269,7 +269,7 @@
 			candidates -= player
 		else if(is_centcom_level(player.z))
 			candidates -= player // We don't autotator people in CentCom
-		else if(player.mind && (player.mind.special_role || player.mind.antag_datums?.len > 0))
+		else if(player.mind && (player.mind.special_role || !player.mind.can_roll_midround(antag_datum)))
 			candidates -= player // We don't autotator people with roles already
 		//NOVA EDIT ADDITION
 		else if(player in rejected_traitor)
@@ -330,7 +330,7 @@
 			continue
 		if(isnull(player.mind))
 			continue
-		if(player.mind.special_role || length(player.mind.antag_datums))
+		if(player.mind.special_role || !player.mind.can_roll_midround(antag_datum))
 			continue
 		candidates += player
 
@@ -499,7 +499,7 @@
 			candidates -= player
 			continue
 
-		if(player.mind && (player.mind.special_role || length(player.mind.antag_datums) > 0))
+		if(player.mind && (player.mind.special_role || !player.mind.can_roll_midround(antag_datum)))
 			candidates -= player
 
 /datum/dynamic_ruleset/midround/from_living/blob_infection/execute()
@@ -597,7 +597,7 @@
 	player_mind.add_antag_datum(/datum/antagonist/nightmare)
 	new_nightmare.set_species(/datum/species/shadow/nightmare)
 
-	playsound(new_nightmare, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
+	playsound(new_nightmare, 'sound/effects/magic/ethereal_exit.ogg', 50, TRUE, -1)
 	message_admins("[ADMIN_LOOKUPFLW(new_nightmare)] has been made into a Nightmare by the midround ruleset.")
 	log_dynamic("[key_name(new_nightmare)] was spawned as a Nightmare by the midround ruleset.")
 	return new_nightmare
@@ -638,7 +638,7 @@
 	player_mind.transfer_to(S)
 	player_mind.add_antag_datum(/datum/antagonist/space_dragon)
 
-	playsound(S, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
+	playsound(S, 'sound/effects/magic/ethereal_exit.ogg', 50, TRUE, -1)
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Space Dragon by the midround ruleset.")
 	log_dynamic("[key_name(S)] was spawned as a Space Dragon by the midround ruleset.")
 	priority_announce("A large organic energy flux has been recorded near of [station_name()], please stand-by.", "Lifesign Alert")
@@ -863,7 +863,7 @@
 	candidates = living_players
 	for(var/mob/living/carbon/human/candidate in candidates)
 		if( \
-			!candidate.get_organ_by_type(/obj/item/organ/internal/brain) \
+			!candidate.get_organ_by_type(/obj/item/organ/brain) \
 			|| candidate.mind.has_antag_datum(/datum/antagonist/obsessed) \
 			|| candidate.stat == DEAD \
 			|| !(ROLE_OBSESSED in candidate.client?.prefs?.be_special) \
@@ -950,7 +950,7 @@
 	new_datum.original_ref = WEAKREF(clone_victim.mind)
 	new_datum.setup_clone()
 
-	playsound(clone, 'sound/weapons/zapbang.ogg', 30, TRUE)
+	playsound(clone, 'sound/items/weapons/zapbang.ogg', 30, TRUE)
 	new /obj/item/storage/toolbox/mechanical(clone.loc) //so they dont get stuck in maints
 
 	message_admins("[ADMIN_LOOKUPFLW(clone)] has been made into a Paradox Clone by the midround ruleset.")
@@ -997,7 +997,7 @@
 	cost = 5
 	minimum_players = 40
 	repeatable = TRUE
-	signup_item_path = /obj/item/cosmic_skull
+	signup_item_path = /obj/item/clothing/head/helmet/skull/cosmic
 	ruleset_lazy_templates = list(LAZY_TEMPLATE_KEY_VOIDWALKER_VOID)
 	/// The space turf we find in acceptable(), cached for ease
 	var/space_turf
@@ -1019,7 +1019,7 @@
 	player_mind.special_role = antag_flag
 	player_mind.add_antag_datum(antag_datum)
 
-	playsound(voidwalker, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
+	playsound(voidwalker, 'sound/effects/magic/ethereal_exit.ogg', 50, TRUE, -1)
 	message_admins("[ADMIN_LOOKUPFLW(voidwalker)] has been made into a Voidwalker by the midround ruleset.")
 	log_dynamic("[key_name(voidwalker)] was spawned as a Voidwalker by the midround ruleset.")
 	return voidwalker

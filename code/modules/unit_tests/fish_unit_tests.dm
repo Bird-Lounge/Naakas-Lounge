@@ -23,8 +23,7 @@
 /datum/unit_test/fish_size_weight/Run()
 
 	var/obj/structure/table/table = allocate(/obj/structure/table)
-	var/obj/item/fish/testdummy/fish = new /obj/item/fish/testdummy (table.loc)
-	allocated += fish
+	var/obj/item/fish/testdummy/fish = allocate(__IMPLIED_TYPE__, table.loc)
 	var/datum/reagent/reagent = fish.reagents?.has_reagent(/datum/reagent/fishdummy)
 	TEST_ASSERT(reagent, "the test fish doesn't have the test reagent.[fish.reagents ? "" : " It doesn't even have a reagent holder."]")
 	var/expected_units = FISH_REAGENT_AMOUNT * fish.weight / FISH_WEIGHT_BITE_DIVISOR
@@ -42,14 +41,32 @@
 			allocated += content
 	TEST_ASSERT_EQUAL(counted_fillets, expected_num_fillets, "the test fish yielded [counted_fillets] fillets when it should have been [expected_num_fillets]")
 
+/// Make sure fish don't stay hungry after being fed
+/datum/unit_test/fish_feeding
+
+/datum/unit_test/fish_feeding/Run()
+	var/obj/item/fish/testdummy/hungry = allocate(__IMPLIED_TYPE__)
+	hungry.last_feeding = 0 //the fish should be hungry.
+	TEST_ASSERT(hungry.get_hunger(), "the fish doesn't seem to be hungry in the slightest")
+	var/obj/item/reagent_containers/cup/fish_feed/yummy = allocate(__IMPLIED_TYPE__)
+	hungry.feed(yummy.reagents)
+	TEST_ASSERT(!hungry.get_hunger(), "the fish is still hungry despite having been just fed")
+
+	///Try feeding it again, but this time with the right hunger so they actually grow
+	hungry.last_feeding = world.time - (hungry.feeding_frequency * FISH_GROWTH_PEAK)
+	var/old_size = hungry.size
+	var/old_weight = hungry.weight
+	hungry.feed(yummy.reagents)
+	TEST_ASSERT(hungry.size > old_size, "the fish size didn't increase after being properly fed")
+	TEST_ASSERT(hungry.weight > old_weight, "the fish weight didn't increase after being properly fed")
+
 ///Checks that fish breeding works correctly.
 /datum/unit_test/fish_breeding
 
 /datum/unit_test/fish_breeding/Run()
-	var/obj/item/fish/fish = allocate(/obj/item/fish/testdummy)
+	var/obj/item/fish_tank/reproduction/fish_tank = allocate(__IMPLIED_TYPE__)
 	///Check if the fishes can generate offsprings at all.
-	var/obj/item/fish/fish_two = allocate(/obj/item/fish/testdummy/two)
-	var/obj/item/fish/new_fish = fish.create_offspring(fish_two.type, fish_two)
+	var/obj/item/fish/new_fish = fish_tank.fish.try_to_reproduce()
 	TEST_ASSERT(new_fish, "the two test fishes couldn't generate an offspring")
 	var/traits_len = length(new_fish.fish_traits)
 	TEST_ASSERT_NOTEQUAL(traits_len, 2, "the offspring of the test fishes has both parents' traits, which are incompatible with each other")
@@ -65,6 +82,20 @@
 	var/obj/item/fish/cloner_jr = aquarium.cloner.try_to_reproduce()
 	TEST_ASSERT(cloner_jr, "The test aquarium's cloner fish didn't manage to reproduce when it should have")
 	TEST_ASSERT_NOTEQUAL(cloner_jr.type, aquarium.sterile.type, "The test aquarium's cloner fish mated with the sterile fish")
+
+/obj/item/fish_tank/reproduction
+	var/obj/item/fish/testdummy/small/fish
+	var/obj/item/fish/testdummy/small/partner
+
+/obj/item/fish_tank/reproduction/Initialize(mapload)
+	. = ..()
+	fish = new(src)
+	partner = new(src)
+
+/obj/item/fish_tank/reproduction/Destroy()
+	fish = null
+	partner = null
+	return ..()
 
 ///Checks that fish evolutions work correctly.
 /datum/unit_test/fish_evolution
@@ -101,7 +132,12 @@
 	stable_population = INFINITY
 	breeding_timeout = 0
 	fish_flags = parent_type::fish_flags & ~(FISH_FLAG_SHOW_IN_CATALOG|FISH_FLAG_EXPERIMENT_SCANNABLE)
+	fish_id_redirect_path = /obj/item/fish/goldfish //Stops SSfishing from complaining
 	var/expected_num_fillets = 0 //used to know how many fillets should be gotten out of this fish
+
+/obj/item/fish/testdummy/small
+	// The parent type is too big to reproduce inside the more compact fish tank
+	average_size = /obj/item/fish_tank::max_total_size * 0.2
 
 /obj/item/fish/testdummy/add_fillet_type()
 	expected_num_fillets = ..()
@@ -128,7 +164,6 @@
 	description = "It smells fishy."
 
 /obj/structure/aquarium/traits
-	allow_breeding = TRUE
 	var/obj/item/fish/testdummy/crossbreeder/crossbreeder
 	var/obj/item/fish/testdummy/cloner/cloner
 	var/obj/item/fish/testdummy/sterile/sterile
@@ -155,7 +190,6 @@
 	fish_traits = list(/datum/fish_trait/no_mating)
 
 /obj/structure/aquarium/evolution
-	allow_breeding = TRUE
 	var/obj/item/fish/testdummy/evolve/evolve
 	var/obj/item/fish/testdummy/evolve_two/evolve_two
 
@@ -182,13 +216,21 @@
 	new_fish_type = /obj/item/fish/clownfish
 	new_traits = list(/datum/fish_trait/dummy/two)
 	removed_traits = list(/datum/fish_trait/dummy)
+	show_on_wiki = FALSE
 
+///This is used by both fish_evolution and fish_growth unit tests.
 /datum/fish_evolution/dummy/two
 	new_fish_type = /obj/item/fish/goldfish
 
 /datum/fish_evolution/dummy/two/New()
 	. = ..()
 	probability = 0 //works around the global list initialization skipping abstract/impossible evolutions.
+
+///During the fish_growth unit test, we spawn a fish outside of the aquarium and check that this actually stops it from growing
+/datum/fish_evolution/dummy/two/growth_checks(obj/item/fish/source, seconds_per_tick, growth)
+	. = ..()
+	if(!source.loc || !HAS_TRAIT(source.loc, TRAIT_IS_AQUARIUM))
+		return COMPONENT_DONT_GROW
 
 ///A test that checks that fishing portals can be linked and function as expected
 /datum/unit_test/fish_portal_gen_linking
@@ -236,7 +278,7 @@
 /obj/structure/toilet/unit_test/Initialize(mapload)
 	. = ..()
 	if(!HAS_TRAIT(src, TRAIT_FISHING_SPOT)) //Ensure this toilet has a fishing spot because only maploaded ones have it.
-		AddElement(/datum/element/lazy_fishing_spot, /datum/fish_source/toilet)
+		AddComponent(/datum/component/fishing_spot, GLOB.preset_fish_sources[/datum/fish_source/toilet])
 
 // we want no default spawns in this unit test
 /datum/chasm_detritus/restricted/bodies/no_defaults
@@ -312,29 +354,48 @@
 	run_loc_floor_bottom_left.ChangeTurf(original_turf_type, original_turf_baseturfs)
 	return ..()
 
-///Check that you can actually raise a chasm crab without errors.
-/datum/unit_test/raise_a_chasm_crab
+///Check that the fish growth component works.
+/datum/unit_test/fish_growth
 
-/datum/unit_test/raise_a_chasm_crab/Run()
+/datum/unit_test/fish_growth/Run()
 	var/obj/structure/aquarium/crab/aquarium = allocate(/obj/structure/aquarium/crab)
-	SEND_SIGNAL(aquarium.crabbie, COMSIG_FISH_LIFE, 1) //give the fish growth component a small push.
+	var/list/growth_comps = aquarium.crabbie.GetComponents(/datum/component/fish_growth) //Can't use GetComponent() without s because the comp is dupe-selective
+	var/datum/component/fish_growth/crab_growth = growth_comps[1]
+
+	crab_growth.on_fish_life(aquarium.crabbie, seconds_per_tick = 1) //give the fish growth component a small push.
+
 	var/mob/living/basic/mining/lobstrosity/juvenile/lobster = locate() in aquarium.loc
+	TEST_ASSERT(lobster, "The lobstrosity didn't spawn at all. chasm crab maturation: [crab_growth.maturation]%.")
 	TEST_ASSERT_EQUAL(lobster.loc, get_turf(aquarium), "The lobstrosity didn't spawn on the aquarium's turf")
 	TEST_ASSERT(QDELETED(aquarium.crabbie), "The test aquarium's chasm crab didn't delete itself.")
+	TEST_ASSERT_EQUAL(lobster.name, "Crabbie", "The lobstrosity didn't inherit the aquarium chasm crab's custom name")
 	allocated |= lobster //make sure it's allocated and thus properly deleted when the test is over
+
 	//While ideally impossible to have all traits because of incompatible ones, I want to be sure they don't error out.
 	for(var/trait_type in GLOB.fish_traits)
 		var/datum/fish_trait/trait = GLOB.fish_traits[trait_type]
 		trait.apply_to_mob(lobster)
 
+	var/obj/item/fish/testdummy/dummy = allocate(/obj/item/fish/testdummy)
+	var/datum/component/fish_growth/dummy_growth = dummy.AddComponent(/datum/component/fish_growth, /datum/fish_evolution/dummy/two, 1 SECONDS, use_drop_loc = FALSE)
+	dummy.last_feeding = world.time
+	dummy_growth.on_fish_life(dummy, seconds_per_tick = 1)
+	TEST_ASSERT(!QDELETED(dummy), "The fish has grown when it shouldn't have")
+	dummy.forceMove(aquarium)
+	dummy_growth.on_fish_life(dummy, seconds_per_tick = 1)
+	var/obj/item/fish/dummy_boogaloo = locate(/datum/fish_evolution/dummy/two::new_fish_type) in aquarium
+	TEST_ASSERT(dummy_boogaloo, "The new fish type cannot be found inside the aquarium")
+
 /obj/structure/aquarium/crab
-	allow_breeding = TRUE //needed for growing up
 	///Our test subject
 	var/obj/item/fish/chasm_crab/instant_growth/crabbie
 
 /obj/structure/aquarium/crab/Initialize(mapload)
 	. = ..()
 	crabbie = new(src)
+	crabbie.AddComponent(/datum/component/rename, "Crabbie", crabbie.desc)
+	crabbie.last_feeding = world.time
+	crabbie.AddComponent(/datum/component/fish_growth, crabbie.lob_type, 1 SECONDS)
 
 /obj/structure/aquarium/crab/Exited(atom/movable/gone)
 	. = ..()
@@ -342,8 +403,8 @@
 		crabbie = null
 
 /obj/item/fish/chasm_crab/instant_growth
-	growth_rate = 100
 	fish_traits = list() //We don't want to end up applying traits twice on the resulting lobstrosity
+	fish_id_redirect_path = /obj/item/fish/chasm_crab
 
 /datum/unit_test/fish_sources
 
@@ -355,7 +416,8 @@
 
 	///From here, we check that the profound_fisher as well as fish source procs for rolling rewards don't fail.
 	source = GLOB.preset_fish_sources[/datum/fish_source/unit_test_profound_fisher]
-	run_loc_floor_bottom_left.AddElement(/datum/element/lazy_fishing_spot, /datum/fish_source/unit_test_profound_fisher)
+
+	run_loc_floor_bottom_left.AddComponent(/datum/component/fishing_spot, source)
 	var/mob/living/basic/fisher = allocate(/mob/living/basic)
 	fisher.AddComponent(/datum/component/profound_fisher)
 	fisher.set_combat_mode(FALSE)
@@ -364,7 +426,7 @@
 		TEST_FAIL("The unit test profound fisher didn't catch the test fish on a lazy fishing spot (element)")
 
 	///For good measure, let's try it again, but with the component this time, and a human mob and gloves
-	run_loc_floor_bottom_left.RemoveElement(/datum/element/lazy_fishing_spot, /datum/fish_source/unit_test_profound_fisher)
+	qdel(run_loc_floor_bottom_left.GetComponent(/datum/component/fishing_spot))
 	var/datum/component/comp = run_loc_floor_bottom_left.AddComponent(/datum/component/fishing_spot, source)
 	var/mob/living/carbon/human/consistent/angler = allocate(/mob/living/carbon/human/consistent)
 	var/obj/item/clothing/gloves/noodling = allocate(/obj/item/clothing/gloves)
@@ -394,8 +456,10 @@
 /datum/fish_source/unit_test_profound_fisher
 	fish_table = list(/obj/item/fish/testdummy = 1)
 	fish_counts = list(/obj/item/fish/testdummy = 2)
+	fish_source_flags = parent_type::fish_source_flags
 
 /datum/fish_source/unit_test_all_fish
+	fish_source_flags = parent_type::fish_source_flags
 
 /datum/fish_source/unit_test_all_fish/New()
 	for(var/fish_type as anything in subtypesof(/obj/item/fish))
@@ -428,7 +492,7 @@
 
 	TEST_ASSERT_EQUAL(fish.status, FISH_DEAD, "The fish is not dead, despite having sustained enough damage that it should. health: [fish.health]")
 
-	var/obj/item/organ/internal/stomach/belly = gourmet.get_organ_slot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/stomach/belly = gourmet.get_organ_slot(ORGAN_SLOT_STOMACH)
 	belly.reagents.clear_reagents()
 
 	fish.set_status(FISH_ALIVE)
@@ -452,6 +516,44 @@
 /obj/item/fish/testdummy/food
 	average_weight = FISH_WEIGHT_BITE_DIVISOR * 2 //One bite, it's death; the other, it's gone.
 
+///Check that nothing wrong happens when randomizing size and weight of a fish
+/datum/unit_test/fish_randomize_size_weight
+
+/datum/unit_test/fish_randomize_size_weight/Run()
+	var/obj/item/storage/box/fish_debug/box = allocate(/obj/item/storage/box/fish_debug)
+	for(var/obj/item/fish/fish as anything in box)
+		fish.randomize_size_and_weight()
+
+/datum/unit_test/aquarium_upgrade
+
+/datum/unit_test/aquarium_upgrade/Run()
+	var/mob/living/carbon/human/dummy/user = allocate(__IMPLIED_TYPE__)
+	var/obj/item/aquarium_upgrade/bioelec_gen/upgrade = allocate(__IMPLIED_TYPE__)
+	var/obj/structure/aquarium/aquarium = allocate(upgrade::upgrade_from_type)
+
+	var/datum/component/aquarium/comp = aquarium.GetComponent(__IMPLIED_TYPE__)
+	TEST_ASSERT(comp, "[aquarium.type] doesn't have an aquarium component")
+	comp.set_fluid_type(AQUARIUM_FLUID_AIR)
+	comp.fluid_temp = MAX_AQUARIUM_TEMP
+	aquarium.add_traits(list(TRAIT_AQUARIUM_PANEL_OPEN, TRAIT_STOP_FISH_REPRODUCTION_AND_GROWTH), AQUARIUM_TRAIT)
+
+	var/type_to_check = upgrade::upgrade_to_type
+	var/turf/aquarium_loc = aquarium.loc
+	user.put_in_hands(upgrade)
+	upgrade.melee_attack_chain(user, aquarium)
+	TEST_ASSERT(QDELETED(aquarium), "Old [aquarium.type] was not deleted after upgrade")
+
+	var/obj/structure/aquarium/upgraded_aquarium = locate(type_to_check) in aquarium_loc
+	TEST_ASSERT(upgraded_aquarium, "New [upgraded_aquarium.type] was not spawned after upgrade")
+	comp = upgraded_aquarium.GetComponent(/datum/component/aquarium)
+	TEST_ASSERT(comp, "New [upgraded_aquarium.type] doesn't have an aquarium component")
+
+	TEST_ASSERT_EQUAL(comp.fluid_type, AQUARIUM_FLUID_AIR, "Inherited aquarium fluid type should be [AQUARIUM_FLUID_AIR]")
+	TEST_ASSERT_EQUAL(comp.fluid_temp, MAX_AQUARIUM_TEMP, "Inherited aquarium fluid temperature should be [MAX_AQUARIUM_TEMP]")
+	TEST_ASSERT(HAS_TRAIT(upgraded_aquarium, TRAIT_AQUARIUM_PANEL_OPEN), "The new aquarium should have its panel open")
+	TEST_ASSERT(HAS_TRAIT(upgraded_aquarium, TRAIT_STOP_FISH_REPRODUCTION_AND_GROWTH), "The 'growth and reproduction' setting for this aquarium should be disabled")
+
+	TEST_ASSERT(QDELETED(upgrade), "Aquarium upgrade wasn't deleted afterward")
+
 #undef FISH_REAGENT_AMOUNT
 #undef TRAIT_FISH_TESTING
-
