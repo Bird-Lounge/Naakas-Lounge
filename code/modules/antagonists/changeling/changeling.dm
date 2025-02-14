@@ -556,6 +556,10 @@
 	new_profile.laugh_type = target.selected_laugh?.type || /datum/laugh_type/none
 	new_profile.target_height = target.get_mob_height()
 	new_profile.target_mob_size = target.mob_size
+	new_profile.blooper_id = target.blooper_id
+	new_profile.blooper_pitch = target.blooper_pitch
+	new_profile.blooper_speed = target.blooper_speed
+	new_profile.blooper_pitch_range = target.blooper_pitch_range
 	//NOVA EDIT ADDITION END
 
 	// Grab skillchips they have
@@ -822,6 +826,13 @@
 			if(target_quirk.name == mimicable_quirk)
 				user.add_quirk(target_quirk.type)
 				break
+
+	user.blooper = null
+	user.blooper_list = null
+	user.blooper_id = chosen_profile.blooper_id
+	user.blooper_pitch = chosen_profile.blooper_pitch
+	user.blooper_speed = chosen_profile.blooper_speed
+	user.blooper_pitch_range = chosen_profile.blooper_pitch_range
 	// NOVA EDIT ADDITION END
 
 	chosen_dna.transfer_identity(user, TRUE)
