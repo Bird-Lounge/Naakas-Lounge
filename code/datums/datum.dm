@@ -1,7 +1,7 @@
 /**
  * The absolute base class for everything
  *
- * A datum instantiated has no physical world prescence, use an atom if you want something
+ * A datum instantiated has no physical world presence, use an atom if you want something
  * that actually lives in the world
  *
  * Be very mindful about adding variables to this class, they are inherited by every single
@@ -408,10 +408,15 @@
 
 	var/list/names = islist(name_or_names) ? name_or_names : list(name_or_names)
 
+	. = FALSE
 	for(var/name in names)
 		if(filter_data[name])
 			filter_data -= name
-	update_filters()
+			. = TRUE
+
+	if(.)
+		update_filters()
+	return .
 
 /datum/proc/clear_filters()
 	ASSERT(isatom(src) || isimage(src))

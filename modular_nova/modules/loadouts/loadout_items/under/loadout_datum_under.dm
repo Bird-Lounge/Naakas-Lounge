@@ -342,6 +342,10 @@
 	name = "'JUNCO' Megacargo Pants"
 	item_path = /obj/item/clothing/under/pants/nova/big_pants
 
+/datum/loadout_item/under/miscellaneous/loose_pants
+	name = "Loose pants"
+	item_path = /obj/item/clothing/under/pants/nova/loose_pants
+
 /datum/loadout_item/under/miscellaneous/yoga
 	name = "Recolorable Yoga Pants"
 	item_path = /obj/item/clothing/under/pants/nova/yoga
@@ -459,6 +463,10 @@
 /datum/loadout_item/under/miscellaneous/wedding_dress/ribbon
 	name = "Wedding Dress With Ribbon"
 	item_path = /obj/item/clothing/under/dress/wedding_dress/ribbon
+
+/datum/loadout_item/under/miscellaneous/giant_scarf
+	name = "Giant Scarf"
+	item_path = /obj/item/clothing/under/dress/nova/giant_scarf
 
 /datum/loadout_item/under/miscellaneous/red_skirt
 	name = "Red Bra and Skirt"
@@ -1116,26 +1124,18 @@
 /datum/loadout_item/under/formal/azulea_oldblood
 	name = " Oldblood's Royal regalia"
 	item_path = /obj/item/clothing/under/rank/azulean/old_blood
-	restricted_roles = list(JOB_CAPTAIN, JOB_NT_REP)
-	restricted_species = list(SPECIES_AKULA)
 
 /datum/loadout_item/under/formal/azulea_oldblood/skirt
 	name = " Oldblood's Royal regalia (Skirt)"
 	item_path = /obj/item/clothing/under/rank/azulean/old_blood/skirt
-	restricted_roles = list(JOB_CAPTAIN, JOB_NT_REP)
-	restricted_species = list(SPECIES_AKULA)
 
 /datum/loadout_item/under/formal/azulea_upstart
 	name = "Upstart's Noble Getup"
 	item_path = /obj/item/clothing/under/rank/azulean/upstart
-	restricted_roles = list(JOB_CAPTAIN, JOB_NT_REP)
-	restricted_species = list(SPECIES_AKULA)
 
 /datum/loadout_item/under/formal/azulea_upstart/skirt
 	name = "Upstart's Noble Getup (Skirt)"
 	item_path = /obj/item/clothing/under/rank/azulean/upstart/skirt
-	restricted_roles = list(JOB_CAPTAIN, JOB_NT_REP)
-	restricted_species = list(SPECIES_AKULA)
 
 /// DONATOR
 /datum/loadout_item/under/donator
