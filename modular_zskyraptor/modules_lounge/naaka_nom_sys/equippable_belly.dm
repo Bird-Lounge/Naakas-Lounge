@@ -324,7 +324,7 @@
 
 	//user.visible_message("Debugging: [user] nomming [target] with [src].")
 
-	var/obj/item/organ/internal/lungs/hopefully_lungs = target.organs_slot["lungs"]
+	var/obj/item/organ/lungs/hopefully_lungs = target.organs_slot["lungs"]
 	if(hopefully_lungs)
 		//user.visible_message("Debugging: [target]'s lungs were found; they are [hopefully_lungs]")
 		last_gasmix = ""
@@ -357,6 +357,6 @@
 	return removed
 
 // shunting this in here to avoid merge conflicts
-/obj/item/organ/internal/tongue/teshari/Initialize(mapload)
+/obj/item/organ/tongue/teshari/Initialize(mapload)
 	. = ..()
 	disliked_foodtypes = disliked_foodtypes & (!GRAIN)
