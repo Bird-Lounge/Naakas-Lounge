@@ -240,6 +240,10 @@
 	item_type = /obj/item/wallframe/frontier_medstation
 	cost = PAYCHECK_COMMAND * 5
 
+/datum/armament_entry/company_import/deforest/equipment/hypospray_upgrade
+	item_type = /obj/item/device/custom_kit/deluxe_hypo2
+	cost = PAYCHECK_COMMAND * 2
+
 // Advanced implants, some of these can be printed but this is a way to get them before tech if you REALLY wanted
 
 /datum/armament_entry/company_import/deforest/cyber_implants
