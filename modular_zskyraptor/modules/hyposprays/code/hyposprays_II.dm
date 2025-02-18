@@ -345,6 +345,21 @@
 	desc = "Naaka's personal variant of the deluxe hypospray, able to take both 100u and 50u vials, acting significantly faster & piercing armor."
 
 /obj/item/hypospray/mkii/deluxe/cmo/combat/naaka/haki
-	name = "customized ko-series hypospray mk.II"
 	icon_state = "haki2"
 	desc = "Hakitchaya's personal variant of the deluxe hypospray, able to take both 100u and 50u vials, acting significantly faster & piercing armor."
+
+/obj/item/hypospray/mkii/deluxe/cmo/combat/naaka/shaman
+	icon_state = "shaman2"
+	desc = "The Shaman's personal variant of the deluxe hypospray, able to take both 100u and 50u vials, acting significantly faster & piercing armor."
+
+/obj/item/hypospray/mkii/deluxe/cmo/combat/naaka/herbalist
+	icon_state = "herbalist2"
+	desc = "The Herbalist's personal variant of the deluxe hypospray, able to take both 100u and 50u vials, acting significantly faster & piercing armor."
+
+/obj/item/hypospray/mkii/deluxe/cmo/combat/naaka/luna
+	icon_state = "luna2"
+	desc = "Luna's personal variant of the deluxe hypospray, able to take both 100u and 50u vials, acting significantly faster & piercing armor."
+
+/obj/item/hypospray/mkii/deluxe/cmo/combat/naaka/hugs
+	icon_state = "hugs2"
+	desc = "Hugs-the-Moths' personal variant of the deluxe hypospray, able to take both 100u and 50u vials, acting significantly faster & piercing armor."

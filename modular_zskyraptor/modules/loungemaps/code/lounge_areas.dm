@@ -488,33 +488,6 @@
 	icon_state = "biohome_nuvi_misc"
 	name = "Nuvi's Ship: Misc. Areas"
 
-/// SELDERIS WROTH'S HOME
-/area/centcom/biodome/homes/casa_de_seld
-	icon_state = "biohome_seld"
-	name = "Casa de Selderis"
-	ambience_index = AMBIENCE_VIROLOGY
-	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
-
-/area/centcom/biodome/homes/casa_de_seld/bath
-	icon_state = "biohome_seld_bath"
-	name = "Casa de Selderis: Bath"
-	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-
-/area/centcom/biodome/homes/casa_de_seld/bar
-	icon_state = "biohome_seld_bar"
-	name = "Casa de Selderis: Bar"
-	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-
-/area/centcom/biodome/homes/casa_de_seld/bed
-	icon_state = "biohome_seld_bed1"
-	name = "Casa de Selderis: Bedroom"
-	sound_environment = SOUND_AREA_WOODFLOOR
-
-/area/centcom/biodome/homes/casa_de_seld/lounge
-	icon_state = "biohome_seld_lounge"
-	name = "Casa de Selderis: Lounge"
-	sound_environment = SOUND_AREA_WOODFLOOR
-
 /// PEPPER SILVER'S HOME
 /area/centcom/biodome/homes/casa_de_silver
 	icon_state = "biohome_pepper"
@@ -531,6 +504,38 @@
 	icon_state = "biohome_pepper_bathroom"
 	name = "Casa de Silver: Bathroom"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/// THE SHAMAN'S HOME
+/area/centcom/biodome/homes/shaman_shelter
+	icon_state = "biohome_shaman"
+	name = "Shaman's Shelter"
+	ambience_index = AMBIENCE_VIROLOGY
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
+
+/area/centcom/biodome/homes/shaman_shelter/bath
+	icon_state = "biohome_shaman_bath"
+	name = "Shaman's Shelter: Bath"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/centcom/biodome/homes/shaman_shelter/bar
+	icon_state = "biohome_shaman_bar"
+	name = "Shaman's Shelter: Bar"
+	sound_environment = SOUND_AREA_WOODFLOOR
+
+/area/centcom/biodome/homes/shaman_shelter/bed
+	icon_state = "biohome_shaman_bed1"
+	name = "Shaman's Shelter: Bedroom"
+	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
+
+/area/centcom/biodome/homes/shaman_shelter/bed2
+	icon_state = "biohome_shaman_bed2"
+	name = "Shaman's Shelter: Secondary Bedroom"
+	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
+
+/area/centcom/biodome/homes/shaman_shelter/lounge
+	icon_state = "biohome_shaman_lounge"
+	name = "Shaman's Shelter: Lounge"
+	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
 
 /// EVERSEEN'S SHIP
 /area/centcom/biodome/homes/evership
@@ -582,3 +587,33 @@
 	ambientsounds = list(
 		'sound/ambience/misc/signal.ogg',
 		)
+
+/// LUNA'S HOME
+/area/centcom/biodome/homes/casa_de_luna
+	icon_state = "biohome_luna"
+	name = "Casa de Luna"
+	ambience_index = AMBIENCE_VIROLOGY
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/centcom/biodome/homes/casa_de_luna/bath
+	icon_state = "biohome_luna_bath"
+	name = "Casa de Luna: Bath"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/centcom/biodome/homes/casa_de_luna/bar
+	icon_state = "biohome_luna_bar"
+	name = "Casa de Luna: Bar"
+	sound_environment = SOUND_AREA_WOODFLOOR
+
+/area/centcom/biodome/homes/casa_de_luna/bed
+	icon_state = "biohome_luna_bed1"
+	name = "Casa de Luna: Bedroom"
+	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
+
+/area/centcom/biodome/homes/casa_de_luna/medical
+	icon_state = "biohome_luna_medbay"
+	name = "Casa de Luna: Laboratory"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+	ambience_index = AMBIENCE_MEDICAL
+	min_ambience_cooldown = 90 SECONDS
+	max_ambience_cooldown = 180 SECONDS
