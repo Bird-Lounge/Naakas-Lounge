@@ -509,7 +509,9 @@
 /area/centcom/biodome/homes/shaman_shelter
 	icon_state = "biohome_shaman"
 	name = "Shaman's Shelter"
-	ambience_index = AMBIENCE_VIROLOGY
+	ambience_index = AMBIENCE_MEDICAL
+	min_ambience_cooldown = 90 SECONDS
+	max_ambience_cooldown = 180 SECONDS
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/centcom/biodome/homes/shaman_shelter/bath
@@ -592,7 +594,6 @@
 /area/centcom/biodome/homes/casa_de_luna
 	icon_state = "biohome_luna"
 	name = "Casa de Luna"
-	ambience_index = AMBIENCE_VIROLOGY
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/centcom/biodome/homes/casa_de_luna/bath
