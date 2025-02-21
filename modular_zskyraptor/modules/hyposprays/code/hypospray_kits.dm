@@ -304,6 +304,13 @@
 	new /obj/item/reagent_containers/cup/vial/large/advcrit(src)
 	new /obj/item/reagent_containers/cup/vial/large/advomni(src)
 	new /obj/item/reagent_containers/cup/vial/large/numbing(src)
+	new /obj/item/reagent_containers/cup/vial/large/snatchpatch(src)
+	new /obj/item/reagent_containers/cup/vial/large/sleepytime(src)
+	new /obj/item/reagent_containers/cup/vial/large/sleepytime(src)
+	new /obj/item/reagent_containers/cup/vial/large/nanite_slurry(src)
+	new /obj/item/reagent_containers/cup/vial/large/nanite_slurry(src)
+	new /obj/item/reagent_containers/cup/vial/large/system_cleaner(src)
+	new /obj/item/reagent_containers/cup/vial/large/liquid_solder(src)
 
 /obj/item/storage/hypospraykit/cmo/combat/naaka/haki
 	name = "hakitchaya's hypospray kit"
@@ -339,6 +346,13 @@
 	new /obj/item/reagent_containers/cup/vial/large/advcrit(src)
 	new /obj/item/reagent_containers/cup/vial/large/advomni(src)
 	new /obj/item/reagent_containers/cup/vial/large/numbing(src)
+	new /obj/item/reagent_containers/cup/vial/large/snatchpatch(src)
+	new /obj/item/reagent_containers/cup/vial/large/sleepytime(src)
+	new /obj/item/reagent_containers/cup/vial/large/sleepytime(src)
+	new /obj/item/reagent_containers/cup/vial/large/nanite_slurry(src)
+	new /obj/item/reagent_containers/cup/vial/large/nanite_slurry(src)
+	new /obj/item/reagent_containers/cup/vial/large/system_cleaner(src)
+	new /obj/item/reagent_containers/cup/vial/large/liquid_solder(src)
 
 /obj/item/storage/hypospraykit/cmo/combat/naaka/herbalist
 	name = "the herbalist's hypospray kit"
@@ -357,6 +371,12 @@
 	new /obj/item/reagent_containers/cup/vial/large/advomni(src)
 	new /obj/item/reagent_containers/cup/vial/large/numbing(src)
 	new /obj/item/reagent_containers/cup/vial/large/meth(src)
+	new /obj/item/reagent_containers/cup/vial/large/snatchpatch(src)
+	new /obj/item/reagent_containers/cup/vial/large/sleepytime(src)
+	new /obj/item/reagent_containers/cup/vial/large/sleepytime(src)
+	new /obj/item/reagent_containers/cup/vial/large/caramel(src)
+	new /obj/item/reagent_containers/cup/vial/large/caramel(src)
+	new /obj/item/reagent_containers/cup/vial/large/caramel(src)
 
 /obj/item/storage/hypospraykit/cmo/combat/naaka/luna
 	name = "luna's hypospray kit"
@@ -374,6 +394,13 @@
 	new /obj/item/reagent_containers/cup/vial/large/advcrit(src)
 	new /obj/item/reagent_containers/cup/vial/large/advomni(src)
 	new /obj/item/reagent_containers/cup/vial/large/numbing(src)
+	new /obj/item/reagent_containers/cup/vial/large/snatchpatch(src)
+	new /obj/item/reagent_containers/cup/vial/large/snatchpatch(src)
+	new /obj/item/reagent_containers/cup/vial/large/snatchpatch(src)
+	new /obj/item/reagent_containers/cup/vial/large/sleepytime(src)
+	new /obj/item/reagent_containers/cup/vial/large/sleepytime(src)
+	new /obj/item/reagent_containers/cup/vial/large/sleepytime(src)
+	new /obj/item/reagent_containers/cup/vial/large/sleepytime(src)
 
 /obj/item/storage/hypospraykit/cmo/combat/naaka/hugs
 	name = "hugs' hypospray kit"
@@ -390,8 +417,14 @@
 	new /obj/item/reagent_containers/cup/vial/large/advoxy(src)
 	new /obj/item/reagent_containers/cup/vial/large/advcrit(src)
 	new /obj/item/reagent_containers/cup/vial/large/advomni(src)
-	new /obj/item/reagent_containers/cup/vial/large/numbing(src)
 	new /obj/item/reagent_containers/cup/vial/large/meth(src)
+	new /obj/item/reagent_containers/cup/vial/large/nanite_slurry(src)
+	new /obj/item/reagent_containers/cup/vial/large/nanite_slurry(src)
+	new /obj/item/reagent_containers/cup/vial/large/nanite_slurry(src)
+	new /obj/item/reagent_containers/cup/vial/large/nanite_slurry(src)
+	new /obj/item/reagent_containers/cup/vial/large/system_cleaner(src)
+	new /obj/item/reagent_containers/cup/vial/large/system_cleaner(src)
+	new /obj/item/reagent_containers/cup/vial/large/liquid_solder(src)
 
 
 
