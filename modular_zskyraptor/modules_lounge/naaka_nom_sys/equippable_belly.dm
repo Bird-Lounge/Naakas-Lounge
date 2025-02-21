@@ -1,148 +1,3 @@
-/// This is some extremely scrimbly code.  First-off, item quirk.
-
-/datum/quirk/item_quirk/stuffable
-	name = "True Glutton"
-	desc = "Voracious alt ft. BWELLY ITEM.  Alt-click it in-hand to change the color to match your sprite, then equip or use for nommage as the description says."
-	icon = FA_ICON_DRUMSTICK_BITE
-	value = 0
-	mob_trait = TRAIT_VORACIOUS
-	gain_text = span_notice("You feel like you could eat a horse!")
-	lose_text = span_danger("Food suddenly feels a lot less appealing.")
-	medical_record_text = "Patient's midriff and stomach are unusually stretchy."
-	erp_quirk = TRUE
-
-/datum/quirk/item_quirk/stuffable/add_unique(client/client_source)
-	var/obj/item/clothing/sextoy/belly_function/the_bwelly = new /obj/item/clothing/sextoy/belly_function(get_turf(quirk_holder))
-
-	//color
-	var/the_color = client_source.prefs.read_preference(/datum/preference/color/lounge_bellyitem_color) //this makes the (potentially dangerous) assumption this is valid
-	if(the_color == null)
-		the_color = "#FFFFFF"
-	the_bwelly.color = the_color
-
-	//size modifier
-	var/sizemod = client_source.prefs.read_preference(/datum/preference/numeric/lounge_bellyitem_sizemod)
-	if(sizemod == null)
-		sizemod = 1
-	the_bwelly.sizemod = sizemod
-	//size modifier - audio
-	var/sizemod_audio = client_source.prefs.read_preference(/datum/preference/numeric/lounge_bellyitem_sizemod_audio)
-	if(sizemod_audio == null)
-		sizemod_audio = 1
-	the_bwelly.sizemod_audio = sizemod_audio
-
-	//base cosmetic size
-	var/size_base = client_source.prefs.read_preference(/datum/preference/numeric/lounge_bellyitem_size_base)
-	if(size_base == null)
-		size_base = 0
-	the_bwelly.base_size_cosmetic = size_base
-	//endosoma size
-	var/size_endo = client_source.prefs.read_preference(/datum/preference/numeric/lounge_bellyitem_size_endo)
-	if(size_endo == null)
-		size_endo = 0
-	the_bwelly.base_size_endo = size_endo;
-	//stuffed size
-	var/size_stuffed = client_source.prefs.read_preference(/datum/preference/numeric/lounge_bellyitem_size_stuffed)
-	if(size_stuffed == null)
-		size_stuffed = 0
-	the_bwelly.base_size_stuffed = size_stuffed
-
-	give_item_to_holder(the_bwelly, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS))
-
-
-
-/datum/preference/color/lounge_bellyitem_color
-	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
-	savefile_identifier = PREFERENCE_CHARACTER
-	savefile_key = "lounge_bellyitem_color"
-
-/datum/preference/color/lounge_bellyitem_color/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	return FALSE
-
-/datum/preference/numeric/lounge_bellyitem_sizemod
-	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
-	savefile_identifier = PREFERENCE_CHARACTER
-	savefile_key = "lounge_bellyitem_sizemod"
-	step = 0.1
-	minimum = 0
-	maximum = 10
-
-/datum/preference/numeric/lounge_bellyitem_sizemod/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	return FALSE
-
-/datum/preference/numeric/lounge_bellyitem_sizemod/create_default_value()
-	return 1
-
-/datum/preference/numeric/lounge_bellyitem_sizemod_audio
-	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
-	savefile_identifier = PREFERENCE_CHARACTER
-	savefile_key = "lounge_bellyitem_sizemod_audio"
-	step = 0.1
-	minimum = 0
-	maximum = 10
-
-/datum/preference/numeric/lounge_bellyitem_sizemod_audio/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	return FALSE
-
-/datum/preference/numeric/lounge_bellyitem_sizemod_audio/create_default_value()
-	return 1
-
-/datum/preference/numeric/lounge_bellyitem_size_base
-	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
-	savefile_identifier = PREFERENCE_CHARACTER
-	savefile_key = "lounge_bellyitem_size_base"
-	step = 1
-	minimum = 0
-	maximum = 10000
-
-/datum/preference/numeric/lounge_bellyitem_size_base/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	return FALSE
-
-/datum/preference/numeric/lounge_bellyitem_size_base/create_default_value()
-	return 0
-
-/datum/preference/numeric/lounge_bellyitem_size_endo
-	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
-	savefile_identifier = PREFERENCE_CHARACTER
-	savefile_key = "lounge_bellyitem_size_endo"
-	step = 1
-	minimum = 0
-	maximum = 10000
-
-/datum/preference/numeric/lounge_bellyitem_size_endo/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	return FALSE
-
-/datum/preference/numeric/lounge_bellyitem_size_endo/create_default_value()
-	return 0
-
-/datum/preference/numeric/lounge_bellyitem_size_stuffed
-	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
-	savefile_identifier = PREFERENCE_CHARACTER
-	savefile_key = "lounge_bellyitem_size_stuffed"
-	step = 1
-	minimum = 0
-	maximum = 10000
-
-/datum/preference/numeric/lounge_bellyitem_size_stuffed/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	return FALSE
-
-/datum/preference/numeric/lounge_bellyitem_size_stuffed/create_default_value()
-	return 0
-
-
-
-/datum/quirk_constant_data/stuffable
-	associated_typepath = /datum/quirk/item_quirk/stuffable
-
-/datum/quirk_constant_data/stuffable/New()
-	customization_options = list(/datum/preference/color/lounge_bellyitem_color, /datum/preference/numeric/lounge_bellyitem_sizemod, /datum/preference/numeric/lounge_bellyitem_sizemod_audio, /datum/preference/numeric/lounge_bellyitem_size_base, /datum/preference/numeric/lounge_bellyitem_size_endo, /datum/preference/numeric/lounge_bellyitem_size_stuffed)
-
-	return ..()
-
-
-
-/// Next-off, the actual item, setup as a nipple-slot sextoy for Skyrat code.  I'm so sorry.
-
 /obj/item/clothing/sextoy/belly_function
 	name = "bwelly"
 	desc = "Gobble friends, stuff yourself, be big and round, get the devs cancelled on Twitter for the item supporting endosoma only. Equip with Ctrl-Shift-Click on your Nipples slot for display of stuffedness, or click a friend with this to nom them beforehand.  Drop on the floor, use in-hand, or unequip from the Interact menu to free a nommed friend."
@@ -158,6 +13,11 @@
 	lewd_slot_flags = LEWD_SLOT_NIPPLES
 	color = "#b1f91f"
 
+	actions_types = list(
+		/datum/action/item_action/belly_menu/access,
+	)
+	var/obj/item/belly_nom_helper/nommer = null
+
 	var/list/mob/living/carbon/human/lastuser = null
 
 	/// Tracks whoever got gobbled.
@@ -168,6 +28,7 @@
 	var/list/mob/living/carbon/human/nommeds = list()
 	var/list/nommed_sizes = list()
 	var/list/nommed_gasmixes = list()
+	var/list/escape_helpers = list()
 	var/total_endo_size = 0
 
 	/// Base-size for calculating fullness/size with one occupant.
@@ -210,6 +71,11 @@
 	var/south_layer = UNIFORM_LAYER
 	var/north_layer = BODY_BEHIND_LAYER
 
+/obj/item/clothing/sextoy/belly_function/New(Target)
+	. = ..()
+	nommer = new /obj/item/belly_nom_helper(src)
+	nommer.color = color
+
 /obj/item/clothing/sextoy/belly_function/examine(mob/user)
 	. = ..()
 	. += "Current size: [current_size_unclamped]"
@@ -221,6 +87,7 @@
 		. += "No nommed guest."*/
 
 /obj/item/clothing/sextoy/belly_function/attack_self(mob/user)
+	. = ..()
 	//TODO: relase code
 	if(length(nommeds) > 0)
 		var/opt_list = list()
@@ -231,13 +98,22 @@
 		var/release_target = tgui_input_list(user, "Release ", "Belly Control", opt_list)
 		if(release_target)
 			var/mob/living/carbon/human/nommed = opt_list[release_target]
-			nommed.forceMove(drop_location())
-			nommeds -= nommed
-			nommed_sizes -= nommed
-			nommed_gasmixes -= nommed
+			if(istype(nommed))
+				src.free_target(nommed)
+
+/obj/item/clothing/sextoy/belly_function/proc/free_target(mob/living/carbon/human/nommed)
+	nommed.forceMove(drop_location())
+	nommeds -= nommed
+	nommed_sizes -= nommed
+	nommed_gasmixes -= nommed
+	escape_helpers[nommed].Remove(nommed)
+	escape_helpers -= nommed
 	recalculate_guest_sizes()
 
 /obj/item/clothing/sextoy/belly_function/click_alt(mob/living/user)
+	src.config_menu(user)
+
+/obj/item/clothing/sextoy/belly_function/proc/config_menu(mob/living/user)
 	var/opt_list = list("Change Color", "Set Size Modifier", "Set Baseline Cosmetic Size", "Set Baseline Endo Size", "Set Baseline Stuffed Size", "Set Eaten Guest Size")
 	var/extra_size_list = list()
 
@@ -253,6 +129,7 @@
 			var/temp_col = input("Enter new color:", "Color", src.color) as color|null
 			if(temp_col != null || QDELETED(user) || QDELETED(src))
 				src.color = temp_col
+			nommer.color = color
 		else if(adjustment_mode == "Set Size Modifier")
 			var/temp_size = tgui_input_number(user, "Set a size divider (0.0-100.0) - all size sources are divided by this.", "Sizemod")
 			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
@@ -449,6 +326,8 @@
 
 	SEND_SIGNAL(user, COMSIG_MACHINERY_SET_OCCUPANT, target)
 	target.forceMove(src)
+	escape_helpers[target] = new /datum/action/item_action/belly_menu/escape(src)
+	escape_helpers[target].Grant(target)
 	recalculate_guest_sizes()
 
 /obj/item/clothing/sextoy/belly_function/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
@@ -467,10 +346,3 @@
 		return removed
 	else
 		return ..()
-
-
-
-// shunting this in here to avoid merge conflicts
-/obj/item/organ/tongue/teshari/Initialize(mapload)
-	. = ..()
-	disliked_foodtypes = disliked_foodtypes & (!GRAIN)
