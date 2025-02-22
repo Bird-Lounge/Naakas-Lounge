@@ -2063,6 +2063,30 @@ TREK
 	name = "Worn Slimpack"
 	icon_file = 'modular_zskyraptor/modules/aesthetics/unshitty_bags/backpack_worn.dmi'
 
+/datum/greyscale_config/backpack/tinypaka
+	name = "Waistpack"
+	json_config = 'modular_nova/modules/GAGS/json_configs/back/tinypaka.json'
+
+/datum/greyscale_config/backpack/tinypaka/worn
+	name = "Worn Waistpack"
+	icon_file = 'modular_zskyraptor/modules/aesthetics/unshitty_bags/backpack_worn.dmi'
+
+/datum/greyscale_config/backpack/tinypakb
+	name = "Storage Belt"
+	json_config = 'modular_nova/modules/GAGS/json_configs/back/tinypakb.json'
+
+/datum/greyscale_config/backpack/tinypakb/worn
+	name = "Worn Storage Belt"
+	icon_file = 'modular_zskyraptor/modules/aesthetics/unshitty_bags/backpack_worn.dmi'
+
+/datum/greyscale_config/backpack/tinypakc
+	name = "Chest Pouch"
+	json_config = 'modular_nova/modules/GAGS/json_configs/back/tinypakc.json'
+
+/datum/greyscale_config/backpack/tinypakc/worn
+	name = "Worn Chest Pouch"
+	icon_file = 'modular_zskyraptor/modules/aesthetics/unshitty_bags/backpack_worn.dmi'
+
 ////////////////////////////////
 //NAAKA'S LOUNGE ADDITIONS END//
 ////////////////////////////////

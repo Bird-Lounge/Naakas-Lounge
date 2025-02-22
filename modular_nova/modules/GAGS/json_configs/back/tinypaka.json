@@ -1,0 +1,21 @@
+{
+	"tinypaka": [
+		{
+			"type": "icon_state",
+			"icon_state": "tinypaka_main",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "tinypaka_trim",
+			"blend_mode": "overlay",
+			"color_ids": [ 2 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "tinypaka_clasps",
+			"blend_mode": "overlay"
+		}
+	]
+}

@@ -139,6 +139,28 @@
 	greyscale_config_worn = /datum/greyscale_config/backpack/slimpack/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
 
+// slimpacks but novarat
+/obj/item/storage/backpack/tinypaka/custom
+	name = "custom waistpack"
+	greyscale_colors = "#FF0000#333333"
+	greyscale_config = /datum/greyscale_config/backpack/tinypaka
+	greyscale_config_worn = /datum/greyscale_config/backpack/tinypaka/worn
+	flags_1 = IS_PLAYER_COLORABLE_1
+
+/obj/item/storage/backpack/tinypakb/custom
+	name = "custom storage belt"
+	greyscale_colors = "#FF0000#333333"
+	greyscale_config = /datum/greyscale_config/backpack/tinypakb
+	greyscale_config_worn = /datum/greyscale_config/backpack/tinypakb/worn
+	flags_1 = IS_PLAYER_COLORABLE_1
+
+/obj/item/storage/backpack/tinypakc/custom
+	name = "custom chest pouch"
+	greyscale_colors = "#333333#FF0000"
+	greyscale_config = /datum/greyscale_config/backpack/tinypakc
+	greyscale_config_worn = /datum/greyscale_config/backpack/tinypakc/worn
+	flags_1 = IS_PLAYER_COLORABLE_1
+
 // fannypack buffs
 /obj/item/storage/belt/fannypack/custom
 	name = "fannypack"
@@ -148,6 +170,18 @@
 	greyscale_config = /datum/greyscale_config/fannypack
 	greyscale_config_worn = /datum/greyscale_config/fannypack/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
+
+/obj/item/storage/belt/fannypack/custom/alt
+	name = "slim fannypack"
+	icon_state = "tinypaka"
+	inhand_icon_state = "messenger"
+	icon = 'modular_nova/modules/clothing_improvements/code/clothing.dmi'
+	worn_icon = 'modular_nova/modules/clothing_improvements/code/clothing_worn.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
+	greyscale_colors = "#FF0000#333333"
+	greyscale_config = /datum/greyscale_config/backpack/tinypaka
+	greyscale_config_worn = /datum/greyscale_config/backpack/tinypaka/worn
 
 // MODULAR EDIT: actually making these things fucking useful
 /obj/item/storage/belt/fannypack/Initialize(mapload)
@@ -162,6 +196,10 @@
 /datum/loadout_item/belts/fanny_pack_custom
 	name = "Fannypack"
 	item_path = /obj/item/storage/belt/fannypack/custom
+
+/datum/loadout_item/belts/fanny_pack_custom/alt
+	name = "Slim Fannypack"
+	item_path = /obj/item/storage/belt/fannypack/custom/alt
 
 /datum/loadout_item/inhand/slimpack
 	name = "Custom Flatpack"
@@ -220,3 +258,15 @@
 /datum/loadout_item/backpack/messenger/industrial
 	name = "Custom Industrial Messenger Bag"
 	item_path = /obj/item/storage/backpack/messenger/eng/custom
+
+/datum/loadout_item/backpack/tinypaka
+	name = "Custom Waistpack"
+	item_path = /obj/item/storage/backpack/tinypaka/custom
+
+/datum/loadout_item/backpack/tinypakb
+	name = "Custom Storage Belt"
+	item_path = /obj/item/storage/backpack/tinypakb/custom
+
+/datum/loadout_item/backpack/tinypakc
+	name = "Custom Chest Pouch"
+	item_path = /obj/item/storage/backpack/tinypakc/custom
