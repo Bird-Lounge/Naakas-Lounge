@@ -65,10 +65,15 @@
 		else
 			to_chat(usr, span_danger("You're not supposed to be able to use this action!"))
 			src.Remove(usr)
-	//else
-		//TODO: slosh and creak
-		/*playsound_if_pref(usr, pick(my_belly.move_creaks), min(20 + round(my_belly.total_fullness/32, 1), 50), TRUE, frequency=rand(40000, 50000))
-		if(prob(my_belly.))*/
+	else
+		if(my_belly.lastuser != null)
+			playsound_if_pref(my_belly.lastuser, pick(my_belly.move_creaks), min(10 + round(my_belly.total_fullness/40, 1), 30), TRUE, frequency=rand(40000, 50000))
+			if(my_belly.stuffed_temp > 0.2 && prob(100) <= my_belly.stuffed_temp * 100)
+				playsound_if_pref(my_belly.lastuser, pick(my_belly.slosh_sounds), min(20 + round(my_belly.total_fullness/32, 1), 50), TRUE, frequency=rand(40000, 50000))
+		else
+			playsound_if_pref(my_belly, pick(my_belly.move_creaks), min(10 + round(my_belly.total_fullness/40, 1), 30), TRUE, frequency=rand(40000, 50000))
+			if(my_belly.stuffed_temp > 0.2 && prob(100) <= my_belly.stuffed_temp * 100)
+				playsound_if_pref(my_belly, pick(my_belly.slosh_sounds), min(20 + round(my_belly.total_fullness/32, 1), 50), TRUE, frequency=rand(40000, 50000))
 	return TRUE
 
 

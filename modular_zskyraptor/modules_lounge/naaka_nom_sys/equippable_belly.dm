@@ -45,6 +45,11 @@
 	var/full_cooldown = 6
 	var/stuffLo_cooldown = 3
 	var/stuffHi_cooldown = 9
+	var/moveCreak_cooldown = 6
+	var/moveSlosh_cooldown = 6
+
+	var/total_fullness = 0
+	var/stuffed_temp = 0
 
 	/// Used to avoid spamming sprite icon state changes.
 	var/last_size = 0
@@ -254,8 +259,8 @@
 	var/total_fullness_orig = guest_temp + stuffed_temp_orig //maximum creaks from overfilled belly
 	var/total_size_orig = total_fullness_orig + base_size_cosmetic
 	var/total_size = total_size_orig / 10 / sizemod
-	var/total_fullness = total_fullness_orig / 10 / sizemod
-	var/stuffed_temp = stuffed_temp_orig / 10 / sizemod
+	total_fullness = total_fullness_orig / 10 / sizemod
+	stuffed_temp = stuffed_temp_orig / 10 / sizemod
 
 	total_size = (((total_size)**1.5) / (4/3) / PI)**(1/3)
 	total_fullness = (((total_fullness)**1.5) / (4/3) / PI)**(1/3)
