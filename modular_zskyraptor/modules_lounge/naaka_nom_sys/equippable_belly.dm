@@ -81,6 +81,17 @@
 	nommer = new /obj/item/belly_nom_helper(src)
 	nommer.color = color
 
+/obj/item/clothing/sextoy/belly_function/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, PROC_REF(on_step))
+
+/obj/item/clothing/sextoy/belly_function/proc/on_step()
+	SIGNAL_HANDLER
+	if(total_fullness >= 0.3)
+		moveCreak_cooldown = moveCreak_cooldown - (3 * total_fullness)
+	if(stuffed_temp >= 0.3)
+		moveSlosh_cooldown = moveSlosh_cooldown - (3 * (stuffed_temp + (total_fullness/10)))
+
 /obj/item/clothing/sextoy/belly_function/examine(mob/user)
 	. = ..()
 	. += "Current size: [current_size_unclamped]"
@@ -299,6 +310,12 @@
 		if(stuffHi_cooldown < 0)
 			stuffHi_cooldown = rand(9, 60)
 			playsound_if_pref(user, pick(stuff_major), min(20 + round(total_fullness/32, 1), 50), TRUE, frequency=rand(40000, 50000))
+	if(moveCreak_cooldown < 0)
+		moveCreak_cooldown = rand(3, 6)
+		playsound_if_pref(user, pick(move_creaks), min(10 + round(total_fullness/40, 1), 30), TRUE, frequency=rand(40000, 50000))
+	if(moveSlosh_cooldown < 0)
+		moveSlosh_cooldown = rand(9, 30)
+		playsound_if_pref(user, pick(slosh_sounds), min(20 + round(total_fullness/32, 1), 50), TRUE, frequency=rand(40000, 50000))
 
 /obj/item/clothing/sextoy/belly_function/attack(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	. = ..()
