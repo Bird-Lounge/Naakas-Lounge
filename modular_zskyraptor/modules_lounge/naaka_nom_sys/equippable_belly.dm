@@ -83,10 +83,10 @@
 
 /obj/item/clothing/sextoy/belly_function/proc/on_step()
 	SIGNAL_HANDLER
-	if(total_fullness >= 0.3)
-		moveCreak_cooldown = moveCreak_cooldown - (3 * total_fullness)
-	if(stuffed_temp >= 0.3)
-		moveSlosh_cooldown = moveSlosh_cooldown - (3 * (stuffed_temp + (total_fullness/10)))
+	if(total_fullness >= 0.4)
+		moveCreak_cooldown = moveCreak_cooldown - (1 * total_fullness)
+	if(stuffed_temp >= 0.2)
+		moveSlosh_cooldown = moveSlosh_cooldown - (1 * (stuffed_temp + (total_fullness/10)))
 
 /obj/item/clothing/sextoy/belly_function/examine(mob/user)
 	. = ..()
