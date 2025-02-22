@@ -13,7 +13,8 @@
 /area/centcom/biodome/interior
 	icon_state = "biodome_interior"
 	name = "The Biodome"
-	sound_environment = SOUND_AREA_LARGE_ENCLOSED
+	ambience_index = AMBIENCE_FOREST
+	sound_environment = SOUND_AREA_FOREST
 
 /area/centcom/biodome/exterior
 	icon_state = "biodome_exterior"
