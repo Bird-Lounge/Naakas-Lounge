@@ -26,7 +26,7 @@
 	. = ..()
 	/// NAAKAS-LOUNGE ADDITION BEGIN
 	if((. && !moving_diagonally) || (!. && moving_diagonally == SECOND_DIAG_STEP))
-		SEND_SIGNAL(shoes, COMSIG_GENERAL_STEP_ACTION)
+		SEND_SIGNAL(src, COMSIG_GENERAL_STEP_ACTION)
 	/// NAAKAS-LOUNGE ADDITION END
 
 /// Used to add a cum decal to the floor while transferring viruses and DNA to it

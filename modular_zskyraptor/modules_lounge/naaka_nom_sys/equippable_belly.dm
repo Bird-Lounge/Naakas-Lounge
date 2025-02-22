@@ -81,10 +81,6 @@
 	nommer = new /obj/item/belly_nom_helper(src)
 	nommer.color = color
 
-/obj/item/clothing/sextoy/belly_function/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, PROC_REF(on_step))
-
 /obj/item/clothing/sextoy/belly_function/proc/on_step()
 	SIGNAL_HANDLER
 	if(total_fullness >= 0.3)
@@ -186,7 +182,9 @@
 		lastuser.cut_overlay(overlay_south)
 		lastuser.cut_overlay(overlay_north)
 		lastuser.cut_overlay(overlay_hori)
+		UnregisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION)
 	lastuser = user
+	RegisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION, PROC_REF(on_step))
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/sextoy/belly_function/dropped(mob/user, slot)
