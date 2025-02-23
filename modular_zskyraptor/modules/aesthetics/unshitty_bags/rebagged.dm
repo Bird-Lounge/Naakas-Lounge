@@ -171,9 +171,10 @@
 	greyscale_config_worn = /datum/greyscale_config/fannypack/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
 
-/obj/item/storage/belt/fannypack/custom/alt
+/obj/item/storage/belt/fannypack/custom/alt_tinypak
 	name = "slim fannypack"
 	icon_state = "tinypaka"
+	worn_icon_state = "tinypaka"
 	inhand_icon_state = "messenger"
 	icon = 'modular_nova/modules/clothing_improvements/code/clothing.dmi'
 	worn_icon = 'modular_nova/modules/clothing_improvements/code/clothing_worn.dmi'
@@ -182,6 +183,26 @@
 	greyscale_colors = "#FF0000#333333"
 	greyscale_config = /datum/greyscale_config/backpack/tinypaka
 	greyscale_config_worn = /datum/greyscale_config/backpack/tinypaka/worn
+
+/obj/item/storage/belt/fannypack/custom/alt_tinypak/altB
+	icon_state = "tinypakb"
+	worn_icon_state = "tinypakb"
+	greyscale_config = /datum/greyscale_config/backpack/tinypakb
+	greyscale_config_worn = /datum/greyscale_config/backpack/tinypakb/worn
+
+/obj/item/storage/belt/fannypack/custom/alt_tinypak/altC
+	icon_state = "tinypakc"
+	worn_icon_state = "tinypakc"
+	greyscale_config = /datum/greyscale_config/backpack/tinypakc
+	greyscale_config_worn = /datum/greyscale_config/backpack/tinypakc/worn
+
+/obj/item/storage/belt/fannypack/custom/alt
+	name = "slim fannypack"
+	icon_state = "slimpack"
+	worn_icon_state = "slimpack"
+	greyscale_colors = "#333333#FF0000"
+	greyscale_config = /datum/greyscale_config/backpack/slimpack
+	greyscale_config_worn = /datum/greyscale_config/backpack/slimpack/worn
 
 // MODULAR EDIT: actually making these things fucking useful
 /obj/item/storage/belt/fannypack/Initialize(mapload)
@@ -196,6 +217,18 @@
 /datum/loadout_item/belts/fanny_pack_custom
 	name = "Fannypack"
 	item_path = /obj/item/storage/belt/fannypack/custom
+
+/datum/loadout_item/belts/fanny_pack_custom/altA
+	name = "Slim Waist Fannypack"
+	item_path = /obj/item/storage/belt/fannypack/custom/alt_tinypak
+
+/datum/loadout_item/belts/fanny_pack_custom/altB
+	name = "Slim Belt Fannypack"
+	item_path = /obj/item/storage/belt/fannypack/custom/alt_tinypak/altB
+
+/datum/loadout_item/belts/fanny_pack_custom/altC
+	name = "Slim Chest Fannypack"
+	item_path = /obj/item/storage/belt/fannypack/custom/alt_tinypak/altC
 
 /datum/loadout_item/belts/fanny_pack_custom/alt
 	name = "Slim Fannypack"
