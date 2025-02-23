@@ -69,7 +69,7 @@
 	// Movement noise for a full but not sloshy tummy
 	var/move_creaks = list("modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Growls/digest (5).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Growls/digest (12).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Growls/digest (46).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Growls/growl1.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Growls/growl2.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/Growls/stomach-clench.ogg")
 	// Movement noise for an overfull, stuffed tummy
-	var/slosh_sounds = list("modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/SloshMinor/digest (20)", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/SloshMinor/slurslosh", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/SloshMajor/blorbsquish", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/SloshMajor/walkslosh3", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/SloshMajor/walkslosh4", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/SloshMajor/walkslosh7")
+	var/slosh_sounds = list("modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/SloshMinor/digest (20).ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/SloshMinor/slurslosh.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/SloshMajor/blorbsquish.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/SloshMajor/walkslosh3.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/SloshMajor/walkslosh4.ogg", "modular_zskyraptor/modules_lounge/naaka_nom_sys/sounds/SloshMajor/walkslosh7.ogg")
 
 	/// Live editable layers in case things go scrungy.
 	var/hori_layer = UNIFORM_LAYER
