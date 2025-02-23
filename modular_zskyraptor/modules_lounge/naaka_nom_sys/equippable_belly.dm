@@ -309,10 +309,10 @@
 			stuffHi_cooldown = rand(9, 60)
 			playsound_if_pref(user, pick(stuff_major), min(20 + round(total_fullness/32, 1), 50), TRUE, frequency=rand(40000, 50000))
 	if(moveCreak_cooldown < 0)
-		moveCreak_cooldown = rand(3, 6)
+		moveCreak_cooldown = rand(10, 30)
 		playsound_if_pref(user, pick(move_creaks), min(10 + round(total_fullness/40, 1), 30), TRUE, frequency=rand(40000, 50000))
 	if(moveSlosh_cooldown < 0)
-		moveSlosh_cooldown = rand(9, 30)
+		moveSlosh_cooldown = rand(10, 30)
 		playsound_if_pref(user, pick(slosh_sounds), min(20 + round(total_fullness/32, 1), 50), TRUE, frequency=rand(40000, 50000))
 
 /obj/item/clothing/sextoy/belly_function/attack(mob/living/carbon/human/target, mob/living/carbon/human/user)
