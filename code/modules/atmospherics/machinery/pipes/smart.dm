@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(atmos_components, typecacheof(list(/obj/machinery/atmospherics)
 	return bit_flag
 
 /obj/machinery/atmospherics/pipe/smart/update_pipe_icon()
-	icon = 'icons/obj/pipes_n_cables/!pipes_bitmask.dmi'
+	icon = bitmask_icon /// NAAKAS-LOUNGE EDIT
 
 	//find all directions this pipe is connected with other nodes
 	connections = NONE
