@@ -19,6 +19,7 @@
 /area/centcom/biodome/exterior
 	icon_state = "biodome_exterior"
 	name = "Talon IV-a"
+	outdoors = TRUE
 	sound_environment = SOUND_AREA_LAVALAND
 	ambience_index = AMBIENCE_ICEMOON
 	ambient_buzz = 'sound/ambience/lavaland/magma.ogg'
