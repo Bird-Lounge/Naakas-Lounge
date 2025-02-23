@@ -7694,6 +7694,8 @@
 #include "modular_nova\modules\customization\modules\mob\dead\new_player\sprite_accessories\vox.dm"
 #include "modular_nova\modules\customization\modules\mob\dead\new_player\sprite_accessories\wings.dm"
 #include "modular_nova\modules\customization\modules\mob\dead\new_player\sprite_accessories\xeno.dm"
+#include "modular_nova\modules\customization\modules\mob\dead\new_player\sprite_accessories\species\harpy.dm"
+#include "modular_nova\modules\customization\modules\mob\dead\new_player\sprite_accessories\species\lizard.dm"
 #include "modular_nova\modules\customization\modules\mob\dead\new_player\sprite_accessories\underwear\bras.dm"
 #include "modular_nova\modules\customization\modules\mob\dead\new_player\sprite_accessories\underwear\socks.dm"
 #include "modular_nova\modules\customization\modules\mob\dead\new_player\sprite_accessories\underwear\undershirts.dm"
