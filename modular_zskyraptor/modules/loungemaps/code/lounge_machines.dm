@@ -14,13 +14,24 @@
 	icon = 'modular_zskyraptor/modules/loungemaps/icons/areas.dmi'
 	icon_state = "biohome breaker"
 	var/obj/item/storage/part_replacer/bluespace/tier4/bst/biodome_upgrader/upgrade_gubbin
+	var/obj/item/multitool/grab_that_silo
+	var/mob/temp_mob
 
 /obj/effect/landmark/start/lounge_upgrade_machine/Initialize(mapload)
 	. = ..()
 	upgrade_gubbin = new(src)
+	grab_that_silo = new(src)
+	temp_mob = new(src)
 
 /obj/effect/landmark/start/lounge_upgrade_machine/after_round_start()
+	for(var/obj/something in loc.contents)
+		var/obj/machinery/ore_silo/a_silo = something
+		if(istype(a_silo))
+			grab_that_silo.set_buffer(a_silo)
 	for(var/obj/machinery/machine in SSmachines.get_all_machines())
 		if(machine.z == z)
 			machine.exchange_parts(null, upgrade_gubbin)
+			var/datum/component/remote_materials/mats = machine.GetComponent(/datum/component/remote_materials)
+			if(istype(mats))
+				mats.OnMultitool(null, temp_mob, grab_that_silo)
 	. = ..()

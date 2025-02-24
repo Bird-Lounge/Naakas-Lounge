@@ -522,6 +522,7 @@
 	color = "#0d69f2"
 	},
 /obj/item/clothing/under/misc/nova/gear_harness,
+/obj/item/clothing/suit/straight_jacket/shackles/reinforced,
 /turf/open/floor/wood,
 /area/centcom/biodome/homes/casa_de_luna/bed)
 "azc" = (
@@ -3701,6 +3702,7 @@
 /obj/item/borg/upgrade/piercing_hypospray,
 /obj/item/borg/upgrade/processor,
 /obj/item/borg/upgrade/surgerytools,
+/obj/item/borg/upgrade/syndicate,
 /turf/open/floor/iron/white,
 /area/centcom/biodome/homes/casa_de_luna)
 "cQX" = (
@@ -14748,6 +14750,12 @@
 /obj/structure/cable,
 /turf/open/floor/iron/textured_large,
 /area/centcom/biodome/interior)
+"lTm" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/cable,
+/obj/machinery/power/rtg/debug,
+/turf/open/misc/sandy_dirt/icemoon,
+/area/centcom/biodome/exterior)
 "lTn" = (
 /obj/structure/chair/sofa/corp/right,
 /turf/open/floor/wood/large,
@@ -19070,6 +19078,12 @@
 	},
 /turf/open/floor/wood/tile,
 /area/centcom/biodome/homes/casa_de_liora/lounge)
+"puK" = (
+/obj/machinery/power/rtg/debug,
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/cable,
+/turf/open/misc/asteroid/snow/icemoon/do_not_chasm,
+/area/centcom/biodome/exterior)
 "puU" = (
 /obj/structure/table/reinforced/plasmarglass,
 /turf/open/floor/iron,
@@ -25279,7 +25293,9 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/biodome/security)
 "udW" = (
-/obj/effect/landmark/start/lounge_upgrade_machine,
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/cable,
+/obj/machinery/power/rtg/debug,
 /turf/open/misc/asteroid/snow/icemoon/do_not_chasm,
 /area/centcom/biodome/exterior)
 "ues" = (
@@ -25720,6 +25736,7 @@
 /area/centcom/biodome/homes/shaman_shelter/bed)
 "upf" = (
 /obj/machinery/ore_silo/colony_lathe,
+/obj/effect/landmark/start/lounge_upgrade_machine,
 /turf/open/floor/iron/textured,
 /area/centcom/biodome/cargo)
 "upx" = (
@@ -68430,13 +68447,13 @@ tbS
 tbS
 ryO
 unH
-unH
+lTm
 ldQ
 mkt
 ldQ
 mGX
 ldQ
-ldQ
+udW
 ldQ
 ldQ
 opE
@@ -68687,13 +68704,13 @@ tbS
 ryO
 ryO
 unH
-rtv
+lTm
 qZp
 edU
 qZp
 edU
 qZp
-qZp
+udW
 ldQ
 ldQ
 ldQ
@@ -71514,13 +71531,13 @@ unH
 ldQ
 ldQ
 ldQ
+udW
 ldQ
+udW
 ldQ
+udW
 ldQ
-ldQ
-ldQ
-ldQ
-ldQ
+udW
 ldQ
 ldQ
 ldQ
@@ -71773,9 +71790,9 @@ ldQ
 ldQ
 ldQ
 ldQ
-ldQ
-ldQ
-ldQ
+udW
+puK
+udW
 ldQ
 ldQ
 ldQ
@@ -96226,5 +96243,5 @@ ldQ
 ldQ
 ldQ
 ldQ
-udW
+ldQ
 "}
