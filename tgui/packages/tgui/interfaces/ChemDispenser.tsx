@@ -6,7 +6,7 @@ import {
   LabeledList,
   ProgressBar,
   Section,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { BooleanLike } from 'tgui-core/react';
 import { toTitleCase } from 'tgui-core/string';
 

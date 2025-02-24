@@ -6,7 +6,7 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-$nanotrasen: hsl(213, 30%, 32%);
+$nanotrasen: #95cc29;
 
 @use '../colors.scss' with (
   $fg-map-keys: (),
@@ -20,10 +20,7 @@ $nanotrasen: hsl(213, 30%, 32%);
   // Components
   @include meta.load-css(
     '~tgui-core/styles/components/Button',
-    $with: (
-      'color-default': $nanotrasen,
-      'color-transparent-text': rgba(227, 240, 255, 0.75)
-    )
+    $with: ('color-default': $nanotrasen, 'color-transparent-text': #f9ffd9)
   );
   @include meta.load-css(
     '~tgui-core/styles/components/ProgressBar',

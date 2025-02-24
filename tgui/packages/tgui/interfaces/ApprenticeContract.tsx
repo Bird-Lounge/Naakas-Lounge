@@ -5,7 +5,7 @@ import {
   Icon,
   Section,
   Stack,
-} from 'tgui-core/components';
+} from 'tgui/components';
 
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';

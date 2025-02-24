@@ -1,4 +1,4 @@
-import { Stack } from 'tgui-core/components';
+import { Stack } from 'tgui/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';

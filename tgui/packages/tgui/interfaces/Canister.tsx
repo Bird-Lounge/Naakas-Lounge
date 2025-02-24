@@ -9,7 +9,7 @@ import {
   RoundGauge,
   Section,
   Tooltip,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { formatSiUnit } from 'tgui-core/format';
 import { toFixed } from 'tgui-core/math';
 import { BooleanLike } from 'tgui-core/react';

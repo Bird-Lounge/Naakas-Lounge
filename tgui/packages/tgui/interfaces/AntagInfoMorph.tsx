@@ -1,4 +1,4 @@
-import { BlockQuote, Stack } from 'tgui-core/components';
+import { BlockQuote, Stack } from 'tgui/components';
 
 import { Window } from '../layouts';
 import { Rules } from './AntagInfoRules'; // NOVA EDIT ADDITION

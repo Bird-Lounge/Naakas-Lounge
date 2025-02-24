@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Icon, ProgressBar, Tabs } from 'tgui-core/components';
+import { Icon, ProgressBar, Tabs } from 'tgui/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';

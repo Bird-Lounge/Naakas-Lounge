@@ -11,7 +11,7 @@ import {
   Section,
   Stack,
   Table,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { Tooltip } from 'tgui-core/components';
 import { toFixed } from 'tgui-core/math';
 

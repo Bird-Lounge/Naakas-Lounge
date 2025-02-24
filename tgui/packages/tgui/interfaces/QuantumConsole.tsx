@@ -9,7 +9,7 @@ import {
   Table,
   Tabs,
   Tooltip,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend, useSharedState } from '../backend';

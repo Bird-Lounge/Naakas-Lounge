@@ -4,7 +4,7 @@ import {
   LabeledList,
   NoticeBox,
   Section,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { formatMoney } from 'tgui-core/format';
 import { BooleanLike } from 'tgui-core/react';
 

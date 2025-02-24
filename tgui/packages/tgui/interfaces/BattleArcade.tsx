@@ -1,4 +1,4 @@
-import { Box, Button, Image, Section } from 'tgui-core/components';
+import { Box, Button, Image, Section } from 'tgui/components';
 
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';

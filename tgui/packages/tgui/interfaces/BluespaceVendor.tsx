@@ -6,7 +6,7 @@ import {
   Section,
   Stack,
   Table,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { toFixed } from 'tgui-core/math';
 import { BooleanLike } from 'tgui-core/react';
 

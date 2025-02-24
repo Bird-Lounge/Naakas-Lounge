@@ -1,4 +1,4 @@
-import { Button, Stack, Table } from 'tgui-core/components';
+import { Button, Stack, Table } from 'tgui/components';
 import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';

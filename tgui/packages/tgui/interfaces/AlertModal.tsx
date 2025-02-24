@@ -1,5 +1,5 @@
 import { KeyboardEvent, useState } from 'react';
-import { Autofocus, Box, Button, Section, Stack } from 'tgui-core/components';
+import { Autofocus, Box, Button, Section, Stack } from 'tgui/components';
 import { isEscape, KEY } from 'tgui-core/keys';
 import { BooleanLike } from 'tgui-core/react';
 

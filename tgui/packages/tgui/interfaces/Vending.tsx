@@ -7,7 +7,7 @@ import {
   NoticeBox,
   Section,
   Stack,
-} from 'tgui-core/components';
+} from 'tgui/components';
 import { capitalizeAll, createSearch } from 'tgui-core/string';
 
 import { useBackend } from '../backend';

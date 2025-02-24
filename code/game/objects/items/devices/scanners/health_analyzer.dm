@@ -218,17 +218,17 @@
 							<table class='ml-2'>\
 							<tr>\
 							<td style='width:7em;'><font color='#ff0000'><b>Damage:</b></font></td>\
-							<td style='width:5em;'><font color='#ff3333'><b>Brute</b></font></td>\
-							<td style='width:4em;'><font color='#ff9933'><b>Burn</b></font></td>\
-							<td style='width:4em;'><font color='#00cc66'><b>Toxin</b></font></td>\
-							<td style='width:8em;'><font color='#00cccc'><b>Suffocation</b></font></td>\
+							<td style='width:5em;'><font color='#aa00ff'><b>Brute</b></font></td>\
+							<td style='width:4em;'><font color='#ffaa00'><b>Burn</b></font></td>\
+							<td style='width:4em;'><font color='#aaff00'><b>Toxin</b></font></td>\
+							<td style='width:8em;'><font color='#00aaff'><b>Suffocation</b></font></td>\
 							</tr>\
 							<tr>\
-							<td><font color='#ff3333'><b>Overall:</b></font></td>\
-							<td><font color='#ff3333'><b>[ceil(brute_loss)]</b></font></td>\
-							<td><font color='#ff9933'><b>[ceil(fire_loss)]</b></font></td>\
-							<td><font color='#00cc66'><b>[ceil(tox_loss)]</b></font></td>\
-							<td><font color='#33ccff'><b>[ceil(oxy_loss)]</b></font></td>\
+							<td><font color='#ff0000'><b>Overall:</b></font></td>\
+							<td><font color='#aa00ff'><b>[ceil(brute_loss)]</b></font></td>\
+							<td><font color='#ffaa00'><b>[ceil(fire_loss)]</b></font></td>\
+							<td><font color='#aaff00'><b>[ceil(tox_loss)]</b></font></td>\
+							<td><font color='#00aaff'><b>[ceil(oxy_loss)]</b></font></td>\
 							</tr>"
 
 			if(mode == SCANNER_VERBOSE)
@@ -237,9 +237,9 @@
 					var/obj/item/bodypart/limb = carbontarget.get_bodypart(zone)
 					if(isnull(limb))
 						dmgreport += "<tr>"
-						dmgreport += "<td><font color='#cc3333'>[capitalize(parse_zone(zone))]:</font></td>"
-						dmgreport += "<td><font color='#cc3333'>-</font></td>"
-						dmgreport += "<td><font color='#ff9933'>-</font></td>"
+						dmgreport += "<td><font color='#ff0000'>[capitalize(parse_zone(zone))]:</font></td>"
+						dmgreport += "<td><font color='#aa00ff'>-</font></td>"
+						dmgreport += "<td><font color='#ffaa00'>-</font></td>"
 						dmgreport += "</tr>"
 						dmgreport += "<tr><td colspan=6><span class='alert ml-2'>&rdsh; Physical trauma: [conditional_tooltip("Dismembered", "Reattach or replace surgically.", tochat)]</span></td></tr>"
 						continue
@@ -249,12 +249,12 @@
 					if(!is_damaged && (zone != BODY_ZONE_CHEST || (tox_loss <= 0 && oxy_loss <= 0)) && !has_any_embeds && !has_any_wounds)
 						continue
 					dmgreport += "<tr>"
-					dmgreport += "<td><font color='#cc3333'>[capitalize((limb.bodytype & BODYTYPE_ROBOTIC) ? limb.name : limb.plaintext_zone)]:</font></td>"
-					dmgreport += "<td><font color='#cc3333'>[limb.brute_dam > 0 ? ceil(limb.brute_dam) : "0"]</font></td>"
-					dmgreport += "<td><font color='#ff9933'>[limb.burn_dam > 0 ? ceil(limb.burn_dam) : "0"]</font></td>"
+					dmgreport += "<td><font color='#aaff00'>[capitalize((limb.bodytype & BODYTYPE_ROBOTIC) ? limb.name : limb.plaintext_zone)]:</font></td>"
+					dmgreport += "<td><font color='#aa00ff'>[limb.brute_dam > 0 ? ceil(limb.brute_dam) : "0"]</font></td>"
+					dmgreport += "<td><font color='#ffaa00'>[limb.burn_dam > 0 ? ceil(limb.burn_dam) : "0"]</font></td>"
 					if(zone == BODY_ZONE_CHEST) // tox/oxy is stored in the chest
-						dmgreport += "<td><font color='#00cc66'>[tox_loss > 0 ? ceil(tox_loss) : "0"]</font></td>"
-						dmgreport += "<td><font color='#33ccff'>[oxy_loss > 0 ? ceil(oxy_loss) : "0"]</font></td>"
+						dmgreport += "<td><font color='#aaff00'>[tox_loss > 0 ? ceil(tox_loss) : "0"]</font></td>"
+						dmgreport += "<td><font color='#00aaff'>[oxy_loss > 0 ? ceil(oxy_loss) : "0"]</font></td>"
 					dmgreport += "</tr>"
 					if(has_any_embeds)
 						var/list/embedded_names = list()
