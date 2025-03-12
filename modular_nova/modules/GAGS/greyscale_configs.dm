@@ -2109,6 +2109,23 @@ TREK
 	name = "Fancy Suit (Worn, Teshari)"
 	json_config = 'modular_nova/modules/GAGS/json_configs/fancy_labcoat/fancy_labcoat_tesh_worn.json'
 
+// Tarkon Uniform
+
+/datum/greyscale_config/tarkonuniform
+	name = "Tarkon Uniform"
+	icon_file = 'modular_nova/modules/tarkon/icons/obj/clothing/uniform.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/tarkon/tarkonuniform.json'
+
+/datum/greyscale_config/tarkonuniform/worn
+	name = "Tarkon Uniform (Worn)"
+	icon_file = 'modular_nova/modules/tarkon/icons/mob/clothing/uniform.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/tarkon/tarkonuniform_worn.json'
+
+/datum/greyscale_config/tarkonuniform/worn/digi
+	name = "Tarkon Uniform (Worn, Digi)"
+	icon_file = 'modular_nova/modules/tarkon/icons/mob/clothing/uniform_digi.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/tarkon/tarkonuniform_worn.json'
+
 //////////////////////////////////
 //NAAKA'S LOUNGE ADDITIONS BEGIN//
 //////////////////////////////////
