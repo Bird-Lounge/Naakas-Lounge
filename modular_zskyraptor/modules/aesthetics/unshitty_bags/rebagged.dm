@@ -253,9 +253,15 @@
 /datum/loadout_item/backpack
 	abstract_type = /datum/loadout_item/backpack
 
-/datum/loadout_item/backpack/insert_path_into_outfit(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only = FALSE)
-	if(outfit.back)
-		LAZYADD(outfit.backpack_contents, outfit.back)
+/datum/loadout_item/backpack/pre_equip_item(datum/outfit/outfit, datum/outfit/outfit_important_for_life, mob/living/carbon/human/equipper, visuals_only = FALSE)  // don't bother storing in backpack, can't fit
+	if(initial(outfit_important_for_life.back))
+		return TRUE
+
+/datum/loadout_item/backpack/insert_path_into_outfit(datum/outfit/outfit, mob/living/carbon/human/equipper, visuals_only = FALSE, override_items = LOADOUT_OVERRIDE_BACKPACK)
+	if(override_items == LOADOUT_OVERRIDE_BACKPACK && !visuals_only)
+		if(outfit.back)
+			LAZYADD(outfit.backpack_contents, outfit.back)
+
 	outfit.back = item_path
 
 
