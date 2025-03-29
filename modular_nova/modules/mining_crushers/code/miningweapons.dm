@@ -1,6 +1,8 @@
 /obj/item/kinetic_crusher
 	/// This var is used to imitate being weilded if it's one handed
 	var/acts_as_if_wielded
+	/// AHABS_SPEAR Module Change - This var is used by retool kits when changing the crusher's projectile appearance
+	var/projectile_icon_file = 'icons/obj/weapons/guns/projectiles.dmi'
 
 /obj/item/kinetic_crusher/machete
 	icon = 'modular_nova/modules/mining_crushers/icons/items_and_weapons.dmi'
@@ -56,8 +58,8 @@
 /obj/item/kinetic_crusher/machete/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, \
-	force_unwielded=15, \
-	force_wielded=15, \
+		force_unwielded=15, \
+		force_wielded=15, \
 	)
 	AddComponent(/datum/component/butchering, \
 		speed = 4 SECONDS, \
@@ -97,7 +99,7 @@
 		"impales",
 		"pokes",
 		"jabs",
-		)
+	)
 	attack_verb_simple = list(
 		"imaple",
 		"stab",
@@ -158,7 +160,7 @@
 		"smashes",
 		"flattens",
 		"pounds",
-		)
+	)
 	attack_verb_simple = list(
 		"slam",
 		"crush",
