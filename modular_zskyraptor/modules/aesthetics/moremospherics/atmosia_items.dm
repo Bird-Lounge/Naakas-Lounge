@@ -336,7 +336,6 @@
 		return TRUE
 	else
 		return ..()
-	return ..()
 
 /obj/item/repainting_kit/proc/recolor_gags(datum/greyscale_modify_menu/menu)
 	regreyscale_item.set_greyscale(menu.split_colors)

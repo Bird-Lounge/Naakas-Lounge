@@ -3,10 +3,6 @@
 	text_color = "#A0F000"
 	header_text_color = "#AAFF00"
 
-/obj/machinery/status_display/LateInitialize()
-	. = ..()
-	set_picture("default")
-
 /obj/machinery/status_display/supply
 	text_color = "#F06000"
 	header_text_color = "#FF6600"
@@ -19,7 +15,3 @@
 	name = "syndicate status display"
 	text_color = "#F00000"
 	header_text_color = "#FF0000"
-
-/obj/machinery/status_display/syndie/LateInitialize()
-	. = ..()
-	set_picture("synd")

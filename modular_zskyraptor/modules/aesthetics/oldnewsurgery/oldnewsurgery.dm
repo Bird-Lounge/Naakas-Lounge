@@ -220,7 +220,7 @@
 
 	for(var/icon_file as anything in essentials)
 		for(var/icon_state as anything in essentials[icon_file])
-			Insert(sprite_name = icon_state, I = icon_file, icon_state = icon_state)
+			Insert(sprite_name = icon_state, inserted_icon = icon_file, icon_state = icon_state)
 
 /obj/machinery/plumbing/liquid_pump
 	icon = 'modular_zskyraptor/modules/aesthetics/oldnewsurgery/hydrochem/plumbers.dmi'

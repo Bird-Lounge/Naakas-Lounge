@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(uglass_recipes, list ( \
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/uranium = 10)
 	material_flags = NONE
 	matter_amount = 15
-	tableVariant = /obj/structure/table/glass/uraniumglass
+	table_type = /obj/structure/table/glass/uraniumglass
 
 /obj/item/stack/sheet/uraniumglass/fifty
 	amount = 50
@@ -119,7 +119,7 @@ GLOBAL_LIST_INIT(urglass_recipes, list ( \
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/uranium = 10, /datum/reagent/iron = 10)
 	//point_value = 23
 	matter_amount = 20
-	tableVariant = /obj/structure/table/reinforced/uraniumrglass
+	table_type = /obj/structure/table/reinforced/uraniumrglass
 
 /datum/armor/sheet_uraniumrglass
 	melee = 30
