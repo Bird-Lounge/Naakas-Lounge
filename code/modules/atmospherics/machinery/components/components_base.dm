@@ -18,7 +18,7 @@
 	var/list/datum/gas_mixture/airs
 	///Handles whether the custom reconcilation handling should be used
 	var/custom_reconcilation = FALSE
-	
+
 	/// NAAKAS-LOUNGE ADDITION: underlays getting a modular icon
 	var/underlay_icon = 'icons/obj/pipes_n_cables/pipe_underlays.dmi'
 
@@ -81,14 +81,14 @@
 			continue
 		var/obj/machinery/atmospherics/node = nodes[i]
 		var/node_dir = get_dir(src, node)
-		var/mutable_appearance/pipe_appearance = mutable_appearance(underlay_icon, "intact_[node_dir]_[underlay_pipe_layer]") /// NAAKAS-LOUNGE EDIT
-		pipe_appearance.color = node.pipe_color
+		var/mutable_appearance/pipe_appearance = mutable_appearance(underlay_icon, "intact_[node_dir]_[underlay_pipe_layer]", appearance_flags = RESET_COLOR|KEEP_APART) /// NAAKAS-LOUNGE EDIT
+		pipe_appearance.color = (node.pipe_color == ATMOS_COLOR_OMNI || istype(node, /obj/machinery/atmospherics/pipe/color_adapter)) ? pipe_color : node.pipe_color
 		underlays += pipe_appearance
 		connected |= node_dir
 
 	for(var/direction in GLOB.cardinals)
 		if((initialize_directions & direction) && !(connected & direction))
-			var/mutable_appearance/pipe_appearance = mutable_appearance(underlay_icon, "exposed_[direction]_[underlay_pipe_layer]") /// NAAKAS-LOUNGE EDIT
+			var/mutable_appearance/pipe_appearance = mutable_appearance(underlay_icon, "exposed_[direction]_[underlay_pipe_layer]", appearance_flags = RESET_COLOR|KEEP_APART) /// NAAKAS-LOUNGE EDIT
 			pipe_appearance.color = pipe_color
 			underlays += pipe_appearance
 
@@ -333,7 +333,7 @@
 	connect_nodes()
 
 /obj/machinery/atmospherics/components/update_layer()
-	layer = (showpipe ? initial(layer) : ABOVE_OPEN_TURF_LAYER) + (piping_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_LCHANGE + (GLOB.pipe_colors_ordered[pipe_color] * 0.001)
+	layer = (showpipe ? initial(layer) : BELOW_CATWALK_LAYER) + (piping_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_LCHANGE + (GLOB.pipe_colors_ordered[pipe_color] * 0.001)
 
 /**
  * Handles air relocation to the pipenet/environment
