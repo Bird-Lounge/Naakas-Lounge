@@ -493,9 +493,8 @@
 /// PEPPER SILVER'S HOME
 /area/centcom/biodome/homes/casa_de_silver
 	icon_state = "biohome_pepper"
-	name = "Casa de Silver: Front Room"
+	name = "Casa de Silver"
 	ambience_index = AMBIENCE_MEDICAL
-	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/centcom/biodome/homes/casa_de_silver/bedroom
 	icon_state = "biohome_pepper_bedroom"
@@ -506,6 +505,11 @@
 	icon_state = "biohome_pepper_bathroom"
 	name = "Casa de Silver: Bathroom"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/centcom/biodome/homes/casa_de_silver/kitchen
+	icon_state = "biohome_pepper_kitchen"
+	name = "Casa de Silver: Kitchen"
+	sound_environment = SOUND_AREA_WOODFLOOR
 
 /// THE SHAMAN'S HOME
 /area/centcom/biodome/homes/shaman_shelter
