@@ -176,8 +176,8 @@
 	icon_state = "tinypaka"
 	worn_icon_state = "tinypaka"
 	inhand_icon_state = "messenger"
-	icon = 'modular_nova/modules/clothing_improvements/code/clothing.dmi'
-	worn_icon = 'modular_nova/modules/clothing_improvements/code/clothing_worn.dmi'
+	icon = 'modular_nova/modules/clothing_improvements/icons/clothing.dmi'
+	worn_icon = 'modular_nova/modules/clothing_improvements/icons/clothing_worn.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
 	greyscale_colors = "#FF0000#333333"
