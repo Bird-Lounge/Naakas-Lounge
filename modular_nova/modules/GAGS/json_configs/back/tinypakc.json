@@ -1,0 +1,21 @@
+{
+	"tinypakc": [
+		{
+			"type": "icon_state",
+			"icon_state": "tinypakc_main",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "tinypakc_trim",
+			"blend_mode": "overlay",
+			"color_ids": [ 2 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "tinypakc_clasps",
+			"blend_mode": "overlay"
+		}
+	]
+}
