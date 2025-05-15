@@ -11,6 +11,8 @@
 #define COMSIG_MOB_CI_TOGGLED "mob_ci_toggled"
 /// When a hostile simple mob loses it's target.
 #define COMSIG_HOSTILE_MOB_LOST_TARGET "hostile_mob_lost_target"
+///When a client is given direct control of a mob via [/datum/admin_verb/cmd_give_direct_control()].
+#define COMSIG_MOB_GIVE_DIRECT_CONTROL "mob_give_direct_control"
 /// Lets objects subscribe to step events on a target mob.  /// NAAKAS-LOUNGE ADDITION BEGIN
 #define COMSIG_GENERAL_STEP_ACTION "general_step_action" /// NAAKAS-LOUNGE ADDITION END
 
@@ -91,3 +93,7 @@
 
 /// Whenever a baton successfully executes its nonlethal attack. WARNING HORRIBLE FUCKING CODE THIS IS ASS AAAAAAAAAAAAH
 #define COMSIG_PRE_BATON_FINALIZE_ATTACK "pre_baton_finalize_attack"
+
+/// Signal sent when a mob tries to de-prone
+#define COMSIG_MOVABLE_REMOVE_PRONE_STATE "living_remove_prone_state"
+

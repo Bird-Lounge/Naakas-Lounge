@@ -21,7 +21,7 @@
 	associated_typepath = /datum/quirk/chipped
 	customization_options = list(/datum/preference/choiced/chipped)
 
-/datum/quirk/chipped/add_to_holder(mob/living/new_holder, quirk_transfer, client/client_source)
+/datum/quirk/chipped/add_to_holder(mob/living/new_holder, quirk_transfer, client/client_source, unique = TRUE)
 	var/chip_pref = client_source?.prefs?.read_preference(/datum/preference/choiced/chipped)
 
 	if(isnull(chip_pref))
@@ -46,9 +46,11 @@
 
 /datum/quirk/chipped/proc/apply_effect(datum/source, obj/item/brain_applied)
 	SIGNAL_HANDLER
+	/* NOVA EDIT REMOVAL - we disable the itchy status effect so people dont get brain damage from a positive quirk.
 	var/mob/living/carbon/quirk_holder_carbon = quirk_holder
 	if(brain_applied == quirk_holder_carbon.get_organ_slot(ORGAN_SLOT_BRAIN))
 		itchy_effect = quirk_holder.apply_status_effect(/datum/status_effect/itchy_skillchip_quirk)
+	*/
 
 /datum/quirk/chipped/proc/remove_effect(datum/source, obj/item/brain_removed)
 	SIGNAL_HANDLER
