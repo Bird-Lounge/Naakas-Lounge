@@ -1,5 +1,6 @@
 /obj/machinery/atmospherics/pipe/color_adapter
 	icon = 'icons/obj/pipes_n_cables/color_adapter.dmi'
+	var/manifold_icon = 'icons/obj/pipes_n_cables/manifold.dmi' /// NAAKAS-LOUNGE ADDITION
 	icon_state = "adapter_map-3"
 
 	name = "color adapter"
@@ -51,7 +52,7 @@
 		var/node_dir = get_dir(src, nodes[i])
 		if (istype(nodes[i], /obj/machinery/atmospherics/pipe/color_adapter) && ((node_dir & (SOUTH|EAST)) || nodes[i].pipe_color == ATMOS_COLOR_OMNI) && pipe_color != ATMOS_COLOR_OMNI)
 			applied_color = pipe_color
-		var/image/pipe = get_pipe_image('icons/obj/pipes_n_cables/manifold.dmi', "pipe-3", node_dir, applied_color)
+		var/image/pipe = get_pipe_image(manifold_icon, "pipe-3", node_dir, applied_color) /// NAAKAS-LOUNGE EDIT
 		pipe.appearance_flags |= RESET_COLOR|KEEP_APART
 		PIPING_LAYER_DOUBLE_SHIFT(pipe, piping_layer)
 		pipe.layer = layer + 0.01
