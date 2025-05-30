@@ -1,9 +1,12 @@
 // Disposal bin and Delivery chute.
-
+GLOBAL_VAR_INIT(animals_spawned, 0)
+#define CONTAINS_ANIMAL_CHANCE 5
+#define MAXIMUM_ANIMAL_SPAWNS 1
+#define ANIMAL_SHAKE_CHANCE 10
 #define SEND_PRESSURE (0.05*ONE_ATMOSPHERE)
 
 /obj/machinery/disposal
-	icon = 'icons/obj/pipes_n_cables/disposal.dmi' //NOVA EDIT CHANGE - ICON OVERRIDDEN IN NOVA AESTHETICS - SEE MODULE
+	icon = 'icons/obj/pipes_n_cables/disposal.dmi' //NOVA EDIT - ICON OVERRIDDEN IN AESTHETICS MODULE
 	density = TRUE
 	armor_type = /datum/armor/machinery_disposal
 	max_integrity = 200
@@ -32,6 +35,12 @@
 	var/last_sound = 0
 	/// The stored disposal construction pipe
 	var/obj/structure/disposalconstruct/stored
+	///a weighted list of all the possible animals we can have
+	var/static/list/weighted_animal_list = list(
+		/mob/living/basic/stoat = 1,
+	)
+	/// do we contain an animal?
+	var/contained_animal
 
 /datum/armor/machinery_disposal
 	melee = 25
@@ -66,6 +75,9 @@
 		COMSIG_TURF_RECEIVE_SWEEPED_ITEMS = PROC_REF(ready_for_trash),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	ADD_TRAIT(src, TRAIT_COMBAT_MODE_SKIP_INTERACTION, INNATE_TRAIT)
+	if(mapload)
+		spawn_contained_animal()
 	return INITIALIZE_HINT_LATELOAD //we need turfs to have air
 
 /// Checks if there a connecting trunk diposal pipe under the disposal
@@ -95,7 +107,7 @@
 		stored = null
 		deconstruct(FALSE)
 
-/obj/machinery/disposal/singularity_pull(S, current_size)
+/obj/machinery/disposal/singularity_pull(atom/singularity, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
@@ -110,7 +122,7 @@
 	air_contents.merge(removed)
 	trunk_check()
 
-/obj/machinery/disposal/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/disposal/attackby(obj/item/I, mob/living/user, list/modifiers)
 	add_fingerprint(user)
 	if(!pressure_charging && !full_pressure && !flush)
 		if(I.tool_behaviour == TOOL_SCREWDRIVER)
@@ -119,7 +131,7 @@
 			to_chat(user, span_notice("You [panel_open ? "remove":"attach"] the screws around the power connection."))
 			return
 		else if(I.tool_behaviour == TOOL_WELDER && panel_open)
-			if(!I.tool_start_check(user, amount=1))
+			if(!I.tool_start_check(user, amount=1, heat_required = HIGH_TEMPERATURE_REQUIRED))
 				return
 
 			to_chat(user, span_notice("You start slicing the floorweld off \the [src]..."))
@@ -128,7 +140,7 @@
 				deconstruct()
 			return
 
-	if(!user.combat_mode)
+	if(!user.combat_mode || (I.item_flags & NOBLUDGEON))
 		if((I.item_flags & ABSTRACT) || !user.temporarilyRemoveItemFromInventory(I))
 			return
 		place_item_in_disposal(I, user)
@@ -142,21 +154,32 @@
 	king.visible_message(span_warning("[king] starts rummaging through [src]."),span_notice("You rummage through [src]..."))
 	if (!do_after(king, 2 SECONDS, src, interaction_key = "regalrat"))
 		return
+
+	var/cheese = FALSE
 	var/loot = rand(1,100)
 	switch(loot)
 		if(1 to 5)
 			to_chat(king, span_notice("You find some leftover coins. More for the royal treasury!"))
 			var/pickedcoin = pick(GLOB.ratking_coins)
 			for(var/i = 1 to rand(1,3))
-				new pickedcoin(get_turf(king))
+				new pickedcoin(king.drop_location())
 		if(6 to 33)
+			cheese = TRUE
 			king.say(pick("Treasure!","Our precious!","Cheese!"), ignore_spam = TRUE, forced = "regal rat rummaging")
 			to_chat(king, span_notice("Score! You find some cheese!"))
-			new /obj/item/food/cheese/wedge(get_turf(king))
+			new /obj/item/food/cheese/wedge(king.drop_location())
 		else
 			var/pickedtrash = pick(GLOB.ratking_trash)
 			to_chat(king, span_notice("You just find more garbage and dirt. Lovely, but beneath you now."))
-			new pickedtrash(get_turf(king))
+			new pickedtrash(king.drop_location())
+
+	if (cheese)
+		return // We don't want them to eat your reward
+	var/rat_cap = CONFIG_GET(number/ratcap)
+	if (LAZYLEN(SSmobs.cheeserats) < rat_cap && prob(33))
+		var/mob/living/basic/mouse/new_subject = new(king.drop_location())
+		playsound(new_subject, 'sound/mobs/non-humanoids/mouse/mousesqueek.ogg', 100)
+		visible_message(span_warning("[new_subject] climbs out of [src]!"))
 
 /// Moves an item into the diposal bin
 /obj/machinery/disposal/proc/place_item_in_disposal(obj/item/I, mob/user)
@@ -164,9 +187,11 @@
 	user.visible_message(span_notice("[user.name] places \the [I] into \the [src]."), span_notice("You place \the [I] into \the [src]."))
 
 /// Mouse drop another mob or self
-/obj/machinery/disposal/mouse_drop_receive(mob/living/target, mob/living/user, params)
-	if(istype(target))
+/obj/machinery/disposal/mouse_drop_receive(atom/target, mob/living/user, params)
+	if(isliving(target))
 		stuff_mob_in(target, user)
+	if(istype(target, /obj/structure/closet/body_bag) && (user.mobility_flags & (MOBILITY_PICKUP|MOBILITY_STAND) == (MOBILITY_PICKUP|MOBILITY_STAND)))
+		stuff_bodybag_in(target, user)
 
 /// Handles stuffing a grabbed mob into the disposal
 /obj/machinery/disposal/proc/stuff_mob_in(mob/living/target, mob/living/user)
@@ -175,33 +200,65 @@
 		if (iscyborg(user))
 			var/mob/living/silicon/robot/borg = user
 			if (!borg.model || !borg.model.canDispose)
-				return
+				return FALSE
 		else
-			return
+			return FALSE
 	if(!isturf(user.loc)) //No magically doing it from inside closets
-		return
+		return FALSE
 	if(target.buckled || target.has_buckled_mobs())
-		return
+		return FALSE
 	if(target.mob_size > MOB_SIZE_HUMAN)
 		to_chat(user, span_warning("[target] doesn't fit inside [src]!"))
-		return
+		return FALSE
 	add_fingerprint(user)
 	if(user == target)
 		user.visible_message(span_warning("[user] starts climbing into [src]."), span_notice("You start climbing into [src]..."))
 	else
 		target.visible_message(span_danger("[user] starts putting [target] into [src]."), span_userdanger("[user] starts putting you into [src]!"))
-	if(do_after(user, 2 SECONDS, target))
-		if (!loc)
-			return
-		target.forceMove(src)
-		if(user == target)
-			user.visible_message(span_warning("[user] climbs into [src]."), span_notice("You climb into [src]."))
-			. = TRUE
-		else
-			target.visible_message(span_danger("[user] places [target] in [src]."), span_userdanger("[user] places you in [src]."))
-			log_combat(user, target, "stuffed", addition="into [src]")
-			. = TRUE
-		update_appearance()
+	if(!do_after(user, 2 SECONDS, target) || QDELETED(src))
+		return FALSE
+	target.forceMove(src)
+	if(user == target)
+		user.visible_message(span_warning("[user] climbs into [src]."), span_notice("You climb into [src]."))
+	else
+		target.visible_message(span_danger("[user] places [target] in [src]."), span_userdanger("[user] places you in [src]."))
+		log_combat(user, target, "stuffed", addition="into [src]")
+	update_appearance()
+	return TRUE
+
+/obj/machinery/disposal/proc/stuff_bodybag_in(obj/structure/closet/body_bag/bag, mob/living/user)
+	if(!length(bag.contents))
+		bag.undeploy_bodybag(src)
+		qdel(bag)
+		user.visible_message(
+			span_warning("[user] stuffs the empty [bag.name] into [src]."),
+			span_notice("You stuff the empty [bag.name] into [src].")
+		)
+		return TRUE
+
+	user.visible_message(
+		span_warning("[user] starts putting [bag] into [src]."),
+		span_notice("You start putting [bag] into [src]...")
+	)
+
+	if(!do_after(user, 4 SECONDS, bag) || QDELETED(src))
+		return FALSE
+
+	user.visible_message(
+		span_warning("[user] places [bag] in [src]."),
+		span_notice("You place [bag] in [src].")
+	)
+
+	if(!length(bag.contents))
+		bag.undeploy_bodybag(src)
+		qdel(bag)
+	else
+		bag.add_fingerprint(user)
+		bag.forceMove(src)
+
+	add_fingerprint(user)
+	update_appearance()
+	return TRUE
 
 /obj/machinery/disposal/relaymove(mob/living/user, direction)
 	attempt_escape(user)
@@ -332,7 +389,7 @@
 	var/obj/item/dest_tagger/mounted_tagger
 
 // attack by item places it in to disposal
-/obj/machinery/disposal/bin/attackby(obj/item/weapon, mob/user, params)
+/obj/machinery/disposal/bin/attackby(obj/item/weapon, mob/user, list/modifiers)
 	if(istype(weapon, /obj/item/storage/bag/trash)) //Not doing component overrides because this is a specific type.
 		var/obj/item/storage/bag/trash/bag = weapon
 		to_chat(user, span_warning("You empty the bag."))
@@ -342,7 +399,7 @@
 		return ..()
 // handle machine interaction
 
-/obj/machinery/disposal/bin/attackby_secondary(obj/item/weapon, mob/user, params)
+/obj/machinery/disposal/bin/attackby_secondary(obj/item/weapon, mob/user, list/modifiers)
 	if(istype(weapon, /obj/item/dest_tagger))
 		var/obj/item/dest_tagger/new_tagger = weapon
 		if(mounted_tagger)
@@ -416,7 +473,7 @@
 	data["isai"] = HAS_AI_ACCESS(user)
 	return data
 
-/obj/machinery/disposal/bin/ui_act(action, params)
+/obj/machinery/disposal/bin/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
@@ -459,10 +516,17 @@
 	else
 		return ..()
 
+/obj/machinery/disposal/bin/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(contained_animal)
+		release_animal()
+
 /obj/machinery/disposal/bin/flush()
 	..()
 	full_pressure = FALSE
 	pressure_charging = TRUE
+	if(contained_animal)
+		release_animal()
 	update_appearance()
 
 /obj/machinery/disposal/bin/update_overlays()
@@ -502,6 +566,10 @@
 //timed process
 //charge the gas reservoir and perform flush if ready
 /obj/machinery/disposal/bin/process(seconds_per_tick)
+
+	if(contained_animal)
+		Shake(duration = 2 SECONDS)
+
 	if(machine_stat & BROKEN) //nothing can happen if broken
 		return
 
@@ -650,6 +718,22 @@
 
 	update_appearance()
 	to_chat(user, span_notice("You sweep the pile of garbage into [src]."))
-	playsound(broom.loc, 'sound/weapons/thudswoosh.ogg', 30, TRUE, -1)
+	playsound(broom.loc, 'sound/items/weapons/thudswoosh.ogg', 30, TRUE, -1)
+
+/obj/machinery/disposal/proc/spawn_contained_animal()
+	if(!prob(CONTAINS_ANIMAL_CHANCE) || GLOB.animals_spawned >= MAXIMUM_ANIMAL_SPAWNS)
+		return
+	contained_animal = pick_weight(weighted_animal_list)
+	GLOB.animals_spawned++
+
+/obj/machinery/disposal/bin/proc/release_animal()
+	var/list/open_turfs = get_adjacent_open_turfs(src)
+	var/turf/final_turf = length(open_turfs) ? pick(open_turfs) : drop_location()
+	var/mob/living/startled_animal = new contained_animal(final_turf)
+	visible_message(span_notice("A startled [startled_animal] jumps out of [src]"))
+
 
 #undef SEND_PRESSURE
+#undef CONTAINS_ANIMAL_CHANCE
+#undef ANIMAL_SHAKE_CHANCE
+#undef MAXIMUM_ANIMAL_SPAWNS

@@ -29,6 +29,8 @@
 		"dropper",
 		"pillbottle",
 		"xlarge_beaker",
+		"jerrycan",
+		"reflex_hammer",
 	)
 	experiments_to_unlock = list(
 		/datum/experiment/autopsy/human,
@@ -60,6 +62,7 @@
 		"fluid_ducts",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/medbay_equip_adv
 	id = TECHWEB_NODE_MEDBAY_EQUIP_ADV
@@ -79,6 +82,7 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_3_POINTS)
 	required_experiments = list(/datum/experiment/scanning/reagent/haloperidol)
+	announce_channels = list(RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/cryostasis
 	id = TECHWEB_NODE_CRYOSTASIS
@@ -94,3 +98,4 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_4_POINTS)
 	discount_experiments = list(/datum/experiment/scanning/reagent/cryostylane = TECHWEB_TIER_4_POINTS)
+	announce_channels = list(RADIO_CHANNEL_MEDICAL)
