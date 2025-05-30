@@ -5,9 +5,11 @@
 
 	/// Assoc list of stringified HUMAN_HEIGHT_### defines to string. Passed into CHOICED_PREFERENCE_DISPLAY_NAMES.
 	var/static/list/height_scaling_strings = list(
+		"[HUMAN_HEIGHT_SHORTEST]" = "Shortest", /// NAAKAS-LOUNGE ADDITION
 		"[HUMAN_HEIGHT_SHORT]" = "Short",
 		"[HUMAN_HEIGHT_MEDIUM]" = "Medium",
 		"[HUMAN_HEIGHT_TALL]" = "Tall",
+		"[HUMAN_HEIGHT_TALLER]" = "Taller", /// NAAKAS-LOUNGE ADDITION
 	)
 
 	/// List of strings, representing quirk ids that prevent this from applying and being accessed.
@@ -19,7 +21,7 @@
 /datum/preference/choiced/height_scaling/init_possible_values()
 	// HUMAN_HEIGHT_SHORTEST and HUMAN_HEIGHT_TALLER are left out on maintainer request unless desired later
 	// HUMAN_HEIGHT_TALLEST is disabled because it constantly artifacts
-	return list(HUMAN_HEIGHT_SHORT, HUMAN_HEIGHT_MEDIUM, HUMAN_HEIGHT_TALL)
+	return list(HUMAN_HEIGHT_SHORTEST, HUMAN_HEIGHT_SHORT, HUMAN_HEIGHT_MEDIUM, HUMAN_HEIGHT_TALL, HUMAN_HEIGHT_TALLER) /// NAAKAS-LOUNGE EDIT: adding shortest and taller back
 
 /datum/preference/choiced/height_scaling/create_default_value()
 	return HUMAN_HEIGHT_MEDIUM
@@ -47,8 +49,8 @@
 		if (quirk_id in incompatable_quirk_ids)
 			return FALSE
 
-	if (isteshari(target))
-		value = (max(value, HUMAN_HEIGHT_MEDIUM)) // to respect junis tesh rework i am preventing them from getting shorter
+	//if (isteshari(target)) /// NAAKAS-LOUNGE REMOVAL: let short teshi cook
+		//value = (max(value, HUMAN_HEIGHT_MEDIUM)) // to respect junis tesh rework i am preventing them from getting shorter
 
 	target.set_mob_height(value)
 
