@@ -46,7 +46,12 @@
 		size_stuffed = 0
 	the_bwelly.base_size_stuffed = size_stuffed
 
-	give_item_to_holder(the_bwelly, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS))
+	give_item_to_holder(the_bwelly, list(
+		LOCATION_LPOCKET,
+		LOCATION_RPOCKET,
+		LOCATION_BACKPACK,
+		LOCATION_HANDS,
+	))
 
 
 
