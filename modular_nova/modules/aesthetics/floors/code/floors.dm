@@ -1,6 +1,9 @@
 /turf/open/floor
 	icon = 'modular_nova/modules/aesthetics/floors/icons/floors.dmi'
 
+/turf/open/floor/catwalk_floor
+	icon = 'modular_nova/modules/aesthetics/floors/icons/catwalk_plating.dmi'
+
 //Removes redundant textured stuff from this radial, as all of ours are textured by default
 /obj/item/stack/tile/iron
 	tile_reskin_types = list(
@@ -75,6 +78,9 @@
 	icon_state = "cobble_corner"
 
 /turf/open/floor/plating/reinforced
+	icon = 'icons/turf/floors.dmi'
+
+/turf/open/floor/greenscreen
 	icon = 'icons/turf/floors.dmi'
 
 /turf/open/floor/iron/white/textured_large/airless

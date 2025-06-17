@@ -8,7 +8,7 @@
 /obj/item/borg/upgrade/surgerytools
 	name = "medical cyborg advanced surgery tools"
 	desc = "An upgrade to the Medical model cyborg's surgery loadout, replacing non-advanced tools with their advanced counterpart."
-	icon_state = "cyborg_upgrade3"
+	icon_state = "module_medical"
 	require_model = TRUE
 	model_type = list(/obj/item/robot_model/medical)
 	model_flags = BORG_MODEL_MEDICAL
@@ -17,19 +17,19 @@
 	. = ..()
 	if(.)
 		for(var/obj/item/retractor/RT in borg.model.modules)
-			borg.model.remove_module(RT, TRUE)
+			borg.model.remove_module(RT)
 		for(var/obj/item/hemostat/HS in borg.model.modules)
-			borg.model.remove_module(HS, TRUE)
+			borg.model.remove_module(HS)
 		for(var/obj/item/cautery/CT in borg.model.modules)
-			borg.model.remove_module(CT, TRUE)
+			borg.model.remove_module(CT)
 		for(var/obj/item/surgicaldrill/SD in borg.model.modules)
-			borg.model.remove_module(SD, TRUE)
+			borg.model.remove_module(SD)
 		for(var/obj/item/scalpel/SP in borg.model.modules)
-			borg.model.remove_module(SP, TRUE)
+			borg.model.remove_module(SP)
 		for(var/obj/item/circular_saw/CS in borg.model.modules)
-			borg.model.remove_module(CS, TRUE)
+			borg.model.remove_module(CS)
 		for(var/obj/item/healthanalyzer/HA in borg.model.modules)
-			borg.model.remove_module(HA, TRUE)
+			borg.model.remove_module(HA)
 
 		var/obj/item/scalpel/advanced/AS = new /obj/item/scalpel/advanced(borg.model)
 		borg.model.basic_modules += AS
@@ -48,13 +48,13 @@
 	. = ..()
 	if(.)
 		for(var/obj/item/scalpel/advanced/AS in borg.model.modules)
-			borg.model.remove_module(AS, TRUE)
+			borg.model.remove_module(AS)
 		for(var/obj/item/retractor/advanced/AR in borg.model.modules)
-			borg.model.remove_module(AR, TRUE)
+			borg.model.remove_module(AR)
 		for(var/obj/item/cautery/advanced/AC in borg.model.modules)
-			borg.model.remove_module(AC, TRUE)
+			borg.model.remove_module(AC)
 		for(var/obj/item/healthanalyzer/advanced/AHA in borg.model.modules)
-			borg.model.remove_module(AHA, TRUE)
+			borg.model.remove_module(AHA)
 
 		var/obj/item/retractor/RT = new (borg.model)
 		borg.model.basic_modules += RT
@@ -108,7 +108,7 @@
 /obj/item/borg/upgrade/advanced_materials
 	name = "engineering advanced materials processor"
 	desc = "allows a cyborg to synthesize and store advanced materials"
-	icon_state = "cyborg_upgrade3"
+	icon_state = "module_engineer"
 	model_type = list(/obj/item/robot_model/engineering)
 	model_flags = BORG_MODEL_ENGINEERING
 
@@ -134,42 +134,13 @@
 		return
 	borgo.hasAdvanced = FALSE
 	for(var/obj/item/stack/sheet/plasteel/cyborg/plasteel_holder in borgo.model.modules)
-		borgo.model.remove_module(plasteel_holder, TRUE)
+		borgo.model.remove_module(plasteel_holder)
 	for(var/obj/item/stack/sheet/titaniumglass/cyborg/titanium_holder in borgo.model.modules)
-		borgo.model.remove_module(titanium_holder, TRUE)
+		borgo.model.remove_module(titanium_holder)
 	for(var/datum/robot_energy_storage/plasteel/plasteel_energy in borgo.model.storages)
 		qdel(plasteel_energy)
 	for(var/datum/robot_energy_storage/titanium/titanium_energy in borgo.model.storages)
 		qdel(titanium_energy)
-
-/// funny borg inducer upgrade
-/obj/item/borg/upgrade/inducer
-	name = "engineering cyborg inducer upgrade"
-	desc = "An inducer device for the engineering cyborg."
-	icon_state = "cyborg_upgrade3"
-	require_model = TRUE
-	model_type = list(/obj/item/robot_model/engineering, /obj/item/robot_model/saboteur)
-	model_flags = BORG_MODEL_ENGINEERING
-
-/obj/item/borg/upgrade/inducer/action(mob/living/silicon/robot/target_robot, user = usr)
-	. = ..()
-	if(.)
-
-		var/obj/item/inducer/cyborg/inducer = locate() in target_robot
-		if(inducer)
-			to_chat(user, span_warning("This unit is already equipped with an inducer module!"))
-			return FALSE
-
-		inducer = new(target_robot.model)
-		target_robot.model.basic_modules += inducer
-		target_robot.model.add_module(inducer, FALSE, TRUE)
-
-/obj/item/borg/upgrade/inducer/deactivate(mob/living/silicon/robot/target_robot, user = usr)
-	. = ..()
-	if (.)
-		var/obj/item/inducer/cyborg/inducer = locate() in target_robot.model
-		if (inducer)
-			target_robot.model.remove_module(inducer, TRUE)
 
 /*
 *	ADVANCED MINING CYBORG UPGRADES
@@ -179,7 +150,7 @@
 /obj/item/borg/upgrade/welder
 	name = "mining cyborg welder upgrade"
 	desc = "A normal welder with a larger tank for cyborgs."
-	icon_state = "cyborg_upgrade3"
+	icon_state = "module_engineer"
 	require_model = TRUE
 	model_type = list(/obj/item/robot_model/miner)
 	model_flags = BORG_MODEL_MINER
@@ -188,7 +159,7 @@
 	. = ..()
 	if(.)
 		for(var/obj/item/weldingtool/mini/W in R.model)
-			R.model.remove_module(W, TRUE)
+			R.model.remove_module(W)
 
 		var/obj/item/weldingtool/largetank/cyborg/WW = new /obj/item/weldingtool/largetank/cyborg(R.model)
 		R.model.basic_modules += WW
@@ -198,7 +169,7 @@
 	. = ..()
 	if (.)
 		for(var/obj/item/weldingtool/largetank/cyborg/WW in R.model)
-			R.model.remove_module(WW, TRUE)
+			R.model.remove_module(WW)
 
 		var/obj/item/weldingtool/mini/W = new (R.model)
 		R.model.basic_modules += W
@@ -236,7 +207,7 @@
 	whitelisted_item_description = "envelopes"
 	item_weight_limit = WEIGHT_CLASS_NORMAL
 	clamp_sound_volume = 25
-	clamp_sound = 'sound/items/pshoom.ogg'
+	clamp_sound = 'sound/items/pshoom/pshoom.ogg'
 
 /datum/design/borg_upgrade_clamp
 	name = "improved Integrated Hydraulic Clamp Module"
@@ -257,7 +228,8 @@
 /obj/item/borg/upgrade/better_clamp
 	name = "improved integrated hydraulic clamp"
 	desc = "An improved hydraulic clamp to allow for bigger packages to be picked up as well!"
-	icon_state = "cyborg_upgrade3"
+	icon = 'modular_nova/modules/borgs/icons/robot_items.dmi'
+	icon_state = "module_cargo"
 	require_model = TRUE
 	model_type = list(/obj/item/robot_model/cargo)
 	model_flags = BORG_MODEL_CARGO
@@ -283,7 +255,7 @@
 		return
 	var/obj/item/borg/hydraulic_clamp/better/big_clamp = locate() in cyborg.model.modules
 	if(big_clamp)
-		cyborg.model.remove_module(big_clamp, TRUE)
+		cyborg.model.remove_module(big_clamp)
 
 /*
 *	UNIVERSAL CYBORG UPGRADES
@@ -293,7 +265,7 @@
 /obj/item/borg/upgrade/borg_shapeshifter
 	name = "Cyborg Shapeshifter Module"
 	desc = "An experimental device which allows a cyborg to disguise themself into another type of cyborg."
-	icon_state = "cyborg_upgrade3"
+	icon_state = "module_general"
 
 /obj/item/borg/upgrade/borg_shapeshifter/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
@@ -306,13 +278,13 @@
 	. = ..()
 	if (.)
 		for(var/obj/item/borg_shapeshifter/BS in R.model)
-			R.model.remove_module(BS, TRUE)
+			R.model.remove_module(BS)
 
 /// Quadborg time
 /obj/item/borg/upgrade/affectionmodule
 	name = "borg affection module"
 	desc = "A module that upgrades the ability of borgs to display affection."
-	icon_state = "cyborg_upgrade3"
+	icon_state = "module_peace"
 
 /obj/item/borg/upgrade/affectionmodule/action(mob/living/silicon/robot/borg)
 	. = ..()
@@ -339,9 +311,9 @@
 		return
 	borg.hasAffection = FALSE
 	for(var/obj/item/quadborg_tongue/quadtongue in borg.model.modules)
-		borg.model.remove_module(quadtongue, TRUE)
+		borg.model.remove_module(quadtongue)
 	for(var/obj/item/quadborg_nose/quadnose in borg.model.modules)
-		borg.model.remove_module(quadnose, TRUE)
+		borg.model.remove_module(quadnose)
 
 // Quadruped tongue - lick lick
 /obj/item/quadborg_tongue
@@ -349,7 +321,7 @@
 	desc = "Useful for slurping mess off the floor before affectionally licking the crew members in the face."
 	icon = 'modular_nova/modules/borgs/icons/robot_items.dmi'
 	icon_state = "synthtongue"
-	hitsound = 'sound/effects/attackblob.ogg'
+	hitsound = 'sound/effects/blob/attackblob.ogg'
 	desc = "For giving affectionate kisses."
 	item_flags = NOBLUDGEON
 
@@ -365,7 +337,7 @@
 		borg.visible_message(span_warning("\the [borg] affectionally licks \the [mob]'s face!"), span_notice("You affectionally lick \the [mob]'s face!"))
 	else
 		borg.visible_message(span_warning("\the [borg] affectionally licks \the [mob]!"), span_notice("You affectionally lick \the [mob]!"))
-	playsound(borg, 'sound/effects/attackblob.ogg', 50, 1)
+	playsound(borg, 'sound/effects/blob/attackblob.ogg', 50, 1)
 	return ITEM_INTERACT_SUCCESS
 
 // Quadruped nose - Boop
@@ -396,7 +368,7 @@
 /obj/item/borg/upgrade/shrink
 	name = "borg shrinker"
 	desc = "A cyborg resizer, it makes a cyborg small."
-	icon_state = "cyborg_upgrade3"
+	icon_state = "module_general"
 
 /obj/item/borg/upgrade/shrink/action(mob/living/silicon/robot/borg, user = usr)
 	. = ..()
@@ -418,7 +390,7 @@
 		smoke.start()
 		sleep(0.2 SECONDS)
 		for(var/i in 1 to 4)
-			playsound(borg, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 80, TRUE, -1)
+			playsound(borg, pick('sound/items/tools/drill_use.ogg', 'sound/items/tools/jaws_cut.ogg', 'sound/items/tools/jaws_pry.ogg', 'sound/items/tools/welder.ogg', 'sound/items/tools/ratchet.ogg'), 80, TRUE, -1)
 			sleep(1.2 SECONDS)
 		if(!prev_lockcharge)
 			borg.SetLockdown(FALSE)
@@ -437,7 +409,7 @@
 /obj/item/borg/upgrade/transform/syndicatejack
 	name = "borg module picker (Syndicate)"
 	desc = "Allows you to to turn a cyborg into a experimental syndicate cyborg."
-	icon_state = "cyborg_upgrade3"
+	icon_state = "module_illegal"
 	new_model = /obj/item/robot_model/syndicatejack
 
 /obj/item/borg/upgrade/transform/syndicatejack/action(mob/living/silicon/robot/cyborg, user = usr) // Only usable on emagged cyborgs. In exchange. makes you unable to get locked down or detonated.
@@ -448,7 +420,8 @@
 /obj/item/borg/upgrade/dominatrixmodule
 	name = "borg dominatrix module"
 	desc = "A module that greatly upgrades the ability of borgs to display affection."
-	icon_state = "cyborg_upgrade3"
+	icon = 'modular_nova/modules/borgs/icons/robot_items.dmi'
+	icon_state = "module_lust"
 	custom_price = 0
 
 /obj/item/borg/upgrade/dominatrixmodule/action(mob/living/silicon/robot/borg)
@@ -472,6 +445,9 @@
 	var/obj/item/tickle_feather/tickler = new /obj/item/tickle_feather()
 	borg.model.basic_modules += tickler
 	borg.model.add_module(tickler, FALSE, TRUE)
+	var/obj/item/clothing/sextoy/fleshlight/fleshlight = new /obj/item/clothing/sextoy/fleshlight()
+	borg.model.basic_modules += fleshlight
+	borg.model.add_module(fleshlight, FALSE, TRUE)
 
 /obj/item/borg/upgrade/dominatrixmodule/deactivate(mob/living/silicon/robot/borg, user = usr)
 	. = ..()
@@ -479,10 +455,12 @@
 		return
 
 	for(var/obj/item/kinky_shocker/shocker in borg.model.modules)
-		borg.model.remove_module(shocker, TRUE)
+		borg.model.remove_module(shocker)
 	for(var/obj/item/clothing/mask/leatherwhip/whipper in borg.model.modules)
-		borg.model.remove_module(whipper, TRUE)
+		borg.model.remove_module(whipper)
 	for(var/obj/item/spanking_pad/spanker in borg.model.modules)
-		borg.model.remove_module(spanker, TRUE)
+		borg.model.remove_module(spanker)
 	for(var/obj/item/tickle_feather/tickler in borg.model.modules)
-		borg.model.remove_module(tickler, TRUE)
+		borg.model.remove_module(tickler)
+	for(var/obj/item/clothing/sextoy/fleshlight/fleshlight in borg.model.modules)
+		borg.model.remove_module(fleshlight)

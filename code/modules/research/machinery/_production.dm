@@ -21,8 +21,13 @@
 	var/stripe_color = null
 	///direction we output onto (if 0, on top of us)
 	var/drop_direction = 0
+	///looping sound for printing items
+	var/datum/looping_sound/lathe_print/print_sound
+	///made so we dont call addtimer() 40,000 times in on_techweb_update(). only allows addtimer() to be called on the first update
+	var/techweb_updating = FALSE
 
 /obj/machinery/rnd/production/Initialize(mapload)
+	print_sound = new(src,  FALSE)
 	materials = AddComponent(
 		/datum/component/remote_materials, \
 		mapload, \
@@ -48,6 +53,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/rnd/production/Destroy()
+	QDEL_NULL(print_sound)
 	materials = null
 	cached_designs = null
 	return ..()
@@ -74,6 +80,7 @@
 		return
 
 	. += span_notice("Material usage cost at <b>[efficiency_coeff * 100]%</b>")
+	. += span_notice("Build time at <b>[efficiency_coeff * 100]%</b>")
 	if(drop_direction)
 		. += span_notice("Currently configured to drop printed objects <b>[dir2text(drop_direction)]</b>.")
 		. += span_notice("[EXAMINE_HINT("Alt-click")] to reset.")
@@ -103,6 +110,7 @@
 /// Updates the list of designs this fabricator can print.
 /obj/machinery/rnd/production/proc/update_designs()
 	PROTECTED_PROC(TRUE)
+	techweb_updating = FALSE
 
 	var/previous_design_count = cached_designs.len
 
@@ -118,16 +126,16 @@
 
 	if(design_delta > 0)
 		say("Received [design_delta] new design[design_delta == 1 ? "" : "s"].")
-		playsound(src, 'sound/machines/twobeep_high.ogg', 50, TRUE)
+		playsound(src, 'sound/machines/beep/twobeep_high.ogg', 50, TRUE)
 
 	update_static_data_for_all_viewers()
 
 /obj/machinery/rnd/production/proc/on_techweb_update()
 	SIGNAL_HANDLER
 
-	// We're probably going to get more than one update (design) at a time, so batch
-	// them together.
-	addtimer(CALLBACK(src, PROC_REF(update_designs)), 2 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	if(!techweb_updating) //so we batch these updates together
+		techweb_updating = TRUE
+		addtimer(CALLBACK(src, PROC_REF(update_designs)), 2 SECONDS)
 
 ///When materials are instered via silo link
 /obj/machinery/rnd/production/proc/silo_material_insert(obj/machinery/rnd/machine, container, obj/item/item_inserted, last_inserted_id, list/mats_consumed, amount_inserted)
@@ -169,7 +177,7 @@
 	SHOULD_CALL_PARENT(FALSE)
 
 	//first play the insertion animation
-	flick_overlay_view(material_insertion_animation(mat_ref.greyscale_colors), 1 SECONDS)
+	flick_overlay_view(material_insertion_animation(mat_ref), 1 SECONDS)
 
 	//now play the progress bar animation
 	flick_overlay_view(mutable_appearance('icons/obj/machines/research.dmi', "protolathe_progress"), 1 SECONDS)
@@ -219,8 +227,8 @@
 
 /obj/machinery/rnd/production/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/sheetmaterials),
-		get_asset_datum(/datum/asset/spritesheet/research_designs)
+		get_asset_datum(/datum/asset/spritesheet_batched/sheetmaterials),
+		get_asset_datum(/datum/asset/spritesheet_batched/research_designs)
 	)
 
 /obj/machinery/rnd/production/ui_interact(mob/user, datum/tgui/ui)
@@ -234,7 +242,7 @@
 
 	var/list/designs = list()
 
-	var/datum/asset/spritesheet/research_designs/spritesheet = get_asset_datum(/datum/asset/spritesheet/research_designs)
+	var/datum/asset/spritesheet_batched/research_designs/spritesheet = get_asset_datum(/datum/asset/spritesheet_batched/research_designs)
 	var/size32x32 = "[spritesheet.name]32x32"
 
 	var/coefficient
@@ -341,7 +349,7 @@
 			for(var/material in design.materials)
 				charge_per_item += design.materials[material]
 			charge_per_item = ROUND_UP((charge_per_item / (MAX_STACK_SIZE * SHEET_MATERIAL_AMOUNT)) * coefficient * active_power_usage)
-			var/build_time_per_item = (design.construction_time * design.lathe_time_factor) ** 0.8
+			var/build_time_per_item = (design.construction_time * design.lathe_time_factor * efficiency_coeff) ** 0.8
 			// NOVA EDIT ADDITION START - Faster lathes
 			if(!speedup_disabled)
 				build_time_per_item *= 0.1
@@ -350,6 +358,7 @@
 			//start production
 			busy = TRUE
 			SStgui.update_uis(src)
+			print_sound.start()
 			if(production_animation)
 				icon_state = production_animation
 			start_printing_visuals() // NOVA EDIT ADDITION - COLONY FABRICATOR STUFF
@@ -421,8 +430,9 @@
 		var/number_to_make = (initial(stack_item.amount) * items_remaining)
 		while(number_to_make > max_stack_amount)
 			created = new stack_item(null, max_stack_amount) //it's imporant to spawn things in nullspace, since obj's like stacks qdel when they enter a tile/merge with other stacks of the same type, resulting in runtimes.
-			created.pixel_x = created.base_pixel_x + rand(-6, 6)
-			created.pixel_y = created.base_pixel_y + rand(-6, 6)
+			if(isitem(created))
+				created.pixel_x = created.base_pixel_x + rand(-6, 6)
+				created.pixel_y = created.base_pixel_y + rand(-6, 6)
 			created.forceMove(target)
 			number_to_make -= max_stack_amount
 
@@ -431,8 +441,9 @@
 		created = new design.build_path(null)
 		split_materials_uniformly(design_materials, material_cost_coefficient, created)
 
-	created.pixel_x = created.base_pixel_x + rand(-6, 6)
-	created.pixel_y = created.base_pixel_y + rand(-6, 6)
+	if(isitem(created))
+		created.pixel_x = created.base_pixel_x + rand(-6, 6)
+		created.pixel_y = created.base_pixel_y + rand(-6, 6)
 	SSblackbox.record_feedback("nested tally", "lathe_printed_items", 1, list("[type]", "[created.type]"))
 	created.forceMove(target)
 
@@ -450,7 +461,7 @@
 /// Called at the end of do_make_item's timer loop
 /obj/machinery/rnd/production/proc/finalize_build()
 	PROTECTED_PROC(TRUE)
-
+	print_sound.stop()
 	busy = FALSE
 	SStgui.update_uis(src)
 	icon_state = initial(icon_state)

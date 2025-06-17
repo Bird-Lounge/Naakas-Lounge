@@ -30,6 +30,7 @@
 				/obj/item/clothing/under/costume/nova/kamishimo = 5,
 				/obj/item/clothing/under/costume/nova/yukata = 5,
 				/obj/item/clothing/under/costume/nova/kimono = 5,
+				/obj/item/clothing/under/costume/nova/shihakusho = 5,
 				/obj/item/clothing/head/beret/badge = 5,
 				/obj/item/clothing/mask/masquerade = 25,
 				/obj/item/clothing/mask/masquerade/two_colors = 25,
@@ -83,7 +84,7 @@
 	)
 
 	contraband_nova = list(
-		/obj/item/clothing/mask/balaclavaadjust = 5,
+		/obj/item/clothing/mask/balaclava/adjustable = 5,
 		/obj/item/clothing/mask/balaclava/threehole = 5,
 		/obj/item/clothing/mask/balaclava/threehole/green = 5,
 		/obj/item/clothing/head/hats/imperial/helmet = 5,
@@ -94,4 +95,8 @@
 		/obj/item/clothing/under/rank/captain/nova/imperial/generic/red = 5,
 		/obj/item/clothing/under/rank/captain/nova/imperial/generic/grey = 5,
 		/obj/item/clothing/under/rank/captain/nova/imperial/generic = 5,
+	)
+
+	premium_nova = list(
+		/obj/item/clothing/under/dress/wedding_dress/ribbon = 1,
 	)

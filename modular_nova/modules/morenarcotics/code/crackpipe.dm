@@ -1,4 +1,4 @@
-/obj/item/clothing/mask/cigarette/pipe/crackpipe
+/obj/item/cigarette/pipe/crackpipe
 	name = "crack pipe"
 	desc = "A slick glass pipe made for smoking one thing: crack."
 	icon = 'modular_nova/modules/morenarcotics/icons/crack.dmi'
@@ -8,7 +8,7 @@
 	icon_off = "glass_pipeoff"
 	chem_volume = 20
 
-/obj/item/clothing/mask/cigarette/pipe/crackpipe/process(seconds_per_tick)
+/obj/item/cigarette/pipe/crackpipe/process(seconds_per_tick)
 	smoketime -= seconds_per_tick
 	if(smoketime <= 0)
 		if(ismob(loc))
@@ -27,16 +27,16 @@
 		handle_reagents()
 
 
-/obj/item/clothing/mask/cigarette/pipe/crackpipe/attackby(obj/item/used_item, mob/user, params)
-	if(is_type_in_list(used_item, list(/obj/item/reagent_containers/crack,/obj/item/reagent_containers/blacktar)))
-		to_chat(user, span_notice("You stuff [used_item] into [src]."))
+/obj/item/cigarette/pipe/crackpipe/attackby(obj/item/attacking_item, mob/user, list/modifiers, list/attack_modifiers)
+	if(is_type_in_list(attacking_item, list(/obj/item/reagent_containers/crack,/obj/item/reagent_containers/blacktar)))
+		to_chat(user, span_notice("You stuff [attacking_item] into [src]."))
 		smoketime = 2 * 60
-		name = "[used_item.name]-packed [initial(name)]"
-		if(used_item.reagents)
-			used_item.reagents.trans_to(src, used_item.reagents.total_volume, transferred_by = user)
-		qdel(used_item)
+		name = "[attacking_item.name]-packed [initial(name)]"
+		if(attacking_item.reagents)
+			attacking_item.reagents.trans_to(src, attacking_item.reagents.total_volume, transferred_by = user)
+		qdel(attacking_item)
 	else
-		var/lighting_text = used_item.ignition_effect(src,user)
+		var/lighting_text = attacking_item.ignition_effect(src,user)
 		if(lighting_text)
 			if(smoketime > 0)
 				light(lighting_text)
@@ -47,7 +47,7 @@
 
 /datum/crafting_recipe/crackpipe
 	name = "Crack pipe"
-	result = /obj/item/clothing/mask/cigarette/pipe/crackpipe
+	result = /obj/item/cigarette/pipe/crackpipe
 	reqs = list(/obj/item/stack/cable_coil = 5,
 				/obj/item/shard = 1,
 				/obj/item/stack/rods = 10)

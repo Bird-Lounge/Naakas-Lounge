@@ -6,14 +6,16 @@
 /obj/item/stack/shibari_rope
 	name = "shibari ropes"
 	desc = "Coil of bondage ropes."
-	icon = 'modular_nova/modules/modular_items/lewd_items/icons/obj/lewd_items/lewd_items.dmi'
-	icon_state = "shibari_rope"
+	full_w_class = WEIGHT_CLASS_SMALL
 	amount = 1
 	merge_type = /obj/item/stack/shibari_rope
 	singular_name = "rope"
 	max_amount = 5
 	flags_1 = IS_PLAYER_COLORABLE_1
 
+	icon = 'icons/map_icons/items/_item.dmi'
+	icon_state = "/obj/item/stack/shibari_rope"
+	post_init_icon_state = "shibari_rope"
 	greyscale_config = /datum/greyscale_config/shibari_rope
 	greyscale_colors = "#bd8fcf"
 
@@ -39,8 +41,10 @@
 /obj/item/stack/shibari_rope/glow
 	name = "glowy shibari ropes"
 	singular_name = "glowy rope"
+	full_w_class = WEIGHT_CLASS_SMALL
 	merge_type = /obj/item/stack/shibari_rope/glow
-	icon_state = "shibari_rope_glow"
+	icon_state = "/obj/item/stack/shibari_rope/glow"
+	post_init_icon_state = "shibari_rope_glow"
 	light_system = OVERLAY_LIGHT
 	light_range = 1
 	light_on = TRUE
@@ -57,7 +61,7 @@
 /obj/item/stack/shibari_rope/update_overlays()
 	. = ..()
 	if(glow)
-		. += emissive_appearance(icon, icon_state, src, alpha = alpha)
+		. += emissive_appearance(icon, post_init_icon_state, src, alpha = alpha)
 
 /obj/item/stack/shibari_rope/worn_overlays(mutable_appearance/standing, isinhands, icon_file)
 	. = ..()
@@ -317,16 +321,16 @@
 	switch(tightness)
 		if(ROPE_TIGHTNESS_HIGH)
 			tightness = ROPE_TIGHTNESS_LOW
-			play_lewd_sound(loc, 'modular_nova/modules/modular_items/lewd_items/sounds/latex.ogg', 25)
-			balloon_alert(user, span_notice("You slightly tightened the ropes"))
+			playsound_if_pref(loc, 'modular_nova/modules/modular_items/lewd_items/sounds/latex.ogg', 25)
+			balloon_alert(user, "slightly tightened the ropes")
 		if(ROPE_TIGHTNESS_LOW)
 			tightness = ROPE_TIGHTNESS_MED
-			play_lewd_sound(loc, 'modular_nova/modules/modular_items/lewd_items/sounds/latex.ogg', 50)
-			balloon_alert(user, span_notice("You moderately tightened the ropes"))
+			playsound_if_pref(loc, 'modular_nova/modules/modular_items/lewd_items/sounds/latex.ogg', 50)
+			balloon_alert(user, "moderately tightened the ropes")
 		if(ROPE_TIGHTNESS_MED)
 			tightness = ROPE_TIGHTNESS_HIGH
-			play_lewd_sound(loc, 'modular_nova/modules/modular_items/lewd_items/sounds/latex.ogg', 75)
-			balloon_alert(user, span_notice("You strongly tightened the ropes"))
+			playsound_if_pref(loc, 'modular_nova/modules/modular_items/lewd_items/sounds/latex.ogg', 75)
+			balloon_alert(user, "strongly tightened the ropes")
 
 #undef ROPE_TIGHTNESS_LOW
 #undef ROPE_TIGHTNESS_MED

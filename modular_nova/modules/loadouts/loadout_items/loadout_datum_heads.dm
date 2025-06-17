@@ -1,12 +1,4 @@
-/*
-*	LOADOUT ITEM DATUMS FOR THE HEAD SLOT
-*/
-
-/// Head Slot Items (Moves overrided items to backpack)
-GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/head))
-
-/datum/loadout_item/head
-	category = LOADOUT_ITEM_HEAD
+// LOADOUT ITEM DATUMS FOR THE HEAD SLOT
 
 /datum/loadout_item/head/pre_equip_item(datum/outfit/outfit, datum/outfit/outfit_important_for_life, mob/living/carbon/human/equipper, visuals_only = FALSE)
 	if(initial(outfit_important_for_life.head))
@@ -129,6 +121,10 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 	name = "Mothic Softcap"
 	item_path = /obj/item/clothing/head/mothcap
 
+/datum/loadout_item/head/colonialcap
+	name = "Colonial Cap"
+	item_path = /obj/item/clothing/head/hats/colonial
+
 /datum/loadout_item/head/frontiercap
 	name = "Frontier Cap"
 	item_path = /obj/item/clothing/head/soft/frontier_colonist
@@ -145,6 +141,10 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 /*
 *	FEDORAS
 */
+
+/datum/loadout_item/head/greyscale_fedora
+	name = "Recolorable Fedora"
+	item_path = /obj/item/clothing/head/fedora/greyscale
 
 /datum/loadout_item/head/black_fedora
 	name = "Black Fedora"
@@ -189,18 +189,6 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 /*
 *	MISC
 */
-
-/datum/loadout_item/head/hair_tie
-	name = "Hair Tie"
-	item_path = /obj/item/clothing/head/hair_tie
-
-/datum/loadout_item/head/hair_tie_scrunchie
-	name = "Scrunchie"
-	item_path = /obj/item/clothing/head/hair_tie/scrunchie
-
-/datum/loadout_item/head/hair_tie_plastic_beads
-	name = "Colorful Hair tie"
-	item_path = /obj/item/clothing/head/hair_tie/plastic_beads
 
 /datum/loadout_item/head/standalone_hood
 	name = "Recolorable Standalone Hood"
@@ -272,7 +260,7 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 
 /datum/loadout_item/head/back_bow
 	name = "Colourable Back Bow"
-	item_path = /obj/item/clothing/head/back_bow
+	item_path = /obj/item/clothing/head/large_bow/back_bow
 
 /datum/loadout_item/head/small_bow
 	name = "Colourable Small Bow"
@@ -280,11 +268,27 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 
 /datum/loadout_item/head/sweet_bow
 	name = "Colourable Sweet bow"
-	item_path = /obj/item/clothing/head/sweet_bow
+	item_path = /obj/item/clothing/head/large_bow/sweet_bow
 
 /datum/loadout_item/head/maid_headband
 	name = "Colourable Maid Headband"
 	item_path = /obj/item/clothing/head/maid_headband
+
+/datum/loadout_item/head/tactical_headband
+	name ="tactical maid headband"
+	item_path = /obj/item/clothing/head/costume/maidheadband/syndicate/loadout_headband
+
+/datum/loadout_item/head/hairpin
+	name = "Fancy Hairpin"
+	item_path = /obj/item/clothing/head/costume/hairpin
+
+/datum/loadout_item/head/skrell_chain_gold
+	name = "Gold skrellian head chain"
+	item_path = /obj/item/clothing/head/skrell_chain
+
+/datum/loadout_item/head/skrell_chain_silver
+	name = "Silver skrellian head chain"
+	item_path = /obj/item/clothing/head/skrell_chain/silver
 
 /*
 *	CHRISTMAS
@@ -342,10 +346,6 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 *	MISC
 */
 
-/datum/loadout_item/head/baseball
-	name = "Ballcap"
-	item_path = /obj/item/clothing/head/soft/mime
-
 /datum/loadout_item/head/pirate
 	name = "Pirate hat"
 	item_path = /obj/item/clothing/head/costume/pirate
@@ -401,12 +401,18 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 /datum/loadout_item/head/maidhead
 	name = "Simple Maid Headband"
 	item_path = /obj/item/clothing/head/costume/nova/maid
-	additional_tooltip_contents = list("Small headband that only fits on top the head.")
+
+/datum/loadout_item/head/maidhead/get_item_information()
+	. = ..()
+	.[FA_ICON_HAT_COWBOY] = "Top of Head"
 
 /datum/loadout_item/head/maidhead2
 	name = "Frilly Maid Headband"
 	item_path = /obj/item/clothing/head/costume/maidheadband
-	additional_tooltip_contents = list("Larger headband from the maid rework. Fits around head and ears.")
+
+/datum/loadout_item/head/maidhead2/get_item_information()
+	. = ..()
+	.[FA_ICON_EAR_DEAF] = "Behind Ears"
 
 /datum/loadout_item/head/wig
 	name = "Wig"
@@ -513,6 +519,22 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 	name = "Officer's Cap (Red)"
 	item_path = /obj/item/clothing/head/hats/caphat/parade/fedcap/sec
 
+/datum/loadout_item/head/trekcapcustom
+	name = "Officer's Cap (Custom)"
+	item_path = /obj/item/clothing/head/hats/caphat/parade/fedcap/custom
+
+/datum/loadout_item/head/trekcapcustom_gold
+	name = "Officer's Cap (Custom, Gold Badge)"
+	item_path = /obj/item/clothing/head/hats/caphat/parade/fedcap/custom/gold
+
+/datum/loadout_item/head/navalcap
+	name = "Custom Naval Cap"
+	item_path = /obj/item/clothing/head/hats/caphat/naval/custom
+
+/datum/loadout_item/head/navalcap_gold
+	name = "Custom Naval Cap (Gold Badge)"
+	item_path = /obj/item/clothing/head/hats/caphat/naval/custom/gold
+
 /*
 *	JOB-LOCKED
 */
@@ -567,6 +589,26 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 	item_path = /obj/item/clothing/head/beret/sec/navyofficer
 	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_WARDEN)
 
+/datum/loadout_item/head/officergarrisoncap
+	name = "Security Officer Garrison Cap"
+	item_path = /obj/item/clothing/head/security_garrison
+	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_WARDEN)
+
+/datum/loadout_item/head/officercap
+	name = "Security Officer's Cap"
+	item_path = /obj/item/clothing/head/security_cap
+	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_WARDEN)
+
+/datum/loadout_item/head/officerberet
+	name = "Security Officer's Beret"
+	item_path = /obj/item/clothing/head/beret/sec/nova
+	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_WARDEN)
+
+/datum/loadout_item/head/officerpatrolcap
+	name = "Security Officer Patrol Cap"
+	item_path = /obj/item/clothing/head/hats/warden/police/patrol
+	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_WARDEN)
+
 /datum/loadout_item/head/navybluewardenberet
 	name = "Warden's Navy Blue beret"
 	item_path = /obj/item/clothing/head/beret/sec/navywarden
@@ -580,6 +622,11 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 	name = "Type-34P Forensics Headwear"
 	item_path = /obj/item/clothing/head/fedora/det_hat/cybergoggles
 	restricted_roles = list(JOB_WARDEN, JOB_DETECTIVE, JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER)
+
+/datum/loadout_item/head/detfedora
+	name = "Detective's Fedora"
+	item_path = /obj/item/clothing/head/fedora/det_hat
+	restricted_roles = list(JOB_DETECTIVE)
 
 /datum/loadout_item/head/nursehat
 	name = "Nurse Hat"
@@ -612,14 +659,10 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 /datum/loadout_item/head/azulea_oldblood
 	name = "Oldblood's Royal cap"
 	item_path = /obj/item/clothing/head/hats/caphat/azulean/old_blood
-	restricted_roles = list(JOB_CAPTAIN, JOB_NT_REP)
-	restricted_species = list(SPECIES_AKULA)
 
 /datum/loadout_item/head/azulea_upstart
 	name = "Upstart's Noble cap"
 	item_path = /obj/item/clothing/head/hats/caphat/azulean/upstart
-	restricted_roles = list(JOB_CAPTAIN, JOB_NT_REP)
-	restricted_species = list(SPECIES_AKULA)
 
 /*
 *	JOB BERETS
@@ -682,31 +725,16 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 */
 
 /datum/loadout_item/head/donator
+	abstract_type = /datum/loadout_item/head/donator
 	donator_only = TRUE
 
 /*
 *	FLOWERS
 */
 
-/datum/loadout_item/head/donator/poppy
-	name = "Poppy Flower"
-	item_path = /obj/item/food/grown/poppy
-
-/datum/loadout_item/head/donator/lily
-	name = "Lily Flower"
-	item_path = /obj/item/food/grown/poppy/lily
-
-/datum/loadout_item/head/donator/geranium
-	name = "Geranium Flower"
-	item_path = /obj/item/food/grown/poppy/geranium
-
 /datum/loadout_item/head/donator/fraxinella
 	name = "Fraxinella Flower"
 	item_path = /obj/item/food/grown/poppy/geranium/fraxinella
-
-/datum/loadout_item/head/donator/harebell
-	name = "Harebell Flower"
-	item_path = /obj/item/food/grown/harebell
 
 /datum/loadout_item/head/donator/rose
 	name = "Rose Flower"
@@ -716,16 +744,19 @@ GLOBAL_LIST_INIT(loadout_helmets, generate_loadout_items(/datum/loadout_item/hea
 	name = "Carbon Rose Flower"
 	item_path = /obj/item/grown/carbon_rose
 
-/datum/loadout_item/head/donator/sunflower
-	name = "Sunflower"
-	item_path = /obj/item/food/grown/sunflower
-
 /datum/loadout_item/head/donator/rainbow_bunch
 	name = "Rainbow Bunch"
 	item_path = /obj/item/food/grown/rainbow_flower
-	additional_tooltip_contents = list(TOOLTIP_RANDOM_COLOR)
+
+/datum/loadout_item/head/donator/rainbow_bunch/get_item_information()
+	. = ..()
+	.[FA_ICON_DICE] = TOOLTIP_RANDOM_COLOR
 
 // Legacy unpaintable cowboy hat because it fits a character better
 /datum/loadout_item/head/cowboyhat_legacy
 	name = "Cowboy Hat (Legacy)"
 	item_path = /obj/item/clothing/head/costume/cowboyhat_old
+
+/datum/loadout_item/head/cone_of_shame
+	name = "Cone of Shame"
+	item_path = /obj/item/clothing/head/cone_of_shame

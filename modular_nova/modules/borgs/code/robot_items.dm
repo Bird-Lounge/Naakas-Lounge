@@ -22,7 +22,7 @@
 	/// How long is the integrated printer's cooldown?
 	var/printer_cooldown_time = 10 SECONDS
 	/// How much charge is required to print a piece of paper?
-	var/paper_charge_cost = 50
+	var/paper_charge_cost = STANDARD_CELL_CHARGE * 0.05
 
 
 /obj/item/clipboard/cyborg/Initialize(mapload)
@@ -49,16 +49,15 @@
 	// Check for cooldown to avoid paper spamming
 	if(COOLDOWN_FINISHED(src, printer_cooldown))
 		// If there's not too much paper already, let's go
-		if(!toppaper_ref || length(contents) < MAX_PAPER_INTEGRATED_CLIPBOARD)
+		if(isnull(top_paper) || length(contents) < MAX_PAPER_INTEGRATED_CLIPBOARD)
 			cyborg_user.cell.use(paper_charge_cost)
 			COOLDOWN_START(src, printer_cooldown, printer_cooldown_time)
 			var/obj/item/paper/new_paper = new /obj/item/paper
 			new_paper.forceMove(src)
-			if(toppaper_ref)
-				var/obj/item/paper/toppaper = toppaper_ref?.resolve()
-				UnregisterSignal(toppaper, COMSIG_ATOM_UPDATED_ICON)
+			if(top_paper)
+				UnregisterSignal(top_paper, COMSIG_ATOM_UPDATED_ICON)
 			RegisterSignal(new_paper, COMSIG_ATOM_UPDATED_ICON, PROC_REF(on_top_paper_change))
-			toppaper_ref = WEAKREF(new_paper)
+			top_paper = new_paper
 			update_appearance()
 			to_chat(user, span_notice("[src]'s integrated printer whirs to life, spitting out a fresh piece of paper and clipping it into place."))
 			return CLICK_ACTION_SUCCESS
@@ -81,7 +80,7 @@
 	icon = 'icons/obj/devices/mecha_equipment.dmi' // Just some temporary sprites because I don't have any unique one yet
 	icon_state = "mecha_clamp"
 	/// How much power does it draw per operation?
-	var/charge_cost = 20
+	var/charge_cost = STANDARD_CELL_CHARGE * 0.02
 	/// How many items can it hold at once in its internal storage?
 	var/storage_capacity = 5
 	/// Does it require the items it takes in to be wrapped in paper wrap? Can have unforeseen consequences, change to FALSE at your own risks.
@@ -95,7 +94,7 @@
 	/// Can it hold mobs? (Dangerous, it is recommended to leave this to FALSE)
 	var/can_hold_mobs = FALSE
 	/// Audio for using the hydraulic clamp.
-	var/clamp_sound = 'sound/mecha/hydraulic.ogg'
+	var/clamp_sound = 'sound/vehicles/mecha/hydraulic.ogg'
 	/// Volume of the clamp's loading and unloading noise.
 	var/clamp_sound_volume = 25
 	/// Cooldown for the clamp.
@@ -134,7 +133,7 @@
 
 /obj/item/borg/hydraulic_clamp/examine(mob/user)
 	. = ..()
-	. += span_notice("It's cargo hold has a capacity of [storage_capacity] and is currently holding <b>[contents.len ? contents.len : 0]</b> items in it!")
+	. += span_notice("Its cargo hold has a capacity of [storage_capacity] and is currently holding <b>[contents.len ? contents.len : 0]</b> items in it!")
 	if(storage_capacity > 1)
 		. += span_notice("Use in hand to select an item you want to prioritize taking out of the storage.")
 
@@ -379,7 +378,7 @@
 		return ITEM_INTERACT_BLOCKING
 
 	var/mob/living/silicon/robot/robot_user = user
-	if(!robot_user.cell.use(10))
+	if(!robot_user.cell.use(STANDARD_CELL_CHARGE * 0.1))
 		to_chat(user, span_warning("Not enough power."))
 		return ITEM_INTERACT_BLOCKING
 	return shoot(interacting_with, user)
@@ -463,7 +462,7 @@
 	desc = "A cyborg fitted module resembling the jaws of life."
 	icon = 'modular_nova/modules/borgs/icons/robot_items.dmi'
 	icon_state = "jaws_pry_cyborg"
-	usesound = 'sound/items/jaws_pry.ogg'
+	usesound = 'sound/items/tools/jaws_pry.ogg'
 	force = 10
 	toolspeed = 0.5
 
@@ -472,25 +471,25 @@
 	. += " It's fitted with a [tool_behaviour == TOOL_CROWBAR ? "prying" : "cutting"] head."
 
 /obj/item/crowbar/cyborg/power/attack_self(mob/user)
-	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, TRUE)
+	playsound(get_turf(user), 'sound/items/tools/change_jaws.ogg', 50, TRUE)
 	if(tool_behaviour == TOOL_CROWBAR)
 		tool_behaviour = TOOL_WIRECUTTER
 		to_chat(user, span_notice("You attach the cutting jaws to [src]."))
 		icon_state = "jaws_cutter_cyborg"
-		usesound = 'sound/items/jaws_cut.ogg'
+		usesound = 'sound/items/tools/jaws_cut.ogg'
 	else
 		tool_behaviour = TOOL_CROWBAR
 		to_chat(user, span_notice("You attach the prying jaws to [src]."))
 		icon_state = "jaws_pry_cyborg"
-		usesound = 'sound/items/jaws_pry.ogg'
+		usesound = 'sound/items/tools/jaws_pry.ogg'
 
 /obj/item/screwdriver/cyborg/power
 	name =	"automated drill"
 	desc = "A cyborg fitted module resembling the hand drill"
 	icon = 'modular_nova/modules/borgs/icons/robot_items.dmi'
 	icon_state = "drill_screw_cyborg"
-	hitsound = 'sound/items/drill_hit.ogg'
-	usesound = 'sound/items/drill_use.ogg'
+	hitsound = 'sound/items/tools/drill_hit.ogg'
+	usesound = 'sound/items/tools/drill_use.ogg'
 	toolspeed = 0.5
 	random_color = FALSE
 
@@ -499,7 +498,7 @@
 	. += " It's fitted with a [tool_behaviour == TOOL_SCREWDRIVER ? "screw" : "bolt"] head."
 
 /obj/item/screwdriver/cyborg/power/attack_self(mob/user)
-	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, TRUE)
+	playsound(get_turf(user), 'sound/items/tools/change_drill.ogg', 50, TRUE)
 	if(tool_behaviour == TOOL_SCREWDRIVER)
 		tool_behaviour = TOOL_WRENCH
 		to_chat(user, span_notice("You attach the bolt bit to [src]."))
@@ -528,14 +527,14 @@
 	var/saved_special_light_key
 	var/saved_hat_offset
 	var/active = FALSE
-	var/activationCost = 100
-	var/activationUpkeep = 5
+	var/activationCost = STANDARD_CELL_CHARGE * 0.1
+	var/activationUpkeep = STANDARD_CELL_CHARGE * 0.005
 	var/disguise_model_name
 	var/disguise
 	var/disguise_icon_override
 	var/disguise_pixel_offset = 0
 	var/disguise_hat_offset = 0
-	/// Traits unique to this model (deadsprite, wide/dogborginess, etc.). Mirrors the definition in modular_nova\modules\borgs\code\modules\mob\living\silicon\robot\robot_model.dm
+	/// Traits unique to this model (deadsprite, wide/quadborginess, etc.). Mirrors the definition in modular_nova\modules\borgs\code\modules\mob\living\silicon\robot\robot_model.dm
 	var/list/disguise_model_features = list()
 	var/disguise_special_light_key
 	var/mob/listeningTo
@@ -575,7 +574,7 @@
 /obj/item/borg_shapeshifter/proc/check_menu(mob/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated() || !user.Adjacent(src))
+	if(user.incapacitated || !user.Adjacent(src))
 		return FALSE
 	return TRUE
 
@@ -598,7 +597,6 @@
 			to_chat(user, span_notice("\the [src] is recharging."))
 			return
 		var/static/list/model_icons = sort_list(list(
-			"Standard" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "robot"),
 			"Medical" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "medical"),
 			"Cargo" = image(icon = CYBORG_ICON_CARGO, icon_state = "cargoborg"),
 			"Engineer" = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = "engineer"),
@@ -617,8 +615,6 @@
 
 		var/obj/item/robot_model/model
 		switch(model_selection)
-			if("Standard")
-				model = new /obj/item/robot_model/standard
 			if("Medical")
 				model = new /obj/item/robot_model/medical
 			if("Cargo")
@@ -723,14 +719,14 @@
 	user.bubble_icon = "robot"
 	active = TRUE
 	user.update_icons()
-	user.model.update_dogborg()
+	user.model.update_quadborg()
 	user.model.update_tallborg()
 
 	if(listeningTo == user)
 		return
 	if(listeningTo)
 		UnregisterSignal(listeningTo, signalCache)
-	RegisterSignal(user, signalCache, PROC_REF(disrupt))
+	RegisterSignals(user, signalCache, PROC_REF(disrupt))
 	listeningTo = user
 
 /obj/item/borg_shapeshifter/proc/deactivate(mob/living/silicon/robot/user)
@@ -748,7 +744,7 @@
 	user.bubble_icon = saved_bubble_icon
 	active = FALSE
 	user.update_icons()
-	user.model.update_dogborg()
+	user.model.update_quadborg()
 	user.model.update_tallborg()
 
 /obj/item/borg_shapeshifter/proc/disrupt(mob/living/silicon/robot/user)

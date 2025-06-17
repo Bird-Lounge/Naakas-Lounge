@@ -35,7 +35,7 @@
 #define GENETIC_DAMAGE_ACCURACY_MULTIPLIER 3
 
 /// Special status indicating a scanner occupant is transforming eg. from monkey to human
-#define STATUS_TRANSFORMING 4
+#define STATUS_TRANSFORMING 5
 
 /// Multiplier for how much genetic damage received from DNA Console functionality
 #define GENETIC_DAMAGE_IRGENETIC_DAMAGE_MULTIPLIER 1
@@ -172,7 +172,7 @@
 		genetic_damage_pulse()
 		return
 
-/obj/machinery/computer/scan_consolenew/attackby(obj/item/item, mob/user, params)
+/obj/machinery/computer/scan_consolenew/attackby(obj/item/item, mob/user, list/modifiers, list/attack_modifiers)
 	// Store chromosomes in the console if there's room
 	if (istype(item, /obj/item/chromosome))
 		item.forceMove(src)
@@ -398,7 +398,7 @@
 
 	return data
 
-/obj/machinery/computer/scan_consolenew/ui_act(action, list/params)
+/obj/machinery/computer/scan_consolenew/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	var/static/list/gene_letters = list("A", "T", "C", "G");
 	var/static/gene_letter_count = length(gene_letters)
 
@@ -440,7 +440,7 @@
 			// GUARD CHECK - Can we genetically modify the occupant? Includes scanner
 			//  operational guard checks.
 			// GUARD CHECK - Is scramble DNA actually ready?
-			if(!can_modify_occupant() || !(scramble_ready < world.time))
+			if(!can_modify_occupant() || !(scramble_ready < world.time) || HAS_TRAIT(scanner_occupant, TRAIT_NO_DNA_SCRAMBLE))
 				return
 
 			scanner_occupant.dna.remove_all_mutations(list(MUT_NORMAL, MUT_EXTRA))
@@ -611,18 +611,18 @@
 
 			// GUARD CHECK - Only search occupant for this specific ref, since your
 			//  can only apply chromosomes to mutations occupants.
-			var/datum/mutation/human/HM = get_mut_by_ref(bref, SEARCH_OCCUPANT)
+			var/datum/mutation/human/mutation = get_mut_by_ref(bref, SEARCH_OCCUPANT)
 
 			// GUARD CHECK - This should not be possible. Unexpected result
-			if(!HM)
+			if(!mutation)
 				return
 
 			// Look through our stored chromos and compare names to find a
 			// stored chromo we can apply.
-			for(var/obj/item/chromosome/CM in stored_chromosomes)
-				if(CM.can_apply(HM) && (CM.name == params["chromo"]))
-					stored_chromosomes -= CM
-					CM.apply(HM)
+			for(var/obj/item/chromosome/chromosome in stored_chromosomes)
+				if(chromosome.can_apply(mutation) && (chromosome.name == params["chromo"]))
+					stored_chromosomes -= mutation
+					chromosome.apply(mutation)
 			if(connected_scanner)
 				connected_scanner.use_energy(connected_scanner.active_power_usage)
 			else
@@ -683,7 +683,7 @@
 			var/datum/mutation/human/target_mutation = get_mut_by_ref(bref, search_flags)
 
 			// Prompt for modifier string
-			var/new_sequence_input = tgui_input_text(usr, "Enter a replacement sequence", "Inherent Gene Replacement", 32, encode = FALSE)
+			var/new_sequence_input = tgui_input_text(usr, "Enter a replacement sequence", "Inherent Gene Replacement", max_length = 32, encode = FALSE)
 			// Drop out if the string is the wrong length
 			if(length(new_sequence_input) != 32)
 				return
@@ -1258,7 +1258,7 @@
 				"UE"=scanner_occupant.dna.unique_enzymes,
 				"UF"=scanner_occupant.dna.unique_features,
 				"name"=scanner_occupant.real_name,
-				"blood_type"=scanner_occupant.dna.blood_type)
+				"blood_type"=scanner_occupant.get_bloodtype()?.name)
 
 			return
 
@@ -1352,7 +1352,7 @@
 					//  However, if this is the case, we can't make a complete injector and
 					//  this catches that edge case
 					if(!buffer_slot["name"] || !buffer_slot["UF"] || !buffer_slot["blood_type"])
-						to_chat(usr,"<span class='warning'>Genetic data corrupted, unable to create injector.</span>")
+						to_chat(usr,span_warning("Genetic data corrupted, unable to create injector."))
 						return
 
 					I = new /obj/item/dnainjector/timed(loc)
@@ -1736,7 +1736,7 @@
 			//  However, if this is the case, we can't make a complete injector and
 			//  this catches that edge case
 			if(!buffer_slot["UF"])
-				to_chat(usr,"<span class='warning'>Genetic data corrupted, unable to apply genetic data.</span>")
+				to_chat(usr,span_warning("Genetic data corrupted, unable to apply genetic data."))
 				return FALSE
 			COOLDOWN_START(src, enzyme_copy_timer, ENZYME_COPY_BASE_COOLDOWN)
 			scanner_occupant.dna.unique_features = buffer_slot["UF"]
@@ -1755,7 +1755,7 @@
 			scanner_occupant.real_name = buffer_slot["name"]
 			scanner_occupant.name = buffer_slot["name"]
 			scanner_occupant.dna.unique_enzymes = buffer_slot["UE"]
-			scanner_occupant.dna.blood_type = buffer_slot["blood_type"]
+			scanner_occupant.set_blood_type(buffer_slot["blood_type"])
 			scanner_occupant.apply_status_effect(/datum/status_effect/genetic_damage, damage_increase)
 			scanner_occupant.domutcheck()
 			return TRUE
@@ -1773,7 +1773,7 @@
 			scanner_occupant.real_name = buffer_slot["name"]
 			scanner_occupant.name = buffer_slot["name"]
 			scanner_occupant.dna.unique_enzymes = buffer_slot["UE"]
-			scanner_occupant.dna.blood_type = buffer_slot["blood_type"]
+			scanner_occupant.set_blood_type(buffer_slot["blood_type"])
 			scanner_occupant.apply_status_effect(/datum/status_effect/genetic_damage, damage_increase)
 			scanner_occupant.domutcheck()
 			return TRUE

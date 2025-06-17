@@ -1,6 +1,8 @@
 /datum/wound/blunt/robotic/secures_internals/critical
 	name = "Collapsed Superstructure"
 	desc = "The superstructure has totally collapsed in one or more locations, causing extreme internal oscillation with every move and massive limb dysfunction"
+	treat_text_short = "Repair surgically, start by superheating the limb until you can mold it by aggressively grabbing it and follow the tier 2 wound instructions \
+		when it's done, use gauze to reduce negative effects."
 	treat_text = "Reforming of superstructure via either RCD or manual molding, followed by typical treatment of loosened internals. \
 				To manually mold, the limb must be aggressively grabbed and welded held to it to make it malleable (though attacking it til thermal overload may be adequate) \
 				followed by firmly grasping and molding the limb with heat-resistant gloves."
@@ -135,7 +137,7 @@
  * High chance to work, very high with robo/engi wires and diag hud.
  * Can be sabotaged by switching to combat mode.
  * Deals brute to the limb on failure.
- * Burns the hand of the user if its not insulated.
+ * Burns the hand of the user if it's not insulated.
  */
 /datum/wound/blunt/robotic/secures_internals/critical/proc/mold_metal(mob/living/carbon/human/user)
 	var/chance = 60
@@ -347,14 +349,14 @@
 	else if (HAS_TRAIT(user, TRAIT_KNOW_ENGI_WIRES))
 		success_chance *= 1.1
 	if (HAS_TRAIT(user, TRAIT_DIAGNOSTIC_HUD))
-		success_chance *= 1.25 // its kinda alien to do this, so even people with the wires get the full bonus of diag huds
+		success_chance *= 1.25 // it's kinda alien to do this, so even people with the wires get the full bonus of diag huds
 	if (HAS_TRAIT(src, TRAIT_WOUND_SCANNED))
 		success_chance *= 1.5
 
 	if (prob(success_chance))
 		user?.visible_message(span_green("[victim]'s [limb.plaintext_zone] lets out a sharp POP as [treating_plunger] forces it into its normal position!"), \
 			span_green("[victim]'s [limb.plaintext_zone] lets out a sharp POP as your [treating_plunger] forces it into its normal position!"))
-		to_chat(user, span_green("[capitalize(your_or_other)] [limb.plaintext_zone]'s structure has been reset to it's proper position! Your next step is to secure it with a screwdriver/wrench, though bone gel would also work."))
+		to_chat(user, span_green("[capitalize(your_or_other)] [limb.plaintext_zone]'s structure has been reset to its proper position! Your next step is to secure it with a screwdriver/wrench, though bone gel would also work."))
 		set_superstructure_status(TRUE)
 	else
 		user?.visible_message(span_danger("[victim]'s [limb.plaintext_zone] splinters from [treating_plunger]'s plunging!"), \

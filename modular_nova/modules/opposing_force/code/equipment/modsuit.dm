@@ -22,7 +22,7 @@
 	item_type = /obj/item/mod/control/pre_equipped/ninja
 
 /datum/opposing_force_equipment/modsuit/corporate
-	name = "CentComm's Corporate"
+	name = "CentCom's Corporate"
 	description = "An even more costly version of the Magnate model, the corporate suit is a thermally insulated, anti-corrosion coated suit for high-ranking CentCom Officers, deploying pristine protective armor and	advanced actuators, feeling practically weightless when turned on."
 	item_type = /obj/item/mod/control/pre_equipped/corporate
 
@@ -37,11 +37,11 @@
 	item_type = /obj/item/mod/control/pre_equipped/advanced
 
 /datum/opposing_force_equipment/modsuit/nri
-	name = "NRI's Frontline"
-	item_type = /obj/item/mod/control/pre_equipped/frontline/ert
+	name = "HC's Voskhod"
+	item_type = /obj/item/mod/control/pre_equipped/voskhod/ancient_milsim
 
 /datum/opposing_force_equipment/modsuit/nri_police
-	name = "NRI's Policing"
+	name = "ZCM's Policing"
 	item_type = /obj/item/mod/control/pre_equipped/policing
 
 /datum/opposing_force_equipment/modsuit/infiltrator
@@ -70,7 +70,7 @@
 	category = OPFOR_EQUIPMENT_CATEGORY_MODSUIT_MODULES
 
 /datum/opposing_force_equipment/modsuit_modules/ion_advanced
-	item_type = /obj/item/mod/module/jetpack/advanced
+	item_type = /obj/item/mod/module/jetpack
 
 /datum/opposing_force_equipment/modsuit_modules/storage_syndicate
 	item_type = /obj/item/mod/module/storage/syndicate

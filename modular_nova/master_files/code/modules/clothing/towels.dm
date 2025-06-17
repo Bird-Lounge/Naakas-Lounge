@@ -194,7 +194,7 @@
 	change_towel_shape(user, LOWER_TEXT(choice))
 
 
-/obj/item/towel/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/towel/attackby(obj/item/attacking_item, mob/user, list/modifiers, list/attack_modifiers)
 	. = ..()
 
 	if(!(attacking_item.tool_behaviour == TOOL_WIRECUTTER || attacking_item.get_sharpness()))
@@ -250,18 +250,13 @@
 
 	// No need to display the different message if they're not wearing it.
 	if(!worn)
-		return
+		return CLICK_ACTION_SUCCESS
 
 	to_chat(user, span_notice(shape == TOWEL_FULL ? "You raise \the [src] over your [shape]." : "You lower \the [src] down to your [shape]."))
 	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/towel/item_ctrl_click(mob/user)
-	. = ..()
-
-	if(. == FALSE)
-		return
-
 	if(!wet && shape == TOWEL_FOLDED) // You can't fold a wet towel, so you can't get a folded towel that's also wet. And you can't fold what's already folded, obviously.
 		to_chat(user, span_warning("You can't fold a towel that's already folded!"))
 		return

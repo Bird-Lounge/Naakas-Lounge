@@ -1,4 +1,4 @@
-## Title: PRIMITIVE 
+## Title: PRIMITIVE
 
 ### Description:
 
@@ -6,20 +6,18 @@ Contains various items of primitive style for icecats and sometimes even ashwalk
 
 ### TG Proc/File Changes:
 
--   N/A
+- N/A
 
 ### Defines:
 
--   N/A
+- N/A
 
 ### Master file additions
 
--   N/A
+- N/A
 
 ### Included files that are not contained in this module:
 
--   N/A
+- N/A
 
 ### Credits:
-
-Paxilmaniac

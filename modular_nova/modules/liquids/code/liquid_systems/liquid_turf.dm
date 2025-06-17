@@ -22,6 +22,10 @@
 		lgroup.remove_from_group(src)
 	SSliquids.add_active_turf(src)
 
+/// Called when liquids flow or otherwise update - intercept COMSIG_TURF_LIQUIDS_CHANGE to react.
+/turf/proc/liquids_change(new_state)
+	SEND_SIGNAL(src, COMSIG_TURF_LIQUIDS_CHANGE, new_state)
+
 /obj/effect/abstract/liquid_turf/proc/liquid_simple_delete_flat(flat_amount)
 	if(flat_amount >= total_reagents)
 		qdel(src, TRUE)
@@ -319,19 +323,14 @@
 //Could probably have the variables on the turf level, and the behaviours being activated/deactived on the component level as the vars are updated
 /turf/open/CanPass(atom/movable/mover, turf/location)
 	if(isliving(mover) && !(mover.movement_type & (FLYING | FLOATING)))
+		var/mob/living/living_mover = mover
 		var/turf/current_turf = get_turf(mover)
 		if(current_turf && current_turf.turf_height - turf_height <= -TURF_HEIGHT_BLOCK_THRESHOLD)
+			if(COOLDOWN_FINISHED(living_mover, last_height_alert))
+				COOLDOWN_START(living_mover, last_height_alert, 1 SECONDS)
+				living_mover.balloon_alert(living_mover, "too high, climb out!")
 			return FALSE
 	return ..()
-
-/turf/open/Exit(atom/movable/mover, atom/newloc)
-	. = ..()
-	if(. && isliving(mover) && mover.has_gravity() && isturf(newloc))
-		var/mob/living/moving_mob = mover
-		var/turf/new_turf = get_turf(newloc)
-		if(new_turf && new_turf.turf_height - turf_height <= -TURF_HEIGHT_BLOCK_THRESHOLD)
-			moving_mob.on_fall()
-			moving_mob.onZImpact(new_turf, 1)
 
 // Handles climbing up and down between turfs with height differences, as well as manipulating others to do the same.
 /turf/open/mouse_drop_receive(mob/living/dropped_mob, mob/living/user, params)

@@ -5,7 +5,7 @@
 #define DEFAULT_CHARGE_DRAIN (0.005 * STANDARD_CELL_CHARGE) // A standard cell lasts 200 seconds with this on active power usage, while a high power one lasts 2,000 seconds.
 
 /// Default time for a part of the suit to seal.
-#define MOD_ACTIVATION_STEP_TIME (2 SECONDS)
+#define MOD_ACTIVATION_STEP_TIME (1 SECONDS)
 
 /// Passive module, just acts when put in naturally.
 #define MODULE_PASSIVE 0
@@ -38,6 +38,10 @@
 //Defines used to override MOD clothing's icon and worn icon files in the skin.
 #define MOD_ICON_OVERRIDE "mod_icon_override"
 #define MOD_WORN_ICON_OVERRIDE "mod_worn_icon_override"
+// NOVA EDIT ADDITION START
+#define MOD_DIGITIGRADE_ICON_OVERRIDE "mod_digitigrade_icon_override"
+#define MOD_SNOUT_ICON_OVERRIDE "mod_snout_icon_override"
+// NOVA EDIT ADDITION END
 
 //Defines for MODlink frequencies
 #define MODLINK_FREQ_NANOTRASEN "NT"

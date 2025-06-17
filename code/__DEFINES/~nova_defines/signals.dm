@@ -11,6 +11,8 @@
 #define COMSIG_MOB_CI_TOGGLED "mob_ci_toggled"
 /// When a hostile simple mob loses it's target.
 #define COMSIG_HOSTILE_MOB_LOST_TARGET "hostile_mob_lost_target"
+///When a client is given direct control of a mob via [/datum/admin_verb/cmd_give_direct_control()].
+#define COMSIG_MOB_GIVE_DIRECT_CONTROL "mob_give_direct_control"
 
 //Gun signals
 ///When a gun is switched to automatic fire mode
@@ -47,6 +49,8 @@
 #define COMSIG_TURF_MOB_FALL "turf_mob_fall"
 ///from base of /obj/effect/abstract/liquid_turf/Initialize() (/obj/effect/abstract/liquid_turf/liquids)
 #define COMSIG_TURF_LIQUIDS_CREATION "turf_liquids_creation"
+/// From base of /turf/proc/liquids_change(new_state)
+#define COMSIG_TURF_LIQUIDS_CHANGE "turf_liquids_change"
 
 /// listens to wet_stacks, if wetting a mob above 10 stacks it will signal the akula race trait to apply its buffs and nerfs
 #define COMSIG_MOB_TRIGGER_WET_SKIN "mob_trigger_wet_skin"
@@ -56,7 +60,7 @@
 //when someone pulls back their fishing rod
 #define COMSIG_FINISH_FISHING "finish_fishing"
 
-/// From /obj/item/organ/internal/stomach/after_eat(atom/edible)
+/// From /obj/item/organ/stomach/after_eat(atom/edible)
 #define COMSIG_STOMACH_AFTER_EAT "stomach_after_eat"
 
 /// For when a Hemophage's pulsating tumor gets added to their body.
@@ -87,3 +91,15 @@
 
 /// Whenever a baton successfully executes its nonlethal attack. WARNING HORRIBLE FUCKING CODE THIS IS ASS AAAAAAAAAAAAH
 #define COMSIG_PRE_BATON_FINALIZE_ATTACK "pre_baton_finalize_attack"
+
+/// Signal sent when a mob tries to de-prone
+#define COMSIG_MOVABLE_REMOVE_PRONE_STATE "living_remove_prone_state"
+
+/// Whenever the round ends
+#define COMSIG_TICKER_ROUND_ENDED "ticker_round_ended"
+
+///from base of atom/fire_act(): (exposed_temperature, exposed_volume)
+#define COMSIG_ATOM_PRE_FIRE_ACT "atom_fire_act"
+
+///from base of /datum/preference_middleware/jobs/proc/set_job_title() and /datum/preference_middleware/jobs/proc/set_job_preference: ()
+#define COMSIG_JOB_PREF_UPDATED "job_pref_updated"

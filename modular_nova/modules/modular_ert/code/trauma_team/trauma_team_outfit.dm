@@ -52,7 +52,7 @@
 
 /datum/id_trim/centcom/ert/medical/ntrauma
 	assignment = "Trauma Team Specialist"
-	trim_state = "trim_highcleric"	//This is the CMO trim for the RPG Titles; considering its 'angelic' sprite, its fitting for these guardian angels
+	trim_state = "trim_highcleric"	//This is the CMO trim for the RPG Titles; considering it's 'angelic' sprite, it's fitting for these guardian angels
 	sechud_icon_state = SECHUD_SCRAMBLED
 
 /obj/item/card/id/advanced/centcom/ert/medical/ntrauma
@@ -84,10 +84,10 @@
 /obj/item/storage/medkit/tactical/ntrauma/PopulateContents()
 	new /obj/item/stack/medical/gauze(src)
 	new /obj/item/defibrillator/compact/combat/loaded/nanotrasen(src)
-	new /obj/item/reagent_containers/pill/patch/libital(src)
-	new /obj/item/reagent_containers/pill/patch/libital(src)
-	new /obj/item/reagent_containers/pill/patch/aiuri(src)
-	new /obj/item/reagent_containers/pill/patch/aiuri(src)
+	new /obj/item/reagent_containers/applicator/patch/libital(src)
+	new /obj/item/reagent_containers/applicator/patch/libital(src)
+	new /obj/item/reagent_containers/applicator/patch/aiuri(src)
+	new /obj/item/reagent_containers/applicator/patch/aiuri(src)
 	new	/obj/item/holosign_creator/medical (src)
 
 /obj/item/clothing/gloves/latex/nitrile/ntrauma
@@ -112,7 +112,7 @@
 	armor_type = /datum/armor/space_ntrauma
 	resistance_flags = ACID_PROOF
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS|FEET
-	cell = /obj/item/stock_parts/cell/super
+	cell = /obj/item/stock_parts/power_store/cell/super
 
 /datum/armor/space_ntrauma
 	melee = 10

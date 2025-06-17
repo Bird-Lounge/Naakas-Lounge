@@ -64,8 +64,11 @@
 			if(!is_admin(client) && length_char(client?.prefs?.read_preference(/datum/preference/text/flavor_text)) < CONFIG_GET(number/flavor_text_character_requirement))
 				to_chat(src, span_notice("You need at least [CONFIG_GET(number/flavor_text_character_requirement)] characters of flavor text to ready up for the round. You have [length_char(client.prefs.read_preference(/datum/preference/text/flavor_text))] characters."))
 				return
-
 		ready = !ready
+		if(ready)
+			SSstatpanels.add_job_estimation(src)
+		else
+			SSstatpanels.remove_job_estimation(src)
 		client << output(ready, "title_browser:toggle_ready")
 		return
 
@@ -193,9 +196,9 @@
 		qdel(query_get_new_polls)
 		return
 	if(query_get_new_polls.NextRow())
-		output +={"<a class="menu_button menu_newpoll" href='?src=[text_ref(src)];display_polls=1'>POLLS (NEW)</a>"}
+		output +={"<a class="menu_button menu_newpoll" href='byond://?src=[text_ref(src)];display_polls=1'>POLLS (NEW)</a>"}
 	else
-		output +={"<a class="menu_button" href='?src=[text_ref(src)];display_polls=1'>POLLS</a>"}
+		output +={"<a class="menu_button" href='byond://?src=[text_ref(src)];display_polls=1'>POLLS</a>"}
 	qdel(query_get_new_polls)
 	if(QDELETED(src))
 		return

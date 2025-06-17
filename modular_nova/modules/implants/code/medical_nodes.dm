@@ -1,11 +1,6 @@
 /datum/techweb_node/cyber/cyber_implants/New()
 	design_ids += list(
 		"ci-scanner",
-		"ci-gloweyes",
-		"ci-welding",
-		"ci-medhud",
-		"ci-sechud",
-		"ci-diaghud",
 		"ci-botany",
 		"ci-janitor",
 		"ci-lighter",
@@ -32,17 +27,18 @@
 	return ..()
 
 /datum/techweb_node/cyber/night_vision_implants
-	id = "nv_implants"
+	id = TECHWEB_NODE_NIGHT_VISION_IMPLANTS
 	display_name = "Night vision implants"
 	description = "Now you can work all night, even if you lost your glasses!"
-	prereq_ids = list("night_vision", "cyber_implants")
+	prereq_ids = list(TECHWEB_NODE_NIGHT_VISION, TECHWEB_NODE_CYBER_IMPLANTS)
 	design_ids = list(
 		"ci-nv",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/mining_adv/New() //Here for the integrated drill augments.
-	design_ids = list(
-		"ci-drill-diamond"
+	design_ids += list(
+		"ci-drill-diamond",
 	)
 	return ..()

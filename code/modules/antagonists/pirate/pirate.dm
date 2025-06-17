@@ -48,8 +48,8 @@
 
 /datum/antagonist/pirate/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/owner_mob = mob_override || owner.current
-	owner_mob.remove_language(/datum/language/piratespeak, source = LANGUAGE_PIRATE)
-	return ..()
+	if (owner_mob)
+		owner_mob.remove_language(/datum/language/piratespeak, source = LANGUAGE_PIRATE)
 
 /datum/team/pirate
 	name = "\improper Pirate crew"
@@ -104,7 +104,7 @@
 /datum/team/pirate/roundend_report()
 	var/list/parts = list()
 
-	parts += "<span class='header'>Space Pirates were:</span>"
+	parts += span_header("Space Pirates were:")
 
 	var/all_dead = TRUE
 	for(var/datum/mind/M in members)

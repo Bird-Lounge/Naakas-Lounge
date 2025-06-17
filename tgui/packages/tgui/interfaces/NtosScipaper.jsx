@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   BlockQuote,
   Box,
@@ -12,8 +11,9 @@ import {
   Stack,
   Table,
   Tabs,
-} from '../components';
-import { TableCell, TableRow } from '../components/Table';
+} from 'tgui-core/components';
+
+import { useBackend } from '../backend';
 import { NtosWindow } from '../layouts';
 
 export const NtosScipaper = (props) => {
@@ -50,7 +50,7 @@ const PaperPublishing = (props) => {
       <Section title="Submission Form">
         {fileList.length === 0 && (
           <NoticeBox>
-            Use the File Manager app to download files from a disk.
+            Use data disk to download files from compressor or doppler array.
           </NoticeBox>
         )}
         <LabeledList>
@@ -58,7 +58,7 @@ const PaperPublishing = (props) => {
             label="File (required)"
             buttons={
               <Button
-                tooltip="The selected file containing experimental data for our paper. Must be present in the HDD to be accesible. Transfer files with the File Manager program."
+                tooltip="The selected file containing experimental data for our paper. Must be present in the local file system or a data disk to be accesible."
                 icon="info-circle"
               />
             }
@@ -157,7 +157,7 @@ const PaperPublishing = (props) => {
               mt={2}
               fluid
               value={author}
-              onChange={(e, value) =>
+              onBlur={(value) =>
                 act('rewrite', {
                   author: value,
                 })
@@ -168,7 +168,7 @@ const PaperPublishing = (props) => {
             <Input
               fluid
               value={title}
-              onChange={(e, value) =>
+              onBlur={(value) =>
                 act('rewrite', {
                   title: value,
                 })
@@ -179,7 +179,7 @@ const PaperPublishing = (props) => {
             <Input
               fluid
               value={abstract}
-              onChange={(e, value) =>
+              onBlur={(value) =>
                 act('rewrite', {
                   abstract: value,
                 })
@@ -323,13 +323,13 @@ const PartnersBrowser = (props) => {
           <LabeledList.Item label="Technology Sharing">
             <Table>
               {partner.boostedNodes.map((node) => (
-                <TableRow key={node.id}>
-                  <TableCell>
+                <Table.Row key={node.id}>
+                  <Table.Cell>
                     {visibleNodes.includes(node.id)
                       ? node.name
                       : 'Unknown Technology'}
-                  </TableCell>
-                  <TableCell>
+                  </Table.Cell>
+                  <Table.Cell>
                     <Button
                       fluid
                       tooltipPosition="left"
@@ -346,8 +346,8 @@ const PartnersBrowser = (props) => {
                         })
                       }
                     />
-                  </TableCell>
-                </TableRow>
+                  </Table.Cell>
+                </Table.Row>
               ))}
             </Table>
           </LabeledList.Item>

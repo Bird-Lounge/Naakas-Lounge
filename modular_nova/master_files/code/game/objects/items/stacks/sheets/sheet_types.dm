@@ -97,6 +97,16 @@ GLOBAL_LIST_INIT(nova_wood_recipes, list(
 	. = ..()
 	. += GLOB.nova_wood_recipes
 
+// Cardboard
+
+GLOBAL_LIST_INIT(nova_cardboard_recipes, list(
+	new/datum/stack_recipe("flat box", /obj/item/storage/box/flat, crafting_flags = NONE, category = CAT_CONTAINERS),
+))
+
+/obj/item/stack/sheet/cardboard/get_main_recipes()
+	. = ..()
+	. += GLOB.nova_cardboard_recipes
+
 // Cloth
 
 GLOBAL_LIST_INIT(nova_cloth_recipes, list(
@@ -105,6 +115,7 @@ GLOBAL_LIST_INIT(nova_cloth_recipes, list(
 	new/datum/stack_recipe("eyepatch wrap", /obj/item/clothing/glasses/eyepatch/wrap, 2, category = CAT_CLOTHING),
 	new/datum/stack_recipe("eyepatch", /obj/item/clothing/glasses/eyepatch, 2, category = CAT_CLOTHING),
 	new/datum/stack_recipe("xenoarch bag", /obj/item/storage/bag/xenoarch, 4, category = CAT_CONTAINERS),
+	new/datum/stack_recipe("saddlebags", /obj/item/storage/backpack/saddlebags, 5, category = CAT_CONTAINERS),
 ))
 
 /obj/item/stack/sheet/cloth/get_main_recipes()
@@ -121,7 +132,12 @@ GLOBAL_LIST_INIT(nova_leather_belt_recipes, list(
 	new/datum/stack_recipe("medical bandolier", /obj/item/storage/belt/medbandolier, 5, category = CAT_CONTAINERS),
 	new/datum/stack_recipe("gear harness", /obj/item/clothing/under/misc/nova/gear_harness, 6, category = CAT_CLOTHING),
 	new/datum/stack_recipe("ammo pouch", /obj/item/storage/pouch/ammo, 4, category = CAT_CONTAINERS),
-	new/datum/stack_recipe("cowboy belt (thigh holster)", /obj/item/storage/belt/holster/cowboy, 3, crafting_flags = NONE, category = CAT_CONTAINERS),
+	new/datum/stack_recipe("thigh holster (cowboy belt)", /obj/item/storage/belt/holster/thigh, 3, crafting_flags = NONE, category = CAT_CONTAINERS),
+	new/datum/stack_recipe("thigh satchel (black belt)", /obj/item/storage/belt/thigh_satchel, 3, crafting_flags = NONE, category = CAT_CONTAINERS),
+	new/datum/stack_recipe_list("saddles", list(
+		new/datum/stack_recipe("riding saddle (normal)", /obj/item/riding_saddle/leather, 5, category = CAT_CLOTHING),
+		new/datum/stack_recipe("riding saddle (blue)", /obj/item/riding_saddle/leather/blue, 5, category = CAT_CLOTHING),
+	)),
 ))
 
 /obj/item/stack/sheet/leather/get_main_recipes()
@@ -149,6 +165,16 @@ GLOBAL_LIST_INIT(nova_snow_recipes, list(
 	. = ..()
 	. += GLOB.nova_snow_recipes
 
+// Plastic
+
+GLOBAL_LIST_INIT(nova_plastic_recipes, list(
+	new /datum/stack_recipe("cone collar", /obj/item/clothing/head/cone_of_shame, time = 1 SECONDS, category = CAT_CLOTHING),
+))
+
+/obj/item/stack/sheet/plastic/get_main_recipes()
+	. = ..()
+	. += GLOB.nova_plastic_recipes
+
 // Sand
 
 GLOBAL_LIST_INIT(nova_sand_recipes, list(
@@ -158,3 +184,13 @@ GLOBAL_LIST_INIT(nova_sand_recipes, list(
 /obj/item/stack/ore/glass/get_main_recipes()
 	. = ..()
 	. += GLOB.nova_sand_recipes
+
+// Sandstone
+
+GLOBAL_LIST_INIT(nova_sandstone_recipes, list(
+	new/datum/stack_recipe("brick well", /obj/structure/water_source/brick_well, 5, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, category = CAT_STRUCTURE),
+))
+
+/obj/item/stack/sheet/mineral/sandstone/get_main_recipes()
+	. = ..()
+	. += GLOB.nova_sandstone_recipes

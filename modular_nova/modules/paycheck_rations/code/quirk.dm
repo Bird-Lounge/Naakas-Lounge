@@ -19,10 +19,10 @@
 	give_item_to_holder(
 		new_ticket_book,
 		list(
-			LOCATION_LPOCKET = ITEM_SLOT_LPOCKET,
-			LOCATION_RPOCKET = ITEM_SLOT_RPOCKET,
-			LOCATION_BACKPACK = ITEM_SLOT_BACKPACK,
-			LOCATION_HANDS = ITEM_SLOT_HANDS,
+			LOCATION_LPOCKET,
+			LOCATION_RPOCKET,
+			LOCATION_BACKPACK,
+			LOCATION_HANDS,
 		),
 	)
 	account.tracked_ticket_book = WEAKREF(new_ticket_book)
@@ -73,7 +73,7 @@
 		if(!ticket_book.atom_storage.can_insert(created_ticket, messages = FALSE))
 			qdel(created_ticket)
 			bank_card_talk("ERROR: Failed to place ration ticket in ticket book, ensure book is not full.")
-			// We can stop here, its joever for trying to place tickets in the book this payday. You snooze you lose!
+			// We can stop here, it's joever for trying to place tickets in the book this payday. You snooze you lose!
 			return
 		created_ticket.forceMove(ticket_book)
 		bank_card_talk("A new [last_ticket_luxury ? "luxury item" : "standard"] ration ticket has been placed in your ticket book.")

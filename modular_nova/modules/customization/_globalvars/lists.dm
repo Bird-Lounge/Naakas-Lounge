@@ -19,6 +19,12 @@ GLOBAL_LIST_INIT(breast_size_translation, list(
 	"14" = BREAST_SIZE_N,
 	"15" = BREAST_SIZE_O,
 	"16" = BREAST_SIZE_P,
+	"17" = BREAST_SIZE_HUGE,
+	"18" = BREAST_SIZE_GIGANTIC,
+	"19" = BREAST_SIZE_ENORMOUS,
+	"20" = BREAST_SIZE_MASSIVE,
+	"21" = BREAST_SIZE_IMPOSSIBLE,
+	"22" = BREAST_SIZE_BEYOND_MEASUREMENT,
 	))
 
 GLOBAL_LIST_INIT(breast_size_to_number, list(
@@ -39,13 +45,22 @@ GLOBAL_LIST_INIT(breast_size_to_number, list(
 	BREAST_SIZE_N = 14,
 	BREAST_SIZE_O = 15,
 	BREAST_SIZE_P = 16,
+	BREAST_SIZE_HUGE = 17,
+	BREAST_SIZE_GIGANTIC = 18,
+	BREAST_SIZE_ENORMOUS = 19,
+	BREAST_SIZE_MASSIVE = 20,
+	BREAST_SIZE_IMPOSSIBLE = 21,
+	BREAST_SIZE_BEYOND_MEASUREMENT = 22,
 	))
 
 GLOBAL_LIST_INIT(balls_size_translation, list(
 	"0" = "Small",
 	"1" = "Average",
 	"2" = "Big",
-	"3" = "Enormous"
+	"3" = "Very Big",
+	"4" = "Enormous",
+	"5" = "Immense",
+	"6" = "Gargantuan"
 	))
 
 GLOBAL_LIST_INIT(marking_zone_to_bitflag, list(
@@ -74,7 +89,10 @@ GLOBAL_LIST_INIT(preference_balls_sizes, list(
 	"Small",
 	"Average",
 	"Big",
+	"Very Big",
 	"Enormous",
+	"Immense",
+	"Gargantuan"
 	))
 
 GLOBAL_LIST_INIT(robotic_styles_list, list(
@@ -87,6 +105,7 @@ GLOBAL_LIST_INIT(robotic_styles_list, list(
 	"Morpheus Cyberkinetics" = 'modular_nova/master_files/icons/mob/augmentation/mcgipc.dmi',
 	"Bishop Cyberkinetics" = 'modular_nova/master_files/icons/mob/augmentation/bshipc.dmi',
 	"Bishop Cyberkinetics 2.0" = 'modular_nova/master_files/icons/mob/augmentation/bs2ipc.dmi',
+	"E3N AI" = 'modular_nova/master_files/icons/mob/augmentation/e3n.dmi',
 	"Hephaestus Industries" = 'modular_nova/master_files/icons/mob/augmentation/hsiipc.dmi',
 	"Hephaestus Industries 2.0" = 'modular_nova/master_files/icons/mob/augmentation/hi2ipc.dmi',
 	"Shellguard Munitions Standard Series" = 'modular_nova/master_files/icons/mob/augmentation/sgmipc.dmi',

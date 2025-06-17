@@ -101,12 +101,12 @@
 	inbuilt_modules = list()
 	charge_drain = DEFAULT_CHARGE_DRAIN * 3
 	siemens_coefficient = 0
-	slowdown_active = 1
+	slowdown_deployed = 1
 
 /obj/item/mod/control/pre_equipped/prototype/hauler
 	theme = /datum/mod_theme/prototype/hauler
 	req_access = list(ACCESS_TARKON)
-	applied_cell = /obj/item/stock_parts/cell/high
+	applied_cell = /obj/item/stock_parts/power_store/cell/high
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/welding,

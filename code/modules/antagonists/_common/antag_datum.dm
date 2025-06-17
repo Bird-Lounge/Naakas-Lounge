@@ -61,6 +61,10 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/default_custom_objective = "Cause chaos on the space station."
 	/// Whether we give a hardcore random bonus for greentexting as this antagonist while playing hardcore random
 	var/hardcore_random_bonus = FALSE
+	/// A path to the audio stinger that plays upon gaining this datum.
+	var/stinger_sound
+	/// Whether this antag datum blocks rolling new antag datums
+	var/block_midrounds = TRUE
 
 	//ANTAG UI
 
@@ -126,7 +130,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		ui = new(user, src, ui_name, name)
 		ui.open()
 
-/datum/antagonist/ui_act(action, params)
+/datum/antagonist/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
@@ -190,7 +194,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 ///Called by the transfer_to() mind proc after the mind (mind.current and new_character.mind) has moved but before the player (key and client) is transferred.
 /datum/antagonist/proc/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	SHOULD_CALL_PARENT(TRUE)
-	remove_innate_effects(old_body)
+	if(old_body)
+		remove_innate_effects(old_body)
 	if(old_body && old_body.stat != DEAD && !LAZYLEN(old_body.mind?.antag_datums))
 		old_body.remove_from_current_living_antags()
 	var/datum/action/antag_info/info_button = info_button_ref?.resolve()
@@ -269,6 +274,9 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(count_against_dynamic_roll_chance && owner.current.stat != DEAD && owner.current.client)
 		owner.current.add_to_current_living_antags()
 
+	for (var/datum/atom_hud/alternate_appearance/basic/antag_hud as anything in GLOB.active_alternate_appearances)
+		antag_hud.apply_to_new_mob(owner.current)
+
 	SEND_SIGNAL(owner, COMSIG_ANTAGONIST_GAINED, src)
 
 /**
@@ -299,7 +307,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		message_admins("[key_name_admin(chosen_one)] has taken control of ([key_name_admin(owner)]) to replace antagonist banned player.")
 		log_game("[key_name(chosen_one)] has taken control of ([key_name(owner)]) to replace antagonist banned player.")
 		owner.current.ghostize(FALSE)
-		owner.current.key = chosen_one.key
+		owner.current.PossessByPlayer(chosen_one.key)
 	else
 		log_game("Couldn't find antagonist ban replacement for ([key_name(owner)]).")
 
@@ -311,10 +319,11 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(!owner)
 		CRASH("Antag datum with no owner.")
 
-	remove_innate_effects()
+	if(owner.current)
+		remove_innate_effects()
 	clear_antag_moodies()
 	LAZYREMOVE(owner.antag_datums, src)
-	if(!LAZYLEN(owner.antag_datums))
+	if(!LAZYLEN(owner.antag_datums) && owner.current)
 		owner.current.remove_from_current_living_antags()
 	if(info_button_ref)
 		QDEL_NULL(info_button_ref)
@@ -326,13 +335,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(team)
 		team.remove_member(owner)
 	SEND_SIGNAL(owner, COMSIG_ANTAGONIST_REMOVED, src)
-
-	// Remove HUDs that they should no longer see
-	var/mob/living/current = owner.current
-	for (var/datum/atom_hud/alternate_appearance/basic/has_antagonist/antag_hud as anything in GLOB.has_antagonist_huds)
-		if (!antag_hud.mobShouldSee(current))
-			antag_hud.hide_from(current)
-
+	if(owner.current)
+		SEND_SIGNAL(owner.current, COMSIG_MOB_ANTAGONIST_REMOVED, src)
 	qdel(src)
 	// NOVA EDIT START
 	owner?.handle_exploitables() //Inefficient here, but on_removal() is called in multiple locations
@@ -345,14 +349,22 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/greet()
 	if(!silent)
 		to_chat(owner.current, span_big("You are \the [src]."))
-		to_chat(owner.current, span_infoplain(span_doyourjobidiot("Remember that being an antagonist does not exclude you from the server rules regarding RP standards."))) //NOVA EDIT - RP REMINDER
+		to_chat(owner.current, span_infoplain(span_doyourjobidiot("Remember that being an antagonist does not exclude you from the server rules regarding RP standards."))) // NOVA EDIT ADDITION - RP REMINDER
+		play_stinger()
+
+/// Plays the antag stinger sound, if we have one
+/datum/antagonist/proc/play_stinger()
+	if(isnull(stinger_sound))
+		return
+
+	owner.current.playsound_local(get_turf(owner.current), stinger_sound, 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 /**
  * Proc that sends fluff or instructional messages to the player when they lose this antag datum.
  * Use this proc for playing sounds, sending alerts, or otherwise informing the player that they're no longer a specific antagonist type.
  */
 /datum/antagonist/proc/farewell()
-	if(!silent)
+	if(!silent && owner.current)
 		to_chat(owner.current, span_userdanger("You are no longer \the [src]!"))
 
 /**
@@ -411,7 +423,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Appears at start of roundend_catagory section.
  */
 /datum/antagonist/proc/roundend_report_header()
-	return "<span class='header'>The [roundend_category] were:</span><br>"
+	return span_header("The [roundend_category] were:<br>")
 
 /**
  * Proc that sends string data for the round-end report.
@@ -464,7 +476,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /// result of `get_preview_icon` is expected to be the completed version.
 /datum/antagonist/proc/render_preview_outfit(datum/outfit/outfit, mob/living/carbon/human/dummy)
 	dummy = dummy || new /mob/living/carbon/human/dummy/consistent
-	dummy.equipOutfit(outfit, visualsOnly = TRUE)
+	dummy.equipOutfit(outfit, visuals_only = TRUE)
 	dummy.wear_suit?.update_greyscale()
 	var/icon = getFlatIcon(dummy)
 
@@ -519,12 +531,12 @@ GLOBAL_LIST_EMPTY(antagonists)
 		"antag_team_hud_[REF(src)]",
 		hud_image_on(target),
 		antag_to_check || type,
+		get_team() && WEAKREF(get_team()),
 	))
 
 	// Add HUDs that they couldn't see before
 	for (var/datum/atom_hud/alternate_appearance/basic/has_antagonist/antag_hud as anything in GLOB.has_antagonist_huds)
-		if (antag_hud.mobShouldSee(owner.current))
-			antag_hud.show_to(owner.current)
+		antag_hud.apply_to_new_mob(owner.current)
 
 /// Takes a location, returns an image drawing "on" it that matches this antag datum's hud icon
 /datum/antagonist/proc/hud_image_on(mob/hud_loc)
@@ -553,17 +565,18 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 /**
  * Allows player to replace their objectives with a new one they wrote themselves.
+ * Returns true if they did it successfully.
  * * retain_existing - If true, will just be added as a new objective instead of replacing existing ones.
  * * retain_escape - If true, will retain specifically 'escape alive' objectives (or similar)
  * * force - Skips the check about whether this antagonist is supposed to set its own objectives, for badminning
  */
 /datum/antagonist/proc/submit_player_objective(retain_existing = FALSE, retain_escape = TRUE, force = FALSE)
 	if (isnull(owner) || isnull(owner.current))
-		return
+		return FALSE
 	var/mob/living/owner_mob = owner.current
 	if (!force && !can_assign_self_objectives)
 		owner_mob.balloon_alert(owner_mob, "can't do that!")
-		return
+		return FALSE
 	var/custom_objective_text = tgui_input_text(
 		owner_mob,
 		message = "Specify your new objective.",
@@ -572,7 +585,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		max_length = CUSTOM_OBJECTIVE_MAX_LENGTH,
 	)
 	if (QDELETED(src) || QDELETED(owner_mob) || isnull(custom_objective_text))
-		return // Some people take a long-ass time to type maybe they got dusted
+		return FALSE // Some people take a long-ass time to type maybe they got dusted
 
 	log_game("[key_name(owner_mob)] [retain_existing ? "" : "opted out of their original objectives and "]chose a custom objective: [custom_objective_text]")
 	message_admins("[ADMIN_LOOKUPFLW(owner_mob)] has chosen a custom antagonist objective: [span_syndradio("[custom_objective_text]")] | [ADMIN_SMITE(owner_mob)] | [ADMIN_SYNDICATE_REPLY(owner_mob)]")
@@ -601,5 +614,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 	can_assign_self_objectives = FALSE
 	owner.announce_objectives()
+
+	return TRUE
 
 #undef CUSTOM_OBJECTIVE_MAX_LENGTH

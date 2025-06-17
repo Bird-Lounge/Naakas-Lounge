@@ -30,6 +30,8 @@
 	custom_materials = AMMO_MATS_GRENADE
 
 	harmful = FALSE //Erm, technically
+	ammo_categories = AMMO_CLASS_NONE
+	print_cost = 0
 
 
 /obj/item/ammo_casing/c980grenade/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/fired_from)
@@ -49,7 +51,7 @@
 
 	range = 14
 
-	speed = 2 // Higher means slower, y'all
+	speed = 0.5
 
 	sharpness = NONE
 
@@ -96,6 +98,7 @@
 	icon_state = "980_smoke"
 
 	projectile_type = /obj/projectile/bullet/c980grenade/smoke
+	print_cost = 0
 
 
 /obj/projectile/bullet/c980grenade/smoke
@@ -130,7 +133,7 @@
 	projectile_type = /obj/projectile/bullet/c980grenade/shrapnel
 
 	custom_materials = AMMO_MATS_GRENADE_SHRAPNEL
-	advanced_print_req = TRUE
+	ammo_categories = AMMO_CLASS_LETHAL
 
 	harmful = TRUE
 
@@ -151,7 +154,7 @@
 
 /obj/item/ammo_box/c980grenade/shrapnel
 	name = "ammo box (.980 Tydhouer shrapnel)"
-	desc = "A box of four .980 Tydhouer shrapnel grenades. Instructions on the box indicate these are shrapnel rounds. Its also covered in hazard signs, odd."
+	desc = "A box of four .980 Tydhouer shrapnel grenades. Instructions on the box indicate these are shrapnel rounds. It's also covered in hazard signs, odd."
 
 	icon_state = "980box_explosive"
 
@@ -180,7 +183,7 @@
 	icon_state = "980_gas_alternate"
 
 	projectile_type = /obj/projectile/bullet/c980grenade/shrapnel/phosphor
-
+	ammo_categories = AMMO_CLASS_NICHE
 	custom_materials = AMMO_MATS_GRENADE_INCENDIARY
 
 
@@ -201,7 +204,7 @@
 
 /obj/item/ammo_box/c980grenade/shrapnel/phosphor
 	name = "ammo box (.980 Tydhouer phosphor)"
-	desc = "A box of four .980 Tydhouer phosphor grenades. Instructions on the box indicate these are incendiary explosive rounds. Its also covered in hazard signs, odd."
+	desc = "A box of four .980 Tydhouer phosphor grenades. Instructions on the box indicate these are incendiary explosive rounds. It's also covered in hazard signs, odd."
 
 	icon_state = "980box_gas_alternate"
 
@@ -223,7 +226,7 @@
 	desc = "A large grenade shell that will detonate at a range given to it by the gun that fires it. Bursts into a tear gas cloud."
 
 	icon_state = "980_gas"
-
+	ammo_categories = AMMO_CLASS_NICHE_LTL
 	projectile_type = /obj/projectile/bullet/c980grenade/riot
 
 

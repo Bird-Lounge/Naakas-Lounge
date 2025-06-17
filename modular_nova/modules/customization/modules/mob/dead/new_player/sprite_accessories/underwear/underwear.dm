@@ -99,6 +99,14 @@
 	icon_state = "striped_panties"
 	gender = FEMALE
 
+/datum/sprite_accessory/underwear/loincloth
+	name = "Loincloth"
+	icon_state = "loincloth"
+
+/datum/sprite_accessory/underwear/loincloth_alt
+	name = "Shorter Loincloth"
+	icon_state = "loincloth_alt"
+
 //Presets
 /datum/sprite_accessory/underwear/lizared
 	name = "LIZARED Underwear"
@@ -109,7 +117,6 @@
 	name = "Panties - Lingerie"
 	icon_state = "panties_kinky"
 	gender = FEMALE
-	use_static = TRUE
 
 /datum/sprite_accessory/underwear/female_commie
 	name = "Panties - Commie"
@@ -196,7 +203,6 @@
 /datum/sprite_accessory/underwear/chastbelt
 	name = "Chastity Belt"
 	icon_state = "chastbelt"
-	use_static = TRUE
 	erp_accessory = TRUE
 
 /datum/sprite_accessory/underwear/chastcage

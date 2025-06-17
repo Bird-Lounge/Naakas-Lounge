@@ -136,6 +136,19 @@
 /obj/effect/turf_decal/bot/left,
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/allamericandiner)
+"ga" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -1;
+	pixel_y = 5
+	},
+/obj/item/rag{
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/turf/open/floor/iron/kitchen/small,
+/area/ruin/space/has_grav/allamericandiner)
 "gl" = (
 /obj/structure/chair/sofa/left/maroon{
 	dir = 4
@@ -284,11 +297,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/allamericandiner)
-"ob" = (
-/obj/effect/spawner/structure/window,
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/allamericandiner)
 "og" = (
 /obj/structure/reagent_dispensers/cooking_oil,
 /obj/item/reagent_containers/cup/bucket,
@@ -360,13 +368,6 @@
 	},
 /obj/structure/plasticflaps,
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/allamericandiner)
-"rm" = (
-/obj/structure/table/reinforced,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/storage/box/cups,
-/turf/open/floor/iron/kitchen/small,
 /area/ruin/space/has_grav/allamericandiner)
 "rG" = (
 /obj/structure/chair/stool/bar/directional/north,
@@ -460,6 +461,13 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/allamericandiner)
+"vE" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box/cups,
+/turf/open/floor/iron/kitchen/small,
+/area/ruin/space/has_grav/allamericandiner)
 "wC" = (
 /obj/structure/closet{
 	desc = "Why leave the chairs in a locker?";
@@ -471,19 +479,6 @@
 /obj/item/chair/plastic,
 /turf/open/misc/asteroid/airless,
 /area/ruin/space)
-"wI" = (
-/obj/structure/table/reinforced,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -1;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/cup/rag{
-	pixel_x = 8;
-	pixel_y = 3
-	},
-/turf/open/floor/iron/kitchen/small,
-/area/ruin/space/has_grav/allamericandiner)
 "wJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
@@ -492,6 +487,10 @@
 	pixel_y = -5
 	},
 /turf/open/floor/iron,
+/area/ruin/space/has_grav/allamericandiner)
+"wW" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
 /area/ruin/space/has_grav/allamericandiner)
 "xa" = (
 /obj/effect/turf_decal/bot,
@@ -513,7 +512,7 @@
 "yE" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
 /obj/machinery/power/terminal{
 	dir = 4
 	},
@@ -572,15 +571,6 @@
 	},
 /obj/structure/window/reinforced/tinted/spawner/directional/east,
 /turf/open/floor/iron/kitchen,
-/area/ruin/space/has_grav/allamericandiner)
-"AS" = (
-/obj/structure/table/reinforced,
-/obj/machinery/light/dim/directional/east,
-/obj/machinery/chem_dispenser/drinks/fullupgrade{
-	dir = 1
-	},
-/obj/structure/window/spawner/directional/south,
-/turf/open/floor/iron/kitchen/small,
 /area/ruin/space/has_grav/allamericandiner)
 "Bg" = (
 /obj/machinery/light/dim/directional/west,
@@ -1147,6 +1137,15 @@
 /obj/structure/sink/directional/south,
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/allamericandiner)
+"Vq" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light/dim/directional/east,
+/obj/machinery/chem_dispenser/drinks/fullupgrade{
+	dir = 1
+	},
+/obj/structure/window/spawner/directional/south,
+/turf/open/floor/iron/kitchen/small,
+/area/ruin/space/has_grav/allamericandiner)
 "Vy" = (
 /obj/effect/turf_decal/trimline/dark_green/filled/line{
 	dir = 5
@@ -1371,12 +1370,12 @@ oN
 oN
 EK
 EK
-ob
+wW
 EK
 EK
-ob
+wW
 EK
-ob
+wW
 EK
 EK
 EK
@@ -1453,7 +1452,7 @@ db
 vp
 fL
 fL
-ob
+wW
 SU
 SU
 SU
@@ -1564,7 +1563,7 @@ FB
 PW
 fL
 fL
-ob
+wW
 SU
 SU
 SU
@@ -1818,12 +1817,12 @@ zw
 jZ
 Qn
 Fr
-wI
+ga
 rG
 PW
 yl
 yl
-ob
+wW
 SU
 SU
 SU
@@ -1929,12 +1928,12 @@ Fr
 Fr
 lF
 Fr
-rm
+vE
 Ka
 PW
 fL
 fL
-ob
+wW
 SU
 SU
 SU
@@ -1966,7 +1965,7 @@ ej
 jZ
 LR
 jZ
-AS
+Vq
 rd
 rd
 lI

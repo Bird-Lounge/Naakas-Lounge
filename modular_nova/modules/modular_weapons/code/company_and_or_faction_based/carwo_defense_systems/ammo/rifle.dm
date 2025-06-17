@@ -22,8 +22,8 @@
 	name = ".40 Sol Long bullet"
 	damage = 35
 
-	wound_bonus = 10
-	bare_wound_bonus = 20
+	wound_bonus = 5
+	bare_wound_bonus = 10
 
 
 /obj/item/ammo_box/c40sol
@@ -52,8 +52,8 @@
 
 	projectile_type = /obj/projectile/bullet/c40sol/fragmentation
 
-	advanced_print_req = TRUE
-
+	ammo_categories = AMMO_CLASS_NONE // it's. on a technicality
+	print_cost = 0
 	harmful = FALSE
 
 
@@ -69,19 +69,19 @@
 	bare_wound_bonus = 10
 
 	shrapnel_type = /obj/item/shrapnel/stingball
-	embedding = list(
-		embed_chance = 50,
-		fall_chance = 5,
-		jostle_chance = 5,
-		ignore_throwspeed_threshold = TRUE,
-		pain_stam_pct = 0.4,
-		pain_mult = 2,
-		jostle_pain_mult = 3,
-		rip_time = 0.5 SECONDS,
-	)
+	embed_type = /datum/embedding/c40sol_fragmentation
 
 	embed_falloff_tile = -5
 
+/datum/embedding/c40sol_fragmentation
+	embed_chance = 50
+	fall_chance = 5
+	jostle_chance = 5
+	ignore_throwspeed_threshold = TRUE
+	pain_stam_pct = 0.4
+	pain_mult = 2
+	jostle_pain_mult = 3
+	rip_time = 0.5 SECONDS
 
 /obj/item/ammo_box/c40sol/fragmentation
 	name = "ammo box (.40 Sol Long fragmentation)"
@@ -104,16 +104,16 @@
 
 	projectile_type = /obj/projectile/bullet/c40sol/pierce
 
+	ammo_categories = AMMO_CLASS_PLUS
 	custom_materials = AMMO_MATS_AP
-	advanced_print_req = TRUE
-
+	print_cost = 2
 
 /obj/projectile/bullet/c40sol/pierce
 	name = ".40 Sol match bullet"
 
 	icon_state = "gaussphase"
 
-	speed = 0.5
+	speed = 2
 
 	damage = 25
 	armour_penetration = 20
@@ -163,9 +163,9 @@
 
 	projectile_type = /obj/projectile/bullet/c40sol/incendiary
 
+	ammo_categories = AMMO_CLASS_NICHE
 	custom_materials = AMMO_MATS_TEMP
-	advanced_print_req = TRUE
-
+	print_cost = 2
 
 /obj/projectile/bullet/c40sol/incendiary
 	name = ".40 Sol Long incendiary bullet"

@@ -61,6 +61,13 @@
 	affected_bodyparts = CHEST
 	gendered = FALSE
 
+/datum/body_marking/other/belly_slim_toned
+	name = "Belly Slim (Alt) + Tonage"
+	icon_state = "bellyslimtoned"
+	default_color = "#555555"
+	affected_bodyparts = CHEST
+	gendered = FALSE
+
 /datum/body_marking/other/flushed_cheeks
 	name = "Flushed Cheeks"
 	icon_state = "flushed_cheeks"
@@ -188,10 +195,24 @@
 	affected_bodyparts = HEAD
 	always_color_customizable = TRUE
 
+/datum/body_marking/other/anime_inner
+	name = "Anime Eyes (Inner)"
+	icon_state = "anime_inner"
+	default_color = "#FF0000"
+	affected_bodyparts = HEAD
+	always_color_customizable = TRUE
+
+/datum/body_marking/other/anime_outer
+	name = "Anime Eyes (Outer)"
+	icon_state = "anime_outer"
+	default_color = "#FF0000"
+	affected_bodyparts = HEAD
+	always_color_customizable = TRUE
+
 /datum/body_marking/other/claws
 	name = "Claw Tips"
 	icon_state = "claws"
-	affected_bodyparts = HAND_LEFT | HAND_RIGHT
+	affected_bodyparts = HAND_LEFT | HAND_RIGHT | LEG_RIGHT | LEG_LEFT
 	gendered = FALSE
 
 /datum/body_marking/other/splotches
@@ -243,6 +264,24 @@
 	name = "Protogen Chest"
 	icon_state = "protogen"
 	affected_bodyparts = CHEST
+
+/datum/body_marking/other/jackal_fur
+	name = "Jackal Back Fur"
+	icon_state = "jackalfur"
+	affected_bodyparts = CHEST | ARM_RIGHT | ARM_LEFT
+	gendered = FALSE
+
+/datum/body_marking/other/jackal_back
+	name = "Jackal Back Fur Accents"
+	icon_state = "jackalback"
+	affected_bodyparts = CHEST | ARM_RIGHT | ARM_LEFT
+	gendered = FALSE
+
+/datum/body_marking/other/sixnips
+	name = "Six Nips"
+	icon_state = "nips"
+	affected_bodyparts = CHEST
+	gendered = FALSE
 
 /datum/body_marking/secondary
 	icon = 'modular_nova/master_files/icons/mob/body_markings/secondary_markings.dmi'
@@ -530,6 +569,16 @@
 	name = "Plain"
 	icon_state = "plain"
 	affected_bodyparts = HEAD | CHEST | ARM_LEFT | ARM_RIGHT | HAND_LEFT | HAND_RIGHT | LEG_RIGHT | LEG_LEFT
+
+/datum/body_marking/secondary/upper_limb
+	name = "Upper Limb"
+	icon_state = "upper_limb"
+	affected_bodyparts = ARM_LEFT | ARM_RIGHT | LEG_RIGHT | LEG_LEFT
+
+/datum/body_marking/secondary/lower_limb
+	name = "Lower Limb"
+	icon_state = "lower_limb"
+	affected_bodyparts = ARM_LEFT | ARM_RIGHT | LEG_RIGHT | LEG_LEFT
 
 /datum/body_marking/tertiary
 	icon = 'modular_nova/master_files/icons/mob/body_markings/tertiary_markings.dmi'

@@ -30,7 +30,7 @@
 	build_path = /obj/item/reagent_containers/cup/vial/large
 
 /datum/design/hypokit
-	name = "Hypospray Kit"
+	name = "Hypospray Case"
 	id = "hypokit"
 	build_type = PROTOLATHE | AWAY_LATHE
 	materials = list(
@@ -44,16 +44,9 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL
 
-/datum/techweb_node/chem_synthesis/New()
-	design_ids += list(
-		"large_hypovial",
-		"hypokit",
-	)
-	return ..()
-
 /// Hyposprays
 /datum/design/hypokit/deluxe
-	name = "Deluxe Hypospray Kit"
+	name = "Deluxe Hypospray Case"
 	id = "hypokit_deluxe"
 	materials = list(
 		/datum/material/plastic = SHEET_MATERIAL_AMOUNT * 6,
@@ -63,7 +56,7 @@
 	build_path = /obj/item/storage/hypospraykit/cmo/empty
 
 /datum/design/hypomkii
-	name = "MkII Hypospray"
+	name = "Hypospray Mk. II"
 	id = "hypomkii"
 	build_type = PROTOLATHE | AWAY_LATHE
 	materials = list(
@@ -81,12 +74,12 @@
 /datum/techweb_node/medbay_equip_adv/New()
 	design_ids += list(
 		"hypokit_deluxe",
-		"hypomkii",
+		"hypomkii_advanced",
 	)
 	return ..()
 
 /datum/design/hypomkii/deluxe
-	name = "MkII Hypospray Upgrade Kit"
+	name = "Hypospray Mk. II Deluxe Upgrade"
 	id = "hypomkii_deluxe"
 	build_type = PROTOLATHE | AWAY_LATHE
 	materials = list(
@@ -97,7 +90,7 @@
 	build_path = /obj/item/device/custom_kit/deluxe_hypo2
 	category = list(
 		RND_CATEGORY_INITIAL,
-		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MEDICAL,
+		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MEDICAL_ADVANCED,
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL
 
@@ -107,14 +100,22 @@
 	)
 	return ..()
 
-// Tarkon and similar get enough to work with, but if they want deluxe kits/hypos they still need to trade with the station for 'em.
-/datum/techweb_node/oldstation_surgery/New()
-	design_ids += list(
-		"hypokit",
-		"hypomkii",
+/datum/design/hypomkii/piercing
+	name = "Hypospray Mk. II Advanced"
+	id = "hypomkii_advanced"
+	build_type = PROTOLATHE | AWAY_LATHE
+	materials = list(
+		/datum/material/plastic = SHEET_MATERIAL_AMOUNT * 5,
+		/datum/material/glass = SHEET_MATERIAL_AMOUNT * 3,
+		/datum/material/silver = SHEET_MATERIAL_AMOUNT,
+		/datum/material/titanium = SHEET_MATERIAL_AMOUNT,
 	)
-	return ..()
-
+	build_path = /obj/item/hypospray/mkii/piercing
+	category = list(
+		RND_CATEGORY_INITIAL,
+		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MEDICAL_ADVANCED,
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL
 
 
 /// For reasons unknown, pens are included as an autolathe design here, in the hypospray module of all places.

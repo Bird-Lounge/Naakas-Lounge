@@ -6,7 +6,7 @@
 
 /mob/living/silicon/robot/model/roleplay/Initialize(mapload)
 	. = ..()
-	cell = new /obj/item/stock_parts/cell/infinite(src, 30000)
+	cell = new /obj/item/stock_parts/power_store/cell/infinite(src, 30000)
 	//This part is because the camera stays in the list, so we'll just do a check
 	if(!QDELETED(builtInCamera))
 		QDEL_NULL(builtInCamera)
@@ -61,7 +61,7 @@
 		/obj/item/borg/apparatus/beaker,
 		/obj/item/borg/apparatus/beaker,
 		/obj/item/soap/nanotrasen,
-		/obj/item/mop/cyborg, // Soap's good and all, but a mop is good, too
+		/obj/item/mop, // Soap's good and all, but a mop is good, too
 		/obj/item/lightreplacer,
 		/obj/item/borg/cyborghug,
 		/obj/item/quadborg_nose,

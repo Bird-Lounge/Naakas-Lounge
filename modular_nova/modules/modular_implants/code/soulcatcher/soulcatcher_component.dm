@@ -58,7 +58,7 @@ GLOBAL_LIST_EMPTY(soulcatchers)
 		qdel(soulcatcher_room)
 
 	var/mob/living/soulcatcher_owner = parent
-	var/obj/item/organ/internal/cyberimp/brain/nif/parent_nif = parent
+	var/obj/item/organ/cyberimp/brain/nif/parent_nif = parent
 	if(istype(parent_nif))
 		soulcatcher_owner = parent_nif.linked_mob
 
@@ -300,7 +300,7 @@ GLOBAL_LIST_EMPTY(soulcatchers)
 	if(!message_to_send) //Why say nothing?
 		return FALSE
 
-	var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/chat)
+	var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet_batched/chat)
 	var/tag = sheet.icon_tag("nif-soulcatcher")
 	var/soulcatcher_icon = ""
 
@@ -370,24 +370,17 @@ GLOBAL_LIST_EMPTY(soulcatchers)
 
 	return ..()
 
-/datum/action/innate/join_soulcatcher
+/atom/movable/screen/ghost/join_soulcatcher
 	name = "Enter Soulcatcher"
-	background_icon = 'modular_nova/master_files/icons/mob/actions/action_backgrounds.dmi'
-	background_icon_state = "android"
-	button_icon = 'modular_nova/master_files/icons/mob/actions/actions_nif.dmi'
-	button_icon_state = "soulcatcher_enter"
+	icon = 'modular_nova/master_files/icons/hud/screen_ghost.dmi'
+	icon_state = "soulcatcher"
 
-/datum/action/innate/join_soulcatcher/Activate()
-	. = ..()
-	var/mob/dead/observer/joining_soul = owner
-	if(!joining_soul)
-		return FALSE
-
-	joining_soul.join_soulcatcher()
+/atom/movable/screen/ghost/join_soulcatcher/Click()
+	var/mob/dead/observer/observer = usr
+	observer.join_soulcatcher()
 
 /mob/dead/observer/verb/join_soulcatcher()
 	set name = "Enter Soulcatcher"
-	set category = "Ghost"
 
 	var/list/joinable_soulcatchers = list()
 	for(var/datum/component/soulcatcher/soulcatcher in GLOB.soulcatchers)
@@ -451,20 +444,3 @@ GLOBAL_LIST_EMPTY(soulcatchers)
 		return TRUE
 
 	return ..()
-
-/mob/dead/observer/Login()
-	. = ..()
-	var/datum/preferences/preferences = client?.prefs
-	var/soulcatcher_action_given
-
-	if(preferences)
-		soulcatcher_action_given = preferences.read_preference(/datum/preference/toggle/soulcatcher_join_action)
-
-	if(!soulcatcher_action_given)
-		return
-
-	if(locate(/datum/action/innate/join_soulcatcher) in actions)
-		return
-
-	var/datum/action/innate/join_soulcatcher/new_join_action = new(src)
-	new_join_action.Grant(src)

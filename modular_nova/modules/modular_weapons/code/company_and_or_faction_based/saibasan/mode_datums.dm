@@ -20,10 +20,10 @@
 /// Applies some of the universal stats from the variables above
 /datum/laser_weapon_mode/proc/apply_stats(obj/item/gun/energy/applied_gun)
 	if(length(applied_gun.ammo_type))
-		for(var/found_casing as anything in applied_gun.ammo_type)
-			applied_gun.ammo_type.Remove(found_casing)
-			qdel(found_casing)
-	applied_gun.ammo_type.Add(casing)
+		QDEL_LIST(applied_gun.ammo_type)
+	applied_gun.select = 1
+	applied_gun.ammo_type = list()
+	applied_gun.ammo_type += casing
 	applied_gun.update_ammo_types()
 	applied_gun.charge_sections = charge_sections
 	applied_gun.fire_delay = shot_delay
@@ -145,7 +145,7 @@
 	applied_gun.disabled_for_other_reasons = TRUE
 	applied_gun.attack_verb_continuous = list("slashes", "cuts")
 	applied_gun.attack_verb_simple = list("slash", "cut")
-	applied_gun.hitsound = 'sound/weapons/rapierhit.ogg'
+	applied_gun.hitsound = 'sound/items/weapons/rapierhit.ogg'
 
 /datum/laser_weapon_mode/sword/remove_from_weapon(obj/item/gun/energy/modular_laser_rifle/applied_gun)
 	playsound(src, 'sound/items/sheath.ogg', 25, TRUE)

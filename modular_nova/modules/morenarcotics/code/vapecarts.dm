@@ -11,7 +11,7 @@
 	custom_price = PAYCHECK_CREW
 
 /obj/item/reagent_containers/vapecart/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
-	var/obj/item/clothing/mask/vape/target_vape = interacting_with
+	var/obj/item/vape/target_vape = interacting_with
 	if(!istype(target_vape))
 		return NONE
 	if(target_vape.screw == TRUE && !target_vape.reagents.total_volume)
@@ -36,15 +36,15 @@
 		to_chat(user, span_notice("You empty [src] of all reagents."))
 		reagents.clear_reagents()
 
-/obj/item/reagent_containers/vapecart/empty/attackby(obj/item/attacked_item, mob/user, params)
-	if (istype(attacked_item, /obj/item/pen) || istype(attacked_item, /obj/item/toy/crayon))
+/obj/item/reagent_containers/vapecart/empty/attackby(obj/item/attacking_item, mob/user, list/modifiers, list/attack_modifiers)
+	if (istype(attacking_item, /obj/item/pen) || istype(attacking_item, /obj/item/toy/crayon))
 		if(!user.is_literate())
 			to_chat(user, span_notice("You scribble illegibly on the label of the vape cart!"))
 			return
 		var/new_title = stripped_input(user, "What would you like to label the vape cart?", name, null, 53)
 		if(!user.can_perform_action(src))
 			return
-		if(user.get_active_held_item() != attacked_item)
+		if(user.get_active_held_item() != attacking_item)
 			return
 		if(new_title)
 			labelled = TRUE

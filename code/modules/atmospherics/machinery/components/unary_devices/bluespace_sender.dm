@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY_TYPED(bluespace_senders, /obj/machinery/atmospherics/component
 
 	GLOB.bluespace_senders += src
 
-	update_appearance()
+	update_appearance(UPDATE_ICON)
 	register_context()
 
 /obj/machinery/atmospherics/components/unary/bluespace_sender/Destroy()
@@ -61,7 +61,8 @@ GLOBAL_LIST_EMPTY_TYPED(bluespace_senders, /obj/machinery/atmospherics/component
 
 /obj/machinery/atmospherics/components/unary/bluespace_sender/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
-	context[SCREENTIP_CONTEXT_CTRL_LMB] = "Turn [on ? "off" : "on"]"
+	if(anchored && !panel_open && is_operational)
+		context[SCREENTIP_CONTEXT_CTRL_LMB] = "Turn [on ? "off" : "on"]"
 	if(!held_item)
 		return CONTEXTUAL_SCREENTIP_SET
 	switch(held_item.tool_behaviour)
@@ -90,7 +91,7 @@ GLOBAL_LIST_EMPTY_TYPED(bluespace_senders, /obj/machinery/atmospherics/component
 /obj/machinery/atmospherics/components/unary/bluespace_sender/update_overlays()
 	. = ..()
 	. += get_pipe_image(icon, "pipe", dir, , piping_layer)
-	if(showpipe)
+	if(underfloor_state)
 		. += get_pipe_image(icon, "pipe", initialize_directions)
 
 /obj/machinery/atmospherics/components/unary/bluespace_sender/process_atmos()
@@ -146,17 +147,16 @@ GLOBAL_LIST_EMPTY_TYPED(bluespace_senders, /obj/machinery/atmospherics/component
 	if(!..())
 		return FALSE
 	set_init_directions()
-	update_appearance()
+	update_appearance(UPDATE_ICON)
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/bluespace_sender/click_ctrl(mob/user)
 	if(!panel_open && is_operational)
-		on = !on
+		set_on(!on)
 		balloon_alert(user, "turned [on ? "on" : "off"]")
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
-		update_appearance()
 		return CLICK_ACTION_SUCCESS
-	return CLICK_ACTION_BLOCKING
+	return NONE
 
 /obj/machinery/atmospherics/components/unary/bluespace_sender/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -197,16 +197,15 @@ GLOBAL_LIST_EMPTY_TYPED(bluespace_senders, /obj/machinery/atmospherics/component
 	data["credits"] = credits_gained
 	return data
 
-/obj/machinery/atmospherics/components/unary/bluespace_sender/ui_act(action, params)
+/obj/machinery/atmospherics/components/unary/bluespace_sender/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
 
 	switch(action)
 		if("power")
-			on = !on
+			set_on(!on)
 			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
-			update_appearance()
 			. = TRUE
 
 		if("rate")

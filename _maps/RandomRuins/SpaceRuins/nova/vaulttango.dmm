@@ -779,7 +779,7 @@
 "By" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
-/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/maintenance/no_decals,
 /turf/template_noop,
 /area/template_noop)
 "BK" = (
@@ -970,7 +970,7 @@
 	},
 /obj/structure/cable,
 /obj/machinery/power/apc/auto_name/directional/east{
-	cell_type = /obj/item/stock_parts/cell/hyper
+	cell_type = /obj/item/stock_parts/power_store/battery/hyper
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/vaulttango)

@@ -34,14 +34,14 @@
 	var/datum/antagonist/A = has_antag_datum(datum_type)
 	if(A)
 		A.on_removal()
-		current.log_message("has lost antag datum [A.name]([A.type]).", LOG_GAME)
+		current?.log_message("has lost antag datum [A.name]([A.type]).", LOG_GAME)
 		return TRUE
 
 /datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
 	for(var/a in antag_datums)
 		var/datum/antagonist/A = a
 		A.on_removal()
-	current.log_message("has lost all antag datums.", LOG_GAME)
+	current?.log_message("has lost all antag datums.", LOG_GAME)
 
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
 	if(!datum_type)
@@ -93,6 +93,8 @@
 
 
 /datum/mind/proc/remove_antag_equip()
+	if(!current)
+		return
 	var/list/Mob_Contents = current.get_contents()
 	for(var/obj/item/I in Mob_Contents)
 		var/datum/component/uplink/O = I.GetComponent(/datum/component/uplink) //Todo make this reset signal
@@ -215,8 +217,9 @@
 		N.nukeop_outfit = null
 		add_antag_datum(N,converter.nuke_team)
 
-
 	enslaved_to = WEAKREF(creator)
+
+	SEND_SIGNAL(current, COMSIG_MOB_ENSLAVED_TO, creator)
 
 	current.faction |= creator.faction
 	creator.faction |= "[REF(current)]"
@@ -286,7 +289,7 @@
 /datum/mind/proc/make_wizard()
 	if(has_antag_datum(/datum/antagonist/wizard))
 		return
-	set_assigned_role(SSjob.GetJobType(/datum/job/space_wizard))
+	set_assigned_role(SSjob.get_job_type(/datum/job/space_wizard))
 	special_role = ROLE_WIZARD
 	add_antag_datum(/datum/antagonist/wizard)
 

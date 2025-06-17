@@ -1,7 +1,8 @@
 /obj/item/modular_computer/pda
 	name = "pda"
-	icon = 'icons/obj/devices/modular_pda.dmi'
-	icon_state = "pda"
+	icon = 'icons/map_icons/items/pda.dmi'
+	icon_state = "/obj/item/modular_computer/pda"
+	post_init_icon_state = "pda"
 	worn_icon_state = "nothing"
 	base_icon_state = "tablet"
 	greyscale_config = /datum/greyscale_config/tablet
@@ -10,6 +11,8 @@
 	lefthand_file = 'icons/mob/inhands/items/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items/devices_righthand.dmi'
 	inhand_icon_state = "electronic"
+
+	overlays_icon = 'icons/obj/devices/modular_pda.dmi'
 
 	steel_sheet_cost = 2
 	custom_materials = list(/datum/material/iron=SMALL_MATERIAL_AMOUNT * 3, /datum/material/glass=SMALL_MATERIAL_AMOUNT, /datum/material/plastic=SMALL_MATERIAL_AMOUNT)
@@ -27,6 +30,7 @@
 	looping_sound = FALSE
 
 	shell_capacity = SHELL_CAPACITY_SMALL
+	action_slots = ALL
 
 	///The item currently inserted into the PDA, starts with a pen.
 	var/obj/item/inserted_item = /obj/item/pen
@@ -38,10 +42,9 @@
 		/datum/computer_file/program/messenger,
 		/datum/computer_file/program/nt_pay,
 		/datum/computer_file/program/notepad,
-		// NOVA EDIT ADDITION START
-		/datum/computer_file/program/crew_manifest, // Adds crew manifest to all base tablets
-		/datum/computer_file/program/maintenance/camera // Adds camera to all base tablets
-		// SKRAT EDIT ADDITION END
+		/datum/computer_file/program/crew_manifest,
+		/datum/computer_file/program/crew_self_serve, // NOVA EDIT ADDITION - Adds punch clock app to all base tablets
+		/datum/computer_file/program/maintenance/camera, // NOVA EDIT ADDITION - Adds camera to all base tablets
 	)
 	///List of items that can be stored in a PDA
 	var/static/list/contained_item = list(
@@ -50,7 +53,7 @@
 		/obj/item/lipstick,
 		/obj/item/flashlight/pen,
 		/obj/item/reagent_containers/hypospray/medipen,
-		/obj/item/clothing/mask/cigarette,
+		/obj/item/cigarette,
 	)
 
 /obj/item/modular_computer/pda/Initialize(mapload)
@@ -76,15 +79,11 @@
 /obj/item/modular_computer/pda/update_overlays()
 	. = ..()
 	if(computer_id_slot)
-		. += mutable_appearance(initial(icon), "id_overlay")
+		. += mutable_appearance(overlays_icon, "id_overlay")
 	if(light_on)
-		. += mutable_appearance(initial(icon), "light_overlay")
+		. += mutable_appearance(overlays_icon, "light_overlay")
 	if(inserted_pai)
-		. += mutable_appearance(initial(icon), "pai_inserted")
-
-/obj/item/modular_computer/pda/attack_ai(mob/user)
-	to_chat(user, span_notice("It doesn't feel right to snoop around like that..."))
-	return // we don't want ais or cyborgs using a private role tablet
+		. += mutable_appearance(overlays_icon, "pai_inserted")
 
 /obj/item/modular_computer/pda/interact(mob/user)
 	. = ..()
@@ -104,7 +103,7 @@
 
 	return ..()
 
-/obj/item/modular_computer/pda/pre_attack(atom/target, mob/living/user, params)
+/obj/item/modular_computer/pda/pre_attack(atom/target, mob/living/user, list/modifiers, list/attack_modifiers)
 	if(!inserted_disk || !ismachinery(target))
 		return ..()
 
@@ -144,21 +143,28 @@
 
 	return . || NONE
 
-/obj/item/modular_computer/pda/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+/obj/item/modular_computer/pda/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(iscash(interacting_with))
+		return money_act(user,interacting_with)
+	return NONE
 
+/obj/item/modular_computer/pda/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	. = ..()
+	if(.)
+		return .
 	if(!is_type_in_list(tool, contained_item))
 		return NONE
 	if(tool.w_class >= WEIGHT_CLASS_SMALL) // Anything equal to or larger than small won't work
 		user.balloon_alert(user, "too big!")
 		return ITEM_INTERACT_BLOCKING
-	if(inserted_item)
-		balloon_alert(user, "no room!")
-		return ITEM_INTERACT_BLOCKING
 	if(!user.transferItemToLoc(tool, src))
 		return ITEM_INTERACT_BLOCKING
-	balloon_alert(user, "inserted [tool]")
-	inserted_item = tool
-	playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+	if(inserted_item)
+		swap_pen(user, tool)
+	else
+		balloon_alert(user, "inserted [tool]")
+		inserted_item = tool
+		playsound(src, 'sound/machines/pda_button/pda_button1.ogg', 50, TRUE)
 	return ITEM_INTERACT_SUCCESS
 
 
@@ -177,7 +183,7 @@
 
 /obj/item/modular_computer/pda/proc/remove_pen(mob/user)
 
-	if(issilicon(user) || !user.can_perform_action(src, FORBID_TELEKINESIS_REACH)) //TK doesn't work even with this removed but here for readability
+	if(issilicon(user) || !user.can_perform_action(src, FORBID_TELEKINESIS_REACH | NEED_DEXTERITY)) //TK doesn't work even with this removed but here for readability
 		return
 
 	if(inserted_item)
@@ -185,7 +191,15 @@
 		user.put_in_hands(inserted_item)
 		inserted_item = null
 		update_appearance()
-		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
+		playsound(src, 'sound/machines/pda_button/pda_button2.ogg', 50, TRUE)
+
+/obj/item/modular_computer/pda/proc/swap_pen(mob/user, obj/item/tool)
+	if(inserted_item)
+		balloon_alert(user, "swapped pens")
+		user.put_in_hands(inserted_item)
+		inserted_item = tool
+		update_appearance()
+		playsound(src, 'sound/machines/pda_button/pda_button1.ogg', 50, TRUE)
 
 /obj/item/modular_computer/pda/proc/explode(mob/target, mob/bomber, from_message_menu = FALSE)
 	var/turf/current_turf = get_turf(src)
@@ -252,6 +266,7 @@
  */
 /obj/item/modular_computer/pda/nukeops
 	name = "nuclear pda"
+	icon_state = "/obj/item/modular_computer/pda/nukeops"
 	device_theme = PDA_THEME_SYNDICATE
 	comp_light_luminosity = 6.3 //matching a flashlight
 	light_color = COLOR_RED
@@ -271,8 +286,9 @@
 
 /obj/item/modular_computer/pda/syndicate_contract_uplink
 	name = "contractor tablet"
-	device_theme = PDA_THEME_SYNDICATE
+	icon_state = "/obj/item/modular_computer/pda/syndicate_contract_uplink"
 	icon_state_menu = "contractor-assign"
+	device_theme = PDA_THEME_SYNDICATE
 	comp_light_luminosity = 6.3
 	has_pda_programs = FALSE
 	greyscale_config = /datum/greyscale_config/tablet/stripe_double
@@ -290,7 +306,9 @@
  */
 /obj/item/modular_computer/pda/silicon
 	name = "modular interface"
+	icon = 'icons/obj/devices/modular_pda.dmi'
 	icon_state = "tablet-silicon"
+	post_init_icon_state = null
 	base_icon_state = "tablet-silicon"
 	greyscale_config = null
 	greyscale_colors = null
@@ -310,11 +328,18 @@
 	///Ref to the silicon we're installed in. Set by the silicon itself during its creation.
 	var/mob/living/silicon/silicon_owner
 
+/obj/item/modular_computer/pda/silicon/pai
+	starting_programs = list(
+		/datum/computer_file/program/messenger,
+		/datum/computer_file/program/chatclient,
+	)
+
 /obj/item/modular_computer/pda/silicon/cyborg
 	starting_programs = list(
 		/datum/computer_file/program/filemanager,
 		/datum/computer_file/program/robotact,
-		/datum/computer_file/program/crew_manifest, // NOVA EDIT ADDITION - Manifests for borgs
+		/datum/computer_file/program/atmosscan,
+		/datum/computer_file/program/crew_manifest,
 		/datum/computer_file/program/messenger, // NOVA EDIT ADDITION - Messenger for borgs
 	)
 
@@ -410,7 +435,7 @@
 	return TRUE
 
 /obj/item/modular_computer/pda/silicon/ui_state(mob/user)
-	return GLOB.reverse_contained_state
+	return GLOB.deep_inventory_state
 
 /obj/item/modular_computer/pda/silicon/cyborg/syndicate
 	icon_state = "tablet-silicon-syndicate"

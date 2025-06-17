@@ -21,23 +21,34 @@
 	tool_behaviors = list(TOOL_WIRECUTTER, TOOL_SCREWDRIVER, TOOL_WELDER)	//To cut the leather and fasten/weld the sheath detailing
 	time = 30
 	category = CAT_CLOTHING
-
-/datum/crafting_recipe/crusader_belt/on_craft_completion(mob/user, atom/result)
-	var/obj/item/storage/belt/crusader/crusader_belt = result
-	crusader_belt.PopulateContents()
+	delete_contents = FALSE
 
 /datum/crafting_recipe/crusader_satchel
 	name = "Crusader Satchel"
 	result = /obj/item/storage/backpack/satchel/crusader
-	reqs = list(/obj/item/stack/sheet/cloth = 2, /obj/item/stack/sheet/leather = 1)	//Cheap because its really just a re-texture of the satchel
+	reqs = list(/obj/item/stack/sheet/cloth = 2, /obj/item/stack/sheet/leather = 1)	//Cheap because it's really just a re-texture of the satchel
 	tool_behaviors = list(TOOL_WIRECUTTER)
 	time = 15
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/single_leaf
+	name = "Single Leaf"
+	result = /obj/item/clothing/under/misc/nova/gear_harness/adam
+	reqs = list(/obj/item/food/grown/grass = 1, /obj/item/stack/sheet/leather = 2)
+	time = 3 SECONDS
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/collection_leaves
+	name = "Collection of Leaves"
+	result = /obj/item/clothing/under/misc/nova/gear_harness/eve
+	reqs = list(/obj/item/food/grown/grass = 3, /obj/item/stack/sheet/leather = 2)
+	time = 6 SECONDS
 	category = CAT_CLOTHING
 
 //Eyepatches//
 /datum/crafting_recipe/secpatch
 	name = "Security Eyepatch HUD"
-	result = /obj/item/clothing/glasses/hud/eyepatch/sec
+	result = /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch
 	reqs = list(/obj/item/clothing/glasses/hud/security = 1, /obj/item/clothing/glasses/eyepatch = 1, /obj/item/stack/cable_coil = 5)
 	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER) //Tools needed and requirements are kept the same as craftable HUD sunglasses//
 	category = CAT_CLOTHING
@@ -45,7 +56,7 @@
 /datum/crafting_recipe/secpatchremoval
 	name = "Security Eyepatch HUD removal"
 	result = /obj/item/clothing/glasses/eyepatch
-	reqs = list(/obj/item/clothing/glasses/hud/eyepatch/sec = 1)
+	reqs = list(/obj/item/clothing/glasses/hud/security/sunglasses/eyepatch = 1)
 	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	category = CAT_CLOTHING
 

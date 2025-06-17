@@ -70,7 +70,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
 "aU" = (
@@ -282,9 +282,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
 /obj/machinery/iv_drip,
-/obj/structure/curtain{
-	layer = 4.1
-	},
+/obj/structure/curtain,
 /obj/structure/alien/weeds/node,
 /turf/open/floor/iron/white,
 /area/shuttle/abandoned/medbay)
@@ -349,7 +347,7 @@
 /obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/cup/rag,
+/obj/item/rag,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/bar)
 "dI" = (
@@ -370,7 +368,7 @@
 /area/shuttle/abandoned)
 "dN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /obj/structure/alien/weeds,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
@@ -387,7 +385,7 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/super,
+/obj/item/stock_parts/power_store/cell/super,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/bridge)
 "ei" = (
@@ -642,7 +640,7 @@
 /obj/effect/turf_decal/box/white/corners,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/xenoblood/xgibs/body,
+/obj/effect/decal/cleanable/blood/gibs/xeno/body,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
 "gv" = (
@@ -1763,7 +1761,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/xenoblood/xsplatter,
+/obj/effect/decal/cleanable/blood/splatter/xeno,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
 "qj" = (
@@ -1857,7 +1855,7 @@
 /area/shuttle/abandoned/crew)
 "qM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/boozeomat/all_access,
+/obj/machinery/vending/boozeomat,
 /obj/structure/alien/weeds,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/bar)
@@ -2013,7 +2011,6 @@
 	},
 /obj/structure/barricade/security,
 /obj/machinery/door/airlock/highsecurity{
-	layer = 3.0;
 	name = "Armory"
 	},
 /turf/open/floor/iron/dark,
@@ -2062,7 +2059,7 @@
 "sq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/xenoblood/xgibs/core,
+/obj/effect/decal/cleanable/blood/gibs/xeno/core,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
 "ss" = (
@@ -2109,7 +2106,7 @@
 /area/shuttle/abandoned/medbay)
 "tb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/xenoblood/xsplatter,
+/obj/effect/decal/cleanable/blood/splatter/xeno,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
 "tc" = (
@@ -2152,7 +2149,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/xenoblood/xsplatter,
+/obj/effect/decal/cleanable/blood/splatter/xeno,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
 "ts" = (
@@ -3969,8 +3966,8 @@
 /area/shuttle/abandoned/cargo)
 "Mj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/xenoblood/xgibs/limb,
-/obj/effect/decal/cleanable/xenoblood/xsplatter,
+/obj/effect/decal/cleanable/blood/gibs/xeno/limb,
+/obj/effect/decal/cleanable/blood/splatter/xeno,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
 "Mn" = (
@@ -4058,9 +4055,7 @@
 /obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/structure/table/glass,
-/obj/structure/curtain{
-	layer = 4.1
-	},
+/obj/structure/curtain,
 /obj/item/reagent_containers/syringe,
 /obj/structure/alien/weeds,
 /obj/item/clothing/gloves/latex/nitrile,
@@ -5052,9 +5047,7 @@
 	pixel_x = -3;
 	pixel_y = 8
 	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000;
+/obj/item/stock_parts/power_store/cell/high{
 	pixel_x = 3;
 	pixel_y = -1
 	},
@@ -5204,11 +5197,11 @@
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
 /obj/item/multitool,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
-/obj/item/stock_parts/cell/super,
+/obj/item/stock_parts/power_store/cell/super,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "Xj" = (
@@ -5378,7 +5371,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
-/obj/item/surgery_tray/full/deployed,
+/obj/effect/spawner/surgery_tray/full/deployed,
 /turf/open/floor/iron,
 /area/shuttle/abandoned/medbay)
 "YN" = (

@@ -542,13 +542,13 @@
 /area/ruin/space/bb13/research/toxins)
 "iY" = (
 /obj/structure/rack,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
 /obj/machinery/light/small/directional/west,
 /obj/item/stack/sheet/glass,
 /turf/open/floor/iron/airless,
@@ -1176,7 +1176,7 @@
 "su" = (
 /obj/structure/lattice,
 /obj/structure/closet/crate/bin,
-/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/maintenance/no_decals,
 /turf/template_noop,
 /area/ruin/space/bb13/hallway/central)
 "sv" = (
@@ -1464,13 +1464,13 @@
 /area/ruin/space/bb13/medical/genetics)
 "xp" = (
 /obj/structure/rack,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
+/obj/item/stock_parts/power_store/cell/high,
 /obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/airless,
 /area/ruin/space/bb13/hallway/central)

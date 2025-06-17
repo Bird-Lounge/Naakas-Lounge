@@ -1,8 +1,4 @@
-import { BooleanLike } from 'common/react';
-import { decodeHtmlEntities } from 'common/string';
 import { Component, createRef, RefObject } from 'react';
-
-import { useBackend } from '../../backend';
 import {
   Box,
   Button,
@@ -13,7 +9,10 @@ import {
   Section,
   Stack,
   Tooltip,
-} from '../../components';
+} from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
+
+import { useBackend } from '../../backend';
 import { NtMessage, NtMessenger, NtPicture } from './types';
 
 type ChatScreenProps = {
@@ -41,7 +40,7 @@ const SEND_COOLDOWN_MS = 1000;
 
 export class ChatScreen extends Component<ChatScreenProps, ChatScreenState> {
   readUnreadsTimeout: NodeJS.Timeout | null = null;
-  scrollRef: RefObject<HTMLDivElement>;
+  scrollRef: RefObject<HTMLDivElement | null>;
 
   state: ChatScreenState = {
     message: '',
@@ -162,7 +161,7 @@ export class ChatScreen extends Component<ChatScreenProps, ChatScreenState> {
     setTimeout(() => this.setState({ canSend: true }), SEND_COOLDOWN_MS);
   }
 
-  handleMessageInput(_: any, val: string) {
+  handleMessageInput(val: string) {
     this.setState({ message: val });
   }
   // NOVA EDIT ADDITION START
@@ -189,7 +188,7 @@ export class ChatScreen extends Component<ChatScreenProps, ChatScreenState> {
     const { message, canSend, previewingImage, selectingPhoto, subtleMode } =
       this.state;
 
-    let filteredMessages: JSX.Element[] = [];
+    let filteredMessages: React.JSX.Element[] = [];
 
     for (let index = 0; index < messages.length; index++) {
       const message = messages[index];
@@ -221,7 +220,7 @@ export class ChatScreen extends Component<ChatScreenProps, ChatScreenState> {
       );
     }
 
-    let sendingBar: JSX.Element;
+    let sendingBar: React.JSX.Element;
 
     if (!canReply) {
       sendingBar = (
@@ -315,7 +314,6 @@ export class ChatScreen extends Component<ChatScreenProps, ChatScreenState> {
                   pt={1}
                   onClick={() => act('PDA_clearPhoto')}
                   tooltip="Remove attachment"
-                  tooltipPosition="auto-end"
                 >
                   <Image src={selectedPhoto} />
                 </Button>
@@ -323,16 +321,16 @@ export class ChatScreen extends Component<ChatScreenProps, ChatScreenState> {
             )}
             <Stack.Item>
               <Stack fill align="center">
-                <Stack.Item grow={1}>
+                <Stack.Item grow>
                   <Input
                     placeholder={`Send message to ${recipient.name}...`}
                     fluid
                     autoFocus
-                    width="100%"
                     value={message}
                     maxLength={1024}
-                    onInput={this.handleMessageInput}
+                    onChange={this.handleMessageInput}
                     onEnter={this.handleSendMessage}
+                    selfClear
                   />
                 </Stack.Item>
                 {buttons}
@@ -437,7 +435,9 @@ const ChatMessage = (props: ChatMessageProps) => {
   } = props;
   // NOVA EDIT CHANGE END
 
-  const displayMessage = decodeHtmlEntities(message);
+  const messageHTML = {
+    __html: `${message}`,
+  };
 
   return (
     // NOVA EDIT CHANGE START - ORIGINAL: <Box className={`NtosChatMessage${outgoing ? '_outgoing' : ''}`}>
@@ -454,7 +454,7 @@ const ChatMessage = (props: ChatMessageProps) => {
     >
       {/* NOVA EDIT CHANGE END */}
       <Box className="NtosChatMessage__content">
-        <Box as="span">{displayMessage}</Box>
+        <Box as="span" dangerouslySetInnerHTML={messageHTML} />
         <Tooltip content={timestamp} position={outgoing ? 'left' : 'right'}>
           <Icon
             className="NtosChatMessage__timestamp"
