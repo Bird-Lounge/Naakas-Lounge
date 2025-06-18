@@ -51,7 +51,7 @@
 		/obj/item/pipe_dispenser,
 		// rag, mop and bucket for cleaning a dirty station
 		/obj/item/rag,
-		/obj/item/mop/cyborg,
+		/obj/item/mop,
 		/obj/item/reagent_containers/cup/bucket,
 		// orebag and kinetic accelerator, so you can clear a path
 		/obj/item/storage/bag/ore/cyborg,
