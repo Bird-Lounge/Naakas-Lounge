@@ -9113,6 +9113,9 @@
 #include "modular_nova\modules\xenoarch\code\modules\research\xenoarch\xenoarch_machine.dm"
 #include "modular_nova\modules\xenoarch\code\modules\research\xenoarch\xenoarch_reward.dm"
 #include "modular_nova\modules\xenoarch\code\modules\research\xenoarch\xenoarch_tool.dm"
+#include "modular_zskyraptor\modules_lounge\naaka_nom_sys\belly_actions.dm"
+#include "modular_zskyraptor\modules_lounge\naaka_nom_sys\belly_prefs.dm"
+#include "modular_zskyraptor\modules_lounge\naaka_nom_sys\equippable_belly.dm"
 #include "modular_nova\modules\xenoarchartifacts\artifacts\_DEFINES.dm"
 #include "modular_nova\modules\xenoarchartifacts\artifacts\artifact.dm"
 #include "modular_nova\modules\xenoarchartifacts\artifacts\artifact_autocloner.dm"
@@ -9154,7 +9157,4 @@
 #include "modular_nova\modules\xenoarchartifacts\obj\geosample.dm"
 #include "modular_nova\modules\xenoarchartifacts\obj\particle_battery.dm"
 #include "modular_nova\modules\xenoarchartifacts\obj\wave_scanner.dm"
-#include "modular_zskyraptor\modules_lounge\naaka_nom_sys\belly_actions.dm"
-#include "modular_zskyraptor\modules_lounge\naaka_nom_sys\belly_prefs.dm"
-#include "modular_zskyraptor\modules_lounge\naaka_nom_sys\equippable_belly.dm"
 // END_INCLUDE
