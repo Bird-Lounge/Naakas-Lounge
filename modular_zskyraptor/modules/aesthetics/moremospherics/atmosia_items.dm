@@ -42,9 +42,9 @@
 		to_chat(world, span_danger("It's not in the overlays list despite being explicitly added to it"))*/
 	return overlays
 
-/obj/item/tank/internals/get_status_tab_item(mob/living/source, list/items)
-	. = ..()
+/obj/item/tank/internals/process(seconds_per_tick)
 	update_appearance()
+	return ..()
 
 /obj/item/tank/internals/emergency_oxygen
 	worn_icon = 'modular_zskyraptor/modules/aesthetics/moremospherics/icons/atmosia_items_suit.dmi'
