@@ -173,7 +173,8 @@
 
 /obj/machinery/light/update_overlays()
 	. = ..()
-	if(!on || status != LIGHT_OK)
+	/// NAAKAS-LOUNGE REMOVAL BEGIN
+	/*if(!on || status != LIGHT_OK)
 		return
 
 	. += emissive_appearance(overlay_icon, "[base_state]", src, alpha = src.alpha)
@@ -186,16 +187,8 @@
 	if(nightshift_enabled)
 		. += mutable_appearance(overlay_icon, "[base_state]_nightshift")
 		return
-	. += mutable_appearance(overlay_icon, base_state)
-
-
-// NOVA EDIT ADDITION BEGIN - AESTHETICS
-#define LIGHT_ON_DELAY_UPPER (2 SECONDS)
-#define LIGHT_ON_DELAY_LOWER (0.25 SECONDS)
-/// Dynamically calculate nightshift brightness
-#define NIGHTSHIFT_LIGHT_MODIFIER 0.15
-#define NIGHTSHIFT_COLOR_MODIFIER 0.15
-//NOVA EDIT END
+	. += mutable_appearance(overlay_icon, base_state)*/
+	/// NAAKAS-LOUNGE REMOVAL END
 
 // Area sensitivity is traditionally tied directly to power use, as an optimization
 // But since we want it for fire reacting, we disregard that
@@ -217,10 +210,10 @@
 
 /obj/machinery/light/proc/handle_fire(area/source, new_fire)
 	SIGNAL_HANDLER
-	update(instant = TRUE, play_sound = FALSE) //NOVA EDIT CHANGE - ORIGINAL: update()
+	update()
 
 // update the icon_state and luminosity of the light depending on its state
-/obj/machinery/light/proc/update(trigger = TRUE, instant = FALSE, play_sound = TRUE) // NOVA EDIT CHANGE - ORIGINAL: /obj/machinery/light/proc/update(trigger = TRUE)
+/obj/machinery/light/proc/update(trigger = TRUE)
 	switch(status)
 		if(LIGHT_BROKEN,LIGHT_BURNED,LIGHT_EMPTY)
 			on = FALSE
@@ -242,30 +235,14 @@
 			color_set = bulb_emergency_colour
 			brightness_set = brightness * bulb_major_emergency_brightness_mul
 		else if (nightshift_enabled)
-			brightness_set -= brightness_set * NIGHTSHIFT_LIGHT_MODIFIER // NOVA EDIT CHANGE - ORIGINAL: brightness_set = nightshift_brightness
-			power_set -= power_set * NIGHTSHIFT_LIGHT_MODIFIER // NOVA EDIT CHANGE - ORIGINAL: power_set = nightshift_light_power
+			brightness_set = nightshift_brightness
+			power_set = nightshift_light_power
 			if(!color)
 				color_set = nightshift_light_color
-				// NOVA EDIT ADDITION START - Dynamic nightshift color
-				if(!color_set)
-					// Adjust light values to be warmer. I doubt caching would speed this up by any worthwhile amount, as it's all very fast number and string operations.
-					// Convert to numbers for easier manipulation.
-					var/list/color_parts = rgb2num(bulb_colour)
-					var/red = color_parts[1]
-					var/green = color_parts[2]
-					var/blue = color_parts[3]
-
-					red += round(red * NIGHTSHIFT_COLOR_MODIFIER)
-					green -= round(green * NIGHTSHIFT_COLOR_MODIFIER * 0.3)
-					red = clamp(red, 0, 255) // clamp to be safe, or you can end up with an invalid hex value
-					green = clamp(green, 0, 255)
-					blue = clamp(blue, 0, 255)
-					color_set = rgb(red, green, blue) // Splice the numbers together and turn them back to hex.
-				// NOVA EDIT ADDITION END
 		if (cached_color_filter)
 			color_set = apply_matrix_to_color(color_set, cached_color_filter["color"], cached_color_filter["space"] || COLORSPACE_RGB)
 		var/matching = light && brightness_set == light.light_range && power_set == light.light_power && color_set == light.light_color
-		if(!matching && (maploaded || instant)) // NOVA EDIT CHANGE - ORIGINAL: if(!matching)
+		if(!matching)
 			switchcount++
 			if( prob( min(60, (switchcount**2)*0.01) ) )
 				if(trigger)
@@ -277,15 +254,6 @@
 					l_power = power_set,
 					l_color = color_set
 					)
-		// NOVA EDIT ADDITION START
-				maploaded = FALSE
-				if(play_sound)
-					playsound(src.loc, 'modular_nova/modules/aesthetics/lights/sound/light_on.ogg', 65, 1)
-		else if(!matching && !turning_on)
-			switchcount++
-			turning_on = TRUE
-			addtimer(CALLBACK(src, PROC_REF(delayed_turn_on), trigger, play_sound, color_set, power_set, brightness_set), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
-		// NOVA EDIT ADDITION END
 	else if(has_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
 		use_power = IDLE_POWER_USE
 		low_power_mode = TRUE
@@ -296,14 +264,6 @@
 	update_appearance()
 	update_current_power_usage()
 	broken_sparks(start_only=TRUE)
-
-
-//NOVA EDIT ADDITION BEGIN - AESTHETICS
-#undef LIGHT_ON_DELAY_UPPER
-#undef LIGHT_ON_DELAY_LOWER
-#undef NIGHTSHIFT_LIGHT_MODIFIER
-#undef NIGHTSHIFT_COLOR_MODIFIER
-// NOVA EDIT ADDITION END
 
 /obj/machinery/light/update_current_power_usage()
 	if(!on && static_power_used > 0) //Light is off but still powered
@@ -384,10 +344,6 @@
 			. += span_danger("The [fitting] has been smashed.")
 	if(cell || has_mock_cell)
 		. +=  span_notice("Its backup power charge meter reads [has_mock_cell ? 100 : round((cell.charge / cell.maxcharge) * 100, 0.1)]%.")
-	//NOVA EDIT ADDITION
-	if(constant_flickering)
-		. += span_danger("The lighting ballast appears to be damaged, this could be fixed with a multitool.")
-	//NOVA EDIT END
 
 
 
@@ -510,16 +466,12 @@
 // if a light is turned off, it won't activate emergency power
 /obj/machinery/light/proc/turned_off()
 	var/area/local_area = get_room_area()
-	return !local_area.lightswitch && local_area.power_light || flickering || constant_flickering //NOVA EDIT CHANGE - ORIGINAL : return !local_area.lightswitch && local_area.power_light || flickering
+	return !local_area.lightswitch && local_area.power_light || flickering
 
 // returns whether this light has power
 // true if area has power and lightswitch is on
 /obj/machinery/light/proc/has_power()
 	var/area/local_area = get_room_area()
-	//NOVA EDIT ADDITION BEGIN
-	if(isnull(local_area))
-		return FALSE
-	//NOVA EDIT END
 	return local_area.lightswitch && local_area.power_light
 
 // returns whether this light has emergency power
@@ -561,13 +513,14 @@
 			if(status != LIGHT_OK || !has_power())
 				break
 			on = !on
-			update(FALSE, instant = TRUE) //NOVA EDIT CHANGE - ORIGINAL: update(FALSE)
+			update(FALSE)
 			sleep(rand(5, 15))
 		if(has_power())
 			on = (status == LIGHT_OK)
 		else
 			on = FALSE
-		update(FALSE, instant = TRUE) // NOVA EDIT CHANGE - ORIGINAL: update(FALSE)
+		update(FALSE)
+		. = TRUE //did we actually flicker?
 	flickering = FALSE
 
 // ai attack - make lights flicker, because why not
