@@ -18,7 +18,7 @@
 	)
 	var/obj/item/belly_nom_helper/nommer = null
 
-	var/list/mob/living/carbon/human/lastuser = null
+	var/mob/living/carbon/human/lastuser = null
 
 	/// Tracks whoever got gobbled.
 	/*var/mob/living/carbon/human/nommed
@@ -40,6 +40,13 @@
 	var/base_size_cosmetic = 0
 	var/base_size_endo = 0
 	var/base_size_stuffed = 0
+	/// Sound preferences.
+	var/allow_sound_groans = TRUE
+	var/allow_sound_gurgles = TRUE
+	var/allow_sound_move_creaks = TRUE
+	var/allow_sound_move_sloshes = TRUE
+	/// Pred preferences.
+	var/pred_mode = "Query"
 
 	/// Sound cooldowns.
 	var/full_cooldown = 6
@@ -126,7 +133,11 @@
 	src.config_menu(user)
 
 /obj/item/clothing/sextoy/belly_function/proc/config_menu(mob/living/user)
-	var/opt_list = list("Change Color", "Set Size Modifier", "Set Baseline Cosmetic Size", "Set Baseline Endo Size", "Set Baseline Stuffed Size", "Set Eaten Guest Size")
+	var/opt_list = list("Change Color",
+	"Set Size Modifier", "Set Size Modifier for Audio",
+	"Toggle Belly Groans", "Toggle Belly Gurgles", "Toggle Belly Movement Creaks", "Toggle Belly Movement Sloshes",
+	"Set Baseline Cosmetic Size", "Set Baseline Endo Size", "Set Baseline Stuffed Size",
+	"Adjust Pred Mode", "Set Guest Size")
 	var/extra_size_list = list()
 
 	for(var/mob/living/carbon/human/nommed in nommeds)
@@ -136,6 +147,7 @@
 		opt_list += text
 
 	var/adjustment_mode = tgui_input_list(user, "Select ", "Belly Control", opt_list)
+	var/list_yesno = list("Yes", "No")
 	if(adjustment_mode)
 		if(adjustment_mode == "Change Color")
 			var/temp_col = input("Enter new color:", "Color", src.color) as color|null
@@ -143,10 +155,35 @@
 				src.color = temp_col
 			nommer.color = color
 		else if(adjustment_mode == "Set Size Modifier")
-			var/temp_size = tgui_input_number(user, "Set a size divider (0.0-100.0) - all size sources are divided by this.", "Sizemod")
+			var/temp_size = tgui_input_number(user, "Set a size multiplier (0.00-10.00) - all size sources are multiplied by this.", "Sizemod")
 			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
 				return
 			sizemod = temp_size
+		else if(adjustment_mode == "Set Size Modifier for Audio")
+			var/temp_size = tgui_input_number(user, "Set a size divider (0.00-10.00) - all size sources are multiplied by this for determining audio.", "Audio Sizemod")
+			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
+				return
+			sizemod_audio = temp_size
+		else if(adjustment_mode == "Toggle Belly Groans")
+			var/mode_select = tgui_input_list(user, "Allow full groans & creaks to play from your belly?  Current state: [(allow_sound_groans == TRUE) ? "yes" : "no"]", "Allow Groans", list_yesno)
+			if(isnull(mode_select) || QDELETED(user) || QDELETED(src))
+				return
+			allow_sound_groans = (mode_select == "Yes") ? TRUE : FALSE
+		else if(adjustment_mode == "Toggle Belly Gurgles")
+			var/mode_select = tgui_input_list(user, "Allow stuffed gurgles and churns to play from your belly?  Current state: [(allow_sound_gurgles == TRUE) ? "yes" : "no"]", "Allow Gurgles", list_yesno)
+			if(isnull(mode_select) || QDELETED(user) || QDELETED(src))
+				return
+			allow_sound_gurgles = (mode_select == "Yes") ? TRUE : FALSE
+		else if(adjustment_mode == "Toggle Belly Movement Creaks")
+			var/mode_select = tgui_input_list(user, "Allow full creaks to play from your belly when jostled?  Current state: [(allow_sound_move_creaks == TRUE) ? "yes" : "no"]", "Allow Movement Creaks", list_yesno)
+			if(isnull(mode_select) || QDELETED(user) || QDELETED(src))
+				return
+			allow_sound_move_creaks = (mode_select == "Yes") ? TRUE : FALSE
+		else if(adjustment_mode == "Toggle Belly Movement Sloshes")
+			var/mode_select = tgui_input_list(user, "Allow stuffed sloshes to play from your belly when jostled?  Current state: [(allow_sound_move_sloshes == TRUE) ? "yes" : "no"]", "Allow Movement Sloshes", list_yesno)
+			if(isnull(mode_select) || QDELETED(user) || QDELETED(src))
+				return
+			allow_sound_move_sloshes = (mode_select == "Yes") ? TRUE : FALSE
 		else if(adjustment_mode == "Set Baseline Cosmetic Size")
 			var/temp_size = tgui_input_number(user, "What purely cosmetic baseline belly size do you want?", "Base Size")
 			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
@@ -162,7 +199,13 @@
 			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
 				return
 			base_size_stuffed = temp_size
-		else if(adjustment_mode == "Set Eaten Guest Size")
+		else if(adjustment_mode == "Adjust Pred Mode")
+			var/list/pred_options = list("Never", "Query", "Always")
+			var/mode_select = tgui_input_list(user, "Determines whether or not you can vore people as a pred with the belly.  Never means you can never be a pred, query means you always get queried before trying, always means you always try.", "Pred Prefs", pred_options)
+			if(isnull(mode_select) || QDELETED(user) || QDELETED(src))
+				return
+			pred_mode = mode_select
+		else if(adjustment_mode == "Set Guest Size")
 			var/temp_size = tgui_input_number(user, "What size do you want your eaten bellyguests to be?  (0.0-infinity, 1000 is typically same-sizeish)", "Endo Size")
 			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
 				return
@@ -184,7 +227,7 @@
 		lastuser.cut_overlay(overlay_hori)
 		UnregisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION)
 	lastuser = user
-	RegisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION, PROC_REF(on_step))
+	RegisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION, PROC_REF(on_step), TRUE)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/sextoy/belly_function/dropped(mob/user, slot)
@@ -293,62 +336,89 @@
 	update_icon()
 	refresh_overlays(user, "[base_icon_state]-[spr_size]", spr_size)
 
-	if(total_fullness >= 1)
+	if(total_fullness >= 1 && allow_sound_groans)
 		full_cooldown = full_cooldown - (seconds_per_tick * total_fullness)
 		if(full_cooldown < 0)
 			full_cooldown = rand(6, 36)
-			playsound_if_pref(user, pick(full_sounds), min(10 + round(total_fullness/40, 1), 30), TRUE, frequency=rand(40000, 50000))
-	if(stuffed_temp >= 1)
+			playsound_if_pref(user, pick(full_sounds), min(10 + round(total_fullness/40, 1), 30), TRUE, frequency=rand(40000, 50000), pref_to_check = /datum/preference/toggle/erp/belly/sound_groans)
+	if(stuffed_temp >= 1 && allow_sound_gurgles)
 		stuffLo_cooldown = stuffLo_cooldown - (seconds_per_tick * (stuffed_temp + (total_fullness/5)))
 		if(stuffLo_cooldown < 0)
 			stuffLo_cooldown = rand(3, 6)
-			playsound_if_pref(user, pick(stuff_minor), min(12 + round(total_fullness/40, 1), 30), TRUE, frequency=rand(40000, 50000))
-	if(stuffed_temp >= 3)
+			playsound_if_pref(user, pick(stuff_minor), min(12 + round(total_fullness/40, 1), 30), TRUE, frequency=rand(40000, 50000), pref_to_check = /datum/preference/toggle/erp/belly/sound_gurgles)
+	if(stuffed_temp >= 3 && allow_sound_gurgles)
 		stuffHi_cooldown = stuffHi_cooldown - (seconds_per_tick * (stuffed_temp + (total_fullness/10)))
 		if(stuffHi_cooldown < 0)
 			stuffHi_cooldown = rand(9, 60)
-			playsound_if_pref(user, pick(stuff_major), min(20 + round(total_fullness/32, 1), 50), TRUE, frequency=rand(40000, 50000))
-	if(moveCreak_cooldown < 0)
+			playsound_if_pref(user, pick(stuff_major), min(20 + round(total_fullness/32, 1), 50), TRUE, frequency=rand(40000, 50000), pref_to_check = /datum/preference/toggle/erp/belly/sound_gurgles)
+	if(moveCreak_cooldown < 0 && allow_sound_move_creaks)
 		moveCreak_cooldown = rand(15, 60)
-		playsound_if_pref(user, pick(move_creaks), min(10 + round(total_fullness/40, 1), 30), TRUE, frequency=rand(40000, 50000))
-	if(moveSlosh_cooldown < 0)
+		playsound_if_pref(user, pick(move_creaks), min(10 + round(total_fullness/40, 1), 30), TRUE, frequency=rand(40000, 50000), pref_to_check = /datum/preference/toggle/erp/belly/sound_move_creaks)
+	if(moveSlosh_cooldown < 0 && allow_sound_move_sloshes)
 		moveSlosh_cooldown = rand(15, 60)
-		playsound_if_pref(user, pick(slosh_sounds), min(20 + round(total_fullness/32, 1), 50), TRUE, frequency=rand(40000, 50000))
+		playsound_if_pref(user, pick(slosh_sounds), min(20 + round(total_fullness/32, 1), 50), TRUE, frequency=rand(40000, 50000), pref_to_check = /datum/preference/toggle/erp/belly/sound_move_sloshes)
 
 /obj/item/clothing/sextoy/belly_function/attack(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	. = ..()
 	if(!ishuman(target) || (target.stat == DEAD) || !ishuman(user) || user == target) //sanity check
 		return
 
-	target.visible_message("[user] gulps down [target]!")
-	//nommed = target
-	nommeds += target
-	nommed_sizes[target] = endo_size
+	var/consent_pred = FALSE
+	var/consent_prey = FALSE
+	var/list_yesno = list("Yes", "No")
 
-	//user.visible_message("Debugging: [user] nomming [target] with [src].")
+	if(pred_mode == "Query")
+		var/mode_select = tgui_input_list(user, "Try to vore [target]?", "Nomnom?", list_yesno)
+		if(isnull(mode_select) || QDELETED(user) || QDELETED(src))
+			return
+		consent_pred = (mode_select == "Yes") ? TRUE : FALSE
+	else if(pred_mode == "Always")
+		consent_pred = TRUE
 
-	var/obj/item/organ/lungs/hopefully_lungs = target.organs_slot["lungs"]
-	if(hopefully_lungs)
-		//user.visible_message("Debugging: [target]'s lungs were found; they are [hopefully_lungs]")
-		last_gasmix = ""
-		for(var/something_in_list in hopefully_lungs.breathe_always)
-			var/datum/gas/a_gas = new something_in_list()
-			if(istype(a_gas))
-				//user.visible_message("Debugging: [target]'s lungs have the following breath gas [a_gas]")
-				last_gasmix = "[last_gasmix][a_gas.id]=100;"
-			else
-				//user.visible_message("Debugging: [target]'s lungs breath list was malformed, got [something_in_list] when querying for gas datums")
-		last_gasmix = "[last_gasmix]TEMP=293.15"
-	else
-		last_gasmix = "o2=5;n2=10;TEMP=293.15"
+	var/prey_mode = target.client?.prefs?.read_preference(/datum/preference/choiced/erp_vore_prey_pref)
+	if(consent_pred == TRUE)
+		if(prey_mode == "Query")
+			var/mode_select = tgui_input_list(target, "Allow [user] to vore you?", "Nomnom?", list_yesno)
+			if(isnull(mode_select) || QDELETED(target) || QDELETED(src))
+				return
+			consent_prey = (mode_select == "Yes") ? TRUE : FALSE
+		else if(prey_mode == "Always")
+			consent_prey = TRUE
 
-	nommed_gasmixes[target] = last_gasmix
+	if(consent_pred == TRUE && consent_prey == TRUE)
+		//Step 1: put them in the list (your belly)
+		//target.visible_message("[user] gulps down [target]!")
+		to_chat(target, span_danger("[user] gulps you down!"))
+		to_chat(user, span_danger("You gulp down [target]!"))
+		nommeds += target
+		nommed_sizes[target] = endo_size
 
-	SEND_SIGNAL(user, COMSIG_MACHINERY_SET_OCCUPANT, target)
-	target.forceMove(src)
-	escape_helpers[target] = new /datum/action/item_action/belly_menu/escape(src)
-	escape_helpers[target].Grant(target)
-	recalculate_guest_sizes()
+		//Step 2: scan their lungs to determine what air of yours this fool is breathing
+		var/obj/item/organ/lungs/hopefully_lungs = target.organs_slot["lungs"]
+		if(hopefully_lungs)
+			//user.visible_message("Debugging: [target]'s lungs were found; they are [hopefully_lungs]")
+			last_gasmix = ""
+			for(var/something_in_list in hopefully_lungs.breathe_always)
+				var/datum/gas/a_gas = new something_in_list()
+				if(istype(a_gas))
+					//user.visible_message("Debugging: [target]'s lungs have the following breath gas [a_gas]")
+					last_gasmix = "[last_gasmix][a_gas.id]=100;"
+				else
+					//user.visible_message("Debugging: [target]'s lungs breath list was malformed, got [something_in_list] when querying for gas datums")
+			last_gasmix = "[last_gasmix]TEMP=293.15"
+		else
+			last_gasmix = "o2=5;n2=10;TEMP=293.15"
+		//Step 3: save that air
+		nommed_gasmixes[target] = last_gasmix
+
+		//Step 4: tell the user it's in a "machine" (your belly) and recalculate everything
+		SEND_SIGNAL(user, COMSIG_MACHINERY_SET_OCCUPANT, target)
+		target.forceMove(src)
+		escape_helpers[target] = new /datum/action/item_action/belly_menu/escape(src)
+		escape_helpers[target].Grant(target)
+		recalculate_guest_sizes()
+	else if(consent_pred == TRUE && consent_prey == FALSE)
+		to_chat(user, span_danger("[target] doesn't want you to do that."))
 
 /obj/item/clothing/sextoy/belly_function/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
 	if(lifeform_inside_me in nommed_gasmixes)
