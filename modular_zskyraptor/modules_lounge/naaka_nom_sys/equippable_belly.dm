@@ -165,22 +165,22 @@
 				return
 			sizemod_audio = temp_size
 		else if(adjustment_mode == "Toggle Belly Groans")
-			var/mode_select = tgui_input_list(user, "Allow full groans & creaks to play from your belly?  Current state: [(allow_sound_groans == TRUE) ? "yes" : "no"]", "Allow Groans", list_yesno)
+			var/mode_select = tgui_alert(user, "Allow full groans & creaks to play from your belly?  Current state: [(allow_sound_groans == TRUE) ? "yes" : "no"]", "Allow Groans", list_yesno)
 			if(isnull(mode_select) || QDELETED(user) || QDELETED(src))
 				return
 			allow_sound_groans = (mode_select == "Yes") ? TRUE : FALSE
 		else if(adjustment_mode == "Toggle Belly Gurgles")
-			var/mode_select = tgui_input_list(user, "Allow stuffed gurgles and churns to play from your belly?  Current state: [(allow_sound_gurgles == TRUE) ? "yes" : "no"]", "Allow Gurgles", list_yesno)
+			var/mode_select = tgui_alert(user, "Allow stuffed gurgles and churns to play from your belly?  Current state: [(allow_sound_gurgles == TRUE) ? "yes" : "no"]", "Allow Gurgles", list_yesno)
 			if(isnull(mode_select) || QDELETED(user) || QDELETED(src))
 				return
 			allow_sound_gurgles = (mode_select == "Yes") ? TRUE : FALSE
 		else if(adjustment_mode == "Toggle Belly Movement Creaks")
-			var/mode_select = tgui_input_list(user, "Allow full creaks to play from your belly when jostled?  Current state: [(allow_sound_move_creaks == TRUE) ? "yes" : "no"]", "Allow Movement Creaks", list_yesno)
+			var/mode_select = tgui_alert(user, "Allow full creaks to play from your belly when jostled?  Current state: [(allow_sound_move_creaks == TRUE) ? "yes" : "no"]", "Allow Movement Creaks", list_yesno)
 			if(isnull(mode_select) || QDELETED(user) || QDELETED(src))
 				return
 			allow_sound_move_creaks = (mode_select == "Yes") ? TRUE : FALSE
 		else if(adjustment_mode == "Toggle Belly Movement Sloshes")
-			var/mode_select = tgui_input_list(user, "Allow stuffed sloshes to play from your belly when jostled?  Current state: [(allow_sound_move_sloshes == TRUE) ? "yes" : "no"]", "Allow Movement Sloshes", list_yesno)
+			var/mode_select = tgui_alert(user, "Allow stuffed sloshes to play from your belly when jostled?  Current state: [(allow_sound_move_sloshes == TRUE) ? "yes" : "no"]", "Allow Movement Sloshes", list_yesno)
 			if(isnull(mode_select) || QDELETED(user) || QDELETED(src))
 				return
 			allow_sound_move_sloshes = (mode_select == "Yes") ? TRUE : FALSE
@@ -368,7 +368,7 @@
 	var/list_yesno = list("Yes", "No")
 
 	if(pred_mode == "Query")
-		var/mode_select = tgui_input_list(user, "Try to vore [target]?", "Nomnom?", list_yesno)
+		var/mode_select = tgui_alert(user, "Try to vore [target]?", "Nomnom?", list_yesno)
 		if(isnull(mode_select) || QDELETED(user) || QDELETED(src))
 			return
 		consent_pred = (mode_select == "Yes") ? TRUE : FALSE
@@ -378,7 +378,7 @@
 	var/prey_mode = target.client?.prefs?.read_preference(/datum/preference/choiced/erp_vore_prey_pref)
 	if(consent_pred == TRUE)
 		if(prey_mode == "Query")
-			var/mode_select = tgui_input_list(target, "Allow [user] to vore you?", "Nomnom?", list_yesno)
+			var/mode_select = tgui_alert(target, "Allow [user] to vore you?", "Nomnom?", list_yesno)
 			if(isnull(mode_select) || QDELETED(target) || QDELETED(src))
 				return
 			consent_prey = (mode_select == "Yes") ? TRUE : FALSE

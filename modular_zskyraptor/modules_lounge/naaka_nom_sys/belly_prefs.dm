@@ -57,6 +57,9 @@
 
 	return preferences.read_preference(/datum/preference/toggle/erp/belly_master)
 
+/datum/preference/choiced/erp_vore_prey_pref/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+	return FALSE
+
 
 //==BREAKER FOR QUIRK PREFERENCES==
 /datum/quirk/item_quirk/stuffable
