@@ -1,0 +1,87 @@
+import {
+  Feature,
+  FeatureColorInput,
+  FeatureNumberInput,
+  FeatureToggle,
+} from '../../base';
+import { FeatureDropdownInput } from '../../dropdowns';
+
+export const erp_bellyquirk_color: Feature<string> = {
+  name: 'Belly Color',
+  description:
+    'Belly coloration.  Match this to your skin, Augments+ or Mutcols to make it look smooth!',
+  component: FeatureColorInput,
+};
+
+export const erp_bellyquirk_sizemod: Feature<number> = {
+  name: 'Belly Sizemod',
+  component: FeatureNumberInput,
+  description:
+    'Size multiplier - all belly size sources are multiplied by this for determining overall impact.',
+};
+
+export const erp_bellyquirk_sizemod_audio: Feature<number> = {
+  name: 'Belly Audio Sizemod',
+  component: FeatureNumberInput,
+  description:
+    'Size multiplier for audio - all belly size sources are multiplied by this for determining audio intensity.',
+};
+
+export const erp_bellyquirk_size_base: Feature<number> = {
+  name: 'Base Cosmetic Size',
+  component: FeatureNumberInput,
+  description:
+    'Provides a baseline cosmetic belly size with no noise on spawn-in.  Good for Mom Critters expecting, or chubby bellies.',
+};
+
+export const erp_bellyquirk_size_endo: Feature<number> = {
+  name: 'Base Endosoma Size',
+  component: FeatureNumberInput,
+  description:
+    'Provides a baseline endo-intended belly size with gentle fullness creaks & groans.  For bellypets or snoozing/AFK guests.',
+};
+
+export const erp_bellyquirk_size_stuffed: Feature<number> = {
+  name: 'Base Stuffed Size',
+  component: FeatureNumberInput,
+  description:
+    'Provides a baseline stuffing-intended belly size with gurgles, churns & sloshes from stuffed fullness.  For having stuffed your face last shift.',
+};
+
+export const erp_bellyquirk_sound_groans: FeatureToggle = {
+  name: 'Allow Sound: Full Groans',
+  category: 'BELLY',
+  description: 'When enabled, allows your belly to emit creaks while full.',
+  component: CheckboxInput,
+};
+
+export const erp_bellyquirk_sound_gurgles: FeatureToggle = {
+  name: 'Allow Sound: Stuffed Gurgles',
+  category: 'BELLY',
+  description: 'When enabled, allows your belly to emit gurgles while stuffed.',
+  component: CheckboxInput,
+};
+
+export const erp_bellyquirk_sound_move_creaks: FeatureToggle = {
+  name: 'Allow Sound: Full Movement Creaks',
+  category: 'BELLY',
+  description:
+    'When enabled, allows your belly to emit creaks from being jostled by movement while full.',
+  component: CheckboxInput,
+};
+
+export const erp_bellyquirk_sound_move_sloshes: FeatureToggle = {
+  name: 'Allow Sound: Stuffed Movement Sloshes',
+  category: 'BELLY',
+  description:
+    'When enabled, allows your belly to emit sloshes from being jostled by movement while stuffed.',
+  component: CheckboxInput,
+};
+
+export const erp_bellyquirk_pred: FeatureChoiced = {
+  name: 'Pred Preference',
+  category: 'BELLY',
+  description:
+    'Determines whether or not you can vore people as a pred with the belly.  Never means you can never be a pred, query means you always get queried before trying, always means you always try.',
+  component: FeatureDropdownInput,
+};
