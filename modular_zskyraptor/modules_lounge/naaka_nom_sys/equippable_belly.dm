@@ -28,7 +28,7 @@
 	var/list/mob/living/carbon/human/nommeds = list()
 	var/list/nommed_sizes = list()
 	var/list/nommed_gasmixes = list()
-	var/list/escape_helpers = list()
+	var/list/datum/action/item_action/belly_menu/escape/escape_helpers = list()
 	var/total_endo_size = 0
 
 	/// Base-size for calculating fullness/size with one occupant.
@@ -125,7 +125,7 @@
 	nommeds -= nommed
 	nommed_sizes -= nommed
 	nommed_gasmixes -= nommed
-	escape_helpers[nommed].Remove(nommed)
+	escape_helpers[nommed].Remove(remove_from = nommed)
 	escape_helpers -= nommed
 	recalculate_guest_sizes()
 
@@ -138,7 +138,7 @@
 	"Toggle Belly Groans", "Toggle Belly Gurgles", "Toggle Belly Movement Creaks", "Toggle Belly Movement Sloshes",
 	"Set Baseline Cosmetic Size", "Set Baseline Endo Size", "Set Baseline Stuffed Size",
 	"Adjust Pred Mode", "Set Guest Size")
-	var/extra_size_list = list()
+	var/mob/living/carbon/human/extra_size_list = list()
 
 	for(var/mob/living/carbon/human/nommed in nommeds)
 		extra_size_list["Set Size of [nommed.name]"] = nommed
@@ -401,10 +401,7 @@
 			for(var/something_in_list in hopefully_lungs.breathe_always)
 				var/datum/gas/a_gas = new something_in_list()
 				if(istype(a_gas))
-					//user.visible_message("Debugging: [target]'s lungs have the following breath gas [a_gas]")
 					last_gasmix = "[last_gasmix][a_gas.id]=100;"
-				else
-					//user.visible_message("Debugging: [target]'s lungs breath list was malformed, got [something_in_list] when querying for gas datums")
 			last_gasmix = "[last_gasmix]TEMP=293.15"
 		else
 			last_gasmix = "o2=5;n2=10;TEMP=293.15"
@@ -415,7 +412,7 @@
 		SEND_SIGNAL(user, COMSIG_MACHINERY_SET_OCCUPANT, target)
 		target.forceMove(src)
 		escape_helpers[target] = new /datum/action/item_action/belly_menu/escape(src)
-		escape_helpers[target].Grant(target)
+		escape_helpers[target].Grant(grant_to = target)
 		recalculate_guest_sizes()
 	else if(consent_pred == TRUE && consent_prey == FALSE)
 		to_chat(user, span_danger("[target] doesn't want you to do that."))
