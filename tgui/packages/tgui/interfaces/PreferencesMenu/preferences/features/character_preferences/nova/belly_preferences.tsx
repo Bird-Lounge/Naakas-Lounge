@@ -1,11 +1,23 @@
+// THIS IS A NOVA SECTOR UI FILE
 import {
+  CheckboxInput,
   Feature,
+  FeatureChoiced,
   FeatureColorInput,
   FeatureNumberInput,
   FeatureToggle,
 } from '../../base';
 import { FeatureDropdownInput } from '../../dropdowns';
 
+export const erp_belly_vore_prey: FeatureChoiced = {
+  name: 'Vore Prey Preference',
+  category: 'BELLY',
+  description:
+    'Determines whether or not you partake in the belly system to engage in vore as a prey.  Never means you can never be a prey, query means you always get queried before someome tries to take you, query-online always queries BUT automatically consents when SSD, always means you always consent.',
+  component: FeatureDropdownInput,
+};
+
+// QUIRK CONTENT BREAKER
 export const erp_bellyquirk_color: Feature<string> = {
   name: 'Belly Color',
   description:

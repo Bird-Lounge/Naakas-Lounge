@@ -1,6 +1,5 @@
 // THIS IS A NOVA SECTOR UI FILE
-import { CheckboxInput, FeatureChoiced, FeatureToggle } from '../../base';
-import { FeatureDropdownInput } from '../../dropdowns';
+import { CheckboxInput, FeatureToggle } from '../../base';
 
 export const erp_enable_belly: FeatureToggle = {
   name: 'Show/Hide Belly Preferences',
@@ -45,12 +44,4 @@ export const erp_belly_sound_move_sloshes: FeatureToggle = {
   description:
     'When enabled, allows you to hear the sloshes from a stuffed belly being jostled by movement.',
   component: CheckboxInput,
-};
-
-export const erp_belly_vore_prey: FeatureChoiced = {
-  name: 'Vore Prey Preference',
-  category: 'BELLY',
-  description:
-    'Determines whether or not you partake in the belly system to engage in vore as a prey.  Never means you can never be a prey, query means you always get queried before someome tries to take you, query-online always queries BUT automatically consents when SSD, always means you always consent.',
-  component: FeatureDropdownInput,
 };
