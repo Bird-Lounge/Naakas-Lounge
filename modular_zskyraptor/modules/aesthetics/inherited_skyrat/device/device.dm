@@ -29,8 +29,8 @@
 /obj/item/desynchronizer
 	icon = 'modular_zskyraptor/modules/aesthetics/inherited_skyrat/device/device.dmi'
 
-/obj/item/camera_bug
-	icon = 'modular_zskyraptor/modules/aesthetics/inherited_skyrat/device/device.dmi'
+/*/obj/item/camera_bug
+	icon = 'modular_zskyraptor/modules/aesthetics/inherited_skyrat/device/device.dmi'*/
 
 // This needs default but is a subtype. Pain.
 /obj/item/t_scanner/adv_mining_scanner
