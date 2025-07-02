@@ -1,7 +1,7 @@
 /datum/action/item_action/belly_menu
 	name = "Belly Action Core"
 	desc = "You shouldn't see this!  Yell at CliffracerX!"
-	button_icon = 'modular_zskyraptor/modules_lounge/naaka_nom_sys/items.dmi'
+	button_icon = 'modular_nova/modules/tums/icons/items.dmi'
 	button_icon_state = "bwelly"
 	var/obj/item/clothing/sextoy/belly_function/my_belly
 
@@ -82,10 +82,10 @@
 /obj/item/belly_nom_helper
 	name = "bwelly nom helper"
 	desc = "Functions as an extension of your belly. Functions exactly like the core item."
-	icon = 'modular_zskyraptor/modules_lounge/naaka_nom_sys/items.dmi'
+	icon = 'modular_nova/modules/tums/icons/items.dmi'
 	icon_state = "nom_helper"
 	w_class = WEIGHT_CLASS_TINY
-	color = "#b1f91f"
+	color = "#ffffff"
 
 	var/obj/item/clothing/sextoy/belly_function/my_belly
 
