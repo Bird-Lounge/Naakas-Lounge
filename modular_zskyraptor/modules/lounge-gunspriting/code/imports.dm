@@ -65,16 +65,16 @@
 	subcategory = "Ammunition Boxes"
 	cost = PAYCHECK_COMMAND
 
-/datum/armament_entry/company_import/talonarms/ammo/22box
+/datum/armament_entry/company_import/talonarms/ammo/c22box
 	item_type = /obj/item/ammo_box/c22talon
 
-/datum/armament_entry/company_import/talonarms/ammo/22box_soap
+/datum/armament_entry/company_import/talonarms/ammo/c22box_soap
 	item_type = /obj/item/ammo_box/c22talon/soap
 
-/datum/armament_entry/company_import/talonarms/ammo/380box
+/datum/armament_entry/company_import/talonarms/ammo/c380box
 	item_type = /obj/item/ammo_box/c380talon
 
-/datum/armament_entry/company_import/talonarms/ammo/380box_soap
+/datum/armament_entry/company_import/talonarms/ammo/c380box_soap
 	item_type = /obj/item/ammo_box/c380talon/soap
 
 /datum/armament_entry/company_import/talonarms/guns
