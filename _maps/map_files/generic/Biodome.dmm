@@ -1048,6 +1048,8 @@
 /obj/item/clothing/under/misc/nova/gear_harness,
 /obj/item/clothing/under/misc/nova/gear_harness,
 /obj/item/storage/toolbox/guncase/nova/pistol/talonarms/dewclaw/gunset,
+/obj/item/ammo_box/c22talon/soap,
+/obj/item/ammo_box/c22talon/soap,
 /turf/open/floor/iron/dark,
 /area/centcom/biodome/homes/shaman_shelter/bed)
 "aWI" = (
@@ -2450,6 +2452,7 @@
 	pixel_y = 9
 	},
 /obj/machinery/light/warm/directional/north,
+/obj/item/rag,
 /turf/open/floor/iron/checker,
 /area/centcom/biodome/service/bar)
 "bSu" = (
@@ -15953,6 +15956,54 @@
 "mWk" = (
 /obj/structure/table/reinforced/plastitaniumglass,
 /obj/machinery/light/directional/east,
+/obj/item/storage/toolbox/guncase/nova/pistol/talonarms/dewclaw/gunset{
+	pixel_x = 4;
+	pixel_y = 9
+	},
+/obj/item/storage/toolbox/guncase/nova/pistol/talonarms/dewclaw/gunset{
+	pixel_x = -4;
+	pixel_y = 9
+	},
+/obj/item/storage/toolbox/guncase/nova/pistol/talonarms/dewclaw/gunset{
+	pixel_x = -4;
+	pixel_y = 0
+	},
+/obj/item/storage/toolbox/guncase/nova/pistol/talonarms/dewclaw/gunset{
+	pixel_x = 4;
+	pixel_y = 0
+	},
+/obj/item/ammo_box/c22talon/soap{
+	pixel_x = -4;
+	pixel_y = 12
+	},
+/obj/item/ammo_box/c22talon/soap{
+	pixel_x = 4;
+	pixel_y = 12
+	},
+/obj/item/ammo_box/c22talon/soap{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/c22talon/soap{
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/c22talon/soap{
+	pixel_x = -12;
+	pixel_y = 12
+	},
+/obj/item/ammo_box/c22talon/soap{
+	pixel_x = 12;
+	pixel_y = 12
+	},
+/obj/item/ammo_box/c22talon/soap{
+	pixel_x = -12;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/c22talon/soap{
+	pixel_x = 12;
+	pixel_y = 3
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/biodome/security)
 "mWR" = (
@@ -19117,6 +19168,10 @@
 /area/centcom/biodome/exterior)
 "puU" = (
 /obj/structure/table/reinforced/plasmarglass,
+/obj/item/repainting_kit{
+	pixel_y = 15
+	},
+/obj/item/mod/paint,
 /turf/open/floor/iron,
 /area/centcom/biodome/science)
 "puW" = (
@@ -21856,6 +21911,18 @@
 /obj/structure/closet/ammunitionlocker/useful,
 /obj/effect/spawner/random/armory/rubbershot,
 /obj/effect/spawner/random/armory/rubbershot,
+/obj/item/ammo_box/c22talon,
+/obj/item/ammo_box/c22talon,
+/obj/item/ammo_box/c22talon,
+/obj/item/ammo_box/c22talon,
+/obj/item/ammo_box/c22talon/soap,
+/obj/item/ammo_box/c22talon/soap,
+/obj/item/ammo_box/c22talon/soap,
+/obj/item/ammo_box/c22talon/soap,
+/obj/item/ammo_box/c22talon/soap,
+/obj/item/ammo_box/c22talon/soap,
+/obj/item/ammo_box/c22talon/soap,
+/obj/item/ammo_box/c22talon/soap,
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/biodome/security)
 "rrb" = (
@@ -24774,6 +24841,8 @@
 /obj/item/storage/medkit/surgery,
 /obj/structure/noticeboard/directional/west,
 /obj/item/storage/toolbox/guncase/nova/pistol/talonarms/dewclaw/gunset,
+/obj/item/ammo_box/c22talon/soap,
+/obj/item/ammo_box/c22talon/soap,
 /turf/open/floor/iron/dark,
 /area/centcom/biodome/homes/casa_de_silver/bedroom)
 "tEe" = (
@@ -25059,6 +25128,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/altar/of_gods,
 /turf/open/floor/carpet/stellar,
 /area/centcom/biodome/service/theatre)
 "tTt" = (
@@ -27864,6 +27934,8 @@
 /obj/item/ammo_box/magazine/m9mm/hp,
 /obj/structure/closet/crate/secure/gear,
 /obj/item/storage/toolbox/guncase/nova/pistol/talonarms/dewclaw/gunset,
+/obj/item/ammo_box/c22talon/soap,
+/obj/item/ammo_box/c22talon/soap,
 /turf/open/floor/iron/white,
 /area/centcom/biodome/homes/casa_de_luna)
 "wdf" = (
@@ -29145,6 +29217,8 @@
 /obj/item/storage/medkit/tactical,
 /obj/item/storage/hypospraykit/cmo/combat/naaka,
 /obj/item/storage/toolbox/guncase/nova/pistol/talonarms/dewclaw/gunset,
+/obj/item/ammo_box/c22talon/soap,
+/obj/item/ammo_box/c22talon/soap,
 /turf/open/floor/iron/white/smooth_large,
 /area/centcom/biodome/homes/casa_de_ko/medbay)
 "xgt" = (
@@ -29742,6 +29816,8 @@
 /obj/structure/closet/cabinet,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
 /obj/item/storage/toolbox/guncase/nova/pistol/talonarms/dewclaw/gunset,
+/obj/item/ammo_box/c22talon/soap,
+/obj/item/ammo_box/c22talon/soap,
 /turf/open/floor/carpet/green{
 	initial_gas_mix = "n2=104;TEMP=293.15"
 	},

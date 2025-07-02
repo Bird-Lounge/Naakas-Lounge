@@ -44,7 +44,7 @@
 	name = ".22 TL soap bullet casing"
 	desc = "A brass-cased .22 Talon Light small caliber round with a custom-shaped flathead soap bullet. Hurts like hell and can explode into suds, but not lethal."
 
-	icon_state = "22talon_disabler"
+	icon_state = "22talon_soap"
 
 	projectile_type = /obj/projectile/bullet/c22talon/soap
 	ammo_categories = AMMO_CLASS_NONE
@@ -120,7 +120,7 @@
 	name = ".380 TC soap bullet casing"
 	desc = "A brass-cased .380 Talon Claw small caliber round with a custom-shaped flathead soap bullet. Hurts like hell and can explode into suds, but not lethal."
 
-	icon_state = "22talon_disabler"
+	icon_state = "380talon_soap"
 
 	projectile_type = /obj/projectile/bullet/c380talon/soap
 	ammo_categories = AMMO_CLASS_NONE
