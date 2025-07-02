@@ -73,7 +73,7 @@
 
 	icon_state = "22box_soap"
 
-	ammo_type = /obj/item/ammo_casing/c585trappiste/incapacitator
+	ammo_type = /obj/item/ammo_casing/c22talon/soap
 
 
 // .380 Talon Claw
@@ -149,4 +149,4 @@
 
 	icon_state = "380box_soap"
 
-	ammo_type = /obj/item/ammo_casing/c585trappiste/incapacitator
+	ammo_type = /obj/item/ammo_casing/c380talon/soap

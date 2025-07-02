@@ -50,7 +50,7 @@
 		open = FALSE
 		balloon_alert_to_viewers("decocked!")
 		playsound(src, dry_fire_sound, dry_fire_sound_volume / 3, TRUE)
-		update_appearance()
+		update_hammer_icons()
 		return
 	else if(open == TRUE)
 		hammer = TRUE
@@ -58,14 +58,14 @@
 		index_cylinder(user)
 		balloon_alert_to_viewers("cocked!")
 		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
-		update_appearance()
+		update_hammer_icons()
 		return
 	else
 		hammer = FALSE
 		open = TRUE
 		balloon_alert_to_viewers("half-cocked, loading door open!")
 		playsound(src, lock_back_sound, lock_back_sound_volume, lock_back_sound_vary)
-		update_appearance()
+		update_hammer_icons()
 		return
 
 /obj/item/gun/ballistic/revolver_sa/chamber_round(replace_new_round)
@@ -100,6 +100,7 @@
 	. = ..()
 	hammer = FALSE
 	open = FALSE
+	update_hammer_icons()
 
 /obj/item/gun/ballistic/revolver_sa/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	//Dry firing makes a nasty click.  Don't do this, it's bad for your firing pin.
@@ -107,6 +108,7 @@
 	if(hammer == TRUE)
 		hammer = FALSE
 		open = FALSE
+		update_hammer_icons()
 		..()
 	else
 		balloon_alert_to_viewers("*faint click*")
@@ -135,7 +137,7 @@
 	else
 		return CLICK_ACTION_BLOCKING
 
-/obj/item/gun/ballistic/revolver_sa/update_appearance()
+/obj/item/gun/ballistic/revolver_sa/proc/update_hammer_icons()
 	if(hammer == TRUE)
 		icon_state = icon_state_cocked
 	else if(open == TRUE)

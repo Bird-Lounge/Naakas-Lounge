@@ -65,7 +65,7 @@
 /obj/item/storage/backpack/custom
 	name = "custom backpack"
 	icon_state = "backpack"
-	greyscale_colors = "#333333#FF0000"
+	greyscale_colors = "#787B6B#ABD734"
 	greyscale_config = /datum/greyscale_config/backpack
 	greyscale_config_worn = /datum/greyscale_config/backpack/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
@@ -73,7 +73,7 @@
 /obj/item/storage/backpack/industrial/custom
 	name = "custom industrial backpack"
 	icon_state = "backpack_industrial"
-	greyscale_colors = "#333333#FF0000"
+	greyscale_colors = "#787B6B#ABD734"
 	greyscale_config = /datum/greyscale_config/backpack
 	greyscale_config_worn = /datum/greyscale_config/backpack/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
@@ -82,7 +82,7 @@
 /obj/item/storage/backpack/satchel/custom
 	name = "custom satchel"
 	icon_state = "satchel"
-	greyscale_colors = "#333333#FF0000"
+	greyscale_colors = "#787B6B#ABD734"
 	greyscale_config = /datum/greyscale_config/backpack/satchel
 	greyscale_config_worn = /datum/greyscale_config/backpack/satchel/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
@@ -90,7 +90,7 @@
 /obj/item/storage/backpack/satchel/eng/custom
 	name = "custom industrial satchel"
 	icon_state = "satchel_industrial"
-	greyscale_colors = "#333333#FF0000"
+	greyscale_colors = "#787B6B#ABD734"
 	greyscale_config = /datum/greyscale_config/backpack/satchel
 	greyscale_config_worn = /datum/greyscale_config/backpack/satchel/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
@@ -99,7 +99,7 @@
 /obj/item/storage/backpack/duffelbag/custom
 	name = "custom duffelbag"
 	icon_state = "duffel"
-	greyscale_colors = "#333333#FF0000"
+	greyscale_colors = "#787B6B#ABD734"
 	greyscale_config = /datum/greyscale_config/backpack/duffel
 	greyscale_config_worn = /datum/greyscale_config/backpack/duffel/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
@@ -107,7 +107,7 @@
 /obj/item/storage/backpack/duffelbag/engineering/custom
 	name = "custom industrial duffelbag"
 	icon_state = "duffel_industrial"
-	greyscale_colors = "#333333#FF0000"
+	greyscale_colors = "#787B6B#ABD734"
 	greyscale_config = /datum/greyscale_config/backpack/duffel
 	greyscale_config_worn = /datum/greyscale_config/backpack/duffel/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
@@ -116,7 +116,7 @@
 /obj/item/storage/backpack/messenger/custom
 	name = "custom messenger bag"
 	icon_state = "messenger"
-	greyscale_colors = "#333333#FF0000"
+	greyscale_colors = "#787B6B#ABD734"
 	greyscale_config = /datum/greyscale_config/backpack/messenger
 	greyscale_config_worn = /datum/greyscale_config/backpack/messenger/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
@@ -124,7 +124,7 @@
 /obj/item/storage/backpack/messenger/eng/custom
 	name = "custom industrial messenger bag"
 	icon_state = "messenger_industrial"
-	greyscale_colors = "#333333#FF0000"
+	greyscale_colors = "#787B6B#ABD734"
 	greyscale_config = /datum/greyscale_config/backpack/messenger
 	greyscale_config_worn = /datum/greyscale_config/backpack/messenger/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
@@ -134,7 +134,7 @@
 	name = "custom flatpack"
 	desc = "An ultra-light-weight slim storage option that fits above the belt- or slipped into other bags or under floor tiles."
 	icon_state = "slimpack"
-	greyscale_colors = "#333333#FF0000"
+	greyscale_colors = "#787B6B#ABD734"
 	greyscale_config = /datum/greyscale_config/backpack/slimpack
 	greyscale_config_worn = /datum/greyscale_config/backpack/slimpack/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
@@ -142,21 +142,21 @@
 // slimpacks but novarat
 /obj/item/storage/backpack/tinypaka/custom
 	name = "custom waistpack"
-	greyscale_colors = "#FF0000#333333"
+	greyscale_colors = "#ABD734#787B6B"
 	greyscale_config = /datum/greyscale_config/backpack/tinypaka
 	greyscale_config_worn = /datum/greyscale_config/backpack/tinypaka/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/storage/backpack/tinypakb/custom
 	name = "custom storage belt"
-	greyscale_colors = "#FF0000#333333"
+	greyscale_colors = "#ABD734#787B6B"
 	greyscale_config = /datum/greyscale_config/backpack/tinypakb
 	greyscale_config_worn = /datum/greyscale_config/backpack/tinypakb/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/storage/backpack/tinypakc/custom
 	name = "custom chest pouch"
-	greyscale_colors = "#333333#FF0000"
+	greyscale_colors = "#787B6B#ABD734"
 	greyscale_config = /datum/greyscale_config/backpack/tinypakc
 	greyscale_config_worn = /datum/greyscale_config/backpack/tinypakc/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
@@ -166,7 +166,7 @@
 	name = "fannypack"
 	icon_state = "fannypack"
 	worn_icon_state = "fannypack"
-	greyscale_colors = "#FF0000"
+	greyscale_colors = "#ABD734"
 	greyscale_config = /datum/greyscale_config/fannypack
 	greyscale_config_worn = /datum/greyscale_config/fannypack/worn
 	flags_1 = IS_PLAYER_COLORABLE_1
@@ -180,7 +180,7 @@
 	worn_icon = 'modular_nova/modules/clothing_improvements/icons/clothing_worn.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
-	greyscale_colors = "#FF0000#333333"
+	greyscale_colors = "#ABD734#787B6B"
 	greyscale_config = /datum/greyscale_config/backpack/tinypaka
 	greyscale_config_worn = /datum/greyscale_config/backpack/tinypaka/worn
 
@@ -200,7 +200,7 @@
 	name = "slim fannypack"
 	icon_state = "slimpack"
 	worn_icon_state = "slimpack"
-	greyscale_colors = "#333333#FF0000"
+	greyscale_colors = "#787B6B#ABD734"
 	greyscale_config = /datum/greyscale_config/backpack/slimpack
 	greyscale_config_worn = /datum/greyscale_config/backpack/slimpack/worn
 
