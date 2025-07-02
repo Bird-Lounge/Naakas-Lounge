@@ -16,4 +16,5 @@
 	//spess station-
 	volume = 7
 	pressure_affected = FALSE
+	direct = TRUE /// NOVA EDIT ADDITION
 	vary = TRUE
