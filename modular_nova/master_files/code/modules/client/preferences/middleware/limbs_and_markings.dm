@@ -63,10 +63,17 @@
 	var/list/visited_body_zones = list()
 	for(var/key in preferences.augments)
 		var/datum/augment_item/aug = GLOB.augment_items[preferences.augments[key]]
-		var/visited_body_zone = aug.apply(target, visuals_only, prefs = preferences)
-
-		if(visited_body_zone) // Only limb augments should be returning those, and only in visuals_only mode.
-			visited_body_zones += visited_body_zone
+		if(aug.category == AUGMENT_CATEGORY_LIMBS)
+			var/visited_body_zone = aug.apply(target, visuals_only, prefs = preferences)
+			if(visited_body_zone) // Only limb augments should be returning those, and only in visuals_only mode.
+				visited_body_zones += visited_body_zone
+	//We do this twice - limbs need to go first, otherwise other augments will fail to function correctly.
+	for(var/key in preferences.augments)
+		var/datum/augment_item/aug = GLOB.augment_items[preferences.augments[key]]
+		if(aug.category != AUGMENT_CATEGORY_LIMBS)
+			var/visited_body_zone = aug.apply(target, visuals_only, prefs = preferences)
+			if(visited_body_zone) // Only limb augments should be returning those, and only in visuals_only mode.
+				visited_body_zones += visited_body_zone
 
 	target.synchronize_bodytypes() // We call this here to ensure that by this point, bodytypes are synchronized, after all changes to the limbs.
 	target.synchronize_bodyshapes()
