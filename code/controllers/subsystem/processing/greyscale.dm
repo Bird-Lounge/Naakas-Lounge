@@ -82,11 +82,14 @@ PROCESSING_SUBSYSTEM_DEF(greyscale)
 	var/iconforge_output = rustg_iconforge_gags(type, colors, output_path)
 	// Handle errors from IconForge
 	if(iconforge_output != "OK")
-		CRASH(iconforge_output)
-	// We'll just explicitly do fcopy_rsc here, so the game doesn't have to do it again later from the cached file.
-	var/rsc_gags_icon = fcopy_rsc(file(output_path))
-	gags_cache[uid] = rsc_gags_icon
-	return rsc_gags_icon
+		return configurations[type].Generate(colors) //Use a fallback.  TODO: work out a better solution for this.
+		//CRASH(iconforge_output)
+	else ///NAAKAS-LOUNGE EDIT BEGIN
+		// We'll just explicitly do fcopy_rsc here, so the game doesn't have to do it again later from the cached file.
+		var/rsc_gags_icon = fcopy_rsc(file(output_path))
+		gags_cache[uid] = rsc_gags_icon
+		return rsc_gags_icon
+	/// NAAKAS-LOUNGE EDIT END
 #else
 	return configurations[type].Generate(colors)
 #endif
