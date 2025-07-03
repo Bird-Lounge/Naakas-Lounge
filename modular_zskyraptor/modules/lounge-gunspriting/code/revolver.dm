@@ -144,7 +144,6 @@
 		icon_state = icon_state_open
 	else
 		icon_state = base_icon_state
-	. = ..()
 
 /obj/item/gun/ballistic/revolver_sa/examine(mob/user)
 	. = ..()
