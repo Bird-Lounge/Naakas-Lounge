@@ -234,13 +234,14 @@
 
 /obj/item/clothing/sextoy/belly_function/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
-	if(!istype(user))
-		return
 	if(lastuser != user && overlay_south != null && lastuser != null)
 		lastuser.cut_overlay(overlay_south)
 		lastuser.cut_overlay(overlay_north)
 		lastuser.cut_overlay(overlay_hori)
 		UnregisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION)
+		lasteruser = null
+	if(!istype(user))
+		return
 	lastuser = user
 	RegisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION, PROC_REF(on_step), TRUE)
 	START_PROCESSING(SSobj, src)
@@ -309,6 +310,7 @@
 	if(!istype(user))
 		user = lastuser
 	if(!istype(user))
+		lastuser = null
 		return
 
 	// TODO: calculate fullness on the fly
