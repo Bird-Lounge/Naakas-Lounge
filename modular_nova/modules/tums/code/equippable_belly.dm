@@ -239,12 +239,20 @@
 		lastuser.cut_overlay(overlay_north)
 		lastuser.cut_overlay(overlay_hori)
 		UnregisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION)
-		lasteruser = null
+		UnregisterSignal(lastuser, COMSIG_QDELETING)
+		lastuser = null
 	if(!istype(user))
 		return
 	lastuser = user
 	RegisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION, PROC_REF(on_step), TRUE)
+	RegisterSignal(lastuser, COMSIG_QDELETING, PROC_REF(on_user_deleted))
 	START_PROCESSING(SSobj, src)
+
+//real simple one to avoid hanging onto lastuser & clear things if this gets nullspaced
+/obj/item/clothing/sextoy/belly_function/proc/on_user_deleted()
+	lastuser = null
+	if(loc == null)
+		Destroy()
 
 /obj/item/clothing/sextoy/belly_function/dropped(mob/user, slot)
 	. = ..()
