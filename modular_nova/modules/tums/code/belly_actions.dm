@@ -12,7 +12,12 @@
 		return
 	else
 		my_belly = Target
+		my_belly.belly_acts += src
 
+/datum/action/item_action/belly_menu/Destroy()
+	. = ..()
+	if(src in my_belly.belly_acts)
+		my_belly.belly_acts -= src
 
 
 /datum/action/item_action/belly_menu/access
@@ -22,6 +27,9 @@
 /datum/action/item_action/belly_menu/access/Trigger(trigger_flags)
 	if(trigger_flags & TRIGGER_SECONDARY_ACTION)
 		var/mob/living/carbon/host = usr
+		if(my_belly.nommer == null)
+			my_belly.nommer = new /obj/item/belly_nom_helper(my_belly)
+			my_belly.nommer.color = color
 		if(my_belly.nommer.loc == my_belly)
 			//setup item with nodrop, etc
 			my_belly.nommer.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -76,6 +84,11 @@
 				playsound_if_pref(my_belly, pick(my_belly.slosh_sounds), min(20 + round(my_belly.total_fullness/32, 1), 50), TRUE, frequency=rand(40000, 50000))
 	return TRUE
 
+/datum/action/item_action/belly_menu/escape/Destroy()
+	. = ..()
+	if(usr in my_belly.nommeds)
+		my_belly.free_target(usr)
+
 
 
 /// Special item
@@ -92,6 +105,10 @@
 /obj/item/belly_nom_helper/New(Target)
 	. = ..()
 	my_belly = Target
+
+/obj/item/belly_nom_helper/Destroy()
+	. = ..()
+	my_belly.nommer = null
 
 /obj/item/belly_nom_helper/attack_self(mob/user)
 	return my_belly.attack_self(user)

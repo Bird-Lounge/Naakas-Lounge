@@ -16,6 +16,7 @@
 	actions_types = list(
 		/datum/action/item_action/belly_menu/access,
 	)
+	var/list/datum/action/item_action/belly_menu/belly_acts = list()
 	var/obj/item/belly_nom_helper/nommer = null
 
 	var/mob/living/carbon/human/lastuser = null
@@ -88,6 +89,16 @@
 	nommer = new /obj/item/belly_nom_helper(src)
 	nommer.color = color
 
+/obj/item/clothing/sextoy/belly_function/Destroy()
+	. = ..()
+	nommer.my_belly = null
+	nommer.Destroy()
+	nommer = null
+	for(var/datum/action/item_action/belly_menu/belly_act in belly_acts)
+		belly_act.Destroy()
+		belly_act.my_belly = null
+	belly_acts = null
+
 /obj/item/clothing/sextoy/belly_function/proc/on_step()
 	SIGNAL_HANDLER
 	if(total_fullness >= 3)
@@ -125,6 +136,8 @@
 	nommeds -= nommed
 	nommed_sizes -= nommed
 	nommed_gasmixes -= nommed
+	if(escape_helpers[nommed] in belly_acts)
+		belly_acts -= escape_helpers[nommed]
 	escape_helpers[nommed].Remove(remove_from = nommed)
 	escape_helpers -= nommed
 	recalculate_guest_sizes()
@@ -243,7 +256,7 @@
 		STOP_PROCESSING(SSobj, src)
 		lastuser = null
 
-/obj/item/clothing/sextoy/belly_function/proc/refresh_overlays(mob/living/carbon/human/user, var/icon_state_wew, var/inbound_size)
+/obj/item/clothing/sextoy/belly_function/proc/refresh_overlays(mob/living/carbon/human/user, icon_state_wew, inbound_size)
 	// cut out-of-date overlays
 	if(overlay_south != null)
 		user.cut_overlay(overlay_south)

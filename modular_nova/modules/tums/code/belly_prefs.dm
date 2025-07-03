@@ -65,7 +65,7 @@
 /datum/quirk/item_quirk/stuffable
 	name = "True Glutton"
 	desc = "Voracious alt ft. BWELLY ITEM.  Alt-click it in-hand to change the color to match your sprite, then equip or use for nommage as the description says."
-	icon = FA_ICON_DRUMSTICK_BITE
+	icon = FA_ICON_PERSON_PREGNANT
 	value = 0
 	mob_trait = TRAIT_VORACIOUS
 	gain_text = span_notice("You feel like you could eat a horse!")
