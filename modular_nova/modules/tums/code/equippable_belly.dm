@@ -243,9 +243,10 @@
 		lastuser = null
 	if(!istype(user))
 		return
+	if(lastuser != user)
+		RegisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION, PROC_REF(on_step))
+		RegisterSignal(lastuser, COMSIG_QDELETING, PROC_REF(on_user_deleted))
 	lastuser = user
-	RegisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION, PROC_REF(on_step), TRUE)
-	RegisterSignal(lastuser, COMSIG_QDELETING, PROC_REF(on_user_deleted))
 	START_PROCESSING(SSobj, src)
 
 //real simple one to avoid hanging onto lastuser & clear things if this gets nullspaced
