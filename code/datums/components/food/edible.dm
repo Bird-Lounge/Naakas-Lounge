@@ -388,7 +388,7 @@ Behavior that's still missing from this component that original food items had t
 		if(fullness < NUTRITION_LEVEL_FAT || (eater != feeder)) // No extra delay when being forcefed
 			time_to_eat *= EAT_TIME_VORACIOUS_MULT
 		else
-			time_to_eat *= (fullness / NUTRITION_LEVEL_FAT) * EAT_TIME_VORACIOUS_FULL_MULT // takes longer to eat the more well fed you are
+			time_to_eat /= (3 + (fullness / NUTRITION_LEVEL_FAT) * EAT_TIME_VORACIOUS_FULL_MULT) / 4 /// NAAKAS-LOUNGE EDIT: slowly gets faster as you get more stuffed
 	if(eater == feeder)//If you're eating it yourself.
 		if(eat_time > 0 && !do_after(feeder, time_to_eat, eater, timed_action_flags = food_flags & FOOD_FINGER_FOOD ? IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE : NONE)) //Gotta pass the minimal eat time
 			return

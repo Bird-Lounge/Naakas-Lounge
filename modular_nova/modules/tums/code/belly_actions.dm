@@ -65,6 +65,22 @@
 	name = "Belly Escape Helper"
 	desc = "LMB: Squirm around and make your host's belly noisy.  RMB: Escape immediately."
 	button_icon_state = "escape_icon"
+	var/list/squirm_messages_usr = list(
+		"You press into %USER%'s bellywalls!",
+		"You knead into %USER%'s bellywalls!",
+		"You squish into %USER%'s bellywalls!",
+		"You squirm around in %USER%'s belly!",
+		"You shift about in %USER%'s belly!",
+		"You jostle %USER%'s belly from within!"
+	)
+	var/list/squirm_messages_host = list(
+		"You feel %USER% pressing into your bellywalls!",
+		"You feel %USER% kneading into your bellywalls!",
+		"You feel %USER% squishing into your bellywalls!",
+		"You feel %USER% squirming around in your belly!",
+		"You feel %USER% shifting about in your belly!",
+		"You feel %USER% jostling your belly about from within!"
+	)
 
 /datum/action/item_action/belly_menu/escape/Trigger(trigger_flags)
 	if(trigger_flags & TRIGGER_SECONDARY_ACTION)
@@ -75,6 +91,8 @@
 			src.Remove(usr)
 	else
 		if(my_belly.lastuser != null)
+			to_chat(usr, span_notice(replacetext(pick(squirm_messages_usr), "%USER%", my_belly.lastuser.name)))
+			to_chat(lastuser, span_notice(replacetext(pick(squirm_messages_host), "%USER%", usr.name)))
 			playsound_if_pref(my_belly.lastuser, pick(my_belly.move_creaks), min(10 + round(my_belly.total_fullness/40, 1), 30), TRUE, frequency=rand(40000, 50000))
 			if(my_belly.stuffed_temp > 1 && prob(100) <= my_belly.stuffed_temp * 100)
 				playsound_if_pref(my_belly.lastuser, pick(my_belly.slosh_sounds), min(20 + round(my_belly.total_fullness/32, 1), 50), TRUE, frequency=rand(40000, 50000))
