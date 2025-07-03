@@ -105,10 +105,14 @@
 /obj/item/belly_nom_helper/New(Target)
 	. = ..()
 	my_belly = Target
+	if(!istype(my_belly))
+		my_belly = null
+		Destroy()
 
 /obj/item/belly_nom_helper/Destroy()
 	. = ..()
-	my_belly.nommer = null
+	if(istype(my_belly))
+		my_belly.nommer = null
 
 /obj/item/belly_nom_helper/attack_self(mob/user)
 	return my_belly.attack_self(user)

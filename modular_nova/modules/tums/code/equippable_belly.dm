@@ -91,10 +91,12 @@
 
 /obj/item/clothing/sextoy/belly_function/Destroy()
 	. = ..()
-	nommer.my_belly = null
-	nommer.Destroy()
+	if(nommer)
+		nommer.my_belly = null
+		nommer.Destroy()
 	nommer = null
 	for(var/datum/action/item_action/belly_menu/belly_act in belly_acts)
+		belly_acts -= belly_act
 		belly_act.Destroy()
 		belly_act.my_belly = null
 	belly_acts = null
