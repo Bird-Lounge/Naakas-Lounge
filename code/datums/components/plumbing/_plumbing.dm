@@ -26,6 +26,9 @@
 	var/supply_color = COLOR_BLUE
 	///Extend the pipe to the edge for wall-mounted plumbed devices, like sinks and showers
 	var/extend_pipe_to_edge = FALSE
+	
+	/// NAAKAS-LOUNGE ADDITION: modularise icon
+	var/connection_icon = 'icons/obj/pipes_n_cables/hydrochem/connects.dmi'
 
 ///turn_connects is for wheter or not we spin with the object to change our pipes
 /datum/component/plumbing/Initialize(start=TRUE, ducting_layer, turn_connects=TRUE, datum/reagents/custom_receiver, extend_pipe_to_edge = FALSE)

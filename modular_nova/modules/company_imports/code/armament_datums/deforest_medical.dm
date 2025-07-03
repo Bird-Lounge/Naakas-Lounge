@@ -269,6 +269,12 @@
 	item_type = /obj/item/cybernetic_repair_paste
 	cost = PAYCHECK_COMMAND * 2
 
+/// NAAKAS-LOUNGE ADDITION BEGIN?  I THOUGHT THIS WAS UPSTREAM
+/datum/armament_entry/company_import/deforest/equipment/hypospray_upgrade
+	item_type = /obj/item/device/custom_kit/deluxe_hypo2
+	cost = PAYCHECK_COMMAND * 2
+/// NAAKAS-LOUNGE ADDITION END
+
 // Advanced implants, some of these can be printed but this is a way to get them before tech if you REALLY wanted
 
 /datum/armament_entry/company_import/deforest/cyber_implants

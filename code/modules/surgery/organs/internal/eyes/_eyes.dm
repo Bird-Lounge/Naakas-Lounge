@@ -39,6 +39,7 @@
 
 	var/eye_color_left = null // set to a hex code to override a mob's left eye color
 	var/eye_color_right = null // set to a hex code to override a mob's right eye color
+	var/eye_icon_file = null /// NAAKAS-LOUNGE EDIT: modularize displayed eyes into their own files
 	var/eye_icon_state = "eyes"
 	/// Do these eyes have blinking animations
 	var/blink_animation = TRUE
@@ -277,6 +278,8 @@
 
 	var/obj/item/bodypart/head/my_head = parent.get_bodypart(BODY_ZONE_HEAD) // NOVA EDIT ADDITION
 	var/eye_icon = my_head?.eyes_icon || 'icons/mob/human/human_face.dmi' // NOVA EDIT ADDITION
+	if(eye_icon_file) /// NAAKAS-LOUNGE ADDITION
+		eye_icon = eye_icon_file
 
 	var/mutable_appearance/eye_left = mutable_appearance(eye_icon, "[eye_icon_state]_l", -eyes_layer, parent) // NOVA EDIT CHANGE - Customization - ORIGINAL: var/mutable_appearance/eye_left = mutable_appearance('icons/mob/human/human_face.dmi', "[eye_icon_state]_l", -BODY_LAYER, parent)
 	var/mutable_appearance/eye_right = mutable_appearance(eye_icon, "[eye_icon_state]_r", -eyes_layer, parent) // NOVA EDIT CHANGE - Customization - ORIGINAL: var/mutable_appearance/eye_right = mutable_appearance('icons/mob/human/human_face.dmi', "[eye_icon_state]_r", -BODY_LAYER, parent)
