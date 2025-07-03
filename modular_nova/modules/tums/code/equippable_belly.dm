@@ -243,10 +243,9 @@
 		lastuser = null
 	if(!istype(user))
 		return
-	if(lastuser != user)
-		RegisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION, PROC_REF(on_step))
-		RegisterSignal(lastuser, COMSIG_QDELETING, PROC_REF(on_user_deleted))
 	lastuser = user
+	RegisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION, PROC_REF(on_step), TRUE)
+	RegisterSignal(lastuser, COMSIG_QDELETING, PROC_REF(on_user_deleted), TRUE)
 	START_PROCESSING(SSobj, src)
 
 //real simple one to avoid hanging onto lastuser & clear things if this gets nullspaced
@@ -336,7 +335,7 @@
 	stuffed_temp_orig += base_size_stuffed
 	var/total_fullness_orig = guest_temp + stuffed_temp_orig //maximum creaks from overfilled belly
 	var/total_size_orig = total_fullness_orig + base_size_cosmetic
-	var/total_size = total_size_orig / 10 / sizemod
+	var/total_size = total_size_orig / 10 * sizemod
 
 	total_size = (((total_size)**1.5) / (4/3) / PI)**(1/3)
 
@@ -354,8 +353,8 @@
 	refresh_overlays(user, "[base_icon_state]-[spr_size]", spr_size)
 
 	// clamps these to previous scales for noise, more or less
-	total_fullness = total_fullness_orig / 10 / sizemod_audio
-	stuffed_temp = stuffed_temp_orig / 10 / sizemod_audio
+	total_fullness = total_fullness_orig / 10 * sizemod_audio
+	stuffed_temp = stuffed_temp_orig / 10 * sizemod_audio
 
 	total_fullness = (((total_fullness)**1.5) / (4/3) / PI)**(1/3)
 	stuffed_temp = (((stuffed_temp)**1.5) / (4/3) / PI)**(1/3)
