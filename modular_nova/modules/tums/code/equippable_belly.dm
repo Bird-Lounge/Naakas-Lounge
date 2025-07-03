@@ -168,12 +168,12 @@
 				src.color = temp_col
 			nommer.color = color
 		else if(adjustment_mode == "Set Size Modifier")
-			var/temp_size = tgui_input_number(user, "Set a size multiplier (0.00-10.00) - all size sources are multiplied by this.", "Sizemod")
+			var/temp_size = tgui_input_number(user, "Set a size multiplier (0.00-10.00) - all size sources are multiplied by this.", "Sizemod", sizemod, 10, 0, round_value = FALSE)
 			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
 				return
 			sizemod = temp_size
 		else if(adjustment_mode == "Set Size Modifier for Audio")
-			var/temp_size = tgui_input_number(user, "Set a size divider (0.00-10.00) - all size sources are multiplied by this for determining audio.", "Audio Sizemod")
+			var/temp_size = tgui_input_number(user, "Set a size divider (0.00-10.00) - all size sources are multiplied by this for determining audio.", "Audio Sizemod", sizemod_audio, 10, 0, round_value = FALSE)
 			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
 				return
 			sizemod_audio = temp_size
@@ -324,12 +324,8 @@
 	var/total_fullness_orig = guest_temp + stuffed_temp_orig //maximum creaks from overfilled belly
 	var/total_size_orig = total_fullness_orig + base_size_cosmetic
 	var/total_size = total_size_orig / 10 / sizemod
-	total_fullness = total_fullness_orig / 10 / sizemod
-	stuffed_temp = stuffed_temp_orig / 10 / sizemod
 
 	total_size = (((total_size)**1.5) / (4/3) / PI)**(1/3)
-	total_fullness = (((total_fullness)**1.5) / (4/3) / PI)**(1/3)
-	stuffed_temp = (((stuffed_temp)**1.5) / (4/3) / PI)**(1/3)
 
 	current_size_unclamped = total_size
 
@@ -339,15 +335,20 @@
 	if(spr_size < 0)
 		spr_size = 0
 
-	// clamps these to previous scales for noise, more or less
-	total_fullness = (total_fullness/3) + (total_fullness_orig / 1000)
-	stuffed_temp = (stuffed_temp/3) + (stuffed_temp_orig / 1000)
-
-	//if(spr_size != last_size)
 	last_size = spr_size
 	update_icon_state()
 	update_icon()
 	refresh_overlays(user, "[base_icon_state]-[spr_size]", spr_size)
+
+	// clamps these to previous scales for noise, more or less
+	total_fullness = total_fullness_orig / 10 / sizemod_audio
+	stuffed_temp = stuffed_temp_orig / 10 / sizemod_audio
+
+	total_fullness = (((total_fullness)**1.5) / (4/3) / PI)**(1/3)
+	stuffed_temp = (((stuffed_temp)**1.5) / (4/3) / PI)**(1/3)
+
+	total_fullness = (total_fullness/3) + (total_fullness_orig / 1000)
+	stuffed_temp = (stuffed_temp/3) + (stuffed_temp_orig / 1000)
 
 	if(total_fullness >= 1 && allow_sound_groans)
 		full_cooldown = full_cooldown - (seconds_per_tick * total_fullness)

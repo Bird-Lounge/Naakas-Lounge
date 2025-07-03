@@ -29,7 +29,7 @@
 		var/mob/living/carbon/host = usr
 		if(my_belly.nommer == null)
 			my_belly.nommer = new /obj/item/belly_nom_helper(my_belly)
-			my_belly.nommer.color = color
+			my_belly.nommer.color = my_belly.color
 		if(my_belly.nommer.loc == my_belly)
 			//setup item with nodrop, etc
 			my_belly.nommer.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
