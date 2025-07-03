@@ -92,7 +92,7 @@
 	else
 		if(my_belly.lastuser != null)
 			to_chat(usr, span_notice(replacetext(pick(squirm_messages_usr), "%USER%", my_belly.lastuser.name)))
-			to_chat(lastuser, span_notice(replacetext(pick(squirm_messages_host), "%USER%", usr.name)))
+			to_chat(my_belly.lastuser, span_notice(replacetext(pick(squirm_messages_host), "%USER%", usr.name)))
 			if(my_belly.allow_sound_move_creaks)
 				playsound_if_pref(my_belly.lastuser, pick(my_belly.move_creaks), min(10 + round(my_belly.total_fullness/40, 1), 30), TRUE, frequency=rand(40000, 50000))
 			if(my_belly.stuffed_temp > 1 && prob(100) <= my_belly.stuffed_temp * 100 && my_belly.allow_sound_move_sloshes)
