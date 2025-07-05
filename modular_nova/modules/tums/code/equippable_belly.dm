@@ -157,7 +157,7 @@
 	"Toggle Belly Groans", "Toggle Belly Gurgles", "Toggle Belly Movement Creaks", "Toggle Belly Movement Sloshes",
 	"Set Baseline Cosmetic Size", "Set Baseline Endo Size", "Set Baseline Stuffed Size",
 	"Adjust Pred Mode", "Set Guest Size")
-	var/mob/living/carbon/human/extra_size_list = list()
+	var/list/mob/living/carbon/human/extra_size_list = list()
 
 	for(var/mob/living/carbon/human/nommed in nommeds)
 		extra_size_list["Set Size of [nommed.name]"] = nommed
