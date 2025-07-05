@@ -360,9 +360,9 @@ Behavior that's still missing from this component that original food items had t
 /// Normal time to forcefeed someone something
 #define EAT_TIME_FORCE_FEED (3 SECONDS)
 /// Multiplier for eat time if the eater has TRAIT_VORACIOUS
-#define EAT_TIME_VORACIOUS_MULT 0.65 // voracious folk eat 35% faster
+#define EAT_TIME_VORACIOUS_MULT 0.85 // voracious folk eat 35% faster /// NAAKAS-LOUNGE EDIT: 0.85, up from 0.65
 /// Multiplier for how much longer it takes a voracious folk to eat while full
-#define EAT_TIME_VORACIOUS_FULL_MULT 4 // Takes at least 4 times as long to eat while full, so dorks cant just clear out the kitchen before they get robusted
+#define EAT_TIME_VORACIOUS_FULL_MULT 0.75 // Takes at least 4 times as long to eat while full, so dorks cant just clear out the kitchen before they get robusted /// NAAKAS-LOUNGE EDIT: 0.75, down from 4
 
 ///All the checks for the act of eating itself and
 /datum/component/edible/proc/TryToEat(mob/living/eater, mob/living/feeder)
@@ -385,10 +385,10 @@ Behavior that's still missing from this component that original food items had t
 
 	var/time_to_eat = (eater == feeder) ? eat_time : EAT_TIME_FORCE_FEED
 	if(HAS_TRAIT(eater, TRAIT_VORACIOUS) && !HAS_TRAIT(eater, TRAIT_GLUTTON)) //with TRAIT_GLUTTON you consume food without delay
-		if(fullness < NUTRITION_LEVEL_FAT || (eater != feeder)) // No extra delay when being forcefed
+		if(fullness < NUTRITION_LEVEL_FAT) /// NAAKAS-LOUNGE EDIT: normal voracious speed below fatness
 			time_to_eat *= EAT_TIME_VORACIOUS_MULT
 		else
-			time_to_eat *= (fullness / NUTRITION_LEVEL_FAT) * EAT_TIME_VORACIOUS_FULL_MULT // takes longer to eat the more well fed you are
+			time_to_eat /= ((9 + (fullness / NUTRITION_LEVEL_FAT)) / 10) * EAT_TIME_VORACIOUS_FULL_MULT /// NAAKAS-LOUNGE EDIT: slowly gets faster as you get more stuffed.
 	if(eater == feeder)//If you're eating it yourself.
 		if(eat_time > 0 && !do_after(feeder, time_to_eat, eater, timed_action_flags = food_flags & FOOD_FINGER_FOOD ? IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE : NONE)) //Gotta pass the minimal eat time
 			return
@@ -471,7 +471,7 @@ Behavior that's still missing from this component that original food items had t
 	TakeBite(eater, feeder)
 
 	//If we're not force-feeding and there's an eat delay, try take another bite
-	if(eater == feeder && eat_time > 0)
+	if(eat_time > 0)  //NAAKAS-LOUNGE EDIT: allowing continuous feeding others.  original code: if(eater == feeder && eat_time > 0)
 		INVOKE_ASYNC(src, PROC_REF(TryToEat), eater, feeder)
 
 #undef EAT_TIME_FORCE_FEED
