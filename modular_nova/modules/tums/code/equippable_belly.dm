@@ -9,6 +9,10 @@
 	var/icon/worn_icon_64x ='modular_nova/modules/tums/icons/bellies_64x.dmi'
 	worn_icon_teshari ='modular_nova/modules/tums/icons/bellies_teshari.dmi'
 	var/icon/worn_icon_teshari_64x ='modular_nova/modules/tums/icons/bellies_teshari_64x.dmi'
+	//skintone variants
+	var/use_skintone = FALSE
+	var/icon/skintone_worn_icon = 'modular_nova/modules/tums/icons/bellies.dmi'
+	var/icon/skintone_worn_icon_64x ='modular_nova/modules/tums/icons/bellies_64x.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	lewd_slot_flags = LEWD_SLOT_NIPPLES
 	color = "#ffffff"
@@ -148,7 +152,7 @@
 	src.config_menu(user)
 
 /obj/item/clothing/sextoy/belly_function/proc/config_menu(mob/living/user)
-	var/opt_list = list("Change Color",
+	var/opt_list = list("Change Color", "Toggle Skintone",
 	"Set Size Modifier", "Set Size Modifier for Audio",
 	"Toggle Belly Groans", "Toggle Belly Gurgles", "Toggle Belly Movement Creaks", "Toggle Belly Movement Sloshes",
 	"Set Baseline Cosmetic Size", "Set Baseline Endo Size", "Set Baseline Stuffed Size",
@@ -169,6 +173,11 @@
 			if(temp_col != null || QDELETED(user) || QDELETED(src))
 				src.color = temp_col
 			nommer.color = color
+		else if(adjustment_mode == "Toggle Skintone")
+			var/mode_select = tgui_alert(user, "Use skintone spritesheets?  Current state: [(use_skintone == TRUE) ? "yes" : "no"]", "Toggle Skintone", list_yesno)
+			if(isnull(mode_select) || QDELETED(user) || QDELETED(src))
+				return
+			use_skintone = (mode_select == "Yes") ? TRUE : FALSE
 		else if(adjustment_mode == "Set Size Modifier")
 			var/temp_size = tgui_input_number(user, "Set a size multiplier (0.00-10.00) - all size sources are multiplied by this.", "Sizemod", sizemod, 10, 0, round_value = FALSE)
 			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
@@ -277,8 +286,11 @@
 	// setup working variables
 	var/oldstate = worn_icon_state
 	var/iconfile = inbound_size > 10 ? worn_icon_64x : worn_icon
-	if(user.dna.species.id == SPECIES_TESHARI)
+	if(use_skintone)
+		iconfile = inbound_size > 10 ? skintone_worn_icon_64x : skintone_worn_icon
+	else if(user.dna.species.id == SPECIES_TESHARI)
 		iconfile = inbound_size > 10 ? worn_icon_teshari_64x : worn_icon_teshari
+
 
 	// generate the appearances
 	worn_icon_state = "[icon_state_wew]_HORI"
