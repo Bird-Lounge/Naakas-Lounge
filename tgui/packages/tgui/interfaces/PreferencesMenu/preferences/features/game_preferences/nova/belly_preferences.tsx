@@ -53,6 +53,7 @@ export const erp_belly_sound_move_sloshes: FeatureToggle = {
 
 export const erp_belly_maxsize: Feature<number> = {
   name: 'Maximum Belly Size',
+  category: 'BELLY',
   component: FeatureSliderInput,
   description:
     'Sets the maximum size of belly sprite you are willing to see. Size 4 and beyond are large, size 8 and beyond are hyper, size 11 and beyond are very hyper.',

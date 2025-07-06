@@ -11,8 +11,8 @@
 	var/icon/worn_icon_teshari_64x ='modular_nova/modules/tums/icons/bellies_teshari_64x.dmi'
 	//skintone variants
 	var/use_skintone = FALSE
-	var/icon/skintone_worn_icon = 'modular_nova/modules/tums/icons/bellies.dmi'
-	var/icon/skintone_worn_icon_64x ='modular_nova/modules/tums/icons/bellies_64x.dmi'
+	var/icon/skintone_worn_icon = 'modular_nova/modules/tums/icons/skintone_bellies.dmi'
+	var/icon/skintone_worn_icon_64x ='modular_nova/modules/tums/icons/skintone_bellies_64x.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	lewd_slot_flags = LEWD_SLOT_NIPPLES
 	color = "#ffffff"
@@ -68,9 +68,9 @@
 	var/last_size = 0
 	var/current_size_unclamped = 0
 	var/last_gasmix = ""
-	var/mutable_appearance/overlay_south
-	var/mutable_appearance/overlay_north
-	var/mutable_appearance/overlay_hori
+	var/image/overlay_south
+	var/image/overlay_north
+	var/image/overlay_hori
 
 	/// Sound lists setup as local vars because we aren't spawning enough of these for memory to be a worry & this makes it easier to fix broken sound lists during gameplay
 	// Used for full creaks and similar
@@ -245,9 +245,7 @@
 /obj/item/clothing/sextoy/belly_function/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
 	if(lastuser != user && overlay_south != null && lastuser != null)
-		lastuser.cut_overlay(overlay_south)
-		lastuser.cut_overlay(overlay_north)
-		lastuser.cut_overlay(overlay_hori)
+		do_alt_appearance(lastuser, TRUE, last_size)
 		UnregisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION)
 		UnregisterSignal(lastuser, COMSIG_QDELETING)
 		lastuser = null
@@ -264,12 +262,27 @@
 	if(loc == null)
 		Destroy()
 
+/obj/item/clothing/sextoy/belly_function/proc/do_alt_appearance(mob/living/carbon/human/target, do_cut, size)
+	if(do_cut == TRUE)
+		//target.cut_overlay(overlay_hori)
+		//target.cut_overlay(overlay_south)
+		//target.cut_overlay(overlay_north)
+		for(var/i in 1 to size)
+			target.remove_alt_appearance("erp_belly_south-[i]")
+			target.remove_alt_appearance("erp_belly_north-[i]")
+			target.remove_alt_appearance("erp_belly_hori-[i]")
+	else
+		target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_south-[size]", image(overlay_south, loc=target, layer=overlay_south.layer), AA_TARGET_SEE_APPEARANCE, target, size)
+		target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_north-[size]", image(overlay_north, loc=target, layer=overlay_north.layer), AA_TARGET_SEE_APPEARANCE, target, size)
+		target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_hori-[size]", image(overlay_hori, loc=target, layer=overlay_hori.layer), AA_TARGET_SEE_APPEARANCE, target, size)
+		//target.add_overlay(overlay_hori)
+		//target.add_overlay(overlay_south)
+		//target.add_overlay(overlay_north)
+
 /obj/item/clothing/sextoy/belly_function/dropped(mob/user, slot)
 	. = ..()
 	if(overlay_south != null) //remove overlays if needed
-		user.cut_overlay(overlay_south)
-		user.cut_overlay(overlay_north)
-		user.cut_overlay(overlay_hori)
+		do_alt_appearance(user, TRUE, last_size)
 	if(loc != user)
 		/*if(istype(nommed))
 			nommed.forceMove(drop_location())
@@ -277,48 +290,55 @@
 		STOP_PROCESSING(SSobj, src)
 		lastuser = null
 
-/obj/item/clothing/sextoy/belly_function/proc/refresh_overlays(mob/living/carbon/human/user, icon_state_wew, inbound_size)
+/obj/item/clothing/sextoy/belly_function/proc/refresh_overlays(mob/living/carbon/human/user, inbound_size)
 	// cut out-of-date overlays
 	if(overlay_south != null)
-		user.cut_overlay(overlay_south)
-		user.cut_overlay(overlay_north)
-		user.cut_overlay(overlay_hori)
+		do_alt_appearance(user, TRUE, last_size)
 
 	// setup working variables
 	var/oldstate = worn_icon_state
 	var/iconfile = inbound_size > 10 ? worn_icon_64x : worn_icon
-	if(use_skintone)
+	if(use_skintone == TRUE)
 		iconfile = inbound_size > 10 ? skintone_worn_icon_64x : skintone_worn_icon
 	else if(user.dna.species.id == SPECIES_TESHARI)
 		iconfile = inbound_size > 10 ? worn_icon_teshari_64x : worn_icon_teshari
 
+	for(var/i in 1 to inbound_size)
+	//for(var/i in 1 to 1)
+		// generate the appearances
+		var/icon_state_wew = "[base_icon_state]-[i]"
+		worn_icon_state = "[icon_state_wew]_HORI"
+		//overlay_hori = image(src.build_worn_icon(default_layer = (hori_layer + (i / 100)), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile), loc = user, layer = -(hori_layer + (i / 100)))
+		//overlay_hori = image(icon = iconfile, loc = user, icon_state = "[icon_state_wew]_HORI", layer = (hori_layer + (i / 100)), pixel_x = (i > 10 ? -16 : 0), pixel_y = (i > 10 ? -16 : 0) + (user.dna.species.id == SPECIES_TESHARI ? -3 : 0))
+		//overlay_hori.color = color
+		overlay_hori = src.build_worn_icon(default_layer = (hori_layer + (i / 100)), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
+		worn_icon_state = "[icon_state_wew]_FRONT"
+		//overlay_south = image(src.build_worn_icon(default_layer = (south_layer + (i / 100)), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile), loc = user, layer = -(south_layer + (i / 100)))
+		//overlay_south = image(icon = iconfile, loc = user, icon_state = "[icon_state_wew]_FRONT", layer = (south_layer + (i / 100)), pixel_x = (i > 10 ? -16 : 0), pixel_y = (i > 10 ? -16 : 0) + (user.dna.species.id == SPECIES_TESHARI ? -3 : 0))
+		//overlay_south.color = color
+		overlay_south = src.build_worn_icon(default_layer = (south_layer + (i / 100)), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
+		worn_icon_state = "[icon_state_wew]_BACK"
+		//overlay_north = image(src.build_worn_icon(default_layer = (north_layer + (i / 100)), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile), loc = user, layer = -(north_layer + (i / 100)))
+		//overlay_north = image(icon = iconfile, loc = user, icon_state = "[icon_state_wew]_BACK", layer = (north_layer + (i / 100)), pixel_x = (i > 10 ? -16 : 0), pixel_y = (i > 10 ? -16 : 0) + (user.dna.species.id == SPECIES_TESHARI ? -3 : 0))
+		//overlay_north.color = color
+		overlay_north = src.build_worn_icon(default_layer = (north_layer + (i / 100)), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
+		worn_icon_state = oldstate
 
-	// generate the appearances
-	worn_icon_state = "[icon_state_wew]_HORI"
-	overlay_hori = src.build_worn_icon(default_layer = hori_layer, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
-	worn_icon_state = "[icon_state_wew]_FRONT"
-	overlay_south = src.build_worn_icon(default_layer = south_layer, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
-	worn_icon_state = "[icon_state_wew]_BACK"
-	overlay_north = src.build_worn_icon(default_layer = north_layer, default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
-	worn_icon_state = oldstate
+		/*if(i > 10)
+			overlay_hori.pixel_x -= 16
+			overlay_hori.pixel_y -= 16
+			overlay_south.pixel_x -= 16
+			overlay_south.pixel_y -= 16
+			overlay_north.pixel_x -= 16
+			overlay_north.pixel_y -= 16
 
-	if(inbound_size > 10)
-		overlay_hori.pixel_x -= 16
-		overlay_hori.pixel_y -= 16
-		overlay_south.pixel_x -= 16
-		overlay_south.pixel_y -= 16
-		overlay_north.pixel_x -= 16
-		overlay_north.pixel_y -= 16
+		if(user.dna.species.id == SPECIES_TESHARI)
+			overlay_hori.pixel_y -= 3
+			overlay_south.pixel_y -= 3
+			overlay_north.pixel_y -= 3*/
 
-	if(user.dna.species.id == SPECIES_TESHARI)
-		overlay_hori.pixel_y -= 3
-		overlay_south.pixel_y -= 3
-		overlay_north.pixel_y -= 3
-
-	// add the overlays
-	user.add_overlay(overlay_south)
-	user.add_overlay(overlay_north)
-	user.add_overlay(overlay_hori)
+		// add the overlays
+		do_alt_appearance(user, FALSE, i)
 
 /obj/item/clothing/sextoy/belly_function/proc/recalculate_guest_sizes()
 	total_endo_size = 0
@@ -362,10 +382,11 @@
 	if(spr_size < 0)
 		spr_size = 0
 
-	last_size = spr_size
 	update_icon_state()
 	update_icon()
-	refresh_overlays(user, "[base_icon_state]-[spr_size]", spr_size)
+	if(last_size != spr_size)
+		refresh_overlays(user, spr_size)
+		last_size = spr_size
 
 	// clamps these to previous scales for noise, more or less
 	total_fullness = total_fullness_orig / 10 * sizemod_audio

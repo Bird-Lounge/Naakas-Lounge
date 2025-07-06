@@ -22,8 +22,16 @@ export const erp_belly_vore_prey: FeatureChoiced = {
 export const erp_bellyquirk_color: Feature<string> = {
   name: 'Belly Color',
   description:
-    'Belly coloration.  Match this to your skin, Augments+ or Mutcols to make it look smooth!',
+    'Belly coloration. Match this to your skin, Augments+ or Mutant Colors to make it look smooth, and toggle Use Skintone if your torso uses a skintone spritesheet.',
   component: FeatureColorInput,
+};
+
+export const erp_bellyquirk_skintone: FeatureToggle = {
+  name: 'Use Skintone',
+  category: 'BELLY',
+  description:
+    'Use skintone spritesheets for better matching coloration on human-esque characters.',
+  component: CheckboxInput,
 };
 
 export const erp_bellyquirk_sizemod: Feature<number> = {
@@ -101,6 +109,7 @@ export const erp_bellyquirk_pred: FeatureChoiced = {
 
 export const erp_bellyquirk_maxsize: Feature<number> = {
   name: 'Maximum Belly Size',
+  category: 'BELLY',
   component: FeatureSliderInput,
   description:
     'Sets the maximum size of belly sprite your belly will ever reach. Size 4 and beyond are large, size 8 and beyond are hyper, size 11 and beyond are very hyper.',

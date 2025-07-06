@@ -1,13 +1,71 @@
-/datum/atom_hud/alternate_appearance/basic/erp_belly
+//==MIRROR OF ALT_APPEARANCE/BASIC==
+/datum/atom_hud/alternate_appearance/erp
+	var/atom/target
+	var/image/image
+	uses_global_hud_category = FALSE
+	///List of signals we hook onto which we'll update HUDs when we receive this.
+	var/list/signals_registering = list(
+		COMSIG_MOB_ANTAGONIST_REMOVED,
+		COMSIG_MOB_GHOSTIZED,
+		COMSIG_MOB_MIND_TRANSFERRED_INTO,
+		COMSIG_MOB_MIND_TRANSFERRED_OUT_OF,
+	)
+
+/datum/atom_hud/alternate_appearance/erp/New(key, image/I, options = AA_TARGET_SEE_APPEARANCE, in_target)
+	..()
+	transfer_overlays = options & AA_MATCH_TARGET_OVERLAYS
+	image = I
+	target = in_target
+	LAZYADD(target.update_on_z, image)
+	if(transfer_overlays)
+		I.copy_overlays(target)
+
+	add_atom_to_hud(target)
+	target.set_hud_image_active(appearance_key, exclusive_hud = src)
+
+	if((options & AA_TARGET_SEE_APPEARANCE) && ismob(target))
+		show_to(target)
+
+/datum/atom_hud/alternate_appearance/erp/Destroy()
+	. = ..()
+	LAZYREMOVE(target.update_on_z, image)
+	QDEL_NULL(image)
+	target = null
+
+/datum/atom_hud/alternate_appearance/erp/track_mob(mob/new_viewer)
+	RegisterSignals(new_viewer, signals_registering, PROC_REF(check_hud), override = TRUE)
+
+/datum/atom_hud/alternate_appearance/erp/untrack_mob(mob/former_viewer)
+	UnregisterSignal(former_viewer, signals_registering)
+
+/datum/atom_hud/alternate_appearance/erp/add_atom_to_hud(atom/A)
+	LAZYINITLIST(A.hud_list)
+	A.hud_list[appearance_key] = image
+	. = ..()
+
+/datum/atom_hud/alternate_appearance/erp/remove_atom_from_hud(atom/A)
+	. = ..()
+	LAZYREMOVE(A.hud_list, appearance_key)
+	A.set_hud_image_inactive(appearance_key)
+	if(. && !QDELETED(src))
+		qdel(src)
+
+/datum/atom_hud/alternate_appearance/erp/copy_overlays(atom/other, cut_old)
+	image.copy_overlays(other, cut_old)
+
+
+
+//==ACTUAL ALTERNATE APPEARANCE==
+/datum/atom_hud/alternate_appearance/erp/belly
 	/// The belly size here.
 	var/size
 
-/datum/atom_hud/alternate_appearance/basic/erp_belly/mobShouldSee(mob/M)
+/datum/atom_hud/alternate_appearance/erp/belly/mobShouldSee(mob/M)
 	if((M.client?.prefs?.read_preference(/datum/preference/toggle/erp/belly) == TRUE) && (M.client?.prefs?.read_preference(/datum/preference/numeric/erp_belly_maxsize) >= size))
 		return TRUE
 	return FALSE
 
-/datum/atom_hud/alternate_appearance/basic/erp_belly/New(key, image/I, options = NONE, belly_size)
+/datum/atom_hud/alternate_appearance/erp/belly/New(key, image/I, options = NONE, in_target, belly_size)
 	src.size = belly_size
 	return ..()
 
@@ -77,8 +135,8 @@
 	return FALSE
 
 /datum/preference/numeric/erp_belly_maxsize
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
-	savefile_identifier = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	savefile_identifier = PREFERENCE_PLAYER
 	savefile_key = "erp_belly_maxsize"
 	step = 1
 	minimum = 0
@@ -97,7 +155,7 @@
 	if(CONFIG_GET(flag/disable_erp_preferences))
 		return FALSE
 
-	return preferences.read_preference(/datum/preference/toggle/erp/belly_master)
+	return preferences.read_preference(/datum/preference/toggle/erp/belly)
 
 
 //==BREAKER FOR QUIRK PREFERENCES==
@@ -121,6 +179,11 @@
 		the_color = "#FFFFFF"
 	the_bwelly.color = the_color
 	the_bwelly.nommer.color = the_color
+	//skintone toggle
+	var/use_skintone = client_source.prefs.read_preference(/datum/preference/toggle/erp_bellyquirk_skintone)
+	if(use_skintone == null)
+		use_skintone = FALSE
+	the_bwelly.use_skintone = use_skintone
 
 	//size modifier
 	var/sizemod = client_source.prefs.read_preference(/datum/preference/numeric/erp_bellyquirk_sizemod)
@@ -196,6 +259,15 @@
 	savefile_key = "erp_bellyquirk_color"
 
 /datum/preference/color/erp_bellyquirk_color/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+	return FALSE
+
+/datum/preference/toggle/erp_bellyquirk_skintone
+	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
+	savefile_identifier = PREFERENCE_CHARACTER
+	savefile_key = "erp_bellyquirk_skintone"
+	default_value = FALSE
+
+/datum/preference/toggle/erp_bellyquirk_skintone/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return FALSE
 
 /datum/preference/numeric/erp_bellyquirk_sizemod
@@ -352,7 +424,7 @@
 	associated_typepath = /datum/quirk/item_quirk/stuffable
 
 /datum/quirk_constant_data/stuffable/New()
-	customization_options = list(/datum/preference/color/erp_bellyquirk_color,
+	customization_options = list(/datum/preference/color/erp_bellyquirk_color, /datum/preference/toggle/erp_bellyquirk_skintone,
 	/datum/preference/numeric/erp_bellyquirk_sizemod, /datum/preference/numeric/erp_bellyquirk_sizemod_audio, /datum/preference/numeric/erp_bellyquirk_maxsize,
 	/datum/preference/numeric/erp_bellyquirk_size_base, /datum/preference/numeric/erp_bellyquirk_size_endo, /datum/preference/numeric/erp_bellyquirk_size_stuffed,
 	/datum/preference/toggle/erp_bellyquirk_groans, /datum/preference/toggle/erp_bellyquirk_gurgles, /datum/preference/toggle/erp_bellyquirk_move_creaks, /datum/preference/toggle/erp_bellyquirk_move_sloshes,
