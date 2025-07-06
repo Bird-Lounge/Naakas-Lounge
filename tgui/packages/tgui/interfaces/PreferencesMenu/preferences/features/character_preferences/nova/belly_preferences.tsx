@@ -5,6 +5,7 @@ import {
   FeatureChoiced,
   FeatureColorInput,
   FeatureNumberInput,
+  FeatureSliderInput,
   FeatureToggle,
 } from '../../base';
 import { FeatureDropdownInput } from '../../dropdowns';
@@ -27,14 +28,14 @@ export const erp_bellyquirk_color: Feature<string> = {
 
 export const erp_bellyquirk_sizemod: Feature<number> = {
   name: 'Belly Sizemod',
-  component: FeatureNumberInput,
+  component: FeatureSliderInput,
   description:
     'Size multiplier - all belly size sources are multiplied by this for determining overall impact.',
 };
 
 export const erp_bellyquirk_sizemod_audio: Feature<number> = {
   name: 'Belly Audio Sizemod',
-  component: FeatureNumberInput,
+  component: FeatureSliderInput,
   description:
     'Size multiplier for audio - all belly size sources are multiplied by this for determining audio intensity.',
 };
@@ -96,4 +97,11 @@ export const erp_bellyquirk_pred: FeatureChoiced = {
   description:
     'Determines whether or not you can vore people as a pred with the belly.  Never means you can never be a pred, query means you always get queried before trying, always means you always try.',
   component: FeatureDropdownInput,
+};
+
+export const erp_bellyquirk_maxsize: Feature<number> = {
+  name: 'Maximum Belly Size',
+  component: FeatureSliderInput,
+  description:
+    'Sets the maximum size of belly sprite your belly will ever reach. Size 4 and beyond are large, size 8 and beyond are hyper, size 11 and beyond are very hyper.',
 };

@@ -41,6 +41,7 @@
 	/// Size modifier applied to ALL belly size providers.  Good for making a 3ft teshi round out faster than a 12ft oversized shork.
 	var/sizemod = 1
 	var/sizemod_audio = 1
+	var/maxsize = 16
 	/// Baseline sizes that apply purely-cosmetic bellysize (e.g, preg/egg), a baseline endosoma size (causes creaks and such), and a baseline actively-gwurgly size for being stuffed without actually being stuffed.
 	var/base_size_cosmetic = 0
 	var/base_size_endo = 0
@@ -356,6 +357,8 @@
 	var/spr_size = FLOOR(total_size, 1)
 	if(spr_size > 16)
 		spr_size = 16
+	if(spr_size > maxsize)
+		spr_size = maxsize
 	if(spr_size < 0)
 		spr_size = 0
 

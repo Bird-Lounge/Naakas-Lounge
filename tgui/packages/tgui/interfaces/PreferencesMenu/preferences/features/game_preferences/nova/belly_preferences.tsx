@@ -1,5 +1,10 @@
 // THIS IS A NOVA SECTOR UI FILE
-import { CheckboxInput, FeatureToggle } from '../../base';
+import {
+  CheckboxInput,
+  Feature,
+  FeatureSliderInput,
+  FeatureToggle,
+} from '../../base';
 
 export const erp_enable_belly: FeatureToggle = {
   name: 'Show/Hide Belly Preferences',
@@ -9,9 +14,9 @@ export const erp_enable_belly: FeatureToggle = {
 };
 
 export const erp_belly_base: FeatureToggle = {
-  name: 'Belly Base Preference',
+  name: 'Belly Visibility',
   category: 'BELLY',
-  description: 'Baseline belly debug pref.  Does nothing.',
+  description: 'When enabled, allows you to see belly sprites.',
   component: CheckboxInput,
 };
 
@@ -44,4 +49,11 @@ export const erp_belly_sound_move_sloshes: FeatureToggle = {
   description:
     'When enabled, allows you to hear the sloshes from a stuffed belly being jostled by movement.',
   component: CheckboxInput,
+};
+
+export const erp_belly_maxsize: Feature<number> = {
+  name: 'Maximum Belly Size',
+  component: FeatureSliderInput,
+  description:
+    'Sets the maximum size of belly sprite you are willing to see. Size 4 and beyond are large, size 8 and beyond are hyper, size 11 and beyond are very hyper.',
 };

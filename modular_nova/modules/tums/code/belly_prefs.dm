@@ -1,9 +1,25 @@
+/datum/atom_hud/alternate_appearance/basic/erp_belly
+	/// The belly size here.
+	var/size
+
+/datum/atom_hud/alternate_appearance/basic/erp_belly/mobShouldSee(mob/M)
+	if((M.client?.prefs?.read_preference(/datum/preference/toggle/erp/belly) == TRUE) && (M.client?.prefs?.read_preference(/datum/preference/numeric/erp_belly_maxsize) >= size))
+		return TRUE
+	return FALSE
+
+/datum/atom_hud/alternate_appearance/basic/erp_belly/New(key, image/I, options = NONE, belly_size)
+	src.size = belly_size
+	return ..()
+
+
+
+//==BREAKER FOR MAIN PREFERENCES==
 /datum/preference/toggle/erp/belly_master
 	savefile_key = "erp_enable_belly"
 
 /datum/preference/toggle/erp/belly
 	savefile_key = "erp_belly_base"
-	//This is just a helper path to get common behaviour (hiding prefs)
+	//This WAS just a helper but now acts as the master pref for belly visibility.
 
 /datum/preference/toggle/erp/belly/is_accessible(datum/preferences/preferences)
 	if (!..(preferences))
@@ -60,6 +76,29 @@
 /datum/preference/choiced/erp_vore_prey_pref/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return FALSE
 
+/datum/preference/numeric/erp_belly_maxsize
+	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	savefile_identifier = PREFERENCE_CHARACTER
+	savefile_key = "erp_belly_maxsize"
+	step = 1
+	minimum = 0
+	maximum = 16
+
+/datum/preference/numeric/erp_belly_maxsize/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+	return FALSE
+
+/datum/preference/numeric/erp_belly_maxsize/create_default_value()
+	return 3
+
+/datum/preference/numeric/erp_belly_maxsize/is_accessible(datum/preferences/preferences)
+	if (!..(preferences))
+		return FALSE
+
+	if(CONFIG_GET(flag/disable_erp_preferences))
+		return FALSE
+
+	return preferences.read_preference(/datum/preference/toggle/erp/belly_master)
+
 
 //==BREAKER FOR QUIRK PREFERENCES==
 /datum/quirk/item_quirk/stuffable
@@ -93,6 +132,11 @@
 	if(sizemod_audio == null)
 		sizemod_audio = 1
 	the_bwelly.sizemod_audio = sizemod_audio
+	//maximum display size
+	var/sizemod_max = client_source.prefs.read_preference(/datum/preference/numeric/erp_bellyquirk_maxsize)
+	if(sizemod_max == null)
+		sizemod_max = 16
+	the_bwelly.maxsize = sizemod_max
 
 	//base cosmetic size
 	var/size_base = client_source.prefs.read_preference(/datum/preference/numeric/erp_bellyquirk_size_base)
@@ -288,6 +332,20 @@
 /datum/preference/choiced/erp_bellyquirk_pred_pref/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return FALSE
 
+/datum/preference/numeric/erp_bellyquirk_maxsize
+	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
+	savefile_identifier = PREFERENCE_CHARACTER
+	savefile_key = "erp_bellyquirk_maxsize"
+	step = 1
+	minimum = 0
+	maximum = 16
+
+/datum/preference/numeric/erp_bellyquirk_maxsize/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+	return FALSE
+
+/datum/preference/numeric/erp_bellyquirk_maxsize/create_default_value()
+	return 16
+
 
 
 /datum/quirk_constant_data/stuffable
@@ -295,7 +353,7 @@
 
 /datum/quirk_constant_data/stuffable/New()
 	customization_options = list(/datum/preference/color/erp_bellyquirk_color,
-	/datum/preference/numeric/erp_bellyquirk_sizemod, /datum/preference/numeric/erp_bellyquirk_sizemod_audio,
+	/datum/preference/numeric/erp_bellyquirk_sizemod, /datum/preference/numeric/erp_bellyquirk_sizemod_audio, /datum/preference/numeric/erp_bellyquirk_maxsize,
 	/datum/preference/numeric/erp_bellyquirk_size_base, /datum/preference/numeric/erp_bellyquirk_size_endo, /datum/preference/numeric/erp_bellyquirk_size_stuffed,
 	/datum/preference/toggle/erp_bellyquirk_groans, /datum/preference/toggle/erp_bellyquirk_gurgles, /datum/preference/toggle/erp_bellyquirk_move_creaks, /datum/preference/toggle/erp_bellyquirk_move_sloshes,
 	/datum/preference/choiced/erp_bellyquirk_pred_pref)
