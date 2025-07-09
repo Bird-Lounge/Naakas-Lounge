@@ -2,6 +2,8 @@
 /datum/atom_hud/alternate_appearance/erp
 	var/atom/target
 	var/image/image
+	var/image/original_image
+	var/aa_dir = SOUTH
 	uses_global_hud_category = FALSE
 	///List of signals we hook onto which we'll update HUDs when we receive this.
 	var/list/signals_registering = list(
@@ -11,14 +13,18 @@
 		COMSIG_MOB_MIND_TRANSFERRED_OUT_OF,
 	)
 
-/datum/atom_hud/alternate_appearance/erp/New(key, image/I, options = AA_TARGET_SEE_APPEARANCE, in_target)
+/datum/atom_hud/alternate_appearance/erp/New(key, image/I, options = AA_TARGET_SEE_APPEARANCE, in_target, in_dir)
 	..()
 	transfer_overlays = options & AA_MATCH_TARGET_OVERLAYS
 	image = I
+	original_image = image(I)
+	image.appearance_flags |= KEEP_TOGETHER
+	image.color = COLOR_WHITE
 	target = in_target
+	aa_dir = in_dir
 	LAZYADD(target.update_on_z, image)
 	if(transfer_overlays)
-		I.copy_overlays(target)
+		copy_overlays(target, TRUE)
 
 	add_atom_to_hud(target)
 	target.set_hud_image_active(appearance_key, exclusive_hud = src)
@@ -51,7 +57,15 @@
 		qdel(src)
 
 /datum/atom_hud/alternate_appearance/erp/copy_overlays(atom/other, cut_old)
-	image.copy_overlays(other, cut_old)
+	var/list/cached_other = target.overlays
+	if(length(image.overlays) != length(cached_other) + 1)
+		image.overlays -= image.overlays
+		for(var/an_overlay in cached_other)
+			var/image/over = image(an_overlay)
+			over.blend_mode = BLEND_INSET_OVERLAY
+			if(an_overlay:layer >= image.layer)
+				image.overlays += over
+		image.overlays += original_image
 
 
 
