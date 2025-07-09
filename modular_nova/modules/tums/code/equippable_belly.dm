@@ -71,14 +71,10 @@
 	/// Tracks overlay images generated and used in HUDs
 	var/image/overlay_south
 	var/image/overlay_north
-	//var/image/overlay_east
-	//var/image/overlay_west
 	var/image/overlay_hori
 	/// Tracks all overlays for cutting
 	var/list/image/overlay_south_all = list()
 	var/list/image/overlay_north_all = list()
-	//var/list/image/overlay_east_all = list()
-	//var/list/image/overlay_west_all = list()
 	var/list/image/overlay_hori_all = list()
 
 	/// Sound lists setup as local vars because we aren't spawning enough of these for memory to be a worry & this makes it easier to fix broken sound lists during gameplay
@@ -189,14 +185,6 @@
 			if(isnull(mode_select) || QDELETED(user) || QDELETED(src))
 				return
 			use_skintone = (mode_select == "Yes") ? TRUE : FALSE
-		/*else if(adjustment_mode == "Clear Client Overlays DEBUG")
-			for(var/image/overlay_hori_i in overlay_hori_all)
-				user.client?.images -= overlay_hori_i
-			for(var/image/overlay_south_i in overlay_south_all)
-				user.client?.images -= overlay_south_i
-			for(var/image/overlay_north_i in overlay_north_all)
-				user.client?.images -= overlay_north_i
-			to_chat(user, span_danger("Cleared overlays from your client!  You shouldn't see a belly now!"))*/
 		else if(adjustment_mode == "Set Size Modifier")
 			var/temp_size = tgui_input_number(user, "Set a size multiplier (0.00-10.00) - all size sources are multiplied by this.", "Sizemod", sizemod, 10, 0, round_value = FALSE)
 			if(isnull(temp_size) || QDELETED(user) || QDELETED(src))
@@ -282,28 +270,15 @@
 
 /obj/item/clothing/sextoy/belly_function/proc/do_alt_appearance(mob/living/carbon/human/target, do_cut, size)
 	if(do_cut == TRUE)
-		/*for(var/image/overlay_hori_i in overlay_hori_all)
-			target.cut_overlay(overlay_hori_i)
-		for(var/image/overlay_south_i in overlay_south_all)
-			target.cut_overlay(overlay_south_i)
-		for(var/image/overlay_north_i in overlay_north_all)
-			target.cut_overlay(overlay_north_i)*/
 		for(var/i in 1 to size)
 			target.remove_alt_appearance("erp_belly_south-[i]")
 			target.remove_alt_appearance("erp_belly_north-[i]")
-			//target.remove_alt_appearance("erp_belly_east-[i]")
-			//target.remove_alt_appearance("erp_belly_west-[i]")
 			target.remove_alt_appearance("erp_belly_hori-[i]")
 		last_size = -1
 	else
-		target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_south-[size]", image(overlay_south, loc=target, layer=overlay_south.layer), AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS, target, size, SOUTH)
-		target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_north-[size]", image(overlay_north, loc=target, layer=overlay_north.layer), AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS, target, size, NORTH)
-		//target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_east-[size]", image(overlay_east, loc=target, layer=overlay_east.layer), AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS, target, size, EAST)
-		//target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_west-[size]", image(overlay_west, loc=target, layer=overlay_west.layer), AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS, target, size, WEST)
-		target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_hori-[size]", image(overlay_hori, loc=target, layer=overlay_hori.layer), AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS, target, size)
-		/*target.add_overlay(overlay_hori)
-		target.add_overlay(overlay_south)
-		target.add_overlay(overlay_north)*/
+		target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_south-[size]", image(overlay_south, loc=target, layer=overlay_south.layer), AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS, target, "erp_belly_south-", size)
+		target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_north-[size]", image(overlay_north, loc=target, layer=overlay_north.layer), AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS, target, "erp_belly_north-", size)
+		target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_hori-[size]", image(overlay_hori, loc=target, layer=overlay_hori.layer), AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS, target, "erp_belly_hori-", size)
 
 /obj/item/clothing/sextoy/belly_function/dropped(mob/user, slot)
 	. = ..()
@@ -321,8 +296,6 @@
 	if(overlay_south != null)
 		do_alt_appearance(user, TRUE, last_size)
 	overlay_hori_all -= overlay_hori_all
-	/*overlay_east_all -= overlay_east_all
-	overlay_west_all -= overlay_west_all*/
 	overlay_south_all -= overlay_south_all
 	overlay_north_all -= overlay_north_all
 
@@ -334,38 +307,21 @@
 	else if(user.dna.species.id == SPECIES_TESHARI)
 		iconfile = inbound_size > 10 ? worn_icon_teshari_64x : worn_icon_teshari
 
-	//for(var/i in 1 to inbound_size)
-	for(var/i in inbound_size to inbound_size)
+	for(var/i in 1 to inbound_size)
+	//for(var/i in inbound_size to inbound_size)
 		// generate the appearances
 		var/icon_state_wew = "[base_icon_state]-[i]"
 		worn_icon_state = "[icon_state_wew]_HORI"
-		//worn_icon_state = "[icon_state_wew]_EAST"
-		//overlay_hori = image(src.build_worn_icon(default_layer = (hori_layer + (i / 100)), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile), loc = user, layer = -(hori_layer + (i / 100)))
-		//overlay_hori = image(icon = iconfile, loc = user, icon_state = "[icon_state_wew]_HORI", layer = (hori_layer + (i / 100)), pixel_x = (i > 10 ? -16 : 0), pixel_y = (i > 10 ? -16 : 0) + (user.dna.species.id == SPECIES_TESHARI ? -3 : 0))
-		//overlay_hori.color = color
-		overlay_hori = src.build_worn_icon(default_layer = (hori_layer + (i / 100)), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
-		/*overlay_east = src.build_worn_icon(default_layer = (hori_layer + (i / 100)), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
-		worn_icon_state = "[icon_state_wew]_WEST"
-		overlay_west = src.build_worn_icon(default_layer = (hori_layer + (i / 100)), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)*/
+		overlay_hori = src.build_worn_icon(default_layer = (hori_layer), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
 		worn_icon_state = "[icon_state_wew]_FRONT"
-		//overlay_south = image(src.build_worn_icon(default_layer = (south_layer + (i / 100)), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile), loc = user, layer = -(south_layer + (i / 100)))
-		//overlay_south = image(icon = iconfile, loc = user, icon_state = "[icon_state_wew]_FRONT", layer = (south_layer + (i / 100)), pixel_x = (i > 10 ? -16 : 0), pixel_y = (i > 10 ? -16 : 0) + (user.dna.species.id == SPECIES_TESHARI ? -3 : 0))
-		//overlay_south.color = color
-		overlay_south = src.build_worn_icon(default_layer = (south_layer + (i / 100)), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
+		overlay_south = src.build_worn_icon(default_layer = (south_layer), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
 		worn_icon_state = "[icon_state_wew]_BACK"
-		//overlay_north = image(src.build_worn_icon(default_layer = (north_layer + (i / 100)), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile), loc = user, layer = -(north_layer + (i / 100)))
-		//overlay_north = image(icon = iconfile, loc = user, icon_state = "[icon_state_wew]_BACK", layer = (north_layer + (i / 100)), pixel_x = (i > 10 ? -16 : 0), pixel_y = (i > 10 ? -16 : 0) + (user.dna.species.id == SPECIES_TESHARI ? -3 : 0))
-		//overlay_north.color = color
-		overlay_north = src.build_worn_icon(default_layer = (north_layer + (i / 100)), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
+		overlay_north = src.build_worn_icon(default_layer = (north_layer), default_icon_file = iconfile, isinhands = FALSE, override_file = iconfile)
 		worn_icon_state = oldstate
 
 		if(i > 10)
 			overlay_hori.pixel_x -= 16
 			overlay_hori.pixel_y -= 16
-			/*overlay_east.pixel_x -= 16
-			overlay_east.pixel_y -= 16
-			overlay_west.pixel_x -= 16
-			overlay_west.pixel_y -= 16*/
 			overlay_south.pixel_x -= 16
 			overlay_south.pixel_y -= 16
 			overlay_north.pixel_x -= 16
@@ -373,19 +329,13 @@
 
 		if(user.dna.species.id == SPECIES_TESHARI)
 			overlay_hori.pixel_y -= 3
-			//overlay_east.pixel_y -= 3
-			//overlay_west.pixel_y -= 3
 			overlay_south.pixel_y -= 3
 			overlay_north.pixel_y -= 3
 
 		overlay_hori = image(overlay_hori, loc = user, layer = overlay_hori.layer)
-		//overlay_east = image(overlay_east, loc = user, layer = overlay_east.layer)
-		//overlay_west = image(overlay_west, loc = user, layer = overlay_west.layer)
 		overlay_south = image(overlay_south, loc = user, layer = overlay_south.layer)
 		overlay_north = image(overlay_north, loc = user, layer = overlay_north.layer)
 		overlay_hori_all += overlay_hori
-		//overlay_east_all += overlay_east
-		//overlay_west_all += overlay_west
 		overlay_south_all += overlay_south
 		overlay_north_all += overlay_north
 

@@ -1,11 +1,17 @@
 //==MIRROR OF ALT_APPEARANCE/BASIC==
 /datum/atom_hud/alternate_appearance/erp
 	var/atom/target
+	/// The final mixdown image including layered overlays via BLEND_INSET_OVERLAY.
 	var/image/image
+	/// The original image that was provided for this, before edits for BLEND_INSET_OVERLAY support.
 	var/image/original_image
-	var/aa_dir = SOUTH
+	/// The base key for this ERP part's series of appearances.
+	var/base_key = ""
+	/// The size of this ERP part.  Bellies, et al.
+	var/size
+
 	uses_global_hud_category = FALSE
-	///List of signals we hook onto which we'll update HUDs when we receive this.
+	/// List of hooked signals, as per basic alt_appearances.
 	var/list/signals_registering = list(
 		COMSIG_MOB_ANTAGONIST_REMOVED,
 		COMSIG_MOB_GHOSTIZED,
@@ -13,15 +19,18 @@
 		COMSIG_MOB_MIND_TRANSFERRED_OUT_OF,
 	)
 
-/datum/atom_hud/alternate_appearance/erp/New(key, image/I, options = AA_TARGET_SEE_APPEARANCE, in_target, in_dir)
+/datum/atom_hud/alternate_appearance/erp/New(key, image/I, options = AA_TARGET_SEE_APPEARANCE, in_target, in_basekey, in_size)
+	target = in_target
 	..()
 	transfer_overlays = options & AA_MATCH_TARGET_OVERLAYS
 	image = I
 	original_image = image(I)
+	original_image.pixel_x -= image.pixel_x
+	original_image.pixel_y -= image.pixel_y
 	image.appearance_flags |= KEEP_TOGETHER
 	image.color = COLOR_WHITE
-	target = in_target
-	aa_dir = in_dir
+	base_key = in_basekey
+	size = in_size
 	LAZYADD(target.update_on_z, image)
 	if(transfer_overlays)
 		copy_overlays(target, TRUE)
@@ -31,6 +40,13 @@
 
 	if((options & AA_TARGET_SEE_APPEARANCE) && ismob(target))
 		show_to(target)
+
+/datum/atom_hud/alternate_appearance/erp/mobShouldSee(mob/M)
+	if(target == null)
+		return FALSE
+	if(target.alternate_appearances.Find("[base_key][(size+1)]") != null)
+		return FALSE
+	return TRUE
 
 /datum/atom_hud/alternate_appearance/erp/Destroy()
 	. = ..()
@@ -63,25 +79,19 @@
 		for(var/an_overlay in cached_other)
 			var/image/over = image(an_overlay)
 			over.blend_mode = BLEND_INSET_OVERLAY
+			over.pixel_x -= image.pixel_x
+			over.pixel_y -= image.pixel_y
 			if(an_overlay:layer >= image.layer)
 				image.overlays += over
 		image.overlays += original_image
 
 
 
-//==ACTUAL ALTERNATE APPEARANCE==
-/datum/atom_hud/alternate_appearance/erp/belly
-	/// The belly size here.
-	var/size
-
+//==ACTUAL ALTERNATE APPEARANCE FOR BELLIES==
 /datum/atom_hud/alternate_appearance/erp/belly/mobShouldSee(mob/M)
 	if((M.client?.prefs?.read_preference(/datum/preference/toggle/erp/belly) == TRUE) && (M.client?.prefs?.read_preference(/datum/preference/numeric/erp_belly_maxsize) >= size))
-		return TRUE
+		return ..()
 	return FALSE
-
-/datum/atom_hud/alternate_appearance/erp/belly/New(key, image/I, options = NONE, in_target, belly_size)
-	src.size = belly_size
-	return ..()
 
 
 
