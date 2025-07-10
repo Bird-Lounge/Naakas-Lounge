@@ -200,7 +200,7 @@
 /obj/item/organ/stomach/alien/proc/content_died(atom/movable/source)
 	SIGNAL_HANDLER
 	// Can fully digest corpses
-	qdel(source)
+	//qdel(source) /// NOVA SECTOR REMOVAL: Best not to.
 
 /obj/item/organ/stomach/alien/on_mob_insert(mob/living/carbon/stomach_owner, special, movement_flags)
 	RegisterSignal(stomach_owner, COMSIG_ATOM_RELAYMOVE, PROC_REF(something_moved))
