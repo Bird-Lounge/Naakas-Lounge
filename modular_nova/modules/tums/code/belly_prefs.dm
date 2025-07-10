@@ -21,6 +21,8 @@
 
 /datum/atom_hud/alternate_appearance/erp/New(key, image/I, options = AA_TARGET_SEE_APPEARANCE, in_target, in_basekey, in_size)
 	target = in_target
+	base_key = in_basekey
+	size = in_size
 	..()
 	transfer_overlays = options & AA_MATCH_TARGET_OVERLAYS
 	image = I
@@ -29,8 +31,6 @@
 	original_image.pixel_y -= image.pixel_y
 	image.appearance_flags |= KEEP_TOGETHER
 	image.color = COLOR_WHITE
-	base_key = in_basekey
-	size = in_size
 	LAZYADD(target.update_on_z, image)
 	if(transfer_overlays)
 		copy_overlays(target, TRUE)
@@ -39,14 +39,30 @@
 	target.set_hud_image_active(appearance_key, exclusive_hud = src)
 
 	if((options & AA_TARGET_SEE_APPEARANCE) && ismob(target))
-		show_to(target)
+		if(mobShouldSee(target))
+			show_to(target)
 
 /datum/atom_hud/alternate_appearance/erp/mobShouldSee(mob/M)
 	if(target == null)
 		return FALSE
-	if(target.alternate_appearances.Find("[base_key][(size+1)]") != null)
+	var/maxsize = get_max_size(M)
+	//if we're already above the viewer's maximum size pref, return false
+	if(size > maxsize)
 		return FALSE
-	return TRUE
+	//there is a higher size to render, but...
+	if(target.alternate_appearances["[base_key][(size+1)]"] != null)
+		//if it's too big for the user we won't render, so don't layer
+		if(size + 1 > maxsize)
+			return TRUE
+		//otherwise hide this to avoid wasted draw calls
+		return FALSE
+	else
+		//this is the top layer and nothing else says no: go ahead and render
+		return TRUE
+
+/// REMEMBER TO OVERRIDE THIS IN YOUR IMPLEMENTATIONS!
+/datum/atom_hud/alternate_appearance/erp/proc/get_max_size(mob/M)
+	return 0
 
 /datum/atom_hud/alternate_appearance/erp/Destroy()
 	. = ..()
@@ -88,8 +104,11 @@
 
 
 //==ACTUAL ALTERNATE APPEARANCE FOR BELLIES==
+/datum/atom_hud/alternate_appearance/erp/belly/get_max_size(mob/M)
+	return M.client?.prefs?.read_preference(/datum/preference/numeric/erp_belly_maxsize)
+
 /datum/atom_hud/alternate_appearance/erp/belly/mobShouldSee(mob/M)
-	if((M.client?.prefs?.read_preference(/datum/preference/toggle/erp/belly) == TRUE) && (M.client?.prefs?.read_preference(/datum/preference/numeric/erp_belly_maxsize) >= size))
+	if((M.client?.prefs?.read_preference(/datum/preference/toggle/erp/belly) == TRUE))
 		return ..()
 	return FALSE
 

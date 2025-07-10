@@ -307,8 +307,9 @@
 	else if(user.dna.species.id == SPECIES_TESHARI)
 		iconfile = inbound_size > 10 ? worn_icon_teshari_64x : worn_icon_teshari
 
-	for(var/i in 1 to inbound_size)
-	//for(var/i in inbound_size to inbound_size)
+	var/i = inbound_size
+	for(var/counter in 1 to inbound_size)
+	//for(var/i in inbound_size to 1)
 		// generate the appearances
 		var/icon_state_wew = "[base_icon_state]-[i]"
 		worn_icon_state = "[icon_state_wew]_HORI"
@@ -341,6 +342,7 @@
 
 		// add the overlays
 		do_alt_appearance(user, FALSE, i)
+		i -= 1
 
 /obj/item/clothing/sextoy/belly_function/proc/recalculate_guest_sizes()
 	total_endo_size = 0
