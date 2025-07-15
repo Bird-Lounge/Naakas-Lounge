@@ -115,6 +115,14 @@
 			if(self.has_anus())
 				parts += list(generate_strip_entry(ORGAN_SLOT_ANUS, self, user, self.anus))
 			parts += list(generate_strip_entry(ORGAN_SLOT_NIPPLES, self, user, self.nipples))
+	var/pred_mode = user.client?.prefs?.read_preference(/datum/preference/choiced/erp_bellyquirk_pred_pref)
+	var/prey_mode = self.client?.prefs?.read_preference(/datum/preference/choiced/erp_vore_prey_pref)
+	if(TRAIT_PREDATORY in user._status_traits && pred_mode != "Never" && prey_mode != "Never")
+		var/static/icon/belly_indicator = icon('modular_nova/modules/tums/icons/items.dmi', "nom_helper")
+		parts += list(list(
+			"name" = "vore",
+			"img" = icon2base64(belly_indicator)
+		))
 
 	data["lewd_slots"] = parts
 
@@ -162,6 +170,22 @@
 		var/item_index = params["item_slot"]
 		var/mob/living/carbon/human/source = locate(params["userref"])
 		var/mob/living/carbon/human/target = locate(params["selfref"])
+
+		if(item_index == "vore")
+			var/obj/item/clothing/sextoy/belly_function/a_belly
+			for(var/some_content in source.contents)
+				a_belly = some_content
+				if(istype(a_belly))
+					break
+				else
+					a_belly = null
+			if(a_belly != null)
+				a_belly.try_nom(target, source)
+				return tRUE
+			else
+				source.show_message(span_warning("Couldn't find the belly helper to try to do vore with!  Yell at an admin!"))
+				return
+
 		var/obj/item/clothing/sextoy/new_item = source.get_active_held_item()
 		var/obj/item/clothing/sextoy/existing_item = target.vars[item_index]
 

@@ -426,9 +426,11 @@
 
 /obj/item/clothing/sextoy/belly_function/attack(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	. = ..()
+	try_nom(target, user)
+
+/obj/item/clothing/sextoy/belly_function/proc/try_nom(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	if(!ishuman(target) || (target.stat == DEAD) || !ishuman(user) || user == target) //sanity check
 		return
-
 	var/consent_pred = FALSE
 	var/consent_prey = FALSE
 	var/list_yesno = list("Yes", "No")

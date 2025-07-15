@@ -203,11 +203,11 @@
 
 //==BREAKER FOR QUIRK PREFERENCES==
 /datum/quirk/item_quirk/stuffable
-	name = "True Glutton"
-	desc = "Voracious alt ft. BWELLY ITEM.  Alt-click it in-hand to change the color to match your sprite, then equip or use for nommage as the description says."
+	name = "Big Boned"
+	desc = "Your midriff just stands out more than others'..."
 	icon = FA_ICON_PERSON_PREGNANT
 	value = 0
-	mob_trait = TRAIT_VORACIOUS
+	mob_trait = TRAIT_PREDATORY
 	gain_text = span_notice("You feel like you could eat a horse!")
 	lose_text = span_danger("Food suddenly feels a lot less appealing.")
 	medical_record_text = "Patient's midriff and stomach are unusually stretchy."
