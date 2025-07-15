@@ -117,7 +117,7 @@
 			parts += list(generate_strip_entry(ORGAN_SLOT_NIPPLES, self, user, self.nipples))
 	var/pred_mode = user.client?.prefs?.read_preference(/datum/preference/choiced/erp_bellyquirk_pred_pref)
 	var/prey_mode = self.client?.prefs?.read_preference(/datum/preference/choiced/erp_vore_prey_pref)
-	if(TRAIT_PREDATORY in user._status_traits && pred_mode != "Never" && prey_mode != "Never")
+	if((TRAIT_PREDATORY in user._status_traits) && pred_mode != "Never" && prey_mode != "Never")
 		var/static/icon/belly_indicator = icon('modular_nova/modules/tums/icons/items.dmi', "nom_helper")
 		parts += list(list(
 			"name" = "vore",
@@ -181,7 +181,7 @@
 					a_belly = null
 			if(a_belly != null)
 				a_belly.try_nom(target, source)
-				return tRUE
+				return TRUE
 			else
 				source.show_message(span_warning("Couldn't find the belly helper to try to do vore with!  Yell at an admin!"))
 				return
