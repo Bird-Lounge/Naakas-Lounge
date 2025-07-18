@@ -224,6 +224,12 @@
 
 /datum/quirk/belly/add_unique(client/client_source)
 	the_bwelly = new /obj/item/belly_function(quirk_holder)
+	if(client_source == null)
+		//What the fuck?
+		return
+	if(client_source.prefs == null)
+		//Damn you, CI suite.
+		return
 
 	//color
 	var/the_color = client_source.prefs.read_preference(/datum/preference/color/erp_bellyquirk_color) //this makes the (potentially dangerous) assumption this is valid
@@ -306,7 +312,6 @@
 			the_bwelly.remove_from_user(the_bwelly.lastuser)
 		the_bwelly.loc = quirk_holder
 		the_bwelly.apply_to_user(quirk_holder)
-		the_bwelly.equipped(quirk_holder, null)
 		the_bwelly.belly_process(0)
 
 //Redundance, just in case add errors out.
@@ -317,7 +322,6 @@
 			the_bwelly.remove_from_user(the_bwelly.lastuser)
 		the_bwelly.loc = quirk_holder
 		the_bwelly.apply_to_user(quirk_holder)
-		the_bwelly.equipped(quirk_holder, null)
 		the_bwelly.belly_process(0)
 
 /datum/quirk/belly/process(seconds_per_tick)
@@ -340,7 +344,6 @@
 			if(the_bwelly.loc != quirk_holder && quirk_holder != null)
 				the_bwelly.loc = quirk_holder
 				the_bwelly.apply_to_user(quirk_holder)
-				the_bwelly.equipped(quirk_holder, null)
 	//if the helper is where it should be, only then do we actually let it process
 	if(the_bwelly.loc == quirk_holder)
 		the_bwelly.belly_process(seconds_per_tick)
