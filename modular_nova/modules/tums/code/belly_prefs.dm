@@ -215,7 +215,7 @@
 	mob_trait = TRAIT_PREDATORY
 	gain_text = span_notice("You feel like you could eat a horse!")
 	lose_text = span_danger("You feel uncomfortable about the sensation of fullness again.")
-	medical_record_text = null
+	medical_record_text = "Patient's midriff is well defined." //Why does QUIRK_HIDE_FROM_SCAN not cut this from medical records too?
 	quirk_flags = QUIRK_PROCESSES | QUIRK_CHANGES_APPEARANCE | QUIRK_HIDE_FROM_SCAN
 	maximum_process_stat = null
 	erp_quirk = TRUE
