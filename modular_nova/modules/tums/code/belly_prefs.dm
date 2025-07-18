@@ -45,12 +45,17 @@
 /datum/atom_hud/alternate_appearance/erp/mobShouldSee(mob/M)
 	if(target == null)
 		return FALSE
+	if(!islist(target.alternate_appearances)) //what
+		return FALSE
+	var/key = "[base_key][(size+1)]"
+	if(isnull(key)) //*what*
+		return FALSE
 	var/maxsize = get_max_size(M)
 	//if we're already above the viewer's maximum size pref, return false
 	if(size > maxsize)
 		return FALSE
 	//there is a higher size to render, but...
-	if(target.alternate_appearances["[base_key][(size+1)]"] != null)
+	if(target.alternate_appearances[key] != null)
 		//if it's too big for the user we won't render, so don't layer
 		if(size + 1 > maxsize)
 			return TRUE
@@ -202,26 +207,29 @@
 
 
 //==BREAKER FOR QUIRK PREFERENCES==
-/datum/quirk/item_quirk/stuffable
+/datum/quirk/belly
 	name = "Big Boned"
 	desc = "Your midriff just stands out more than others'..."
 	icon = FA_ICON_PERSON_PREGNANT
 	value = 0
 	mob_trait = TRAIT_PREDATORY
 	gain_text = span_notice("You feel like you could eat a horse!")
-	lose_text = span_danger("Food suddenly feels a lot less appealing.")
-	medical_record_text = "Patient's midriff and stomach are unusually stretchy."
+	lose_text = span_danger("You feel uncomfortable about the sensation of fullness again.")
+	medical_record_text = null
+	quirk_flags = QUIRK_PROCESSES | QUIRK_CHANGES_APPEARANCE | QUIRK_HIDE_FROM_SCAN
+	maximum_process_stat = null
 	erp_quirk = TRUE
+	//We need this to handle processing.
+	var/obj/item/belly_function/the_bwelly
 
-/datum/quirk/item_quirk/stuffable/add_unique(client/client_source)
-	var/obj/item/clothing/sextoy/belly_function/the_bwelly = new /obj/item/clothing/sextoy/belly_function(get_turf(quirk_holder))
+/datum/quirk/belly/add_unique(client/client_source)
+	the_bwelly = new /obj/item/belly_function(quirk_holder)
 
 	//color
 	var/the_color = client_source.prefs.read_preference(/datum/preference/color/erp_bellyquirk_color) //this makes the (potentially dangerous) assumption this is valid
 	if(the_color == null)
 		the_color = "#FFFFFF"
 	the_bwelly.color = the_color
-	the_bwelly.nommer.color = the_color
 	//skintone toggle
 	var/use_skintone = client_source.prefs.read_preference(/datum/preference/toggle/erp_bellyquirk_skintone)
 	if(use_skintone == null)
@@ -287,14 +295,65 @@
 		pred_prefs = "Query"
 	the_bwelly.pred_mode = pred_prefs
 
-	give_item_to_holder(the_bwelly, list(
-		LOCATION_LPOCKET,
-		LOCATION_RPOCKET,
-		LOCATION_BACKPACK,
-		LOCATION_HANDS,
-	))
+	//manually run add() for dummies so we get preview
+	if(isdummy(quirk_holder))
+		add()
 
+/datum/quirk/belly/add()
+	. = ..()
+	if(the_bwelly != null)
+		if(the_bwelly.overlay_south != null && the_bwelly.lastuser != null)
+			the_bwelly.remove_from_user(the_bwelly.lastuser)
+		the_bwelly.loc = quirk_holder
+		the_bwelly.apply_to_user(quirk_holder)
+		the_bwelly.equipped(quirk_holder, null)
+		the_bwelly.belly_process(0)
 
+//Redundance, just in case add errors out.
+/datum/quirk/belly/post_add()
+	. = ..()
+	if(the_bwelly != null)
+		if(the_bwelly.overlay_south != null && the_bwelly.lastuser != null)
+			the_bwelly.remove_from_user(the_bwelly.lastuser)
+		the_bwelly.loc = quirk_holder
+		the_bwelly.apply_to_user(quirk_holder)
+		the_bwelly.equipped(quirk_holder, null)
+		the_bwelly.belly_process(0)
+
+/datum/quirk/belly/process(seconds_per_tick)
+	if(the_bwelly == null)
+		return
+	//if something has gone catastrophically wrong, stash the helper in pseudo-nullspace before anyone can see it
+	if(the_bwelly.loc != quirk_holder || quirk_holder == null)
+		the_bwelly.loc = src
+		if(the_bwelly.overlay_south != null && the_bwelly.lastuser != null)
+			the_bwelly.remove_from_user(the_bwelly.lastuser)
+	//search for the client connected to the mob- and if it doesn't have the quirk, do NOT keep treating this as active
+	if(quirk_holder?.client?.prefs)
+		if(!(src.name in quirk_holder.client.prefs.all_quirks))
+			if(the_bwelly.loc != src)
+				the_bwelly.loc = src
+				if(the_bwelly.overlay_south != null && the_bwelly.lastuser != null)
+					the_bwelly.remove_from_user(the_bwelly.lastuser)
+		else
+			//if the helper was nullspaced or otherwise messed with, reapply it to the associated mob once things are clear
+			if(the_bwelly.loc != quirk_holder && quirk_holder != null)
+				the_bwelly.loc = quirk_holder
+				the_bwelly.apply_to_user(quirk_holder)
+				the_bwelly.equipped(quirk_holder, null)
+	//if the helper is where it should be, only then do we actually let it process
+	if(the_bwelly.loc == quirk_holder)
+		the_bwelly.belly_process(seconds_per_tick)
+
+/datum/quirk/belly/remove()
+	. = ..()
+	the_bwelly.loc = src
+	if(the_bwelly.overlay_south != null && the_bwelly.lastuser != null)
+		the_bwelly.remove_from_user(the_bwelly.lastuser)
+
+/datum/quirk/belly/Destroy()
+	. = ..()
+	qdel(the_bwelly)
 
 /datum/preference/color/erp_bellyquirk_color
 	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
@@ -464,7 +523,7 @@
 
 
 /datum/quirk_constant_data/stuffable
-	associated_typepath = /datum/quirk/item_quirk/stuffable
+	associated_typepath = /datum/quirk/belly
 
 /datum/quirk_constant_data/stuffable/New()
 	customization_options = list(/datum/preference/color/erp_bellyquirk_color, /datum/preference/toggle/erp_bellyquirk_skintone,

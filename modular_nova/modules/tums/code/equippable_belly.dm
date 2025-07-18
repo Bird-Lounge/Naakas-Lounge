@@ -1,6 +1,6 @@
-/obj/item/clothing/sextoy/belly_function
+/obj/item/belly_function
 	name = "bwelly"
-	desc = "Gobble friends, stuff yourself, be big and round, get the devs cancelled on Twitter for the item supporting endosoma only. Equip with Ctrl-Shift-Click on your Nipples slot for display of stuffedness, or click a friend with this to nom them beforehand.  Drop on the floor, use in-hand, or unequip from the Interact menu to free a nommed friend."
+	desc = "You shouldn't see this, yell at an admin!!"
 	icon_state = "bwelly"
 	base_icon_state = "belly"
 	icon = 'modular_nova/modules/tums/icons/items.dmi'
@@ -14,14 +14,12 @@
 	var/icon/skintone_worn_icon = 'modular_nova/modules/tums/icons/skintone_bellies.dmi'
 	var/icon/skintone_worn_icon_64x ='modular_nova/modules/tums/icons/skintone_bellies_64x.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	lewd_slot_flags = LEWD_SLOT_NIPPLES
 	color = "#ffffff"
 
 	actions_types = list(
 		/datum/action/item_action/belly_menu/access,
 	)
 	var/list/datum/action/item_action/belly_menu/belly_acts = list()
-	var/obj/item/belly_nom_helper/nommer = null
 
 	var/mob/living/carbon/human/lastuser = null
 
@@ -94,43 +92,42 @@
 	var/south_layer = UNIFORM_LAYER
 	var/north_layer = BODY_BEHIND_LAYER
 
-/obj/item/clothing/sextoy/belly_function/New(Target)
-	. = ..()
-	nommer = new /obj/item/belly_nom_helper(src)
-	nommer.color = color
+/obj/item/belly_function/item_action_slot_check(slot, mob/user, datum/action/action)
+	var/datum/quirk/belly/bellyquirk
+	var/obj/item/belly_function/a_belly
+	var/mob/living/carbon/human/source = user
+	if(!istype(source))
+		return FALSE
+	for(var/datum/quirk/some_quirk in source.quirks)
+		bellyquirk = some_quirk
+		if(istype(bellyquirk))
+			break
+		else
+			bellyquirk = null
+	if(bellyquirk != null)
+		a_belly = bellyquirk.the_bwelly
+	if(a_belly == src)
+		return TRUE
+	return FALSE
 
-/obj/item/clothing/sextoy/belly_function/Destroy()
+/obj/item/belly_function/Destroy()
 	. = ..()
-	if(nommer)
-		nommer.my_belly = null
-		nommer.Destroy()
-	nommer = null
+	for(var/mob/living/carbon/human/nommed in nommeds)
+		free_target(nommed)
 	for(var/datum/action/item_action/belly_menu/belly_act in belly_acts)
 		belly_acts -= belly_act
 		belly_act.Destroy()
 		belly_act.my_belly = null
 	belly_acts = null
 
-/obj/item/clothing/sextoy/belly_function/proc/on_step()
+/obj/item/belly_function/proc/on_step()
 	SIGNAL_HANDLER
 	if(total_fullness >= 3)
 		moveCreak_cooldown = moveCreak_cooldown - (0.05 * total_fullness)
 	if(stuffed_temp >= 2)
 		moveSlosh_cooldown = moveSlosh_cooldown - (0.05 * (stuffed_temp + (total_fullness/10)))
 
-/obj/item/clothing/sextoy/belly_function/examine(mob/user)
-	. = ..()
-	. += "Current size: [current_size_unclamped]"
-	for(var/mob/living/carbon/human/nommed in nommeds)
-		. += "Nommed: [nommed]"
-	/*if(istype(nommed))
-		. += "Current nommed guest: [nommed]"
-	else
-		. += "No nommed guest."*/
-
-/obj/item/clothing/sextoy/belly_function/attack_self(mob/user)
-	. = ..()
-	//TODO: relase code
+/obj/item/belly_function/proc/release_menu(mob/user)
 	if(length(nommeds) > 0)
 		var/opt_list = list()
 
@@ -141,9 +138,9 @@
 		if(release_target)
 			var/mob/living/carbon/human/nommed = opt_list[release_target]
 			if(istype(nommed))
-				src.free_target(nommed)
+				free_target(nommed)
 
-/obj/item/clothing/sextoy/belly_function/proc/free_target(mob/living/carbon/human/nommed)
+/obj/item/belly_function/proc/free_target(mob/living/carbon/human/nommed)
 	nommed.forceMove(drop_location())
 	nommeds -= nommed
 	nommed_sizes -= nommed
@@ -154,11 +151,7 @@
 	escape_helpers -= nommed
 	recalculate_guest_sizes()
 
-/obj/item/clothing/sextoy/belly_function/click_alt(mob/living/user)
-	src.config_menu(user)
-
-/obj/item/clothing/sextoy/belly_function/proc/config_menu(mob/living/user)
-	//, "Clear Client Overlays DEBUG",
+/obj/item/belly_function/proc/config_menu(mob/living/user)
 	var/opt_list = list("Change Color", "Toggle Skintone",
 	"Set Size Modifier", "Set Size Modifier for Audio",
 	"Toggle Belly Groans", "Toggle Belly Gurgles", "Toggle Belly Movement Creaks", "Toggle Belly Movement Sloshes",
@@ -179,7 +172,6 @@
 			var/temp_col = input("Enter new color:", "Color", src.color) as color|null
 			if(temp_col != null || QDELETED(user) || QDELETED(src))
 				src.color = temp_col
-			nommer.color = color
 		else if(adjustment_mode == "Toggle Skintone")
 			var/mode_select = tgui_alert(user, "Use skintone spritesheets?  Current state: [(use_skintone == TRUE) ? "yes" : "no"]", "Toggle Skintone", list_yesno)
 			if(isnull(mode_select) || QDELETED(user) || QDELETED(src))
@@ -248,8 +240,7 @@
 			nommed_sizes[extra_size_list[adjustment_mode]] = temp_size
 			recalculate_guest_sizes()
 
-/obj/item/clothing/sextoy/belly_function/equipped(mob/living/carbon/human/user, slot)
-	. = ..()
+/obj/item/belly_function/proc/apply_to_user(mob/living/carbon/human/user)
 	if(lastuser != user && overlay_south != null && lastuser != null)
 		do_alt_appearance(lastuser, TRUE, last_size)
 		UnregisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION)
@@ -258,40 +249,52 @@
 	if(!istype(user))
 		return
 	lastuser = user
+	for(var/datum/action/action as anything in actions)
+		give_item_action(action, user, null)
 	RegisterSignal(lastuser, COMSIG_GENERAL_STEP_ACTION, PROC_REF(on_step), TRUE)
 	RegisterSignal(lastuser, COMSIG_QDELETING, PROC_REF(on_user_deleted), TRUE)
-	START_PROCESSING(SSobj, src)
 
 //real simple one to avoid hanging onto lastuser & clear things if this gets nullspaced
-/obj/item/clothing/sextoy/belly_function/proc/on_user_deleted()
-	lastuser = null
+/obj/item/belly_function/proc/on_user_deleted()
+	remove_from_user(lastuser)
 	if(loc == null)
 		Destroy()
 
-/obj/item/clothing/sextoy/belly_function/proc/do_alt_appearance(mob/living/carbon/human/target, do_cut, size)
-	if(do_cut == TRUE)
-		for(var/i in 1 to size)
-			target.remove_alt_appearance("erp_belly_south-[i]")
-			target.remove_alt_appearance("erp_belly_north-[i]")
-			target.remove_alt_appearance("erp_belly_hori-[i]")
-		last_size = -1
+/obj/item/belly_function/proc/do_alt_appearance(mob/living/carbon/human/target, do_cut, size)
+	if(isnull(target))
+		return
+	else if(isdummy(target))
+		if(do_cut == TRUE)
+			target.cut_overlay(overlay_south)
+			target.cut_overlay(overlay_north)
+			target.cut_overlay(overlay_hori)
+			last_size = -1
+			overlay_south = null //we use this overlay as an indicator that the overlays are present, so axe it
+		else
+			target.add_overlay(overlay_south)
+			target.add_overlay(overlay_north)
+			target.add_overlay(overlay_hori)
 	else
-		target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_south-[size]", image(overlay_south, loc=target, layer=overlay_south.layer), AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS, target, "erp_belly_south-", size)
-		target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_north-[size]", image(overlay_north, loc=target, layer=overlay_north.layer), AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS, target, "erp_belly_north-", size)
-		target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_hori-[size]", image(overlay_hori, loc=target, layer=overlay_hori.layer), AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS, target, "erp_belly_hori-", size)
+		if(do_cut == TRUE)
+			for(var/i in 1 to size)
+				target.remove_alt_appearance("erp_belly_south-[i]")
+				target.remove_alt_appearance("erp_belly_north-[i]")
+				target.remove_alt_appearance("erp_belly_hori-[i]")
+			last_size = -1
+			overlay_south = null //we use this overlay as an indicator that the overlays are present, so axe it
+		else
+			target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_south-[size]", image(overlay_south, loc=target, layer=overlay_south.layer), AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS, target, "erp_belly_south-", size)
+			target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_north-[size]", image(overlay_north, loc=target, layer=overlay_north.layer), AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS, target, "erp_belly_north-", size)
+			target.add_alt_appearance(/datum/atom_hud/alternate_appearance/erp/belly, "erp_belly_hori-[size]", image(overlay_hori, loc=target, layer=overlay_hori.layer), AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS, target, "erp_belly_hori-", size)
 
-/obj/item/clothing/sextoy/belly_function/dropped(mob/user, slot)
-	. = ..()
-	if(overlay_south != null) //remove overlays if needed
+/obj/item/belly_function/proc/remove_from_user(mob/user)
+	for(var/datum/action/action_item_has as anything in actions)
+		action_item_has.Remove(user)
+	if(overlay_south != null)
 		do_alt_appearance(user, TRUE, last_size)
-	if(loc != user)
-		/*if(istype(nommed))
-			nommed.forceMove(drop_location())
-			nommed = null*/
-		STOP_PROCESSING(SSobj, src)
-		lastuser = null
+	lastuser = null
 
-/obj/item/clothing/sextoy/belly_function/proc/refresh_overlays(mob/living/carbon/human/user, inbound_size)
+/obj/item/belly_function/proc/refresh_overlays(mob/living/carbon/human/user, inbound_size)
 	// cut out-of-date overlays
 	if(overlay_south != null)
 		do_alt_appearance(user, TRUE, last_size)
@@ -308,7 +311,10 @@
 		iconfile = inbound_size > 10 ? worn_icon_teshari_64x : worn_icon_teshari
 
 	var/i = inbound_size
-	for(var/counter in 1 to inbound_size)
+	var/max = inbound_size
+	if(isdummy(user))
+		max = 1
+	for(var/counter in 1 to max)
 	//for(var/i in inbound_size to 1)
 		// generate the appearances
 		var/icon_state_wew = "[base_icon_state]-[i]"
@@ -344,12 +350,12 @@
 		do_alt_appearance(user, FALSE, i)
 		i -= 1
 
-/obj/item/clothing/sextoy/belly_function/proc/recalculate_guest_sizes()
+/obj/item/belly_function/proc/recalculate_guest_sizes()
 	total_endo_size = 0
 	for(var/nommed_friendo in nommeds)
 		total_endo_size += nommed_sizes[nommed_friendo]
 
-/obj/item/clothing/sextoy/belly_function/process(seconds_per_tick)
+/obj/item/belly_function/proc/belly_process(seconds_per_tick)
 	//to_chat(world, "screem - process is running")
 	var/mob/living/carbon/human/user = loc
 	if(!istype(user))
@@ -424,11 +430,11 @@
 		moveSlosh_cooldown = rand(15, 60)
 		playsound_if_pref(user, pick(slosh_sounds), min(20 + round(total_fullness/32, 1), 50), TRUE, frequency=rand(40000, 50000), pref_to_check = /datum/preference/toggle/erp/belly/sound_move_sloshes)
 
-/obj/item/clothing/sextoy/belly_function/attack(mob/living/carbon/human/target, mob/living/carbon/human/user)
+/obj/item/belly_function/attack(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	. = ..()
 	try_nom(target, user)
 
-/obj/item/clothing/sextoy/belly_function/proc/try_nom(mob/living/carbon/human/target, mob/living/carbon/human/user)
+/obj/item/belly_function/proc/try_nom(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	if(!ishuman(target) || (target.stat == DEAD) || !ishuman(user) || user == target) //sanity check
 		return
 	var/consent_pred = FALSE
@@ -454,38 +460,39 @@
 			consent_prey = TRUE
 
 	if(consent_pred == TRUE && consent_prey == TRUE)
-		//Step 1: put them in the list (your belly)
-		//target.visible_message("[user] gulps down [target]!")
-		to_chat(target, span_danger("[user] gulps you down!"))
-		to_chat(user, span_danger("You gulp down [target]!"))
-		nommeds += target
-		nommed_sizes[target] = endo_size
-
-		//Step 2: scan their lungs to determine what air of yours this fool is breathing
-		var/obj/item/organ/lungs/hopefully_lungs = target.organs_slot["lungs"]
-		if(hopefully_lungs)
-			//user.visible_message("Debugging: [target]'s lungs were found; they are [hopefully_lungs]")
-			last_gasmix = ""
-			for(var/something_in_list in hopefully_lungs.breathe_always)
-				var/datum/gas/a_gas = new something_in_list()
-				if(istype(a_gas))
-					last_gasmix = "[last_gasmix][a_gas.id]=100;"
-			last_gasmix = "[last_gasmix]TEMP=293.15"
-		else
-			last_gasmix = "o2=5;n2=10;TEMP=293.15"
-		//Step 3: save that air
-		nommed_gasmixes[target] = last_gasmix
-
-		//Step 4: tell the user it's in a "machine" (your belly) and recalculate everything
-		SEND_SIGNAL(user, COMSIG_MACHINERY_SET_OCCUPANT, target)
-		target.forceMove(src)
-		escape_helpers[target] = new /datum/action/item_action/belly_menu/escape(src)
-		escape_helpers[target].Grant(grant_to = target)
-		recalculate_guest_sizes()
+		do_nom(target, user)
 	else if(consent_pred == TRUE && consent_prey == FALSE)
 		to_chat(user, span_danger("[target] doesn't want you to do that."))
 
-/obj/item/clothing/sextoy/belly_function/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
+/obj/item/belly_function/proc/do_nom(mob/living/carbon/human/target, mob/living/carbon/human/user)
+	//Step 1: put them in the list (your belly)
+	to_chat(target, span_danger("[user] gulps you down!"))
+	to_chat(user, span_danger("You gulp down [target]!"))
+	nommeds += target
+	nommed_sizes[target] = endo_size
+	//Step 2: scan their lungs to determine what air of yours this fool is breathing
+	var/obj/item/organ/lungs/hopefully_lungs = target.organs_slot["lungs"]
+	if(hopefully_lungs)
+		//user.visible_message("Debugging: [target]'s lungs were found; they are [hopefully_lungs]")
+		last_gasmix = ""
+		for(var/something_in_list in hopefully_lungs.breathe_always)
+			var/datum/gas/a_gas = new something_in_list()
+			if(istype(a_gas))
+				last_gasmix = "[last_gasmix][a_gas.id]=100;"
+		last_gasmix = "[last_gasmix]TEMP=293.15"
+	else
+		last_gasmix = "o2=5;n2=10;TEMP=293.15"
+	//Step 3: save that air
+	nommed_gasmixes[target] = last_gasmix
+	//Step 4: tell the user it's in a "machine" (your belly)- this lets your belly provide the previously calculated airmix - see below in handle_internal_lifeform
+	SEND_SIGNAL(user, COMSIG_MACHINERY_SET_OCCUPANT, target)
+	//Step 5: finally, move them into the belly, give escape action, and recalculate everything
+	target.forceMove(src)
+	escape_helpers[target] = new /datum/action/item_action/belly_menu/escape(src)
+	escape_helpers[target].Grant(grant_to = target)
+	recalculate_guest_sizes()
+
+/obj/item/belly_function/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
 	if(lifeform_inside_me in nommed_gasmixes)
 		//to_chat(world, "Debugging: [lifeform_inside_me] is inside [src]")
 		if(breath_request <= 0)
