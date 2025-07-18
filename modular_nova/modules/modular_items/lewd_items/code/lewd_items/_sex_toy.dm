@@ -30,7 +30,14 @@
 
 	// Give out actions our item has to people who equip it.
 	for(var/datum/action/action as anything in actions)
-		give_item_action(action, user)
+		give_item_action(action, user, slot)
+
+/obj/item/clothing/sextoy/item_action_slot_check(slot, mob/user, datum/action/action)
+	if(is_inside_lewd_slot(user))
+		return TRUE
+	/// TODO: Reviewers, if you see this left here, gnaw on me
+	/// A sanity check on slot needs to be made to avoid trying to run bitwise comparisons on a string
+	return ..()
 
 /obj/item/clothing/sextoy/dropped(mob/user)
 	..()
