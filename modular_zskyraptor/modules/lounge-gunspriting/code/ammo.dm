@@ -69,8 +69,8 @@
 
 /obj/projectile/bullet/c22talon/soap/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
-	if(ismob(target))
-		var/mob/are_they_soggy = target
+	if(isliving(target))
+		var/mob/living/are_they_soggy = target
 		var/datum/status_effect/fire_handler/wet_stacks/wetness = locate() in are_they_soggy.status_effects
 		if(istype(wetness))
 			target.visible_message(span_warning("The soap from [src] combines with water on [target] and bursts into soapy suds!"), span_warning("You're covered in soapy suds!"))
@@ -157,8 +157,8 @@
 
 /obj/projectile/bullet/c380talon/soap/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
-	if(ismob(target))
-		var/mob/are_they_soggy = target
+	if(isliving(target))
+		var/mob/living/are_they_soggy = target
 		var/datum/status_effect/fire_handler/wet_stacks/wetness = locate() in are_they_soggy.status_effects
 		if(istype(wetness))
 			target.visible_message(span_warning("The soap from [src] combines with water on [target] and bursts into soapy suds!"), span_warning("You're covered in soapy suds!"))
@@ -197,9 +197,9 @@
 
 /obj/projectile/bullet/shotgun_soapslug/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
-	if(ismob(target))
-		var/mob/are_they_soggy = target
-		var/datum/status_effect/fire_handler/wet_stacks/wetness = locate() in are_they_soggy.status_effects
+	if(isliving(target))
+		var/mob/living/are_they_soggy = target
+		var/datum/status_effect/fire_handler/wet_stacks/wetness = locate() in are_they_soggy?.status_effects
 		if(istype(wetness))
 			target.visible_message(span_danger("The soap from [src] combines with water on [target] and explodes into soapy suds!"), span_bolddanger("OH GODS- NOT THE SOAP!!"))
 			var/datum/reagents/dispensed_reagent = new /datum/reagents(8 * wetness.stacks)
