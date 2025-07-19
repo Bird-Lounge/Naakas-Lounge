@@ -65,6 +65,9 @@
 	var/n2o_euphoria = EUPHORIA_LAST_FLAG
 	var/healium_euphoria = EUPHORIA_LAST_FLAG
 
+	// NOVA ADDITION START
+	var/safe_water_level = 16
+	// NOVA ADDITION END
 
 	var/oxy_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
 	var/oxy_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
@@ -977,6 +980,13 @@
 
 /obj/item/organ/lungs/cybernetic/surplus/hear_breath_noise(mob/living/hearer)
 	return span_danger("[owner.p_Their()] lungs emit [breath_noise].")
+
+/obj/item/organ/lungs/ghost
+	name = "ghost lungs"
+	desc = "No one knows what this is even supposed to breathe."
+	icon_state = "lungs-ghost"
+	movement_type = PHASING
+	organ_flags = parent_type::organ_flags | ORGAN_GHOST
 
 /obj/item/organ/lungs/lavaland
 	name = "blackened frilled lungs" // blackened from necropolis exposure
