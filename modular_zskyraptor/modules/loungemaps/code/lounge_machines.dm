@@ -1,13 +1,20 @@
+/obj/item/storage/part_replacer/bluespace/tier4/bst/biodome_upgrader
+	storage_type = /datum/storage/rped/bluespace/silly/sillier
+
 /obj/item/storage/part_replacer/bluespace/tier4/bst/biodome_upgrader/PopulateContents()
-	for(var/i in 1 to 50)
+	for(var/i in 1 to 100)
 		new /obj/item/stock_parts/scanning_module/triphasic(src)
 		new /obj/item/reagent_containers/cup/beaker/bluespace(src)
-	for(var/i in 1 to 150)
+	for(var/i in 1 to 400)
 		new /obj/item/stock_parts/capacitor/quadratic(src)
 		new /obj/item/stock_parts/servo/femto(src)
 		new /obj/item/stock_parts/micro_laser/quadultra(src)
 		new /obj/item/stock_parts/matter_bin/bluespace(src)
 		new /obj/item/stock_parts/power_store/cell/bluespace(src)
+
+/datum/storage/rped/bluespace/silly/sillier
+	max_slots = 5000
+	max_total_storage = 30000
 
 /obj/effect/landmark/start/lounge_upgrade_machine
 	name = "lounge upgrade thing sorry SSticker"

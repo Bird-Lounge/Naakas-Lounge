@@ -1,10 +1,17 @@
 /// TEMPORARILY: the implementation of single-action revolvers lives here
+/obj/item/ammo_box/magazine/internal/cylinder/sa
+	// If you're aiming for a clockwise rotating cylinder (Single Action Army) with loading door offset by 1, set this to max_ammo.
+	// If you're aiming for a counterclockwise rotating cylinder with loading door offset by 1, set this to 2.
+	var/insert_index = 7
+	// What loon ships a LOADED SINGLE-ACTION!?
+	start_empty = TRUE
+
 /obj/item/ammo_box/magazine/internal/cylinder/sa/give_round(obj/item/ammo_casing/R, replace_spent = 0)
 	//functions identically, but limits it to only reloading chamber 1
 	if(!R || !(caliber ? (caliber == R.caliber) : (ammo_type == R.type)))
 		return FALSE
 
-	for(var/i in 1 to 1)
+	for(var/i in insert_index to insert_index)
 		var/obj/item/ammo_casing/bullet = stored_ammo[i]
 		if(bullet && (!istype(bullet) || bullet.loaded_projectile))
 			continue
@@ -168,6 +175,7 @@
 	ammo_type = /obj/item/ammo_casing/c22talon
 	caliber = CALIBER_22TALON
 	max_ammo = 6
+	insert_index = 6
 
 /obj/item/gun/ballistic/revolver_sa/dewclaw
 	name = "\improper Dewclaw Revolver"
