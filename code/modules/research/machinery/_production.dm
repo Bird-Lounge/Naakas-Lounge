@@ -70,7 +70,7 @@
 	if(!stripe_color)
 		return
 
-	var/mutable_appearance/stripe = mutable_appearance('icons/obj/machines/research.dmi', "protolathe_stripe[panel_open ? "_t" : ""]")
+	var/mutable_appearance/stripe = mutable_appearance(icon, "protolathe_stripe[panel_open ? "_t" : ""]") /// NAAKAS-LOUNGE EDIT: why didn't you use icon to begin with gdit
 	stripe.color = stripe_color
 	. += stripe
 
@@ -180,7 +180,7 @@
 	flick_overlay_view(material_insertion_animation(mat_ref), 1 SECONDS)
 
 	//now play the progress bar animation
-	flick_overlay_view(mutable_appearance('icons/obj/machines/research.dmi', "protolathe_progress"), 1 SECONDS)
+	flick_overlay_view(mutable_appearance(icon, "protolathe_progress"), 1 SECONDS) /// NAAKAS-LOUNGE EDIT: this should've used icon to begin with gdit
 
 ///When materials are instered into local storage
 /obj/machinery/rnd/production/proc/local_material_insert(container, obj/item/item_inserted, last_inserted_id, list/mats_consumed, amount_inserted, atom/context)

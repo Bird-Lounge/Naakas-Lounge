@@ -32,4 +32,6 @@
 #define COMPANY_FRONTIER "It has a small label with <b>[span_engradio("Akhter Company Frontier Equipment")]</b> printed on it, alongside various xerxian proof-marks."
 #define COMPANY_KAHRAMAN "It has a <b>[span_red("red label")] with <b>[span_red("K - A - S")]</b> printed on it, alongside various xerxian proof-marks.</b>"
 
+#define COMPANY_TALONARMS "It has <b>[span_green("Talon Armaments")]</b> stamped onto it, next to a 3-clawed raptoral paw."
+
 #define COMPANY_REMOVED "It has had <b>[span_grey("all identifying marks scrubbed off")].</b>"
