@@ -11,18 +11,15 @@
 	if(!R || !(caliber ? (caliber == R.caliber) : (ammo_type == R.type)))
 		return FALSE
 
-	for(var/i in insert_index to insert_index)
-		var/obj/item/ammo_casing/bullet = stored_ammo[i]
-		if(bullet && (!istype(bullet) || bullet.loaded_projectile))
-			continue
-		// empty or spent
-		stored_ammo[i] = R
-		R.forceMove(src)
-
-		if(bullet)
-			bullet.forceMove(drop_location())
-		return TRUE
-	return FALSE
+	var/obj/item/ammo_casing/bullet = stored_ammo[insert_index]
+	if(bullet && (!istype(bullet) || bullet.loaded_projectile))
+		return FALSE
+	// empty or spent
+	stored_ammo[insert_index] = R
+	R.forceMove(src)
+	if(bullet)
+		bullet.forceMove(drop_location())
+	return TRUE
 
 /obj/item/gun/ballistic/revolver_sa
 	name = "\improper single-action .357 revolver"
