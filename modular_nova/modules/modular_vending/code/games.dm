@@ -1,5 +1,13 @@
 /obj/machinery/vending/games
 	product_categories_nova = list(
+		list( // NAAKAS-LOUNGE ADDITION BEGIN
+			"name" = "Cards",
+			"icon" = "diamond",
+			"products" = list(
+				/obj/item/toy/cards/deck/neon = 10,
+				/obj/item/toy/game_chip/stack = 50,
+			),
+		), // NAAKAS-LOUNGE ADDITION END
 		list(
 			"name" = "Toys",
 			"icon" = "hat-wizard",

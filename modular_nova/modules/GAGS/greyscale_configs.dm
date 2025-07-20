@@ -2323,3 +2323,89 @@ TREK
 /datum/greyscale_config/solfed_goggles/worn
 	name = "SolFed Goggles (Worn)"
 	icon_file = 'modular_nova/modules/goofsec/icons/mob/uniforms.dmi'
+
+//////////////////////////////////
+//NAAKA'S LOUNGE ADDITIONS BEGIN//
+//////////////////////////////////
+
+// Fannypacks
+/datum/greyscale_config/fannypack
+	name = "Fannypack"
+	icon_file = 'modular_zskyraptor/modules/aesthetics/unshitty_bags/backpack_inv.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/belt/fannypack.json'
+
+/datum/greyscale_config/fannypack/worn
+	name = "Worn Fannypack"
+	icon_file = 'modular_zskyraptor/modules/aesthetics/unshitty_bags/backpack_worn.dmi'
+
+
+
+// Regular backpack
+/datum/greyscale_config/backpack
+	name = "Backpack"
+	icon_file = 'modular_zskyraptor/modules/aesthetics/unshitty_bags/backpack_inv.dmi'
+	json_config = 'modular_nova/modules/GAGS/json_configs/back/backpack.json'
+
+/datum/greyscale_config/backpack/worn
+	name = "Worn Backpack"
+	icon_file = 'modular_zskyraptor/modules/aesthetics/unshitty_bags/backpack_worn.dmi'
+
+/datum/greyscale_config/backpack/satchel
+	name = "Satchel"
+	json_config = 'modular_nova/modules/GAGS/json_configs/back/satchel.json'
+
+/datum/greyscale_config/backpack/satchel/worn
+	name = "Worn Satchel"
+	icon_file = 'modular_zskyraptor/modules/aesthetics/unshitty_bags/backpack_worn.dmi'
+
+/datum/greyscale_config/backpack/duffel
+	name = "Duffelbag"
+	json_config = 'modular_nova/modules/GAGS/json_configs/back/duffel.json'
+
+/datum/greyscale_config/backpack/duffel/worn
+	name = "Worn Duffelbag"
+	icon_file = 'modular_zskyraptor/modules/aesthetics/unshitty_bags/backpack_worn.dmi'
+
+/datum/greyscale_config/backpack/messenger
+	name = "Messenger Bag"
+	json_config = 'modular_nova/modules/GAGS/json_configs/back/messenger.json'
+
+/datum/greyscale_config/backpack/messenger/worn
+	name = "Worn Messenger Bag"
+	icon_file = 'modular_zskyraptor/modules/aesthetics/unshitty_bags/backpack_worn.dmi'
+
+/datum/greyscale_config/backpack/slimpack
+	name = "Slimpack"
+	json_config = 'modular_nova/modules/GAGS/json_configs/back/slimpack.json'
+
+/datum/greyscale_config/backpack/slimpack/worn
+	name = "Worn Slimpack"
+	icon_file = 'modular_zskyraptor/modules/aesthetics/unshitty_bags/backpack_worn.dmi'
+
+/datum/greyscale_config/backpack/tinypaka
+	name = "Waistpack"
+	json_config = 'modular_nova/modules/GAGS/json_configs/back/tinypaka.json'
+
+/datum/greyscale_config/backpack/tinypaka/worn
+	name = "Worn Waistpack"
+	icon_file = 'modular_zskyraptor/modules/aesthetics/unshitty_bags/backpack_worn.dmi'
+
+/datum/greyscale_config/backpack/tinypakb
+	name = "Storage Belt"
+	json_config = 'modular_nova/modules/GAGS/json_configs/back/tinypakb.json'
+
+/datum/greyscale_config/backpack/tinypakb/worn
+	name = "Worn Storage Belt"
+	icon_file = 'modular_zskyraptor/modules/aesthetics/unshitty_bags/backpack_worn.dmi'
+
+/datum/greyscale_config/backpack/tinypakc
+	name = "Chest Pouch"
+	json_config = 'modular_nova/modules/GAGS/json_configs/back/tinypakc.json'
+
+/datum/greyscale_config/backpack/tinypakc/worn
+	name = "Worn Chest Pouch"
+	icon_file = 'modular_zskyraptor/modules/aesthetics/unshitty_bags/backpack_worn.dmi'
+
+////////////////////////////////
+//NAAKA'S LOUNGE ADDITIONS END//
+////////////////////////////////

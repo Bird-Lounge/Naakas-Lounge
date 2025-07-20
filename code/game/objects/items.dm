@@ -21,6 +21,9 @@
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	///Icon file for right inhand overlays
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	
+	/// NAAKAS-LOUNGE ADDITION: belt icon file
+	var/belt_icon_file = 'icons/obj/clothing/belt_overlays.dmi'
 
 	/// Angle of the icon, used for piercing and slashing attack animations, clockwise from *east-facing* sprites
 	var/icon_angle = 0
@@ -948,7 +951,7 @@
 	var/icon_state_to_use = inside_belt_icon_state || icon_state
 	if(greyscale_config_belt && greyscale_colors)
 		return mutable_appearance(SSgreyscale.GetColoredIconByType(greyscale_config_belt, greyscale_colors), icon_state_to_use)
-	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state_to_use)
+	return mutable_appearance(belt_icon_file, icon_state_to_use) /// NAAKAS-LOUNGE EDIT: modularized belt icons
 
 /**
  * Extend this to give the item an appearance when placed in a surgical tray. Uses an icon state in `medicart.dmi`.

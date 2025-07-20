@@ -1,5 +1,6 @@
 /obj/machinery/atmospherics/pipe
 	icon = 'icons/obj/pipes_n_cables/!pipes_bitmask.dmi'
+	var/bitmask_icon = 'icons/obj/pipes_n_cables/!pipes_bitmask.dmi' /// NAAKAS-LOUNGE ADDITION
 	damage_deflection = 12
 	/// Temporary holder for gases in the absence of a pipeline
 	var/datum/gas_mixture/air_temporary
@@ -126,7 +127,7 @@
 			icon = null
 			return
 		else
-			icon = 'icons/obj/pipes_n_cables/!pipes_bitmask.dmi'
+			icon = bitmask_icon /// NAAKAS-LOUNGE EDIT
 	var/connections = NONE
 	var/bitfield = NONE
 	for(var/i in 1 to device_type)

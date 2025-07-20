@@ -21,3 +21,8 @@
 /// Caliber used by the kinetic gun
 #define CALIBER_KINETICBALL "Kinetic Ball"
 
+/// Light caliber analagous to 22 LR
+#define CALIBER_22TALON ".22 Talon Light"
+/// Pistol caliber analagous to 380 ACP
+#define CALIBER_380TALON ".380 Talon Claw"
+
