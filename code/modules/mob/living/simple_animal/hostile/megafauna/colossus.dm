@@ -203,8 +203,10 @@
 		/* // NOVA EDIT REMOVAL START - Replaced with calling devour, below this commented code
 		var/mob/living/dust_mob = target
 		if(dust_mob.stat == DEAD)
-			dust_mob.investigate_log("has been dusted by a death bolt (colossus).", INVESTIGATE_DEATHS)
-			dust_mob.dust()
+			/*dust_mob.investigate_log("has been dusted by a death bolt (colossus).", INVESTIGATE_DEATHS) /// SKYRAT REMOVAL BEGIN
+			dust_mob.dust()*/ /// SKYRAT REMOVAL END
+			dust_mob.investigate_log("has been gibbed by a death bolt (colossus).", INVESTIGATE_DEATHS)
+			dust_mob.gib(DROP_ALL_REMAINS) /// SKYRAT REPLACEMENT: you fuck with the colossus, you get exploded by his FUCKING mind
 		return
 		*/ // NOVA EDIT REMOVAL END
 		// NOVA EDIT ADDITION START - Colossus and icemoon megafauna devour instead of dusting

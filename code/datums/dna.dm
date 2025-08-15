@@ -998,7 +998,7 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 			dna.nonfatal_meltdowns[meltdown_type] = initial(meltdown_type.meltdown_weight)
 
-	var/picked_type = pick_weight(nonfatal ? dna.nonfatal_meltdowns : dna.fatal_meltdowns)
+	var/picked_type = pick_weight(nonfatal ? dna.nonfatal_meltdowns : dna.nonfatal_meltdowns)
 	var/datum/instability_meltdown/meltdown = new picked_type
 	meltdown.meltdown(src)
 
