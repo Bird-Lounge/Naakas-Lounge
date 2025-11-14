@@ -26,7 +26,7 @@
 /area/centcom/central_command_areas/ferry)
 "ce" = (
 /obj/machinery/airalarm/directional/east,
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/ferry)
@@ -56,7 +56,7 @@
 /turf/open/floor/plating,
 /area/centcom/central_command_areas/ferry)
 "dV" = (
-/obj/machinery/keycard_auth/directional/south,
+/obj/machinery/keycard_auth/wall_mounted/directional/south,
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
 /obj/machinery/button/door/indestructible{
@@ -312,7 +312,7 @@
 	roundstart_template = /datum/map_template/shuttle/ferry;
 	width = 20
 	},
-/turf/open/space,
+/turf/open/space/basic,
 /area/space)
 "EK" = (
 /obj/effect/turf_decal/delivery,
@@ -366,7 +366,7 @@
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/ferry)
 "Is" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/ferry)

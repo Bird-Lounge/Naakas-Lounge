@@ -1,6 +1,7 @@
 /datum/surgery/advanced/bioware/nerve_grounding
 	name = "Nerve Grounding"
 	desc = "A surgical procedure which makes the patient's nerves act as grounding rods, protecting them from electrical shocks."
+	surgery_flags = SURGERY_MORBID_CURIOSITY
 	possible_locs = list(BODY_ZONE_CHEST)
 	steps = list(
 		/datum/surgery_step/incise,
@@ -13,6 +14,21 @@
 	)
 
 	status_effect_gained = /datum/status_effect/bioware/nerves/grounded
+
+/datum/surgery/advanced/bioware/nerve_grounding/mechanic
+	name = "System Shock Dampening"
+	desc = "A robotic upgrade which installs grounding rods into the robotic patient's system, protecting them from electrical shocks."
+	requires_bodypart_type = BODYTYPE_ROBOTIC
+	steps = list(
+		/datum/surgery_step/mechanic_open,
+		/datum/surgery_step/open_hatch,
+		/datum/surgery_step/mechanic_unwrench,
+		/datum/surgery_step/prepare_electronics,
+		/datum/surgery_step/prepare_electronics,
+		/datum/surgery_step/apply_bioware/ground_nerves,
+		/datum/surgery_step/mechanic_wrench,
+		/datum/surgery_step/mechanic_close,
+	)
 
 /datum/surgery_step/apply_bioware/ground_nerves
 	name = "ground nerves (hand)"

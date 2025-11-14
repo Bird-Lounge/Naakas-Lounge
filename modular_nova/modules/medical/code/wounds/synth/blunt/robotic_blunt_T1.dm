@@ -1,12 +1,13 @@
 /datum/wound/blunt/robotic/moderate
 	name = "Loosened Screws"
 	desc = "Various semi-external fastening instruments have loosened, causing components to jostle, inhibiting limb control."
+	treat_text_short = "Use a screwdriver on the affected limb, use gauze to reduce negative effects."
 	treat_text = "Recommend topical re-fastening of instruments with a screwdriver, though percussive maintenance via low-force bludgeoning may suffice - \
 	albeit at risk of worsening the injury."
 	examine_desc = "appears to be loosely secured"
 	occur_text = "jostles awkwardly and seems to slightly unfasten"
 	severity = WOUND_SEVERITY_MODERATE
-	simple_treat_text = "<b>Bandaging</b> the wound will reduce the impact until it's <b>screws are secured</b> - which is <b>faster</b> if done by \
+	simple_treat_text = "<b>Bandaging</b> the wound will reduce the impact until its <b>screws are secured</b> - which is <b>faster</b> if done by \
 	<b>someone else</b>, a <b>roboticist</b>, an <b>engineer</b>, or with a <b>diagnostic HUD</b>."
 	homemade_treat_text = "In a pinch, <b>percussive maintenance</b> can reset the screws - the chance of which is increased if done by <b>someone else</b> or \
 	with a <b>diagnostic HUD</b>!"

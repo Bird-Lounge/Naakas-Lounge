@@ -1,7 +1,6 @@
 /// Some starter text sent to the Hemophage initially, because Hemophages have shit to do to stay alive.
 #define HEMOPHAGE_SPAWN_TEXT "You are an [span_danger("Hemophage")]. You will slowly but constantly lose blood if outside of a closet-like object. If inside a closet-like object, or in pure darkness, you will slowly heal, at the cost of blood. You may gain more blood by grabbing a live victim and using your drain ability."
 
-
 /datum/species/hemophage
 	name = "Hemophage"
 	id = SPECIES_HEMOPHAGE
@@ -17,24 +16,25 @@
 		TRAIT_USES_SKINTONES,
 	)
 	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC
-	exotic_bloodtype = "U"
-	mutantheart = /obj/item/organ/internal/heart/hemophage
-	mutantliver = /obj/item/organ/internal/liver/hemophage
-	mutantstomach = /obj/item/organ/internal/stomach/hemophage
-	mutanttongue = /obj/item/organ/internal/tongue/hemophage
-	mutantlungs = null
+	exotic_bloodtype = BLOOD_TYPE_UNIVERSAL
+	mutantheart = /obj/item/organ/heart/hemophage
+	mutantliver = /obj/item/organ/liver/hemophage
+	mutantstomach = /obj/item/organ/stomach/hemophage
+	mutanttongue = /obj/item/organ/tongue/hemophage
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	examine_limb_id = SPECIES_HUMAN
 	skinned_type = /obj/item/stack/sheet/animalhide/human
-	veteran_only = TRUE
+
 
 /datum/species/hemophage/allows_food_preferences()
 	return FALSE
+
 
 /datum/species/hemophage/get_default_mutant_bodyparts()
 	return list(
 		"legs" = list("Normal Legs", FALSE),
 	)
+
 
 /datum/species/hemophage/check_roundstart_eligible()
 	if(check_holidays(HALLOWEEN))
@@ -42,10 +42,20 @@
 
 	return ..()
 
-/datum/species/hemophage/on_species_gain(mob/living/carbon/human/new_hemophage, datum/species/old_species, pref_load)
+
+/datum/species/hemophage/on_species_gain(mob/living/carbon/human/new_hemophage, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	to_chat(new_hemophage, HEMOPHAGE_SPAWN_TEXT)
+	new_hemophage.blood_volume = BLOOD_VOLUME_ROUNDSTART_HEMOPHAGE
+	new_hemophage.physiology.bleed_mod *= HEMOPHAGE_BLEED_MOD
 	new_hemophage.update_body()
+
+
+/datum/species/hemophage/on_species_loss(mob/living/carbon/human/former_hemophage, datum/species/new_species, pref_load)
+	. = ..()
+	former_hemophage.blood_volume = BLOOD_VOLUME_NORMAL
+	former_hemophage.physiology.bleed_mod /= HEMOPHAGE_BLEED_MOD
+	former_hemophage.update_body()
 
 
 /datum/species/hemophage/get_species_description()
@@ -65,7 +75,7 @@
 
 		"The ability to eat normal food becomes psychologically intolerable quickly after the infection fully takes root in their central nervous system, the tumor no longer holding interest in anything it cannot derive nutrients from. Foods once enjoyed by the host begin to taste completely revolting, many quickly developing an aversion to even try chewing it. \
 		However, new desires quickly begin to form, the host's whole suite of senses rapidly adapting to a keen interest in blood. Hyperosmia in specific kicks in, the iron-tinged scent of a bleeder provoking and agitating hunger like the smell of any fresh cooking would for a human. \
-		Not all blood aids the host the same. It's currently thought that a Hemophage is capable at a subconscious level of recognizing and differentiating different sources of blood, and the tumor within hijacking their psychology to prioritize blood from creatures it is able to reproduce inside of. \
+		Not all blood aids the host the same. Its currently thought that a Hemophage is capable at a subconscious level of recognizing and differentiating different sources of blood, and the tumor within hijacking their psychology to prioritize blood from creatures it is able to reproduce inside of. \
 		Blood from animals is reported to 'be like trying to subsist on milk or whipped cream or heavily fluffed up bread,' harder to digest, taste, or enjoy, necessitating the Hemophage to drink far more of it just to get the same value from a relatively small amount of human blood. \
 		'Storebought' blood, like from refrigerated medical blood bags, is reported to 'taste thin,' like a heavily watered down drink. Only the physical, predatory act of drinking blood fresh from another humanoid is enough to properly 'sate' the tumor, ticking the right psychological and physiological boxes to be fully digested and enjoyed. \
 		The sensation is like nothing else, being extremely pleasurable for the host; even if they don't want it to be.",
@@ -121,11 +131,9 @@
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "moon",
 			SPECIES_PERK_NAME = "Darkness Affinity",
-			SPECIES_PERK_DESC = "A Hemophage is only at home in the darkness, the infection \
-								within a Hemophage seeking to return them to a healthy state \
-								whenever it can be in the shadow. However, light artificial or \
-								otherwise irritates their bodies and the cancer keeping them alive, \
-								not harming them but keeping them from regenerating. Modern \
+			SPECIES_PERK_DESC = "A Hemophage is most at home in the darkness, as light artificial or \
+								otherwise irritates their bodies and the cancer keeping them alive. \
+								Modern \
 								Hemophages have been known to use lockers as a convenient \
 								source of darkness, while the extra protection they provide \
 								against background radiations allows their tumor to avoid \
@@ -172,6 +180,9 @@
 
 	return to_add
 
+/datum/species/hemophage/get_cry_sound(mob/living/carbon/human/hemophage)
+	var/datum/species/human/human_species = GLOB.species_prototypes[/datum/species/human]
+	return human_species.get_cry_sound(hemophage)
 
 // We don't need to mention that they're undead, as the perks that come from it are otherwise already explicited, and they might no longer be actually undead from a gameplay perspective, eventually.
 /datum/species/hemophage/create_pref_biotypes_perks()

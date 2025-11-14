@@ -77,6 +77,7 @@
 		repairs += servo.tier - 1
 	for(var/obj/item/stock_parts/power_store/cell in component_parts)
 		recharge_speed *= cell.maxcharge
+	recharge_speed *= 4 //NOVA EDIT ADDITION
 
 /obj/machinery/recharge_station/examine(mob/user)
 	. = ..()
@@ -106,7 +107,7 @@
 		if (!(. & EMP_PROTECT_SELF))
 			open_machine()
 
-/obj/machinery/recharge_station/attackby(obj/item/P, mob/user, params)
+/obj/machinery/recharge_station/attackby(obj/item/P, mob/user, list/modifiers, list/attack_modifiers)
 	if(state_open)
 		if(default_deconstruction_screwdriver(user, "borgdecon2", "borgcharger0", P))
 			return

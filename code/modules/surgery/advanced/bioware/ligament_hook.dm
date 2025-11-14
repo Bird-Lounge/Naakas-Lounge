@@ -2,6 +2,7 @@
 	name = "Ligament Hook"
 	desc = "A surgical procedure which reshapes the connections between torso and limbs, making it so limbs can be attached manually if severed. \
 		However this weakens the connection, making them easier to detach as well."
+	surgery_flags = SURGERY_MORBID_CURIOSITY
 	possible_locs = list(BODY_ZONE_CHEST)
 	steps = list(
 		/datum/surgery_step/incise,
@@ -14,6 +15,22 @@
 	)
 
 	status_effect_gained = /datum/status_effect/bioware/ligaments/hooked
+
+/datum/surgery/advanced/bioware/ligament_hook/mechanic
+	name = "Anchor Point Snaplocks"
+	desc = "A robotic upgrade which installs rapid detachment anchor points, making it so limbs can be attached manually if detached. \
+		However this weakens the connection, making them easier to detach as well."
+	requires_bodypart_type = BODYTYPE_ROBOTIC
+	steps = list(
+		/datum/surgery_step/mechanic_open,
+		/datum/surgery_step/open_hatch,
+		/datum/surgery_step/mechanic_unwrench,
+		/datum/surgery_step/prepare_electronics,
+		/datum/surgery_step/prepare_electronics,
+		/datum/surgery_step/apply_bioware/reshape_ligaments,
+		/datum/surgery_step/mechanic_wrench,
+		/datum/surgery_step/mechanic_close,
+	)
 
 /datum/surgery_step/apply_bioware/reshape_ligaments
 	name = "reshape ligaments (hand)"

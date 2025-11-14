@@ -22,8 +22,7 @@
 	viable_zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	required_limb_biostate = BIO_FLESH
 
-	required_wounding_types = list(WOUND_BLUNT, WOUND_SLASH, WOUND_PIERCE)
-	match_all_wounding_types = FALSE
+	required_wounding_type = WOUND_BRUTE
 
 	wound_series = WOUND_SERIES_MUSCLE_DAMAGE
 
@@ -128,7 +127,7 @@
 	desc = "Patient's muscle has torn, causing serious pain and reduced limb functionality."
 	treat_text = "A tight splint on the affected limb, as well as plenty of rest and sleep."
 	examine_desc = "appears unnaturallly red and swollen"
-	occur_text = "swells up, it's skin turning red"
+	occur_text = "swells up, its skin turning red"
 	severity = WOUND_SEVERITY_MODERATE
 	interaction_efficiency_penalty = 1.5
 	limp_slowdown = 2
@@ -153,7 +152,7 @@
 	desc = "Patient's tendon has been severed, causing significant pain and near uselessness of limb."
 	treat_text = "A tight splint on the affected limb, as well as plenty of rest and sleep."
 	examine_desc = "is limp and awkwardly twitching, skin swollen and red"
-	occur_text = "twists in pain and goes limp, it's tendon ruptured"
+	occur_text = "twists in pain and goes limp, its tendon ruptured"
 	severity = WOUND_SEVERITY_SEVERE
 	interaction_efficiency_penalty = 2
 	limp_slowdown = 5

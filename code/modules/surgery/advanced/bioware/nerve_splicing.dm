@@ -1,6 +1,7 @@
 /datum/surgery/advanced/bioware/nerve_splicing
 	name = "Nerve Splicing"
 	desc = "A surgical procedure which splices the patient's nerves, making them more resistant to stuns."
+	surgery_flags = SURGERY_MORBID_CURIOSITY
 	possible_locs = list(BODY_ZONE_CHEST)
 	steps = list(
 		/datum/surgery_step/incise,
@@ -13,6 +14,21 @@
 	)
 
 	status_effect_gained = /datum/status_effect/bioware/nerves/spliced
+
+/datum/surgery/advanced/bioware/nerve_splicing/mechanic
+	name = "System Automatic Reset Subroutine"
+	desc = "A robotic upgrade which upgrades a robotic patient's automatic systems, making them more resistant to stuns."
+	requires_bodypart_type = BODYTYPE_ROBOTIC
+	steps = list(
+		/datum/surgery_step/mechanic_open,
+		/datum/surgery_step/open_hatch,
+		/datum/surgery_step/mechanic_unwrench,
+		/datum/surgery_step/prepare_electronics,
+		/datum/surgery_step/prepare_electronics,
+		/datum/surgery_step/apply_bioware/splice_nerves,
+		/datum/surgery_step/mechanic_wrench,
+		/datum/surgery_step/mechanic_close,
+	)
 
 /datum/surgery_step/apply_bioware/splice_nerves
 	name = "splice nerves (hand)"

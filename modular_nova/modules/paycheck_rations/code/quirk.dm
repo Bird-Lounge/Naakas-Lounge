@@ -19,15 +19,16 @@
 	give_item_to_holder(
 		new_ticket_book,
 		list(
-			LOCATION_LPOCKET = ITEM_SLOT_LPOCKET,
-			LOCATION_RPOCKET = ITEM_SLOT_RPOCKET,
-			LOCATION_BACKPACK = ITEM_SLOT_BACKPACK,
-			LOCATION_HANDS = ITEM_SLOT_HANDS,
+			LOCATION_LPOCKET,
+			LOCATION_RPOCKET,
+			LOCATION_BACKPACK,
+			LOCATION_HANDS,
 		),
+		flavour_text = "You remember to keep close hold of your ticket book, it can't be replaced if lost and all of your ration tickets are placed there!",
+		notify_player = TRUE,
 	)
 	account.tracked_ticket_book = WEAKREF(new_ticket_book)
 	account.payday_modifier = 0.5
-	to_chat(client_source.mob, span_notice("You remember to keep close hold of your ticket book, it can't be replaced if lost and all of your ration tickets are placed there!"))
 
 // Edits to bank accounts to make the above possible
 
@@ -37,7 +38,7 @@
 	/// Tracks if the last ticket we got was for luxury items, if this is true we get a normal food ticket
 	var/last_ticket_luxury = TRUE
 
-/datum/bank_account/payday(amount_of_paychecks, free = FALSE)
+/datum/bank_account/payday(amount_of_paychecks, free = FALSE, skippable = FALSE, event = "Payday")
 	. = ..()
 	if(!.)
 		return
@@ -73,7 +74,7 @@
 		if(!ticket_book.atom_storage.can_insert(created_ticket, messages = FALSE))
 			qdel(created_ticket)
 			bank_card_talk("ERROR: Failed to place ration ticket in ticket book, ensure book is not full.")
-			// We can stop here, its joever for trying to place tickets in the book this payday. You snooze you lose!
+			// We can stop here, it's joever for trying to place tickets in the book this payday. You snooze you lose!
 			return
 		created_ticket.forceMove(ticket_book)
 		bank_card_talk("A new [last_ticket_luxury ? "luxury item" : "standard"] ration ticket has been placed in your ticket book.")

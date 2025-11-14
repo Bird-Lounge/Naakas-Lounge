@@ -1,5 +1,5 @@
 /obj/item/seeds/poppy/opiumpoppy
-	name = "pack of opium poppy seeds"
+	name = "opium poppy seed pack"
 	desc = "These seeds grow into real opium poppies."
 	icon = 'modular_nova/master_files/icons/obj/hydroponics/seeds.dmi'
 	growing_icon = 'modular_nova/master_files/icons/obj/hydroponics/growing.dmi'
@@ -20,6 +20,7 @@
 	icon_state = "opiumpoppy"
 	worn_icon_state = "map_flower"
 	greyscale_config = null
+	post_init_icon_state = null
 	greyscale_config_worn = /datum/greyscale_config/flower_simple_worn
 	greyscale_colors = "#01690f"
 	distill_reagent = /datum/reagent/consumable/ethanol/turbo //How can a slow drug make fast drink? Don't question it.

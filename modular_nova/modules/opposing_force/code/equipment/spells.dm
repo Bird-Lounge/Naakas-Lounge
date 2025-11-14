@@ -5,7 +5,7 @@
 	name = "Fireball"
 	item_type = /obj/item/book/granter/action/spell/fireball
 	description = "This spells fires an explosive fireball at a target."
-	admin_note = "WARNING: This spells has a fairly short cooldown, and can KO/kill on it's own."
+	admin_note = "WARNING: This spells has a fairly short cooldown, and can KO/kill on its own."
 
 /datum/opposing_force_equipment/spells/sacredflame
 	name = "Sacred Flame"
@@ -69,7 +69,7 @@
 
 /datum/opposing_force_equipment/martial_art/kravmaga
 	name = "Krav Maga Implanter"
-	item_type = /obj/item/implanter/krav_maga
+	item_type = /obj/item/implanter/kaza_ruk
 	description = "No need for gloves! This handy implanter teaches you everything you need to know about Krav Maga."
 
 /datum/opposing_force_equipment/martial_art/wrestling

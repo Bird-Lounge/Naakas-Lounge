@@ -1,6 +1,7 @@
 /datum/surgery/advanced/bioware/muscled_veins
 	name = "Vein Muscle Membrane"
 	desc = "A surgical procedure which adds a muscled membrane to blood vessels, allowing them to pump blood without a heart."
+	surgery_flags = SURGERY_MORBID_CURIOSITY
 	possible_locs = list(BODY_ZONE_CHEST)
 	steps = list(
 		/datum/surgery_step/incise,
@@ -13,6 +14,21 @@
 	)
 
 	status_effect_gained = /datum/status_effect/bioware/heart/muscled_veins
+
+/datum/surgery/advanced/bioware/muscled_veins/mechanic
+	name = "Hydraulics Redundancy Subroutine"
+	desc = "A robotic upgrade which adds sophisticated hydraulics redundancies, allowing a patient to pump hydraulic fluid without an engine."
+	requires_bodypart_type = BODYTYPE_ROBOTIC
+	steps = list(
+		/datum/surgery_step/mechanic_open,
+		/datum/surgery_step/open_hatch,
+		/datum/surgery_step/mechanic_unwrench,
+		/datum/surgery_step/prepare_electronics,
+		/datum/surgery_step/prepare_electronics,
+		/datum/surgery_step/apply_bioware/muscled_veins,
+		/datum/surgery_step/mechanic_wrench,
+		/datum/surgery_step/mechanic_close,
+	)
 
 /datum/surgery_step/apply_bioware/muscled_veins
 	name = "shape vein muscles (hand)"

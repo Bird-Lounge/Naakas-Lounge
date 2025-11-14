@@ -3,10 +3,8 @@
 	make_default_mutant_bodypart_references()
 	make_body_marking_references()
 	make_body_marking_set_references()
-	make_body_marking_dna_block_references()
-	populate_total_ui_len_by_block()
-	populate_total_uf_len_by_block()
 	make_augment_references()
+	build_erp_item_list()
 
 /proc/init_prefs_emotes()
 	//Scream types
@@ -21,17 +19,22 @@
 		GLOB.laugh_types[L.name] = spath
 	sort_list(GLOB.laugh_types, GLOBAL_PROC_REF(cmp_typepaths_asc))
 
+	//Voice_Bark
+	for(var/sound_blooper_path in subtypesof(/datum/blooper))
+		var/datum/blooper/blooper = new sound_blooper_path()
+		GLOB.blooper_list[blooper.id] = sound_blooper_path
+		if(blooper.allow_random)
+			GLOB.blooper_random_list[blooper.id] = sound_blooper_path
+
 /proc/make_default_mutant_bodypart_references()
 	// Build the global list for default species' mutant_bodyparts
-	for(var/path in subtypesof(/datum/species))
-		var/datum/species/species_type = path
-		var/datum/species/species_instance = new species_type
-		if(!isnull(species_instance.name))
-			GLOB.default_mutant_bodyparts[species_instance.name] = species_instance.get_default_mutant_bodyparts()
-			if(species_instance.can_have_genitals)
+	for(var/species_path in subtypesof(/datum/species))
+		var/datum/species/species = GLOB.species_prototypes[species_path]
+		if(!isnull(species.name))
+			GLOB.default_mutant_bodyparts[species.name] = species.get_default_mutant_bodyparts()
+			if(species.can_have_genitals)
 				for(var/genital in GLOB.possible_genitals)
-					GLOB.default_mutant_bodyparts[species_instance.name] += list((genital) = list("None", FALSE))
-		qdel(species_instance)
+					GLOB.default_mutant_bodyparts[species.name] += list((genital) = list("None", FALSE))
 
 /proc/make_body_marking_references()
 	// Here we build the global list for all body markings
@@ -56,14 +59,6 @@
 			BM = new path()
 			GLOB.body_marking_sets[BM.name] = BM
 
-/proc/make_body_marking_dna_block_references()
-	for(var/marking_zone in GLOB.marking_zones)
-		GLOB.dna_body_marking_blocks[marking_zone] = SSaccessories.dna_total_feature_blocks+1
-		for(var/feature_block_set in 1 to MAXIMUM_MARKINGS_PER_LIMB)
-			for(var/color_block in 1 to DNA_MARKING_COLOR_BLOCKS_PER_MARKING)
-				SSaccessories.features_block_lengths["[GLOB.dna_body_marking_blocks[marking_zone] + (feature_block_set - 1) * DNA_BLOCKS_PER_MARKING + color_block]"] = DNA_BLOCK_SIZE_COLOR
-		SSaccessories.dna_total_feature_blocks += DNA_BLOCKS_PER_MARKING_ZONE
-
 /proc/init_nova_stack_recipes()
 	var/list/additional_stack_recipes = list(
 		/obj/item/stack/sheet/leather = list(GLOB.nova_leather_recipes, GLOB.nova_leather_belt_recipes),
@@ -72,9 +67,12 @@
 		/obj/item/stack/sheet/iron = list(GLOB.nova_metal_recipes, GLOB.nova_metal_airlock_recipes),
 		/obj/item/stack/sheet/plasteel = list(GLOB.nova_plasteel_recipes),
 		/obj/item/stack/sheet/mineral/wood = list(GLOB.nova_wood_recipes),
+		/obj/item/stack/sheet/cardboard = list(GLOB.nova_cardboard_recipes),
 		/obj/item/stack/sheet/cloth = list(GLOB.nova_cloth_recipes),
 		/obj/item/stack/ore/glass = list(GLOB.nova_sand_recipes),
+		/obj/item/stack/sheet/mineral/sandstone = list(GLOB.nova_sandstone_recipes),
 		/obj/item/stack/rods = list(GLOB.nova_rod_recipes),
+		/obj/item/stack/sheet/plastic = list(GLOB.nova_plastic_recipes),
 		/obj/item/stack/sheet/mineral/stone = list(GLOB.stone_recipes),
 		/obj/item/stack/sheet/mineral/clay = list(GLOB.clay_recipes),
 		/obj/item/stack/sheet/plastic_wall_panel = list(GLOB.plastic_wall_panel_recipes),
@@ -121,36 +119,23 @@
 	// See Initialize() on SSReagents
 
 	// Loadouts
+	for(var/datum/loadout_category/category in GLOB.all_loadout_categories)
+		if (category.erp_category)
+			GLOB.all_loadout_categories -= category
+	for(var/datum/loadout_category/category in GLOB.all_loadout_categories)
+		for(var/datum/loadout_item/loadout_item in category.associated_items)
+			if(!loadout_item.erp_item)
+				continue
+
+			category.associated_items -= loadout_item
+
 	for(var/loadout_path in GLOB.all_loadout_datums)
 		var/datum/loadout_item/loadout_datum = GLOB.all_loadout_datums[loadout_path]
 		if(!loadout_datum.erp_item)
 			continue
-		GLOB.all_loadout_datums -= loadout_path
+		qdel(loadout_datum) // This actually handles removing it from the list.
 		// Ensure this FULLY works later
 
-	var/list/loadout_lists = list(
-		GLOB.loadout_belts,
-		GLOB.loadout_ears,
-		GLOB.loadout_glasses,
-		GLOB.loadout_gloves,
-		GLOB.loadout_helmets,
-		GLOB.loadout_masks,
-		GLOB.loadout_necks,
-		GLOB.loadout_shoes,
-		GLOB.loadout_exosuits,
-		GLOB.loadout_jumpsuits,
-		GLOB.loadout_undersuits,
-		GLOB.loadout_miscunders,
-		GLOB.loadout_accessory,
-		GLOB.loadout_inhand_items,
-		GLOB.loadout_toys,
-		GLOB.loadout_pocket_items,
-	)
-	for(var/loadout_list in loadout_lists)
-		for(var/datum/loadout_item/loadout_typepath in loadout_list)
-			if(!initial(loadout_typepath.erp_item))
-				continue
-			loadout_list -= loadout_typepath
 
 	// Underwear
 	for(var/sprite_name in SSaccessories.underwear_list)
@@ -212,3 +197,9 @@
 			continue
 
 		SSaccessories.bra_m -= sprite_name
+
+/proc/build_erp_item_list()
+	for(var/obj/item/fun_item as anything in subtypesof(/obj/item))
+		if(initial(fun_item.obj_flags_nova) & ERP_ITEM)
+			GLOB.erp_items += fun_item
+

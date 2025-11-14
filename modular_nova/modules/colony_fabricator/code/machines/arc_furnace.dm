@@ -70,7 +70,7 @@
 	var/image/furnace_front_overlay = image(icon = icon, icon_state = "[operating ? "[base_icon_state]_overlay_active" : "[base_icon_state]_overlay"]")
 	add_overlay(furnace_front_overlay)
 
-/obj/machinery/arc_furnace/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/machinery/arc_furnace/attackby(obj/item/attacking_item, mob/user, list/modifiers, list/attack_modifiers)
 	if(operating)
 		balloon_alert(user, "furnace busy")
 		return TRUE
@@ -113,7 +113,7 @@
 		if(RADIAL_CHOICE_USE)
 			smelt_it_up(user)
 
-/// Removes the first item in the contents list which should only ever be ore and if its not, we have problems
+/// Removes the first item in the contents list which should only ever be ore and if it's not, we have problems
 /obj/machinery/arc_furnace/proc/eject_contents()
 	if(operating)
 		return
@@ -127,7 +127,7 @@
 	thing_inside.forceMove(drop_location())
 	update_appearance()
 
-/// Starts the smelting process, checking if the machine has power or if its broken at all
+/// Starts the smelting process, checking if the machine has power or if it's broken at all
 /obj/machinery/arc_furnace/proc/smelt_it_up(mob/user)
 	if(machine_stat & (NOPOWER|BROKEN))
 		balloon_alert(user, "button doesn't respond")
@@ -218,6 +218,7 @@
 
 /obj/item/flatpacked_machine/arc_furnace
 	name = "flat-packed arc furnace"
+	desc = /obj/machinery/arc_furnace::desc
 	icon_state = "arc_furnace_folded"
 	type_to_deploy = /obj/machinery/arc_furnace
 	custom_materials = list(

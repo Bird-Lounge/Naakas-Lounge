@@ -168,6 +168,7 @@
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman,
 		/obj/item/storage/belt/holster,
+		/obj/item/storage/belt/machete,
 		)
 
 
@@ -191,7 +192,7 @@
 	supports_variations_flags = CLOTHING_SNOUTED_VARIATION_NO_NEW_ICON
 	var/nightvision = FALSE
 	var/mob/living/carbon/current_user
-	actions_types = list(/datum/action/item_action/toggle_nv)
+	actions_types = list(/datum/action/item_action/toggle_nv_helmet)
 
 /datum/armor/helmet_expeditionary_corps
 	melee = 20
@@ -203,10 +204,10 @@
 	acid = 100
 	wound = 10
 
-/datum/action/item_action/toggle_nv
+/datum/action/item_action/toggle_nv_helmet
 	name = "Toggle Nightvision"
 
-/datum/action/item_action/toggle_nv/Trigger(trigger_flags)
+/datum/action/item_action/toggle_nv_helmet/Trigger(trigger_flags)
 	var/obj/item/clothing/head/helmet/expeditionary_corps/my_helmet = target
 	if(!my_helmet.current_user)
 		return
@@ -225,19 +226,19 @@
 
 /obj/item/clothing/head/helmet/expeditionary_corps/proc/enable_nv(mob/user)
 	if(current_user)
-		var/obj/item/organ/internal/eyes/my_eyes = current_user.get_organ_by_type(/obj/item/organ/internal/eyes)
+		var/obj/item/organ/eyes/my_eyes = current_user.get_organ_by_type(/obj/item/organ/eyes)
 		if(my_eyes)
 			my_eyes.color_cutoffs = list(10, 30, 10)
 			my_eyes.flash_protect = FLASH_PROTECTION_SENSITIVE
-		current_user.add_client_colour(/datum/client_colour/glass_colour/lightgreen)
+		current_user.add_client_colour(/datum/client_colour/glass_colour/lightgreen, REF(src))
 
 /obj/item/clothing/head/helmet/expeditionary_corps/proc/disable_nv()
 	if(current_user)
-		var/obj/item/organ/internal/eyes/my_eyes = current_user.get_organ_by_type(/obj/item/organ/internal/eyes)
+		var/obj/item/organ/eyes/my_eyes = current_user.get_organ_by_type(/obj/item/organ/eyes)
 		if(my_eyes)
 			my_eyes.color_cutoffs = initial(my_eyes.color_cutoffs)
 			my_eyes.flash_protect = initial(my_eyes.flash_protect)
-		current_user.remove_client_colour(/datum/client_colour/glass_colour/lightgreen)
+		current_user.remove_client_colour(/datum/client_colour/glass_colour/lightgreen, REF(src))
 		current_user.update_sight()
 
 /obj/item/clothing/head/helmet/expeditionary_corps/click_alt(mob/user)

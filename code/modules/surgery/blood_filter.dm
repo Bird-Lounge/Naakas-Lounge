@@ -9,6 +9,19 @@
 		/datum/surgery_step/close,
 	)
 
+
+/datum/surgery/blood_filter/mechanic
+	name = "Hydraulics Purge"
+	requires_bodypart_type = BODYTYPE_ROBOTIC
+	steps = list(
+		/datum/surgery_step/mechanic_open,
+		/datum/surgery_step/open_hatch,
+		/datum/surgery_step/mechanic_unwrench,
+		/datum/surgery_step/filter_blood,
+		/datum/surgery_step/mechanic_wrench,
+		/datum/surgery_step/mechanic_close,
+	)
+
 /datum/surgery/blood_filter/can_start(mob/user, mob/living/carbon/target)
 	if(HAS_TRAIT(target, TRAIT_HUSK)) //You can filter the blood of a dead person just not husked
 		return FALSE
@@ -47,10 +60,21 @@
 	if(!length(bloodfilter.whitelist))
 		return TRUE
 
+	var/found_reagents = FALSE // NOVA EDIT ADDITION - Neuroware
 	for(var/datum/reagent/chem as anything in target.reagents.reagent_list)
+		// NOVA EDIT ADDITION BEGIN - Neuroware
+		if(chem.chemical_flags & REAGENT_NEUROWARE)
+			continue
+		found_reagents = TRUE
+		// NOVA EDIT ADDITION END
 		if(chem.type in bloodfilter.whitelist)
 			return TRUE
 
+	// NOVA EDIT ADDITION BEGIN - Neuroware
+	if(!found_reagents)
+		bloodfilter.audible_message(span_notice("[bloodfilter] pings as it reports no chemicals detected in [target]'s blood."))
+		playsound(get_turf(target), 'sound/machines/ping.ogg', 75, TRUE, falloff_exponent = 12, falloff_distance = 1)
+	// NOVA EDIT ADDITION END
 	return FALSE
 
 /datum/surgery_step/filter_blood
@@ -67,8 +91,12 @@
 	var/obj/item/blood_filter/bloodfilter = tool
 	if(target.reagents?.total_volume)
 		for(var/datum/reagent/chem as anything in target.reagents.reagent_list)
-			if(!length(bloodfilter.whitelist) || (chem.type in bloodfilter.whitelist))
-				target.reagents.remove_reagent(chem.type, min(round(chem.volume * 0.22, 0.2), 10))
+			if(!length(bloodfilter.whitelist) || !(chem.type in bloodfilter.whitelist))
+				// NOVA EDIT ADDITION BEGIN - Neuroware
+				if(chem.chemical_flags & REAGENT_NEUROWARE)
+					continue
+				// NOVA EDIT ADDITION END
+				target.reagents.remove_reagent(chem.type, clamp(round(chem.volume * 0.22, 0.2), 0.4, 10))
 	display_results(
 		user,
 		target,

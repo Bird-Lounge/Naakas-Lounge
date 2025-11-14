@@ -63,7 +63,7 @@
 	name = "molten glass"
 	desc = "A glob of molten glass, ready to be shaped into art."
 	icon_state = "molten_glass"
-	///the cooldown if its still molten / requires heating up
+	///the cooldown if it's still molten / requires heating up
 	COOLDOWN_DECLARE(remaining_heat)
 	///the typepath of the item that will be produced when the required actions are met
 	var/chosen_item
@@ -76,7 +76,9 @@
 
 /obj/item/glassblowing/molten_glass/examine(mob/user)
 	. = ..()
-	. += get_examine_message(src)
+	var/message = get_examine_message(src)
+	if(message)
+		. += message
 
 /obj/item/glassblowing/molten_glass/pickup(mob/living/user)
 	if(!istype(user))
@@ -116,7 +118,9 @@
 	var/obj/item/glassblowing/molten_glass/glass = glass_ref.resolve()
 	if(!glass)
 		return
-	. += get_examine_message(glass)
+	var/message = get_examine_message(glass)
+	if(message)
+		. += message
 
 
 /**
@@ -132,6 +136,8 @@
 /obj/item/glassblowing/proc/get_examine_message(obj/item/glassblowing/molten_glass/glass)
 	if(COOLDOWN_FINISHED(glass, remaining_heat))
 		. += span_warning("The glass has cooled down and will require reheating to modify! ")
+	if(!length(glass.steps_remaining))
+		return
 	if(glass.steps_remaining[STEP_BLOW])
 		. += "The glass requires [glass.steps_remaining[STEP_BLOW]] more blowing actions! "
 	if(glass.steps_remaining[STEP_SPIN])
@@ -158,7 +164,7 @@
 	icon_state = "blow_pipe_full"
 	return ITEM_INTERACT_SUCCESS
 
-/obj/item/glassblowing/blowing_rod/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/item/glassblowing/blowing_rod/attackby(obj/item/attacking_item, mob/user, list/modifiers, list/attack_modifiers)
 	var/actioning_speed = user.mind.get_skill_modifier(/datum/skill/production, SKILL_SPEED_MODIFIER) * DEFAULT_TIMED
 	var/obj/item/glassblowing/molten_glass/glass = glass_ref?.resolve()
 
@@ -517,9 +523,9 @@
 	name = "Glass-blowing Metal Cup"
 	result = /obj/item/glassblowing/metal_cup
 
-/obj/item/glassblowing/metal_cup/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/stack/ore/glass))
-		var/obj/item/stack/ore/glass/glass_obj = I
+/obj/item/glassblowing/metal_cup/attackby(obj/item/attacking_item, mob/user, list/modifiers, list/attack_modifiers)
+	if(istype(attacking_item, /obj/item/stack/ore/glass))
+		var/obj/item/stack/ore/glass/glass_obj = attacking_item
 		if(!glass_obj.use(1))
 			return
 		has_sand = TRUE

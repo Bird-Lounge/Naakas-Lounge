@@ -1,16 +1,31 @@
-#define SYNTH_CHARGE_MAX 1.1 MEGA JOULES
-#define SYNTH_CHARGE_ALMOST_FULL 900 KILO JOULES
-#define SYNTH_JOULES_PER_NUTRITION 2000
-#define SYNTH_CHARGE_RATE 250 KILO WATTS
-#define SYNTH_APC_MINIMUM_PERCENT 20
-#define SSMACHINES_SECONDS_PER_TICK 2
-
-/obj/item/organ/internal/cyberimp/arm/power_cord
+/obj/item/organ/cyberimp/arm/toolkit/power_cord
 	name = "charging implant"
 	desc = "An internal power cord. Useful if you run on elecricity. Not so much otherwise."
 	items_to_create = list(/obj/item/synth_powercord)
 	zone = "l_arm"
 	cannot_confiscate = TRUE
+
+/obj/item/organ/cyberimp/arm/toolkit/power_cord/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF || !IS_ROBOTIC_ORGAN(src))
+		return
+	var/effect_chance = 0
+	switch(severity)
+		if(EMP_LIGHT)
+			effect_chance = 22.5
+		if(EMP_HEAVY)
+			effect_chance = 45
+	if(prob(effect_chance) && owner)
+		owner.visible_message(
+			span_danger("[owner]'s charging implant sparks and crackles!"),
+			span_warning("Your charging implant shorts out, making you twitch!")
+		)
+		if(active_item)
+			Retract()
+		owner.adjust_stutter(severity == EMP_LIGHT ? 4 SECONDS : 8 SECONDS)
+		owner.set_jitter_if_lower(severity == EMP_LIGHT ? 6 SECONDS : 12 SECONDS)
+		do_sparks(3, TRUE, owner)
+		SEND_SIGNAL(owner, COMSIG_LIVING_MINOR_SHOCK)
 
 /obj/item/synth_powercord
 	name = "power cord"
@@ -44,16 +59,21 @@
 /// Attempts to start using an object as a power source.
 /// Checks the user's internal powercell to see if it exists.
 /obj/item/synth_powercord/proc/try_power_draw(obj/target, mob/living/carbon/human/user)
+	// Only robotic species can use this
+	if(!(user.mob_biotypes & MOB_ROBOTIC))
+		to_chat(user, span_warning("You plug into [target], but nothing happens! It seems you don't have an internal cell to charge."))
+		return
+
 	/// The current user's nutrition level in joules.
 	var/nutrition_level_joules = user.nutrition * SYNTH_JOULES_PER_NUTRITION
 	user.changeNext_move(CLICK_CD_MELEE)
 
-	var/obj/item/organ/internal/stomach/synth/synth_cell = user.get_organ_slot(ORGAN_SLOT_STOMACH)
+	var/obj/item/organ/stomach/synth/synth_cell = user.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(QDELETED(synth_cell) || !istype(synth_cell))
 		to_chat(user, span_warning("You plug into [target], but nothing happens! It seems you don't have an internal cell to charge."))
 		return
 
-	if(nutrition_level_joules >= SYNTH_CHARGE_ALMOST_FULL)
+	if(nutrition_level_joules > SYNTH_CHARGE_ALMOST_FULL)
 		user.balloon_alert(user, "cell fully charged!")
 		return
 
@@ -79,8 +99,6 @@
  * * user - The human mob draining the power cell.
  */
 /obj/item/synth_powercord/proc/do_power_draw(obj/target, mob/living/carbon/human/user)
-	/// The current user's nutrition level in joules.
-	var/nutrition_level_joules = user.nutrition * SYNTH_JOULES_PER_NUTRITION
 	// Draw power from an APC if one was given.
 	var/obj/machinery/power/apc/target_apc
 	if(istype(target, /obj/machinery/power/apc))
@@ -90,52 +108,58 @@
 	var/minimum_cell_charge = target_apc ? SYNTH_APC_MINIMUM_PERCENT : 0
 
 	if(!target_cell || target_cell.percent() < minimum_cell_charge)
-		user.balloon_alert(user, "APC charge low!")
+		user.balloon_alert(user, "apc charge low!")
 		return
-
+	var/wait = SSmachines.wait / (1 SECONDS)
 	var/energy_needed
 	while(TRUE)
-		// Check if the user is nearly fully charged.
-		// Ensures minimum draw is always lower than this margin.
-		nutrition_level_joules = user.nutrition * SYNTH_JOULES_PER_NUTRITION
-		energy_needed = SYNTH_CHARGE_MAX - nutrition_level_joules
-		if(energy_needed < SYNTH_CHARGE_MAX - SYNTH_CHARGE_ALMOST_FULL - 125 KILO JOULES)
-			user.balloon_alert(user, "cell fully charged!")
-			break
-
 		// Check if the charge level of the cell is below the minimum.
 		// Prevents synths from overloading the cell.
 		if(target_cell.percent() < minimum_cell_charge)
-			user.balloon_alert(user, "APC charge low!")
+			user.balloon_alert(user, "apc charge low!")
 			break
 
 		// Attempt to drain charge from the cell.
-		if(!do_after(user, SSmachines.wait, target))
+		if(!do_after(user, wait SECONDS, target))
 			break
 
-		// Calculate how much to draw from the cell this cycle.
-		var/current_draw = min(energy_needed, SYNTH_CHARGE_RATE * SSMACHINES_SECONDS_PER_TICK)
+		// Check if the user is nearly fully charged.
+		// Ensures minimum draw is always lower than this margin.
+		var/nutrition_level_joules = user.nutrition * SYNTH_JOULES_PER_NUTRITION
+		energy_needed = SYNTH_CHARGE_MAX - nutrition_level_joules
 
-		var/energy_delivered = target_cell.use(current_draw)
+		// Calculate how much to draw from the cell this cycle.
+		var/current_draw = min(energy_needed, SYNTH_CHARGE_RATE * wait)
+
+		var/energy_delivered = target_cell.use(current_draw, force = TRUE)
+		target_cell.update_appearance()
 		if(!energy_delivered)
 			// The cell could be sabotaged, which causes it to explode and qdelete.
 			if(QDELETED(target_cell))
 				return
-			user.balloon_alert(user, "APC failure!")
+			user.balloon_alert(user, "[target_apc ? "APC" : "Cell"] empty!")
 			break
 
 		// If charging was successful, then increase user nutrition and emit sparks.
-		var/nutrition_gained = (energy_delivered / SYNTH_JOULES_PER_NUTRITION) / SSMACHINES_SECONDS_PER_TICK
-		user.nutrition += nutrition_gained
+		var/nutrition_gained = energy_delivered / SYNTH_JOULES_PER_NUTRITION
+		user.nutrition = min(user.nutrition + nutrition_gained, NUTRITION_LEVEL_FULL)
 		do_sparks(1, FALSE, target_cell.loc)
+		if(user.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
+			user.balloon_alert(user, "fully charged")
+			break
 
-	// Start APC recharging if power was used and the APC has power available.
-	if(target_apc && !QDELETED(target_apc) && !QDELETED(target_apc.cell) && target_apc.main_status > APC_NO_POWER)
-		target_apc.charging = APC_CHARGING
-		target_apc.update_appearance()
-
-#undef SYNTH_CHARGE_MAX
-#undef SYNTH_JOULES_PER_NUTRITION
-#undef SYNTH_CHARGE_RATE
-#undef SYNTH_APC_MINIMUM_PERCENT
-#undef SSMACHINES_SECONDS_PER_TICK
+/datum/design/synth_charger
+	name = "Charging Cord Implant"
+	desc = "An internal power cord for synthetic use only. Requires connection the synthetic fuel cell to function."
+	id = "synth_charger"
+	build_type = PROTOLATHE | AWAY_LATHE | MECHFAB
+	construction_time = 4 SECONDS
+	materials = list(
+		/datum/material/iron = HALF_SHEET_MATERIAL_AMOUNT,
+		/datum/material/glass = HALF_SHEET_MATERIAL_AMOUNT,
+	)
+	build_path = /obj/item/organ/cyberimp/arm/toolkit/power_cord
+	category = list(
+		RND_SUBCATEGORY_MECHFAB_ANDROID + RND_SUBCATEGORY_MECHFAB_ANDROID_ORGANS,
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SCIENCE

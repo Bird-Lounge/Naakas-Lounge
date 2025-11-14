@@ -11,12 +11,13 @@
  * Pens
  */
 /obj/item/pen
-	desc = "It's a normal black ink pen."
 	name = "pen"
+	desc = "It's a normal black ink pen."
 	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "pen"
 	inhand_icon_state = "pen"
 	worn_icon_state = "pen"
+	icon_angle = -135
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_EARS
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
@@ -29,13 +30,16 @@
 	var/degrees = 0
 	var/font = PEN_FONT
 	var/requires_gravity = TRUE // can you use this to write in zero-g
-	embedding = list(embed_chance = 50)
+	embed_type = /datum/embedding/pen
 	sharpness = SHARP_POINTY
 	var/dart_insert_icon = 'icons/obj/weapons/guns/toy.dmi'
 	var/dart_insert_casing_icon_state = "overlay_pen"
 	var/dart_insert_projectile_icon_state = "overlay_pen_proj"
 	/// If this pen can be clicked in order to retract it
 	var/can_click = TRUE
+
+/datum/embedding/pen
+	embed_chance = 50
 
 /obj/item/pen/Initialize(mapload)
 	. = ..()
@@ -73,7 +77,7 @@
 
 	if(user)
 		balloon_alert(user, "clicked")
-	playsound(src, 'sound/machines/click.ogg', 30, TRUE, -3)
+	playsound(src, 'sound/items/pen_click.ogg', 30, TRUE, -3)
 	icon_state = initial(icon_state) + (active ? "_retracted" : "")
 	update_appearance(UPDATE_ICON)
 
@@ -82,14 +86,14 @@
 /obj/item/pen/proc/on_inserted_into_dart(datum/source, obj/projectile/dart, mob/user, embedded = FALSE)
 	SIGNAL_HANDLER
 
-/obj/item/pen/proc/get_dart_var_modifiers()
+/obj/item/pen/proc/get_dart_var_modifiers(obj/projectile/projectile)
 	return list(
 		"damage" = max(5, throwforce),
 		"speed" = max(0, throw_speed - 3),
-		"embedding" = embedding,
+		"embedding" = get_embed().create_copy(),
 		"armour_penetration" = armour_penetration,
 		"wound_bonus" = wound_bonus,
-		"bare_wound_bonus" = bare_wound_bonus,
+		"exposed_wound_bonus" = exposed_wound_bonus,
 		"demolition_mod" = demolition_mod,
 	)
 
@@ -191,7 +195,7 @@
 		"Black and Silver" = "pen-fountain-b",
 		"Command Blue" = "pen-fountain-cb"
 	)
-	embedding = list("embed_chance" = 75)
+	embed_type = /datum/embedding/pen/captain
 	dart_insert_casing_icon_state = "overlay_fountainpen_gold"
 	dart_insert_projectile_icon_state = "overlay_fountainpen_gold_proj"
 	var/list/overlay_reskin = list(
@@ -201,6 +205,9 @@
 		"Black and Silver" = "overlay_fountainpen",
 		"Command Blue" = "overlay_fountainpen_gold"
 	)
+
+/datum/embedding/pen/captain
+	embed_chance = 50
 
 /obj/item/pen/fountain/captain/Initialize(mapload)
 	. = ..()
@@ -235,7 +242,7 @@
 	SEND_SIGNAL(src, COMSIG_PEN_ROTATED, deg, user)
 	return CLICK_ACTION_SUCCESS
 
-/obj/item/pen/attack(mob/living/M, mob/user, params)
+/obj/item/pen/attack(mob/living/M, mob/user, list/modifiers, list/attack_modifiers)
 	if(force) // If the pen has a force value, call the normal attack procs. Used for e-daggers and captain's pen mostly.
 		return ..()
 	if(!M.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
@@ -259,7 +266,7 @@
  * Sleepypens
  */
 
-/obj/item/pen/sleepy/attack(mob/living/M, mob/user, params)
+/obj/item/pen/sleepy/attack(mob/living/M, mob/user, list/modifiers, list/attack_modifiers)
 	. = ..()
 	if(!.)
 		return
@@ -298,11 +305,11 @@
  * (Alan) Edaggers
  */
 /obj/item/pen/edagger
-	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts") //these won't show up if the pen is off
-	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
+	attack_verb_continuous = list("slashes", "slices", "tears", "lacerates", "rips", "dices", "cuts") //these won't show up if the pen is off
+	attack_verb_simple = list("slash", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = SHARP_POINTY
 	armour_penetration = 20
-	bare_wound_bonus = 10
+	exposed_wound_bonus = 10
 	item_flags = NO_BLOOD_ON_ITEM
 	light_system = OVERLAY_LIGHT
 	light_range = 1.5
@@ -316,12 +323,17 @@
 	var/hidden_desc = "It's a normal black ink pe- Wait. That's a thing used to stab people!"
 	/// The real icons used when extended.
 	var/hidden_icon = "edagger"
+	var/list/alt_continuous = list("stabs", "pierces", "shanks")
+	var/list/alt_simple = list("stab", "pierce", "shank")
 
 /obj/item/pen/edagger/Initialize(mapload)
 	. = ..()
+	alt_continuous = string_list(alt_continuous)
+	alt_simple = string_list(alt_simple)
+	AddComponent(/datum/component/alternative_sharpness, SHARP_POINTY, alt_continuous, alt_simple, -5, TRAIT_TRANSFORM_ACTIVE)
 	AddComponent(/datum/component/butchering, \
 	speed = 6 SECONDS, \
-	butcher_sound = 'sound/weapons/blade1.ogg', \
+	butcher_sound = 'sound/items/weapons/blade1.ogg', \
 	)
 	RegisterSignal(src, COMSIG_DETECTIVE_SCANNED, PROC_REF(on_scan))
 
@@ -357,19 +369,19 @@
 	var/datum/component/transforming/transform_comp = GetComponent(/datum/component/transforming)
 	.["damage"] = max(5, transform_comp.throwforce_on)
 	.["speed"] = max(0, transform_comp.throw_speed_on - 3)
-	var/list/embed_params = .["embedding"]
-	embed_params["embed_chance"] = 100
+	var/datum/embedding/data = .["embedding"]
+	data.embed_chance = 100
 
 /obj/item/pen/edagger/proc/on_containing_dart_fired(obj/projectile/source)
 	SIGNAL_HANDLER
-	playsound(source, 'sound/weapons/saberon.ogg', 5, TRUE)
+	playsound(source, 'sound/items/weapons/saberon.ogg', 5, TRUE)
 	var/datum/component/transforming/transform_comp = GetComponent(/datum/component/transforming)
 	source.hitsound = transform_comp.hitsound_on
 	source.set_light(light_range, light_power, light_color, l_on = TRUE)
 
 /obj/item/pen/edagger/proc/on_containing_dart_drop(datum/source, obj/item/ammo_casing/new_casing)
 	SIGNAL_HANDLER
-	playsound(new_casing, 'sound/weapons/saberoff.ogg', 5, TRUE)
+	playsound(new_casing, 'sound/items/weapons/saberoff.ogg', 5, TRUE)
 
 /obj/item/pen/edagger/proc/on_containing_dart_embedded(datum/source, obj/item/ammo_casing/new_casing)
 	SIGNAL_HANDLER
@@ -378,16 +390,16 @@
 
 /obj/item/pen/edagger/proc/on_containing_dart_failed_embed(obj/item/ammo_casing/source)
 	SIGNAL_HANDLER
-	playsound(source, 'sound/weapons/saberoff.ogg', 5, TRUE)
+	playsound(source, 'sound/items/weapons/saberoff.ogg', 5, TRUE)
 	UnregisterSignal(source, list(COMSIG_ITEM_UNEMBEDDED, COMSIG_ITEM_FAILED_EMBED))
 
 /obj/item/pen/edagger/proc/on_embedded_removed(obj/item/ammo_casing/source, mob/living/carbon/victim)
 	SIGNAL_HANDLER
-	playsound(source, 'sound/weapons/saberoff.ogg', 5, TRUE)
+	playsound(source, 'sound/items/weapons/saberoff.ogg', 5, TRUE)
 	UnregisterSignal(source, list(COMSIG_ITEM_UNEMBEDDED, COMSIG_ITEM_FAILED_EMBED))
 	victim.visible_message(
-		message = span_warning("The blade of the [hidden_name] retracts as the [source.name] is removed from [victim]!"),
-		self_message = span_warning("The blade of the [hidden_name] retracts as the [source.name] is removed from you!"),
+		message = span_warning("The blade of the [hidden_name] retracts as \the [source] is removed from [victim]!"),
+		self_message = span_warning("The blade of the [hidden_name] retracts as \the [source] is removed from you!"),
 		blind_message = span_warning("You hear an energy blade retract!"),
 		vision_distance = 1
 	)
@@ -414,7 +426,7 @@
 		inhand_icon_state = hidden_icon
 		lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 		righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-		embedding = list(embed_chance = 100) // Rule of cool
+		set_embed(/datum/embedding/edagger_active)
 	else
 		name = initial(name)
 		desc = initial(desc)
@@ -422,18 +434,21 @@
 		inhand_icon_state = initial(inhand_icon_state)
 		lefthand_file = initial(lefthand_file)
 		righthand_file = initial(righthand_file)
-		embedding = list(embed_chance = EMBED_CHANCE)
+		set_embed(embed_type)
 
-	updateEmbedding()
 	if(user)
 		balloon_alert(user, "[hidden_name] [active ? "active" : "concealed"]")
-	playsound(src, active ? 'sound/weapons/saberon.ogg' : 'sound/weapons/saberoff.ogg', 5, TRUE)
+	playsound(src, active ? 'sound/items/weapons/saberon.ogg' : 'sound/items/weapons/saberoff.ogg', 5, TRUE)
 	set_light_on(active)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
-/obj/item/pen/edagger/proc/on_scan(datum/source, mob/user, list/extra_data)
+/datum/embedding/edagger_active
+	embed_chance = 100
+
+/obj/item/pen/edagger/proc/on_scan(datum/source, mob/user, datum/detective_scanner_log/entry)
 	SIGNAL_HANDLER
-	LAZYADD(extra_data[DETSCAN_CATEGORY_ILLEGAL], "Hard-light generator detected.")
+
+	entry.add_data_entry(DETSCAN_CATEGORY_ILLEGAL, "Hard-light generator detected.")
 
 /obj/item/pen/survival
 	name = "survival pen"
@@ -470,11 +485,11 @@
 		target_turf = get_turf(src)
 	if(ismineralturf(target_turf))
 		var/turf/closed/mineral/mineral_turf = target_turf
-		mineral_turf.gets_drilled(firer, TRUE)
+		mineral_turf.gets_drilled(firer, 1)
 
 /obj/item/pen/destroyer
 	name = "Fine Tipped Pen"
-	desc = "A pen with an infinitly sharpened tip. Capable of striking the weakest point of a strucutre or robot and annihilating it instantly. Good at putting holes in people too."
+	desc = "A pen with an infinitely-sharpened tip. Capable of striking the weakest point of a strucutre or robot and annihilating it instantly. Good at putting holes in people too."
 	force = 5
 	wound_bonus = 100
 	demolition_mod = 9000
@@ -506,7 +521,7 @@
 /obj/item/pen/screwdriver/on_transform(obj/item/source, mob/user, active)
 	if(user)
 		balloon_alert(user, active ? "extended" : "retracted")
-	playsound(src, 'sound/weapons/batonextend.ogg', 50, TRUE)
+	playsound(src, 'sound/items/weapons/batonextend.ogg', 50, TRUE)
 
 	if(!active)
 		tool_behaviour = initial(tool_behaviour)

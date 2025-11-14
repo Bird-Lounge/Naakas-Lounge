@@ -8,7 +8,7 @@
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	tiled_dirt = FALSE
+	tiled_turf = FALSE
 // We don't want to create chasms upon destruction, as this is too easy to abuse.
 // For some reason, the dirt used Lavaland atmos (OPENTURF_LOW_PRESSURE), this would suck whilst on the planet.
 
@@ -124,11 +124,13 @@
 		)
 
 /turf/closed/mineral/asteroid/has_air
-	initial_gas_mix = OPENTURF_LOW_PRESSURE	//one that WONT screw with atmos if its mapped somewhere
+	initial_gas_mix = OPENTURF_LOW_PRESSURE	//one that WONT screw with atmos if it's mapped somewhere
 
 /*
 *	HAZARD
 */
+/turf/closed/mineral/asteroid/has_more_air //this one is for if your checks are failing it might be because ya got dis rock
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 
 /turf/open/chasm/sandy	//just a retexture of the other chasm. making this was nothing but painful.
 	icon = 'modular_nova/modules/mapping/icons/turf/open/sandychasm.dmi'
@@ -136,7 +138,7 @@
 	base_icon_state = "chasms"
 	baseturfs = /turf/open/chasm/sandy
 	planetary_atmos = TRUE
-	light_range = 1.5 //God only knows why its glowing, but its gotta stand out somehow - the other chasms glow too
+	light_range = 1.5 //God only knows why it's glowing, but it's gotta stand out somehow - the other chasms glow too
 	light_power = 0.65
 	light_color = LIGHT_COLOR_TUNGSTEN
 

@@ -16,11 +16,11 @@
 		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/t_ray,
-		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/visor/meson,
 	)
 	default_pins = list(
-		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/magboot/advanced,
 	)
 
@@ -39,7 +39,7 @@
 
 /obj/item/storage/box/rcd_ammo
 	name = "industrial RCD matter box"
-	icon = 'modular_nova/modules/aesthetics/storage/storage.dmi'
+	icon = 'modular_nova/modules/aesthetics/storage/icons/storage.dmi'
 	desc = "A durable box with refill cartridges for an industrial RCD."
 	icon_state = "engibox"
 	illustration = "rcd"

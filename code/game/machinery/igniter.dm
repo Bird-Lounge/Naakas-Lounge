@@ -4,6 +4,7 @@
 	icon = 'icons/obj/machines/floor.dmi'
 	icon_state = "igniter0"
 	base_icon_state = "igniter"
+	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
 	max_integrity = 300
 	armor_type = /datum/armor/machinery_igniter
@@ -136,6 +137,7 @@
 	icon = 'icons/obj/wallmounts.dmi'
 	icon_state = "migniter"
 	result_path = /obj/machinery/sparker
+	custom_materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT)
 	pixel_shift = 26
 
 /obj/machinery/sparker
@@ -161,7 +163,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/sparker, 26)
 	spark_system.set_up(2, 1, src)
 	spark_system.attach(src)
 	register_context()
-	find_and_hang_on_wall()
+	if(mapload)
+		find_and_hang_on_wall()
 
 /obj/machinery/sparker/Destroy()
 	QDEL_NULL(spark_system)

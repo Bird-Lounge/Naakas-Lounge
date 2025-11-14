@@ -146,7 +146,7 @@
 	desc = "A surprisingly clean cryogenic sleeper. You can see your reflection on the sides!"
 	density = FALSE
 	you_are_text = "You are an agent working for the space IRS"
-	flavour_text = "Not even in the expanse of the expanding universe can someone evade the tax man! Whether you are just a well disciplined and professional pirate gang or an actual agent from a local polity. You will squeeze the station dry of it's income regardless! Through peaceful means or otherwise..."
+	flavour_text = "Not even in the expanse of the expanding universe can someone evade the tax man! Whether you are just a well disciplined and professional pirate gang or an actual agent from a local polity. You will squeeze the station dry of its income regardless! Through peaceful means or otherwise..."
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
 	prompt_name = "An agent of the space IRS"
@@ -205,10 +205,10 @@
 	outfit = /datum/outfit/pirate/medieval
 	rank = "Footsoldier"
 
-/obj/effect/mob_spawn/ghost_role/human/pirate/medieval/special(mob/living/carbon/spawned_mob)
+/obj/effect/mob_spawn/ghost_role/human/pirate/medieval/special(mob/living/carbon/spawned_mob, mob/mob_possessor)
 	. = ..()
 	if(rank == "Footsoldier")
-		ADD_TRAIT(spawned_mob, TRAIT_NOGUNS, INNATE_TRAIT)
+		spawned_mob.add_traits(list(TRAIT_NOGUNS, TRAIT_TOSS_GUN_HARD), INNATE_TRAIT)
 		spawned_mob.AddComponent(/datum/component/unbreakable)
 		var/datum/action/cooldown/mob_cooldown/dash/dodge = new(spawned_mob)
 		dodge.Grant(spawned_mob)
@@ -217,7 +217,7 @@
 	rank = "Warlord"
 	outfit = /datum/outfit/pirate/medieval/warlord
 
-/obj/effect/mob_spawn/ghost_role/human/pirate/medieval/warlord/special(mob/living/carbon/spawned_mob)
+/obj/effect/mob_spawn/ghost_role/human/pirate/medieval/warlord/special(mob/living/carbon/spawned_mob, mob/mob_possessor)
 	. = ..()
-	spawned_mob.dna.add_mutation(/datum/mutation/human/hulk/superhuman)
-	spawned_mob.dna.add_mutation(/datum/mutation/human/gigantism)
+	spawned_mob.dna.add_mutation(/datum/mutation/hulk/superhuman, MUTATION_SOURCE_GHOST_ROLE)
+	spawned_mob.dna.add_mutation(/datum/mutation/gigantism, MUTATION_SOURCE_GHOST_ROLE)

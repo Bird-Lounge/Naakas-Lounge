@@ -1,6 +1,7 @@
 /datum/surgery/advanced/bioware/cortex_imprint
 	name = "Cortex Imprint"
 	desc = "A surgical procedure which modifies the cerebral cortex into a redundant neural pattern, making the brain able to bypass impediments caused by minor brain traumas."
+	surgery_flags = SURGERY_MORBID_CURIOSITY
 	possible_locs = list(BODY_ZONE_HEAD)
 	steps = list(
 		/datum/surgery_step/incise,
@@ -14,8 +15,24 @@
 
 	status_effect_gained = /datum/status_effect/bioware/cortex/imprinted
 
+/datum/surgery/advanced/bioware/cortex_imprint/mechanic
+	name = "Wetware OS Ver 2.0"
+	desc = "A robotic upgrade which updates the patient's operating system to the 'latest version', whatever that means, making the brain able to bypass damage caused by minor brain traumas. \
+		Shame about all the adware."
+	requires_bodypart_type = BODYTYPE_ROBOTIC
+	steps = list(
+		/datum/surgery_step/mechanic_open,
+		/datum/surgery_step/open_hatch,
+		/datum/surgery_step/mechanic_unwrench,
+		/datum/surgery_step/prepare_electronics,
+		/datum/surgery_step/prepare_electronics,
+		/datum/surgery_step/apply_bioware/imprint_cortex,
+		/datum/surgery_step/mechanic_wrench,
+		/datum/surgery_step/mechanic_close,
+	)
+
 /datum/surgery/advanced/bioware/cortex_imprint/can_start(mob/user, mob/living/carbon/target)
-	var/obj/item/organ/internal/brain/target_brain = target.get_organ_slot(ORGAN_SLOT_BRAIN)
+	var/obj/item/organ/brain/target_brain = target.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(!target_brain)
 		return FALSE
 	return ..()

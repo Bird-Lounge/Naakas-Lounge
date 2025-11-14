@@ -233,14 +233,12 @@
 	},
 /obj/item/serviette_used/colonial{
 	pixel_y = -3;
-	pixel_x = -4;
-	layer = 3.1
+	pixel_x = -4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/reagent_containers/cup/glass/coffee/colonial/empty{
 	pixel_y = 3;
-	pixel_x = 6;
-	layer = 3.1
+	pixel_x = 6
 	},
 /turf/open/floor/wood,
 /area/deathmatch)
@@ -664,7 +662,7 @@
 /area/deathmatch)
 "vz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/blood/oil,
 /turf/open/floor/iron/herringbone,
 /area/deathmatch)
 "vB" = (
@@ -768,7 +766,7 @@
 /turf/open/floor/iron,
 /area/deathmatch)
 "yg" = (
-/turf/closed/wall/r_wall/syndicate,
+/turf/closed/wall/r_wall/plastitanium/syndicate,
 /area/deathmatch)
 "yl" = (
 /obj/effect/turf_decal/stripes/line,
@@ -846,7 +844,7 @@
 	on = 0;
 	dir = 9
 	},
-/turf/closed/wall/r_wall/syndicate,
+/turf/closed/wall/r_wall/plastitanium/syndicate,
 /area/deathmatch)
 "zJ" = (
 /obj/structure/fluff/tram_rail/floor{
@@ -1065,8 +1063,7 @@
 /obj/structure/cable,
 /obj/item/storage/toolbox/guncase/nova/opfor/kiboko,
 /obj/item/sign/flag/terragov{
-	pixel_y = 4;
-	layer = 3.1
+	pixel_y = 4
 	},
 /turf/open/space/basic,
 /area/deathmatch)
@@ -1502,7 +1499,7 @@
 	on = 0;
 	dir = 10
 	},
-/turf/closed/wall/r_wall/syndicate,
+/turf/closed/wall/r_wall/plastitanium/syndicate,
 /area/deathmatch)
 "RU" = (
 /obj/machinery/door/airlock/survival_pod/glass{

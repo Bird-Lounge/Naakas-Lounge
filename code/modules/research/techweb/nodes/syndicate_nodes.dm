@@ -8,7 +8,6 @@
 		"ai_cam_upgrade",
 		"borg_syndicate_module",
 		"donksoft_refill",
-		"donksofttoyvendor",
 		"largecrossbow",
 		"mag_autorifle",
 		"mag_autorifle_ap",
@@ -33,7 +32,7 @@
 	required_items_to_unlock = list()
 	for(var/datum/uplink_item/item_path as anything in SStraitor.uplink_items_by_type)
 		var/datum/uplink_item/item = SStraitor.uplink_items_by_type[item_path]
-		if(!item.item || !item.illegal_tech)
+		if(!item.item || !(item.uplink_item_flags & SYNDIE_ILLEGAL_TECH))
 			continue
 		required_items_to_unlock |= item.item //allows deconning to unlock.
 
