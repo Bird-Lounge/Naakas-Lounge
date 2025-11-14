@@ -78,7 +78,7 @@
 	QDEL_NULL(soundloop2)
 	QDEL_NULL(soundloop3)
 	STOP_PROCESSING(SSobj, src)
-	. = ..()
+	return ..()
 
 /obj/item/clothing/sextoy/eggvib/update_icon_state()
 	. = ..()
@@ -169,7 +169,7 @@
 
 /obj/item/clothing/sextoy/eggvib/signalvib/Destroy()
 	SSradio.remove_object(src, frequency)
-	. = ..()
+	return ..()
 
 // A moment for the `attackby()` proc that used to lie here, letting you turn a vibrator into an electric chair.
 
@@ -302,17 +302,15 @@
 				soundloop3.stop()
 			. = TRUE
 		if("freq")
-			var/value = unformat_frequency(params["freq"])
-			if(value)
-				frequency = sanitize_frequency(value, TRUE)
-				set_frequency(frequency)
-				. = TRUE
+			var/new_frequency = sanitize_frequency(unformat_frequency(params["freq"]), TRUE)
+			set_frequency(new_frequency)
+			name = initial(name) + " - freq: [frequency/10] code: [code]"
+			. = TRUE
 		if("code")
-			var/value = text2num(params["code"])
-			if(value)
-				value = round(value)
-				code = clamp(value, 1, 100)
-				. = TRUE
+			code = text2num(params["code"])
+			code = round(code)
+			name = initial(name) + " - freq: [frequency/10] code: [code]"
+			. = TRUE
 		if("reset")
 			if(params["reset"] == "freq")
 				frequency = initial(frequency)
