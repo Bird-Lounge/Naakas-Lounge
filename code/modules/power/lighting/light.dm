@@ -118,8 +118,12 @@
 	RegisterSignal(src, COMSIG_LIGHT_EATER_ACT, PROC_REF(on_light_eater))
 	AddElement(/datum/element/atmos_sensitive, mapload)
 	AddElement(/datum/element/contextual_screentip_bare_hands, rmb_text = "Remove bulb")
+	if(mapload)
+		find_and_hang_on_wall()
+
+/obj/machinery/light/find_and_hang_on_wall()
 	if(break_if_moved)
-		find_and_hang_on_wall(custom_drop_callback = CALLBACK(src, PROC_REF(knock_down)))
+		return ..()
 
 /obj/machinery/light/post_machine_initialize()
 	. = ..()
@@ -140,6 +144,11 @@
 		on = FALSE
 	QDEL_NULL(cell)
 	return ..()
+
+/obj/machinery/light/Exited(atom/movable/gone, direction)
+	. = ..()
+	if(gone == cell)
+		cell = null
 
 /obj/machinery/light/setDir(newdir)
 	. = ..()
@@ -181,6 +190,9 @@
 
 	var/area/local_area = get_room_area()
 
+	if(flickering)
+		. += mutable_appearance(overlay_icon, "[base_state]_flickering")
+		return
 	if(low_power_mode || major_emergency || (local_area?.fire))
 		. += mutable_appearance(overlay_icon, "[base_state]_emergency")
 		return
@@ -227,7 +239,11 @@
 		if(reagents)
 			START_PROCESSING(SSmachines, src)
 		var/area/local_area = get_room_area()
-		if (local_area?.fire)
+		if (flickering)
+			brightness_set = brightness * bulb_low_power_brightness_mul
+			power_set = bulb_low_power_pow_mul
+			color_set = nightshift_light_color
+		else if (local_area?.fire)
 			color_set = fire_colour
 			power_set = fire_power
 			brightness_set = fire_brightness
@@ -383,7 +399,7 @@
 		return
 
 	// attempt to stick weapon into light socket
-	if(status != LIGHT_EMPTY)
+	if(status != LIGHT_EMPTY || user.combat_mode)
 		return ..()
 	if(tool.tool_behaviour == TOOL_SCREWDRIVER) //If it's a screwdriver open it.
 		tool.play_tool_sound(src, 75)
@@ -402,38 +418,30 @@
 			electrocute_mob(user, get_area(src), src, (rand(7,10) * 0.1), TRUE)
 
 /obj/machinery/light/on_deconstruction(disassembled)
-	var/obj/structure/light_construct/new_light = null
-	var/current_stage = 2
-	if(!disassembled)
-		current_stage = 1
+	var/atom/drop_point = drop_location()
+
+	var/obj/item/wallframe/light_fixture/frame = null
 	switch(fitting)
 		if("tube")
-			new_light = new /obj/structure/light_construct(loc)
-			new_light.icon_state = "tube-construct-stage[current_stage]"
-
+			frame = new /obj/item/wallframe/light_fixture(drop_point)
 		if("bulb")
-			new_light = new /obj/structure/light_construct/small(loc)
-			new_light.icon_state = "bulb-construct-stage[current_stage]"
-	new_light.setDir(dir)
-	new_light.stage = current_stage
+			frame = new /obj/item/wallframe/light_fixture/small(drop_point)
 	if(!disassembled)
-		new_light.take_damage(new_light.max_integrity * 0.5, sound_effect=FALSE)
+		frame.take_damage(frame.max_integrity * 0.5, sound_effect = FALSE)
 		if(status != LIGHT_BROKEN)
 			break_light_tube()
 		if(status != LIGHT_EMPTY)
 			drop_light_tube()
 		new /obj/item/stack/cable_coil(loc, 1, "red")
-	transfer_fingerprints_to(new_light)
+	transfer_fingerprints_to(frame)
 
 	var/obj/item/stock_parts/power_store/real_cell = get_cell()
 	if(!QDELETED(real_cell))
-		new_light.cell = real_cell
-		real_cell.forceMove(new_light)
-		cell = null
+		real_cell.forceMove(drop_point)
 
 /obj/machinery/light/attacked_by(obj/item/attacking_object, mob/living/user, list/modifiers, list/attack_modifiers)
 	. = ..()
-	if(!.)
+	if(. <= 0)
 		return
 	if(status != LIGHT_BROKEN && status != LIGHT_EMPTY)
 		return
@@ -502,9 +510,9 @@
 		)
 	return TRUE
 
-/obj/machinery/light/proc/flicker(amount = rand(10, 20))
+/obj/machinery/light/proc/flicker(amount = 1)
 	set waitfor = FALSE
-	if(flickering)
+	if(flickering || !on || status != LIGHT_OK)
 		return
 	flickering = TRUE
 	if(on && status == LIGHT_OK)
@@ -522,6 +530,7 @@
 		update(FALSE)
 		. = TRUE //did we actually flicker?
 	flickering = FALSE
+	update(FALSE)
 
 // ai attack - make lights flicker, because why not
 
@@ -582,7 +591,7 @@
 
 	if(protected || HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
 		to_chat(user, span_notice("You remove the light [fitting]."))
-	else if(istype(user) && user.dna.check_mutation(/datum/mutation/human/telekinesis))
+	else if(istype(user) && user.dna.check_mutation(/datum/mutation/telekinesis))
 		to_chat(user, span_notice("You telekinetically remove the light [fitting]."))
 	else
 		var/obj/item/bodypart/affecting = user.get_active_hand()
@@ -702,23 +711,6 @@
 		if(!istype(get_area(src), area_type))
 			continue
 		INVOKE_ASYNC(src, PROC_REF(flicker))
-
-/**
- * All the effects that occur when a light falls off a wall that it was hung onto.
- */
-/obj/machinery/light/proc/knock_down()
-	if (fitting == "bulb")
-		new /obj/item/wallframe/light_fixture/small(drop_location())
-	else
-		new /obj/item/wallframe/light_fixture(drop_location())
-	new /obj/item/stack/cable_coil(drop_location(), 1, "red")
-	if(status != LIGHT_BROKEN)
-		break_light_tube(FALSE)
-	if(status != LIGHT_EMPTY)
-		drop_light_tube()
-	if(cell)
-		cell.forceMove(drop_location())
-	qdel(src)
 
 /obj/machinery/light/floor
 	name = "floor light"

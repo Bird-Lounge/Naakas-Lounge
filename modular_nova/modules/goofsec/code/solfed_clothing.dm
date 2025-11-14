@@ -326,7 +326,7 @@ SOLFED ARMOR VALUES!
 	machine_name = "SolfedDrobe"
 
 /obj/machinery/vending/access/solfed/build_access_list(list/access_lists)
-	access_lists["[ACCESS_CENT_CAPTAIN]"] = list(
+	access_lists[ACCESS_CENT_CAPTAIN] = list(
 		// Solfed has CC and station AA but this is the highest access possible so no one but feds can get it. Hopefully
 		/obj/item/clothing/accessory/nova/solfedribbon = 4,
 		/obj/item/clothing/accessory/nova/solfedribbon/rank2 = 4,
@@ -371,16 +371,20 @@ SOLFED ARMOR VALUES!
 	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
 
 /obj/item/radio/headset/headset_solfed/espatier/corpsman
+	name = "\improper Solfed Espatier Corpsman Headset"
 	keyslot = /obj/item/encryptionkey/headset_solfed/med
 
 /obj/item/radio/headset/headset_solfed/espatier/engineer
+	name = "\improper Solfed Espatier Engineer Headset"
 	keyslot = /obj/item/encryptionkey/headset_solfed/atmos
 
 /obj/item/radio/headset/headset_solfed/espatier/squadleader
+	name = "\improper Solfed Espatier Squadleader Headset"
 	keyslot = /obj/item/encryptionkey/headset_solfed/squadleader
 
 /obj/item/encryptionkey/headset_solfed/squadleader
 	name = "\improper SolFed grand encryption key"
+	special_channels = RADIO_SPECIAL_CENTCOM
 	channels = list(RADIO_CHANNEL_SOLFED = 1, RADIO_CHANNEL_ENGINEERING = 1, RADIO_CHANNEL_MEDICAL = 1, RADIO_CHANNEL_SECURITY = 1, RADIO_CHANNEL_COMMAND = 1)
 	icon_state = "/obj/item/encryptionkey/headset_solfed/squadleader"
 	post_init_icon_state = "cypherkey_syndicate"

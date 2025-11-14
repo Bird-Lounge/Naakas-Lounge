@@ -26,3 +26,5 @@
 /// Pistol caliber analagous to 380 ACP
 #define CALIBER_380TALON ".380 Talon Claw"
 
+/// Define used for shaded-charge weapons that have firemode-based labels on their icons
+#define SHADED_CHARGE_MODE_LABELED 2
