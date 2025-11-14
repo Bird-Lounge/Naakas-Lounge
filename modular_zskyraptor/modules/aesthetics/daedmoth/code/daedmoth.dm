@@ -5,7 +5,7 @@
 	icon_static = null
 	icon_greyscale = 'modular_zskyraptor/modules/aesthetics/daedmoth/icons/bodyparts.dmi'
 	should_draw_greyscale = TRUE
-	head_flags = HEAD_ALL_FEATURES
+	head_flags = HEAD_DEFAULT_FEATURES
 
 	eyes_icon = 'modular_zskyraptor/modules/aesthetics/daedmoth/icons/eyes.dmi'
 

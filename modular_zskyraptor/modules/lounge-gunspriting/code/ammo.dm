@@ -48,7 +48,6 @@
 
 	projectile_type = /obj/projectile/bullet/c22talon/soap
 	ammo_categories = AMMO_CLASS_NONE
-	print_cost = 0
 	harmful = FALSE
 
 /obj/projectile/bullet/c22talon/soap
@@ -136,7 +135,6 @@
 
 	projectile_type = /obj/projectile/bullet/c380talon/soap
 	ammo_categories = AMMO_CLASS_NONE
-	print_cost = 0
 	harmful = FALSE
 
 /obj/projectile/bullet/c380talon/soap

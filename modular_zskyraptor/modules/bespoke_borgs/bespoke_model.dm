@@ -10,7 +10,6 @@
 	basic_modules = list(
 		//core stuff - flash for defense, mesons for seeing, harmalarm to alert crew, synth for fun, and a lollipop dispenser to pwn newbs with
 		/obj/item/assembly/flash/cyborg,
-		/obj/item/borg/sight/meson,
 		/obj/item/harmalarm,
 		/obj/item/instrument/piano_synth,
 		/obj/item/borg/lollipop,
@@ -84,6 +83,7 @@
 		"AlaRaptor" = list(SKIN_ICON_STATE = "raptor_alara", SKIN_ICON = CYBORG_ICON_RAPTOR, SKIN_FEATURES = list(TRAIT_R_WIDE, TRAIT_R_TALL), SKIN_HAT_OFFSET = 22),
 		"KO-6" = list(SKIN_ICON_STATE = "raptor_naaka", SKIN_ICON = CYBORG_ICON_RAPTOR, SKIN_FEATURES = list(TRAIT_R_WIDE, TRAIT_R_TALL), SKIN_HAT_OFFSET = 22),
 	)
+	var/datum/weakref/night_vision_ref
 
 /obj/item/robot_model/nova_firstresponder/be_transformed_to(obj/item/robot_model/old_model, forced = FALSE)
 	. = ..()
@@ -104,6 +104,11 @@
 		R.model.add_module(PP, FALSE, TRUE)
 		var/datum/action/item_action/crew_monitor/crew_monitor = new /datum/action/item_action/crew_monitor(src)
 		crew_monitor.Grant(R)
+		// give them mesons too
+		var/datum/action/cooldown/borg_meson/night_vision = new(loc)
+		night_vision.Grant(loc)
+		night_vision_ref = WEAKREF(night_vision)
+
 
 /obj/item/robot_model/nova_firstresponder/respawn_consumable(mob/living/silicon/robot/cyborg, coeff = 1)
 	..()
