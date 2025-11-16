@@ -241,16 +241,18 @@
 	fill_icon_thresholds = list(0, 10, 25, 50, 75, 80, 90)
 	isGlass = FALSE
 	// The 2 bottles have separate cap overlay icons because if the bottle falls over while bottle flipping the cap stays fucked on the moved overlay
-	var/cap_icon = 'icons/obj/drinks/drink_effects.dmi'
-	var/cap_icon_state = "bottle_cap_small"
-	var/start_capped = TRUE
-	var/cap_lost = FALSE
-	var/mutable_appearance/cap_overlay
+	/// NAAKAS-LOUNGE EDIT/REMOVALS: we have our own cap_on setup
+	//cap_icon = 'icons/obj/drinks/drink_effects.dmi'
+	cap_icon_state = "bottle_cap_small"
+	//var/cap_on = TRUE
+	//var/cap_lost = FALSE
+	//var/mutable_appearance/cap_overlay
 	var/flip_chance = 10
 	custom_price = PAYCHECK_LOWER * 0.8
 	reagent_container_liquid_sound = SFX_PLASTIC_BOTTLE_LIQUID_SLOSH
 
-/obj/item/reagent_containers/cup/glass/waterbottle/Initialize(mapload)
+/// NAAKAS-LOUNGE EDIT/REMOVALS: we have our own cap_on setup
+/*/obj/item/reagent_containers/cup/glass/waterbottle/Initialize(mapload)
 	cap_overlay = mutable_appearance(cap_icon, cap_icon_state)
 	. = ..()
 	if(start_capped)
@@ -294,6 +296,40 @@
 	update_appearance()
 	return CLICK_ACTION_SUCCESS
 
+/obj/item/reagent_containers/cup/glass/waterbottle/is_refillable()
+	if(cap_on)
+		return FALSE
+	return ..()
+
+/obj/item/reagent_containers/cup/glass/waterbottle/is_drainable()
+	if(cap_on)
+		return FALSE
+	return ..()
+
+/obj/item/reagent_containers/cup/glass/waterbottle/attack(mob/target, mob/living/user, def_zone)
+	if(!target)
+		return
+
+	if(cap_on && reagents.total_volume && istype(target))
+		to_chat(user, span_warning("You must remove the cap before you can do that!"))
+		return
+
+	return ..()
+
+/obj/item/reagent_containers/cup/glass/waterbottle/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(cap_on && (target.is_refillable() || target.is_drainable() || (reagents.total_volume && !user.combat_mode)))
+		to_chat(user, span_warning("You must remove the cap before you can do that!"))
+		return ITEM_INTERACT_BLOCKING
+
+	if(istype(target, /obj/item/reagent_containers/cup/glass/waterbottle))
+		var/obj/item/reagent_containers/cup/glass/waterbottle/other_bottle = target
+		if(other_bottle.cap_on)
+			to_chat(user, span_warning("[other_bottle] has a cap firmly twisted on!"))
+			return ITEM_INTERACT_BLOCKING
+
+	return ..()*/
+/// NAAKAS-LOUNGE EDIT/REMOVALS end here
+
 // heehoo bottle flipping
 /obj/item/reagent_containers/cup/glass/waterbottle/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
@@ -315,7 +351,7 @@
 
 /obj/item/reagent_containers/cup/glass/waterbottle/empty
 	list_reagents = list()
-	start_capped = FALSE
+	//start_capped = FALSE
 
 /obj/item/reagent_containers/cup/glass/waterbottle/large
 	desc = "A fresh commercial-sized bottle of water."
@@ -329,7 +365,7 @@
 
 /obj/item/reagent_containers/cup/glass/waterbottle/large/empty
 	list_reagents = list()
-	start_capped = FALSE
+	//start_capped = FALSE
 
 // Admin spawn
 /obj/item/reagent_containers/cup/glass/waterbottle/relic

@@ -285,7 +285,26 @@ xxx xxx xxx
 /atom/proc/set_smoothed_icon_state(new_junction)
 	. = smoothing_junction
 	smoothing_junction = new_junction
-	icon_state = "[base_icon_state]-[smoothing_junction]"
+	
+	if (!(smoothing_flags & SMOOTH_DIAGONAL_CORNERS)) /// NAAKAS-LOUNGE ADDITION: WHY WASN'T THIS IMPLEMENTED YOU FUCKWITS
+		icon_state = "[base_icon_state]-[smoothing_junction]"
+		return
+
+	switch(new_junction)
+		if(
+			NORTH_JUNCTION|WEST_JUNCTION,
+			NORTH_JUNCTION|EAST_JUNCTION,
+			SOUTH_JUNCTION|WEST_JUNCTION,
+			SOUTH_JUNCTION|EAST_JUNCTION,
+			NORTH_JUNCTION|WEST_JUNCTION|NORTHWEST_JUNCTION,
+			NORTH_JUNCTION|EAST_JUNCTION|NORTHEAST_JUNCTION,
+			SOUTH_JUNCTION|WEST_JUNCTION|SOUTHWEST_JUNCTION,
+			SOUTH_JUNCTION|EAST_JUNCTION|SOUTHEAST_JUNCTION,
+		)
+			icon_state = "[base_icon_state]-[smoothing_junction]-d"
+		else
+			icon_state = "[base_icon_state]-[smoothing_junction]" /// NAAKAS-LOUNGE ADDITION END
+
 
 /turf/closed/set_smoothed_icon_state(new_junction)
 	// Avoid calling ..() here to avoid setting icon_state twice, which is expensive given how hot this proc is

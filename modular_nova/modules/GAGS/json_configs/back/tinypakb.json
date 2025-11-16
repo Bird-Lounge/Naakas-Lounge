@@ -1,0 +1,16 @@
+{
+	"tinypakb": [
+		{
+			"type": "icon_state",
+			"icon_state": "tinypakb_main",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "tinypakb_trim",
+			"blend_mode": "overlay",
+			"color_ids": [ 2 ]
+		}
+	]
+}

@@ -505,8 +505,12 @@
 	fill_icon_thresholds = list(0, 20, 40, 60, 80, 100)
 	possible_transfer_amounts = list(5, 10)
 	amount_per_transfer_from_this = 5
+	spillable = FALSE
+	///variable to tell if the bottle can be refilled
+	//var/cap_on = TRUE /// NAAKAS-LOUNGE REMOVAL: Cap functionality is part of base containers now
 
-/obj/item/reagent_containers/cup/bottle/syrup_bottle/Initialize(mapload)
+/// NAAKAS-LOUNGE REMOVAL: ditto
+/*/obj/item/reagent_containers/cup/bottle/syrup_bottle/Initialize(mapload)
 	. = ..()
 	register_context()
 	// this is not done via initial_reagent_flags because it represents state
@@ -526,7 +530,7 @@
 	else if(is_open_container() && held_item?.is_refillable())
 		context[SCREENTIP_CONTEXT_LMB] = "Use Pump"
 
-	return CONTEXTUAL_SCREENTIP_SET
+	return CONTEXTUAL_SCREENTIP_SET*/
 
 //when you attack the syrup bottle with a container it refills it
 /obj/item/reagent_containers/cup/bottle/syrup_bottle/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
@@ -554,14 +558,8 @@
 	update_appearance()
 	return ITEM_INTERACT_SUCCESS
 
-/obj/item/reagent_containers/cup/bottle/syrup_bottle/update_icon_state()
-	. = ..()
-	if(is_open_container())
-		icon_state = "syrup_open"
-	else
-		icon_state = "syrup"
-
-/obj/item/reagent_containers/cup/bottle/syrup_bottle/click_alt(mob/user)
+/// NAAKAS-LOUNGE REMOVAL: ditto
+/*/obj/item/reagent_containers/cup/bottle/syrup_bottle/click_alt(mob/user)
 	if(is_open_container())
 		balloon_alert(user, "put pump cap on")
 		update_container_flags(SEALED_CONTAINER | TRANSPARENT)
@@ -571,6 +569,13 @@
 
 	update_appearance()
 	return CLICK_ACTION_SUCCESS
+
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/update_icon_state()
+	. = ..()
+	if(is_open_container())
+		icon_state = "syrup_open"
+	else
+		icon_state = "syrup"*/
 
 //types of syrups
 

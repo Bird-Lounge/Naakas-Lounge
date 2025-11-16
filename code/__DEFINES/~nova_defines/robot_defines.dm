@@ -55,5 +55,8 @@
 #define CYBORG_ICON_NINJA 'modular_nova/modules/borgs/icons/robots_ninja.dmi'
 #define CYBORG_ICON_NINJA_TALL 'modular_nova/modules/borgs/icons/tallrobot_ninja.dmi'
 
+/// NAAKAS-LOUNGE ADDITION: raptor borgs
+#define CYBORG_ICON_RAPTOR 'modular_zskyraptor/modules/bespoke_borgs/raptorborg.dmi'
+
 /// Module is compatible with Cargo Cyborg model
 #define BORG_MODEL_CARGO (BORG_MODEL_ENGINEERING<<1)

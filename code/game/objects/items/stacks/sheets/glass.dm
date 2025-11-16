@@ -11,6 +11,7 @@
 GLOBAL_LIST_INIT(glass_recipes, list ( \
 	new/datum/stack_recipe("directional window", /obj/structure/window/unanchored, time = 0.5 SECONDS, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_CHECK_DIRECTION, category = CAT_WINDOWS), \
 	new/datum/stack_recipe("fulltile window", /obj/structure/window/fulltile/unanchored, 2, time =  1 SECONDS, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_IS_FULLTILE, category = CAT_WINDOWS), \
+	new/datum/stack_recipe("fulltile diagonalizing window", /obj/structure/window/fulltile/diagonal/unanchored, 2, time =  1 SECONDS, category = CAT_WINDOWS), \
 	new/datum/stack_recipe("glass shard", /obj/item/shard, time = 0, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND, category = CAT_MISC), \
 	new/datum/stack_recipe("glass tile", /obj/item/stack/tile/glass, 1, 4, 20, category = CAT_TILES) \
 ))
@@ -86,6 +87,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	new/datum/stack_recipe("directional window", /obj/structure/window/plasma/unanchored, time = 0.5 SECONDS, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_CHECK_DIRECTION, category = CAT_WINDOWS), \
 	new/datum/stack_recipe("fulltile window", /obj/structure/window/plasma/fulltile/unanchored, 2, time = 2 SECONDS, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_IS_FULLTILE, category = CAT_WINDOWS), \
+	new/datum/stack_recipe("fulltile diagonalizing window", /obj/structure/window/plasma/fulltile/diagonal/unanchored, 2, time = 2 SECONDS, category = CAT_WINDOWS), \
 	new/datum/stack_recipe("plasma glass shard", /obj/item/shard/plasma, time = 20, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND, category = CAT_MISC), \
 	new/datum/stack_recipe("plasma glass tile", /obj/item/stack/tile/glass/plasma, 1, 4, 20, category = CAT_TILES) \
 ))
@@ -146,6 +148,7 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	null, \
 	new/datum/stack_recipe("directional reinforced window", /obj/structure/window/reinforced/unanchored, time = 0.5 SECONDS, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_CHECK_DIRECTION, category = CAT_WINDOWS), \
 	new/datum/stack_recipe("fulltile reinforced window", /obj/structure/window/reinforced/fulltile/unanchored, 2, time = 2 SECONDS, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_IS_FULLTILE, category = CAT_WINDOWS), \
+	new/datum/stack_recipe("fulltile diagonalizing reinforced window", /obj/structure/window/reinforced/fulltile/diagonal/unanchored, 2, time = 2 SECONDS, category = CAT_WINDOWS), \
 	new/datum/stack_recipe("glass shard", /obj/item/shard, time = 10, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND, category = CAT_MISC), \
 	new/datum/stack_recipe("reinforced glass tile", /obj/item/stack/tile/rglass, 1, 4, 20, category = CAT_TILES) \
 ))
@@ -185,6 +188,7 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 GLOBAL_LIST_INIT(prglass_recipes, list ( \
 	new/datum/stack_recipe("directional reinforced window", /obj/structure/window/reinforced/plasma/unanchored, time = 0.5 SECONDS, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_CHECK_DIRECTION, category = CAT_WINDOWS), \
 	new/datum/stack_recipe("fulltile reinforced window", /obj/structure/window/reinforced/plasma/fulltile/unanchored, 2, time = 2 SECONDS, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_IS_FULLTILE, category = CAT_WINDOWS), \
+	new/datum/stack_recipe("fulltile diagonalizing reinforced window", /obj/structure/window/reinforced/plasma/fulltile/diagonal/unanchored, 2, time = 2 SECONDS, category = CAT_WINDOWS), \
 	new/datum/stack_recipe("plasma glass shard", /obj/item/shard/plasma, time = 40, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND, category = CAT_MISC), \
 	new/datum/stack_recipe("reinforced plasma glass tile", /obj/item/stack/tile/rglass/plasma, 1, 4, 20, category = CAT_TILES) \
 ))
