@@ -30,6 +30,8 @@
 #define AIRLOCK_ACCESS_LIGHT_COLOR "#FFFF00"
 #define AIRLOCK_EMERGENCY_LIGHT_COLOR "#FF0000"
 #define AIRLOCK_ENGINEERING_LIGHT_COLOR "#0066FF"
+#define AIRLOCK_FIRE_LIGHT_COLOR "#FFFF00"
+#define AIRLOCK_RETA_LIGHT_COLOR "#FFFFFF"
 #define AIRLOCK_DENY_LIGHT_COLOR "#FF6600"
 
 #define AIRLOCK_CLOSED	1
@@ -78,10 +80,14 @@
 
 /obj/machinery/door/airlock/update_overlays()
 	. = ..()
+	if(QDELETED(src))
+		return
 	var/frame_state
 	var/light_state = AIRLOCK_LIGHT_POWERON
 	var/pre_light_color
-	switch(airlock_state)
+	if(machine_stat & MAINT) // in the process of being emagged
+		frame_state = AIRLOCK_FRAME_CLOSED
+	else switch(airlock_state)
 		if(AIRLOCK_CLOSED)
 			frame_state = AIRLOCK_FRAME_CLOSED
 			if(locked)
@@ -89,6 +95,9 @@
 				pre_light_color = AIRLOCK_BOLTS_LIGHT_COLOR
 			else if(emergency)
 				light_state = AIRLOCK_LIGHT_EMERGENCY
+				pre_light_color = AIRLOCK_EMERGENCY_LIGHT_COLOR
+			else if (has_active_reta_access())
+				light_state = AIRLOCK_LIGHT_RETA
 				pre_light_color = AIRLOCK_EMERGENCY_LIGHT_COLOR
 			else if(fire_active)
 				light_state = AIRLOCK_LIGHT_FIRE
@@ -102,8 +111,6 @@
 			frame_state = AIRLOCK_FRAME_CLOSED
 			light_state = AIRLOCK_LIGHT_DENIED
 			pre_light_color = AIRLOCK_DENY_LIGHT_COLOR
-		if(AIRLOCK_EMAG)
-			frame_state = AIRLOCK_FRAME_CLOSED
 		if(AIRLOCK_CLOSING)
 			frame_state = AIRLOCK_FRAME_CLOSING
 			light_state = AIRLOCK_LIGHT_CLOSING
@@ -115,6 +122,9 @@
 				pre_light_color = AIRLOCK_BOLTS_LIGHT_COLOR
 			else if(emergency)
 				light_state = AIRLOCK_LIGHT_EMERGENCY
+				pre_light_color = AIRLOCK_EMERGENCY_LIGHT_COLOR
+			else if (has_active_reta_access())
+				light_state = AIRLOCK_LIGHT_RETA
 				pre_light_color = AIRLOCK_EMERGENCY_LIGHT_COLOR
 			else if(fire_active)
 				light_state = AIRLOCK_LIGHT_FIRE
@@ -140,7 +150,7 @@
 		. += get_airlock_overlay("lights_[light_state]", overlays_file, src, em_block = FALSE)
 		. += emissive_appearance(overlays_file, "lights_[light_state]", src, alpha = src.alpha)
 
-		if(multi_tile)
+		if(multi_tile && filler)
 			filler.set_light(l_range = AIRLOCK_LIGHT_RANGE, l_power = AIRLOCK_LIGHT_POWER, l_color = pre_light_color, l_on = TRUE)
 
 		set_light(l_range = AIRLOCK_LIGHT_RANGE, l_power = AIRLOCK_LIGHT_POWER, l_color = pre_light_color, l_on = TRUE)
@@ -155,9 +165,8 @@
 	if(frame_state == AIRLOCK_FRAME_CLOSED && welded)
 		. += get_airlock_overlay("welded", overlays_file, src, em_block = TRUE)
 
-	if(airlock_state == AIRLOCK_EMAG)
+	if(machine_stat & MAINT) // in the process of being emagged // copy paste modular code *cry
 		. += get_airlock_overlay("sparks", overlays_file, src, em_block = FALSE)
-
 	if(hasPower())
 		if(frame_state == AIRLOCK_FRAME_CLOSED)
 			if(atom_integrity < integrity_failure * max_integrity)
@@ -181,17 +190,17 @@
 			var/mutable_appearance/floorlight = mutable_appearance('icons/obj/doors/airlocks/station/overlays.dmi', "unres_[heading]", FLOAT_LAYER, src, ABOVE_LIGHTING_PLANE)
 			switch (heading)
 				if (NORTH)
-					floorlight.pixel_x = 0
-					floorlight.pixel_y = 32
+					floorlight.pixel_w = 0
+					floorlight.pixel_z = 32
 				if (SOUTH)
-					floorlight.pixel_x = 0
-					floorlight.pixel_y = -32
+					floorlight.pixel_w = 0
+					floorlight.pixel_z = -32
 				if (EAST)
-					floorlight.pixel_x = 32
-					floorlight.pixel_y = 0
+					floorlight.pixel_w = 32
+					floorlight.pixel_z = 0
 				if (WEST)
-					floorlight.pixel_x = -32
-					floorlight.pixel_y = 0
+					floorlight.pixel_w = -32
+					floorlight.pixel_z = 0
 			. += floorlight
 
 //STATION AIRLOCKS
