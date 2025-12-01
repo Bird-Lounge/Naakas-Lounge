@@ -54,11 +54,11 @@
 /datum/status_effect/grouped/blindness/proc/make_blind()
 	owner.overlay_fullscreen(id, /atom/movable/screen/fullscreen/blind)
 	// You are blind - at most, able to make out shapes near you
-	owner.add_client_colour(/datum/client_colour/monochrome, REF(src))
+	//owner.add_client_colour(/datum/client_colour/monochrome, REF(src)) /// NAAKAS-LOUNGE REMOVAL
 
 /datum/status_effect/grouped/blindness/proc/make_unblind()
 	owner.clear_fullscreen(id)
-	owner.remove_client_colour(REF(src))
+	//owner.remove_client_colour(REF(src)) /// NAAKAS-LOUNGE REMOVAL
 
 /datum/status_effect/grouped/blindness/on_remove()
 	make_unblind()
