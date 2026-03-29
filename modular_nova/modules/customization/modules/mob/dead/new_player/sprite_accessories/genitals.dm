@@ -292,4 +292,8 @@
 	icon_state = "sextuple"
 	name = "Sextuple"
 
+/datum/sprite_accessory/genital/breasts/pair/doppler
+	name = "Doppler Pair"
+	color_src = USE_MATRIXED_COLORS
+
 #undef TAUR_DIMENSION_X
